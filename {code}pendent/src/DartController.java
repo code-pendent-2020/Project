@@ -26,6 +26,13 @@ public class DartController {
        this.customerList.add(customer.addCustomer());
        System.out.println(customerList.toString());
    }
+
+   public void removeCustomer(){
+       int removeId = helper.getInt("ID of customer to remove: ");
+       // String toRemove = customer.removeCustomer(removeId);
+       this.customerList.removeIf(customer -> customer.getCustomerId() == removeId);
+       viewCustomer();
+   }
      public void viewCustomer(){
         for (Customer customer : customerList) {
             System.out.println(customer.toString());
@@ -36,9 +43,11 @@ public class DartController {
     public Customer getCustomer(){
         return customer;
     }
+
     public void setCustomer(){
         this.customer = customer;
     }
+
     // Talking to employee
     //--------------------------------------------------------------------------//
     public void addEmployee(){
@@ -73,13 +82,12 @@ public class DartController {
         menu.mainMenu();
         }
 
-}
 
- /* public void initialiseCustomerArraylist(){
-        System.out.println("Checcccccccccccccccccccccck");
-        setCustomers().add( new Customer(1,"Vernita"));
-        getCustomers().add( new Customer(2,"Navya"));
-        getCustomers().add( new Customer(3,"Drake"));
-        getCustomers().add( new Customer(4,"Altan"));
-        setCustomers().add( new Customer(5,"Axel"));
-    }*/
+ public void initialiseCustomerArraylist(){
+        customerList.add( new Customer(1,"Vernita"));
+        customerList.add( new Customer(2,"Navya"));
+        customerList.add( new Customer(3,"Drake"));
+        customerList.add( new Customer(4,"Altan"));
+        customerList.add( new Customer(5,"Axel"));
+    }
+}

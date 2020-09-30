@@ -20,7 +20,7 @@ public class Customer {
     }
 
     public String toString(){
-        return "ID: "+ this.customerId+ ", Name: "+this.name;
+        return  "\n" + "ID: "+ this.customerId+ ", Name: " + this.name;
     }
 
     public Customer addCustomer(){
@@ -32,8 +32,17 @@ public class Customer {
         Customer newCustomer = new Customer(customerID, customerName);
         return newCustomer;
     }
-    public void removeCustomer(){
 
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public String removeCustomer(){
+        return null;
     }
 
 

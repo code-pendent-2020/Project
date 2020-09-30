@@ -154,12 +154,13 @@ public class Menus {
                     break;
                 case "7":
                     System.out.println("Register Customer");
+                    dartController.initialiseCustomerArraylist();
                     dartController.addCustomer();
                     employeeMenu();
                     break;
                 case "8":
                     System.out.println("Remove Customer");
-                    System.out.println("add the method for now returns you to main menu");
+                    dartController.removeCustomer();
                     mainMenu();
                     break;
                 case "9":
