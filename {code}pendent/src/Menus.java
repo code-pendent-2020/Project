@@ -76,7 +76,9 @@ public class Menus {
                     dartController.addEmployee();
                     break;
                 case "2":
-                    System.out.println("removes an employee (make new remove to work with arraylsit)");
+                    helper.getInput("ID: ");
+                    dartController.removeEmployee();
+                    managerMenu();
                     break;
                 case "3":
                     System.out.println("All employees"); // not currently working

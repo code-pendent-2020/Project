@@ -8,8 +8,6 @@ public class Customer {
 
     Helper helper=new Helper();
 
-  ArrayList<Customer> customerList;
-
 
     // Default Constructor
     Customer() {

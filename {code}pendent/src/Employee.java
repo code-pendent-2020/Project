@@ -41,14 +41,17 @@ public class Employee {
 
     public Employee addEmployee(){
         String name = tools.getInput("Name: ");
-        int birthYear = tools.getInt("birth year: ");
+        int birthYear = tools.getInt("Birth year: ");
         String address = tools.getInput("Address: ");
         double monthlySalary = tools.getDouble("Monthly gross salary: ");
         grossSalary = monthlySalary * 12;
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
+    public Employee removeEmployee(){
 
+    }
+/*
     public Employee[] removeEmployee() {
         viewEmployees();
         String enteredID = tools.getInput("Which employee should be removed? ID: ");
@@ -64,14 +67,7 @@ public class Employee {
         }
         return employees;
     }
-
-
-    public void viewEmployees() {
-        for (Employee employee : employees) { // for-each loop
-            if (employee == null) return;
-            System.out.println(employee.toString());
-        }
-    }
+    */
 
 
     public double netSalary() {
@@ -101,33 +97,27 @@ public class Employee {
         return netSalary / 12;
     }
     // getters
-    public String getName() {
-
+    public String getName(){
         return name;
     }
 
-    public double getSalary() {
-
+    public double getSalary(){
         return netSalary();
     }
 
-    public int getBirthYear() {
-
+    public int getBirthYear(){
         return birthYear;
     }
 
-    public String getAddress() {
-
+    public String getAddress(){
         return address;
     }
 
-    public String getEmployeeID() {
-
+    public String getEmployeeID(){
         return employeeID;
     }
 
-    public Employee[] getEmployees() {
-
+    public Employee[] getEmployees(){
         return employees;
     }
 

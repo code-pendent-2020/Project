@@ -17,9 +17,11 @@ public class DartController {
     private ArrayList<Game> games = new ArrayList<>();
     private ArrayList<Customer> customerList = new ArrayList<>();
 
+    public ArrayList<Employee> getEmployees(){return employees;}
     public  ArrayList<Customer> getCustomers() {
         return customerList;
     }
+
    public void addCustomer(){
        this.customerList.add(customer.addCustomer());
        System.out.println(customerList.toString());
@@ -43,7 +45,10 @@ public class DartController {
         this.employees.add(employee.addEmployee());
         menu.managerMenu();
     }
-    public void removeEmployee(){
+    public void removeEmployee(Employee employee) {
+        String check = helper.getInput("ID: ");
+        removeEmployee(check);
+        employees.remove(employee);
     }
     public void viewEmployee(){
         for (Employee employee : employees){
