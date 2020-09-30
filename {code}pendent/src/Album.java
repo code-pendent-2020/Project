@@ -8,9 +8,6 @@ public class Album {
     private double dailyRent;
     private boolean rentStatus;
     private int rating;
-    //private ArrayList<Album> albums = new ArrayList<Album>();
-
-    // public Album testAlbum = new Album("something","something else ","something else else",45,45);
 
 
     private Helper helper = new Helper();
@@ -28,7 +25,7 @@ public class Album {
     }
 
  public String toString( ){
-        return this.getID() + " : " + this.getTitle() + " - by " + this.getArtist() + ". " + "Released in " + this.getYear() + ". " + " Price:" + this.getDailyRent() + " SEK. Status: " + this.getRentStatus();
+        return this.getID() + " : " + this.getTitle() + " - by " + this.getArtist() + ". " + "Released in " + this.getYear() + ". " + " Price: " + this.getDailyRent() + " SEK. Status: " + this.getRentStatus();
  }
 
  public String getID(){
@@ -88,11 +85,5 @@ public class Album {
     public void returnAlbum(){
 
     }
-//    public void viewAlbums(){
-////        for(int i = 0; i < dartController.getAlbums().size(); i++){
-////            System.out.println(dartController.getAlbums().toString());
-//        for (Album album : dartController.getAlbums()){
-//            System.out.println(album.toString());
-//        }
-//    }
+
 }

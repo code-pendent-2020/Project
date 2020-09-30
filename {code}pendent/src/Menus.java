@@ -32,12 +32,12 @@ public class Menus {
             String choice = Helper.input.nextLine();
             switch (choice) {
                 case "1":
-                    authManager();
-                   // managerMenu(); swap to turn off password
+                    //authManager();
+                    managerMenu();
                     break;
                 case "2":
-                    authEmployee();
-                   // employeeMenu(); swap to turn off password
+                    //authEmployee();
+                    employeeMenu();
                     break;
                 case "3":
                     customerMenu();
@@ -131,8 +131,7 @@ public class Menus {
                     break;
                 case "4":
                     System.out.println("Register Album");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    dartController.addAlbum();
                     break;
                 case "5":
                     System.out.println("Remove albums");
@@ -141,8 +140,7 @@ public class Menus {
                     break;
                 case "6":
                     System.out.println("View Albums");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    dartController.viewAlbums();
                     break;
                 case "7":
                     System.out.println("Register Customer");

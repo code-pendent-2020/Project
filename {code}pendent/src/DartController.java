@@ -12,16 +12,16 @@ public class DartController {
 
 
     // "kind of" Storage
-    ArrayList<Album> albums;
-    ArrayList<Employee> employees;
-    ArrayList<Game> games;
-    ArrayList<Customer> customerList;
+    private ArrayList<Album> albums = new ArrayList<>();
+    private ArrayList<Employee> employees = new ArrayList<>();
+    private ArrayList<Game> games = new ArrayList<>();
+    private ArrayList<Customer> customerList = new ArrayList<>();
 
     public  ArrayList<Customer> getCustomers() {
         return customerList;
     }
    public void addCustomer(){
-        this.customerList.add(customer.addCustomer());
+       this.customerList.add(customer.addCustomer());
        System.out.println(customerList.toString());
    }
 
@@ -45,13 +45,11 @@ public class DartController {
     }
     //--------------------------------------------------------------------------//
 
-        public void viewAlbums() {
-//        for(int i = 0; i < dartController.getAlbums().size(); i++){
-//            System.out.println(dartController.getAlbums().toString());
-            for (Album album : albums) {
-                System.out.println(album.toString());
-            }
+    public void viewAlbums() {
+        for (Album album : albums) {
+            System.out.println(album.toString());
         }
+    }
 
     public void addAlbum(){
         this.albums.add(album.addAlbum());
