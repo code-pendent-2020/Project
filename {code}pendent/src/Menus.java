@@ -4,6 +4,7 @@ public class Menus {
     private String prompt;
 
     private DartController dartController = new DartController();
+    private Helper helper = new Helper();
     private   Customer customer = new Customer();
     public Menus() {
     }
@@ -17,6 +18,11 @@ public class Menus {
     private static void exit() {
         System.out.println("-----------------\n    Good Bye!\n-----------------");
         System.exit(0);
+    }
+
+    public boolean authenticate(String password) { // authenticates passwords
+        String enteredPassword = helper.getInput("Enter your password: ");
+        return password.equals(enteredPassword);
     }
 
     public void mainMenu() {
