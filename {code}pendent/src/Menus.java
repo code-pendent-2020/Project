@@ -81,6 +81,7 @@ public class Menus {
                 case "3":
                     System.out.println("All employees"); // not currently working
                     dartController.viewEmployee();
+                    managerMenu();
                     break;
                 case "4":
                     mainMenu();
@@ -152,7 +153,7 @@ public class Menus {
                 case "7":
                     System.out.println("Register Customer");
                     dartController.addCustomer();
-                    mainMenu();
+                    employeeMenu();
                     break;
                 case "8":
                     System.out.println("Remove Customer");
@@ -161,10 +162,8 @@ public class Menus {
                     break;
                 case "9":
                     System.out.println("View Customers");
-                    System.out.println("add the method for now returns you to main menu");
-
-                    customer.viewCustomer();
-                   // mainMenu();
+                    dartController.viewCustomer();
+                    employeeMenu();
                     break;
                 case "10":
                     System.out.println("View Total Rent Profit");

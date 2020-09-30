@@ -31,7 +31,7 @@ public class Customer {
         helper.input.nextLine();
         System.out.print("Enter the customers  name: ");
         String customerName = helper.input.nextLine();
-        Customer newCustomer = new Customer(customerID, name);
+        Customer newCustomer = new Customer(customerID, customerName);
         return newCustomer;
     }
     public void removeCustomer(){
@@ -111,14 +111,11 @@ public class Customer {
 
 */
 
-    public void viewCustomer(){
-        for (int i = 0; i < customerList.size(); i++) {
+ //   public void viewCustomer(){
+        /*for (int i = 0; i < customerList.size(); i++) {
             if (customerList == null) {
                 continue;
-            }
-            System.out.println(customerList.toString());
-        }
-    }
+            } */
     public void addMembership(){
 
 

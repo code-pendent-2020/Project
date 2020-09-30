@@ -24,6 +24,11 @@ public class DartController {
        this.customerList.add(customer.addCustomer());
        System.out.println(customerList.toString());
    }
+     public void viewCustomer(){
+        for (Customer customer : customerList) {
+            System.out.println(customer.toString());
+        }
+}
 
 
     public Customer getCustomer(){
