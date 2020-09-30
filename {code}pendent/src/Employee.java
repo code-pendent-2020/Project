@@ -48,8 +48,7 @@ public class Employee {
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
-    public Employee removeEmployee(){
-
+    public void removeEmployee(){
     }
 /*
     public Employee[] removeEmployee() {

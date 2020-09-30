@@ -45,9 +45,9 @@ public class DartController {
         this.employees.add(employee.addEmployee());
         menu.managerMenu();
     }
-    public void removeEmployee(Employee employee) {
+    public void removeEmployee() {
         String check = helper.getInput("ID: ");
-        removeEmployee(check);
+        removeEmployee();
         employees.remove(employee);
     }
     public void viewEmployee(){
