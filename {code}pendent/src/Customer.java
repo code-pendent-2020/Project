@@ -45,7 +45,22 @@ public class Customer {
         return null;
     }
 
+    public void addMembership(){
 
+
+
+        String type;
+        int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
+        if(membershipType == 1){
+            type = "Silver";
+        }else if (membershipType == 2){
+            type = "Gold";
+        }else if (membershipType == 3){
+            type = "Platinum";
+        }else{
+            System.out.println("Not a valid input.");
+        }
+    }
    /*
     public void IncreaseArray() {
         ArrayList<Customer> customerListNew = new Customer[customerList.size() + (customerList.size() / 2)];
@@ -123,22 +138,7 @@ public class Customer {
             if (customerList == null) {
                 continue;
             } */
-    public void addMembership(){
 
-
-
-        String type;
-        int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
-        if(membershipType == 1){
-            type = "Silver";
-        }else if (membershipType == 2){
-            type = "Gold";
-        }else if (membershipType == 3){
-            type = "Platinum";
-        }else{
-            System.out.println("Not a valid input.");
-        }
-    }
 }
 
 

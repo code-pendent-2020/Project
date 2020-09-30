@@ -1,5 +1,6 @@
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DartController {
 
@@ -15,7 +16,8 @@ public class DartController {
     private ArrayList<Album> albums = new ArrayList<>();
     private ArrayList<Employee> employees = new ArrayList<>();
     private ArrayList<Game> games = new ArrayList<>();
-    private ArrayList<Customer> customerList = new ArrayList<>();
+    private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(new Customer(1,"Vernita"),new Customer(2,"Navya"), new Customer(3,"Drake"),new Customer(4,"Altan"),  new Customer(5,"Axel")));
+
 
     public ArrayList<Employee> getEmployees(){return employees;}
     public  ArrayList<Customer> getCustomers() {
@@ -29,7 +31,6 @@ public class DartController {
 
    public void removeCustomer(){
        int removeId = helper.getInt("ID of customer to remove: ");
-       // String toRemove = customer.removeCustomer(removeId);
        this.customerList.removeIf(customer -> customer.getCustomerId() == removeId);
        viewCustomer();
    }
@@ -83,11 +84,4 @@ public class DartController {
         }
 
 
- public void initialiseCustomerArraylist(){
-        customerList.add( new Customer(1,"Vernita"));
-        customerList.add( new Customer(2,"Navya"));
-        customerList.add( new Customer(3,"Drake"));
-        customerList.add( new Customer(4,"Altan"));
-        customerList.add( new Customer(5,"Axel"));
-    }
 }

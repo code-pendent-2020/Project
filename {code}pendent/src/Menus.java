@@ -154,7 +154,6 @@ public class Menus {
                     break;
                 case "7":
                     System.out.println("Register Customer");
-                    dartController.initialiseCustomerArraylist();
                     dartController.addCustomer();
                     employeeMenu();
                     break;
