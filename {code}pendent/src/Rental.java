@@ -102,13 +102,4 @@ public class Rental {
 
         menus.employeeMenu();
     }
-
-    /**
-     * @param rentProfit
-
-    public void rentProfit(void rentProfit) {
-        // TODO implement here
-    }
-     */
-
 }
