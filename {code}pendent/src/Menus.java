@@ -98,7 +98,7 @@ public class Menus {
     public void authManager() {
         String password = "admin1234";
         Helper Authorize = new Helper();
-        Boolean authSuccess = Authorize.authenticate(password);
+        Boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
             managerMenu();
@@ -134,6 +134,7 @@ public class Menus {
                 case "3":
                     System.out.println("View Games");
                     dartController.addAlbum();
+
                     break;
                 case "4":
                     System.out.println("Register Album");
@@ -184,7 +185,7 @@ public class Menus {
     public void authEmployee() {
         String password = "password123";
         Helper Authorize = new Helper();
-        Boolean authSuccess = Authorize.authenticate(password);
+        Boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
             employeeMenu();
