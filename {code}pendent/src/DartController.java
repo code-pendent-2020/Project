@@ -43,6 +43,8 @@ public class DartController {
         this.employees.add(employee.addEmployee());
         menu.managerMenu();
     }
+    public void removeEmployee(){
+    }
     public void viewEmployee(){
         for (Employee employee : employees){
             System.out.println(employee.toString());
