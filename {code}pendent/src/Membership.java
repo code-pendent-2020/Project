@@ -1,14 +1,16 @@
 import java.util.ArrayList;
+import java.util.List;
 
-    public class Membership {
+public class Membership {
 
         private String type;
         private int discount;
-        private ArrayList<String> customerMember;
+        private ArrayList<String> customerMember = new ArrayList<>();
+
 
 
         public Membership() {
-            this.type = null;
+
         }
 
         public Membership(String type) {
@@ -16,9 +18,9 @@ import java.util.ArrayList;
         }
 
 
-        public String requestMembership(String type){
+        public ArrayList<String> requestMembership(String type){
             customerMember.add(getType());
-            return requestMembership(type);
+            return customerMember;
 
         }
 

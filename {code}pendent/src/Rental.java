@@ -27,12 +27,13 @@ public class Rental {
 
     public double totalProfit;
 
+
     public void rentGame() {
         DartController dartController = new DartController();
         List<Game> rental = dartController.getGames();
-        for (Game rentGame : rental) {
+        //for (Game rentGame : rental) {
             System.out.println(rental.toString());
-        }
+      //  }
 
         String rentId = getInput.getInput("Enter the ID of the game would you like to rent: ");
         for (Game rentGame : rental) {

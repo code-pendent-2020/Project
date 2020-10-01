@@ -1,14 +1,15 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Customer{
 
     private int customerId;
     private String name;
-    private Membership membership;
+    private Membership membership = new Membership();
     private ArrayList<Message> inbox;
 
     Helper helper=new Helper();
-
+    Membership memberRequest = new Membership();
 
     // Default Constructor
     Customer() {
@@ -18,14 +19,14 @@ public class Customer{
         this.customerId=customerId;
         this.name=name;
         this.inbox = new ArrayList<>();
-        Membership membership = new Membership();
+        Membership membership = null;
     }
 
     public Customer(int customerId,String name, String membership){
         this.customerId=customerId;
         this.name=name;
         this.inbox = new ArrayList<>();
-        this.membership = new Membership();
+        this.membership= new Membership(membership);
     }
 
     public String toString(){
@@ -58,8 +59,8 @@ public class Customer{
         this.name = name;
     }
 
-    public Membership getMembership() {
-        return membership;
+    public String getMembership() {
+        return membership.toString();
     }
 
     public void setMembership(Membership membership) {
@@ -72,18 +73,28 @@ public class Customer{
         }
     */
     public void addMembership(){
-        String type = null;
-        int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
-        if(membershipType == 1){
-            type = "Silver";
-        }else if (membershipType == 2){
-            type = "Gold";
-        }else if (membershipType == 3){
-            type = "Platinum";
+        DartController dartController = new DartController();
+        ArrayList<Customer> customerList = dartController.getCustomers();
+        String name = helper.getInput("What is your name?: ");
+        if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
+            String type = null;
+            int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum: " );
+            if(membershipType == 1){
+                type = "Silver";
+            }else if (membershipType == 2){
+                type = "Gold";
+            }else if (membershipType == 3){
+                type = "Platinum";
+            }else{
+                System.out.println("Not a valid input.");
+            }
+            memberRequest.requestMembership(type);
         }else{
-            System.out.println("Not a valid input.");
+            System.out.println("you dont exist");
+
         }
-        this.membership.requestMembership(type);
+
+
     }
    /*
     public void IncreaseArray() {
