@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.UUID;
 
 public class Album {
@@ -11,7 +12,6 @@ public class Album {
     private LocalDate rentedDate;
     private boolean rentStatus;
     private String divider = "-----";
-    private int rating;
 
 
     private Helper helper = new Helper();
