@@ -1,10 +1,9 @@
-public class Menus {
+public class Menus extends DartController{
     private String title;
     private String[] options;
     private String prompt;
 
-    private DartController dartController = new DartController();
-    private   Customer customer = new Customer();
+    private Helper helper = new Helper();
     public Menus() {
     }
 
@@ -14,9 +13,16 @@ public class Menus {
         this.prompt = prompt;
     }
 
-    private static void exit() {
+    private void exit() {
+        //close (public static final scanner (in Helper class))
+        helper.input.close();
         System.out.println("-----------------\n    Good Bye!\n-----------------");
         System.exit(0);
+    }
+
+    public boolean authenticate(String password) { // authenticates passwords
+        String enteredPassword = helper.getInput("Enter your password: ");
+        return password.equals(enteredPassword);
     }
 
     public void mainMenu() {
@@ -32,12 +38,12 @@ public class Menus {
             String choice = Helper.input.nextLine();
             switch (choice) {
                 case "1":
-                    authManager();
-                   // managerMenu(); swap to turn off password
+                    //authManager();
+                    managerMenu();
                     break;
                 case "2":
-                    authEmployee();
-                   // employeeMenu(); swap to turn off password
+                    //authEmployee();
+                    employeeMenu();
                     break;
                 case "3":
                     customerMenu();
@@ -67,14 +73,18 @@ public class Menus {
                 case "1":
                     Employee addEmployee = new Employee();
                     System.out.print("Creating an Employee. Please type the Employee’s:\n");
-                    dartController.addEmployee();
+                    addEmployee();
+                    managerMenu();
                     break;
                 case "2":
-                    System.out.println("removes an employee (make new remove to work with arraylsit)");
+                    viewEmployee();
+                    removeEmployee();
+                    managerMenu();
                     break;
                 case "3":
                     System.out.println("All employees"); // not currently working
-                    dartController.viewEmployee();
+                    viewEmployee();
+                    managerMenu();
                     break;
                 case "4":
                     mainMenu();
@@ -92,7 +102,7 @@ public class Menus {
     public void authManager() {
         String password = "admin1234";
         Helper Authorize = new Helper();
-        Boolean authSuccess = Authorize.authenticate(password);
+        Boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
             managerMenu();
@@ -127,39 +137,36 @@ public class Menus {
                     break;
                 case "3":
                     System.out.println("View Games");
-                    dartController.addAlbum();
+                    addAlbum();
+                    employeeMenu();
                     break;
                 case "4":
                     System.out.println("Register Album");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    addAlbum();
                     break;
                 case "5":
                     System.out.println("Remove albums");
-                    dartController.viewAlbums();
+                    viewAlbums();
                     employeeMenu();
                     break;
                 case "6":
                     System.out.println("View Albums");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    viewAlbums();
                     break;
                 case "7":
                     System.out.println("Register Customer");
-                    dartController.addCustomer();
-                    mainMenu();
+                    addCustomer();
+                    employeeMenu();
                     break;
                 case "8":
                     System.out.println("Remove Customer");
-                    System.out.println("add the method for now returns you to main menu");
+                    removeCustomer();
                     mainMenu();
                     break;
                 case "9":
                     System.out.println("View Customers");
-                    System.out.println("add the method for now returns you to main menu");
-
-                    customer.viewCustomer();
-                   // mainMenu();
+                    viewCustomer();
+                    employeeMenu();
                     break;
                 case "10":
                     System.out.println("View Total Rent Profit");
@@ -180,7 +187,7 @@ public class Menus {
     public void authEmployee() {
         String password = "password123";
         Helper Authorize = new Helper();
-        Boolean authSuccess = Authorize.authenticate(password);
+        Boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
             employeeMenu();
@@ -203,8 +210,7 @@ public class Menus {
             switch (choice) {
                 case "1":
                     System.out.println("Rent Game");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    rentGame();
                     break;
                 case "2":
                     System.out.println("Return Game");
@@ -267,5 +273,8 @@ public class Menus {
                     break;
             }
         } while (true);
+    }
+    public void run(){
+        mainMenu();
     }
 }

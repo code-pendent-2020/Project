@@ -1,28 +1,28 @@
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer{
 
     private int customerId;
     private String name;
     private Membership membership;
+    private ArrayList<Message> inbox;
 
     Helper helper=new Helper();
-
-  ArrayList<Customer> customerList;
 
 
     // Default Constructor
     Customer() {
     }
 
-    Customer(int customerId,String name){
+    public Customer(int customerId,String name){
         this.customerId=customerId;
         this.name=name;
+        this.inbox = new ArrayList<>();
         Membership membership = new Membership();
     }
 
     public String toString(){
-        return "ID: "+ this.customerId+ ", Name: "+this.name;
+        return  "\n" + "ID: "+ this.getCustomerId() + ", Name: " + this.getName() + ", Membership: " + this.getMembership();
     }
 
     public Customer addCustomer(){
@@ -31,14 +31,53 @@ public class Customer {
         helper.input.nextLine();
         System.out.print("Enter the customers  name: ");
         String customerName = helper.input.nextLine();
-        Customer newCustomer = new Customer(customerID, name);
+        Customer newCustomer = new Customer(customerID, customerName);
         return newCustomer;
     }
-    public void removeCustomer(){
 
+    public int getCustomerId() {
+        return customerId;
     }
 
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Membership getMembership() {
+        return membership;
+    }
+
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+
+    /*
+        public String removeCustomer(){
+            return null;
+        }
+    */
+    public void addMembership(){
+        String type = null;
+        int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
+        if(membershipType == 1){
+            type = "Silver";
+        }else if (membershipType == 2){
+            type = "Gold";
+        }else if (membershipType == 3){
+            type = "Platinum";
+        }else{
+            System.out.println("Not a valid input.");
+        }
+        this.membership.requestMembership(type);
+    }
    /*
     public void IncreaseArray() {
         ArrayList<Customer> customerListNew = new Customer[customerList.size() + (customerList.size() / 2)];
@@ -111,30 +150,12 @@ public class Customer {
 
 */
 
-    public void viewCustomer(){
-        for (int i = 0; i < customerList.size(); i++) {
+ //   public void viewCustomer(){
+        /*for (int i = 0; i < customerList.size(); i++) {
             if (customerList == null) {
                 continue;
-            }
-            System.out.println(customerList.toString());
-        }
-    }
-    public void addMembership(){
+            } */
 
-
-
-        String type;
-        int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
-        if(membershipType == 1){
-            type = "Silver";
-        }else if (membershipType == 2){
-            type = "Gold";
-        }else if (membershipType == 3){
-            type = "Platinum";
-        }else{
-            System.out.println("Not a valid input.");
-        }
-    }
 }
 
 

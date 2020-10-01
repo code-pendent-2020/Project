@@ -7,23 +7,23 @@ import java.util.ArrayList;
         private ArrayList<String> customerMember;
 
 
-        Membership(){
+        public Membership() {
             this.type = null;
         }
 
-        Membership(String type){
+        public Membership(String type) {
             this.type = type;
         }
 
 
         public String requestMembership(String type){
             customerMember.add(getType());
-
             return requestMembership(type);
 
         }
 
         public double discount(){
+
             return 0;
         }
 
