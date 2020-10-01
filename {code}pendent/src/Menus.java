@@ -1,11 +1,9 @@
-public class Menus {
+public class Menus extends DartController{
     private String title;
     private String[] options;
     private String prompt;
 
-    private DartController dartController = new DartController();
     private Helper helper = new Helper();
-    private   Customer customer = new Customer();
     public Menus() {
     }
 
@@ -73,16 +71,16 @@ public class Menus {
                 case "1":
                     Employee addEmployee = new Employee();
                     System.out.print("Creating an Employee. Please type the Employee’s:\n");
-                    dartController.addEmployee();
+                    addEmployee();
                     break;
                 case "2":
                     helper.getInput("ID: ");
-                    dartController.removeEmployee();
+                    removeEmployee();
                     managerMenu();
                     break;
                 case "3":
                     System.out.println("All employees"); // not currently working
-                    dartController.viewEmployee();
+                    viewEmployee();
                     managerMenu();
                     break;
                 case "4":
@@ -136,35 +134,35 @@ public class Menus {
                     break;
                 case "3":
                     System.out.println("View Games");
-                    dartController.addAlbum();
+                    addAlbum();
 
                     break;
                 case "4":
                     System.out.println("Register Album");
-                    dartController.addAlbum();
+                    addAlbum();
                     break;
                 case "5":
                     System.out.println("Remove albums");
-                    dartController.viewAlbums();
+                    viewAlbums();
                     employeeMenu();
                     break;
                 case "6":
                     System.out.println("View Albums");
-                    dartController.viewAlbums();
+                    viewAlbums();
                     break;
                 case "7":
                     System.out.println("Register Customer");
-                    dartController.addCustomer();
+                    addCustomer();
                     employeeMenu();
                     break;
                 case "8":
                     System.out.println("Remove Customer");
-                    dartController.removeCustomer();
+                    removeCustomer();
                     mainMenu();
                     break;
                 case "9":
                     System.out.println("View Customers");
-                    dartController.viewCustomer();
+                    viewCustomer();
                     employeeMenu();
                     break;
                 case "10":

@@ -19,7 +19,6 @@ public class Employee {
     private final int SECOND_AGE_FOR_BONUS=30;
 
     Helper tools = new Helper();
-    private DartController dartController = new DartController();
 
     public Employee(){
 
