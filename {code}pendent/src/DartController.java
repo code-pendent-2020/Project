@@ -134,7 +134,6 @@ public class DartController extends Storage{
         } requestList = null;
     }
 
-    // todo EMPLOYEE MENU
     // TODO ---------------------------------------EMPLOYEE MENU--------------------------------------------------
     public void employeeMenu() {
         if (requestList != null) {

@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -7,6 +8,7 @@ public class Album {
     private String artist;
     private int year;
     private double dailyRent;
+    private LocalDate rentedDate;
     private boolean rentStatus;
     private int rating;
 
@@ -23,13 +25,14 @@ public class Album {
         this.year = year;
         this.dailyRent = dailyRent;
         this.rentStatus = false;
+        this.rentedDate = null;
     }
 
- public String toString( ){
+        public String toString( ){
         return this.getID() + " : " + this.getTitle() + " - by " + this.getArtist() + ". " + "Released in " + this.getYear() + ". " + " Price: " + this.getDailyRent() + " SEK. Status: " + this.getRentStatus();
  }
 
- public String getID(){ return albumID; }
+    public String getID(){ return albumID; }
 
     public String getTitle(){
         return title;
@@ -47,14 +50,19 @@ public class Album {
         return dailyRent;
     }
 
+    public LocalDate getRentedDate() { return rentedDate; }
+
     public String getRentStatus(){
         if(this.rentStatus){
             return "Not available";
         }else return "available";
     }
+
     public void setRentStatus(Boolean rentStatus){
         this.rentStatus = rentStatus;
     }
+
+    public void setRentedDate(LocalDate rentedDate){ this.rentedDate = rentedDate; }
 
     public Album addAlbum(){
         String addTitle = helper.getInput("Title: ");

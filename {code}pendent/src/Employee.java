@@ -27,8 +27,8 @@ public class Employee {
     public Employee(String name, int birthYear, String address, double salary) {
         this.employeeID = genEmployeeID();
         this.name = name;
-        this.grossSalary = salary;
         this.birthYear = birthYear;
+        this.grossSalary = salary;
         this.address = address;
 
     }

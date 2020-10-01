@@ -1,7 +1,9 @@
 import java.lang.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Storage {
 
@@ -13,15 +15,37 @@ public class Storage {
     private Rental rental = new Rental();
 
     // "kind of" Storage
-    private ArrayList<Album> albums = new ArrayList<>();
-    private ArrayList<Employee> employees = new ArrayList<>();
-    private List<Game> games = new ArrayList<>(Arrays.asList(new Game( "Sonic: The Hedgehog", "Explore", 23, false),new Game( "Crash Bandicoot", "Racing", 24, false),new Game( "The Legend of Zelda", "Explore", 51, true),
+    private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
+            new Album ("London Calling", "The Clash", 1980, 14.99),
+            new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99),
+            new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99),
+            new Album ("The Black Album", "Metallica", 1991, 19.99),
+            new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99)));
+
+    private ArrayList<Employee> employees = new ArrayList<>(Arrays.asList(
+            new Employee("Bob", 1974, "1044 Randolph Street", 13457),
+            new Employee("Jill", 1985, "3845 Rainbow Street", 14568),
+            new Employee("Jack", 1934, "1453 Tilden Street", 16893),
+            new Employee("Anna", 1959, "1854 Rose Avenue", 13578),
+            new Employee("Sam", 1993, "1784 Sunrise Blvd", 12385),
+            new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
+
+    private List<Game> games = new ArrayList<>(Arrays.asList(
+            new Game( "Sonic: The Hedgehog", "Explore", 23, false),
+            new Game( "Crash Bandicoot", "Racing", 24, false),
+            new Game( "The Legend of Zelda", "Explore", 51, true),
             new Game ( "Prince of Persia", "Impossible", 33, false),
             new Game ( "Super Mario", "Classic", 32, false),
             new Game( "Street Fighter", "Fighting", 54, false),
             new Game( "Tekken", "Fighting", 29, false)));
 
-    private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(new Customer(1,"Vernita", "Silver"),new Customer(2,"Navya"), new Customer(3,"Drake"),new Customer(4,"Altan"),  new Customer(5,"Axel")));
+    private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
+            new Customer(1,"Vernita", "Silver"),
+            new Customer(2,"Navya"),
+            new Customer(3,"Drake"),
+            new Customer(4,"Altan"),
+            new Customer(666,"Karen"),
+            new Customer(5,"Axel")));
 
     public ArrayList<Employee> getEmployees(){return employees;}
     public ArrayList<Customer> getCustomers() {
@@ -98,18 +122,21 @@ public class Storage {
         for (Album album : albums) {
             if (album.getID().equals(rental)) {
                 album.setRentStatus(true);
+                album.setRentedDate(LocalDate.now());
                 System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist()+ " - Rented");
             }
         }
     }
     public void returnAlbum(){ // still needs to do calculation of price
         String rental = helper.getInput("Return\nAlbum ID: ");
-        int days = helper.getInt("Number of days rented: ");
+        // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
         for (Album album : albums) {
             if (album.getID().equals(rental)) {
-                double cost = album.getDailyRent() * days;
+                long daysRented = DAYS.between(album.getRentedDate(),/* set to hard date for testing purposes*/ LocalDate.of(2020,10,5));
+                double cost = album.getDailyRent() * daysRented;
                 album.setRentStatus(false);
-                System.out.println("Returned "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK");
+                album.setRentedDate(null);
+                System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
             }
         }
     }
