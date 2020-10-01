@@ -44,6 +44,7 @@ public class DartController {
         rental.rentGame();
     }
     //Customer
+    //--------------------------------------------------------------------------//
 
     public void addCustomer(){
        this.customerList.add(customer.addCustomer());
@@ -51,7 +52,7 @@ public class DartController {
    }
 
     public void removeCustomer(){
-       int removeId = helper.getInt("ID of customer to remove: ");
+       int removeId = helper.getInt("Enter the ID of the customer you want to remove.\nID: ");
        this.customerList.removeIf(customer -> customer.getCustomerId() == removeId);
        viewCustomer();
    }
@@ -67,15 +68,14 @@ public class DartController {
     }
 
 
-    // Talking to employee
     //--------------------------------------------------------------------------//
     public void addEmployee(){
         this.employees.add(employee.addEmployee());
     }
     public void removeEmployee() {
-        String check = helper.getInput("ID: ");
-        removeEmployee();
-        employees.remove(employee);
+        String removeID = helper.getInput("Enter the ID of the employee you want to remove.\nID: ");
+        this.employees.removeIf(employee -> employee.getEmployeeID().equals(removeID));
+        System.out.println("Employee Removed\n");
     }
     public void viewEmployee(){
         for (Employee employee : employees){
@@ -84,19 +84,31 @@ public class DartController {
     }
     //--------------------------------------------------------------------------//
 
+
+    public void addAlbum(){
+        this.albums.add(album.addAlbum());
+    }
+    public void removeAlbum(){
+        String removeID = helper.getInput("Enter the ID of the album you want to remove.\nID: ");
+        this.albums.removeIf(album -> album.getID().equals(removeID));
+        System.out.println("Employee Removed\n");
+    }
+    public void rentAlbum(){
+        String rental = helper.getInput("Title: ");
+        for (Album album : albums) {
+            if (album.getTitle().equals(rental)) {
+                album.setRentStatus(true);
+                System.out.println("Rented "+ album.getTitle() + "- by "+ album.getArtist());
+            }
+        }
+    }
     public void viewAlbums() {
         for (Album album : albums) {
             System.out.println(album.toString());
         }
     }
 
-    public void addAlbum(){
-        this.albums.add(album.addAlbum());
-    }
-
-    // Default constructor
-    public void run() {
-        }
+    //--------------------------------------------------------------------------//
 
 
 }

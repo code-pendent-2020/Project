@@ -47,25 +47,6 @@ public class Employee {
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
-    public void removeEmployee(){
-    }
-/*
-    public Employee[] removeEmployee() {
-        viewEmployees();
-        String enteredID = tools.getInput("Which employee should be removed? ID: ");
-        for (int i = 0; i< employees.length-1; i++) { // iterates through the array of employees
-            if (enteredID.equals(employees[i].employeeID)) { // once it finds the employee with the id it enters are next loop
-                for (int j = i; j < employees.length-1; j++) { // once inside this loop it starts replacing the current index with the next one
-                    employees[i] = employees[j+1]; //shifting
-                    i++;
-                }
-                employees[employees.length-1] = null; // deletes the last position after the shift to get rid of duplicate
-                i = employees.length; // YEAH I KNOW THIS IS TECHNICALLY A BREAK FIGHT ME!
-            }
-        }
-        return employees;
-    }
-    */
 
 
     public double netSalary() {

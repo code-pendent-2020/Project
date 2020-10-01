@@ -33,10 +33,10 @@ public class Customer{
     }
 
     public Customer addCustomer(){
-        System.out.print("Enter the customers ID : ");
+        System.out.print("Enter the customers ID: ");
         int customerID = helper.input.nextInt();
         helper.input.nextLine();
-        System.out.print("Enter the customers  name: ");
+        System.out.print("Enter the customers name: ");
         String customerName = helper.input.nextLine();
         Customer newCustomer = new Customer(customerID, customerName);
         return newCustomer;
