@@ -4,7 +4,7 @@ public class DartController extends Storage{
     private String title;
     private String[] options;
     private String prompt;
-    private String dividerOne = "---------------------";
+    private String divider = "---------------------";
 
     ArrayList<Membership> requestList = null;
     private Helper helper = new Helper();
@@ -21,7 +21,7 @@ public class DartController extends Storage{
     private void exit() {
         //close (public static final scanner (in Helper class))
         helper.input.close();
-        System.out.println("\n" + dividerOne + "\n     Good Bye!\n"+dividerOne);
+        System.out.println("\n" + divider + "\n     Good Bye!\n"+divider);
         System.exit(0);
     }
 
@@ -34,7 +34,7 @@ public class DartController extends Storage{
 
     public void mainMenu() {
         String[] options = {" 1) Manager Menu", " 2) Employee Menu", " 3) Customer Menu", " 4) Exit System"};
-        DartController menu = new DartController("\n------Main-Menu------", options, dividerOne +"\nChoose your option: ");
+        DartController menu = new DartController("\n------Main-Menu------", options, divider +"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -58,7 +58,7 @@ public class DartController extends Storage{
                     exit();
                     break;
                 default:
-                    System.out.println(dividerOne +"\n--- Invalid input ---");
+                    System.out.println(divider +"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }
@@ -69,7 +69,7 @@ public class DartController extends Storage{
 
     public void managerMenu() {
         String[] options = {" 1) Register Employee", " 2) Remove Employee", " 3) View Employees", " 4) Main Menu"};
-        DartController menu = new DartController("\n-----Manager-Menu-----", options, dividerOne+"\nChoose your option: ");
+        DartController menu = new DartController("\n-----Manager-Menu-----", options, divider+"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -97,7 +97,7 @@ public class DartController extends Storage{
                     mainMenu();
                     break;
                 default:
-                    System.out.println(dividerOne+"\n--- Invalid input ---");
+                    System.out.println(divider+"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }
@@ -140,7 +140,7 @@ public class DartController extends Storage{
             membershipRequestList();
         }
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
-        DartController menu = new DartController("\n----Employee-Menu----", options, dividerOne+"\nChoose your option: ");
+        DartController menu = new DartController("\n----Employee-Menu----", options, divider+"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -167,7 +167,7 @@ public class DartController extends Storage{
                     mainMenu();
                     break;
                 default:
-                    System.out.println(dividerOne+"\n--- Invalid input ---");
+                    System.out.println(divider+"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }
@@ -178,7 +178,7 @@ public class DartController extends Storage{
 
     public void gameOptions() {
         String[] options = {" 1) Register Game", " 2) Remove Game", " 3) View Games", " 4) Employee Menu"};
-        DartController menu = new DartController("\n-----Game-Options----", options, dividerOne+"\nChoose your option: ");
+        DartController menu = new DartController("\n-----Game-Options----", options, divider+"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -206,7 +206,7 @@ public class DartController extends Storage{
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(dividerOne+"\n--- Invalid input ---");
+                    System.out.println(divider+"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }
@@ -214,7 +214,7 @@ public class DartController extends Storage{
     }
     public void albumOptions() {
         String[] options = {" 1) Register Album", " 2) Remove Album", " 3) View Albums", " 4) Employee Menu"};
-        DartController menu = new DartController("\n----Album-Options----", options, dividerOne+"\nChoose your option: ");
+        DartController menu = new DartController("\n----Album-Options----", options, divider+"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -243,7 +243,7 @@ public class DartController extends Storage{
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(dividerOne+"\n--- Invalid input ---");
+                    System.out.println(divider+"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }
@@ -251,7 +251,7 @@ public class DartController extends Storage{
     }
     public void customerOptions() {
         String[] options = {" 1) Register Customer", " 2) Remove Customer", " 3) View Customers", " 4) Employee Menu"};
-        DartController menu = new DartController("\n---Customer-Options---", options, dividerOne+"\nChoose your option: ");
+        DartController menu = new DartController("\n---Customer-Options---", options, divider+"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -279,7 +279,7 @@ public class DartController extends Storage{
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(dividerOne+"\n--- Invalid input ---");
+                    System.out.println(divider+"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }
@@ -305,7 +305,7 @@ public class DartController extends Storage{
 
     public void customerMenu() {
         String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", " 5) Add Membership", " 6) Upgrade Membership", " 7) Inbox", " 8) Main Menu"};
-        DartController menu = new DartController("\n----Customer-Menu----", options, dividerOne+"\nChoose your option: ");
+        DartController menu = new DartController("\n----Customer-Menu----", options, divider+"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -351,7 +351,7 @@ public class DartController extends Storage{
                     mainMenu();
                     break;
                 default:
-                    System.out.println(dividerOne+"\n--- Invalid input ---");
+                    System.out.println(divider+"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }
@@ -363,7 +363,7 @@ public class DartController extends Storage{
 
     public void inboxMenu() {
         String[] options = {" 1) View messages", " 2) Send Message", " 3) Delete Message", " 4) Main Menu"};
-        DartController menu = new DartController("--------Inbox--------", options, dividerOne+"\nChoose your option: "); //add the name of the user whose inbox we are using to title
+        DartController menu = new DartController("--------Inbox--------", options, divider+"\nChoose your option: "); //add the name of the user whose inbox we are using to title
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -391,7 +391,7 @@ public class DartController extends Storage{
                     mainMenu();
                     break;
                 default:
-                    System.out.println(dividerOne+"\n--- Invalid input ---");
+                    System.out.println(divider+"\n--- Invalid input ---");
                     System.out.print(menu.prompt);
                     break;
             }

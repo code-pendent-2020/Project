@@ -8,7 +8,7 @@ public class Employee {
     private int birthYear;
     private String address;
     private double grossSalary;
-    private static Employee[] employees =  new Employee[4];
+    private String divider = "-----";
 
 
     private final double MIN_SALARY=100000.00;
@@ -96,13 +96,10 @@ public class Employee {
         return employeeID;
     }
 
-    public Employee[] getEmployees(){
-        return employees;
-    }
 
     public String toString() {
-        return "\nEmployee:\nID: " + this.employeeID + "\nName: " + this.name + "\nBirth year: " + this.birthYear
-                + "\nAddress: " + this.address + "\nNet salary: " + netSalary() + "\n";
+        return divider+ "\nID: " + this.employeeID + "\nName: " + this.name + "\nBirth year: " + this.birthYear
+                + "\nAddress: " + this.address + "\nsalary: " + netSalary();
     }
 }
 
