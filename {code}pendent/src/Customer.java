@@ -5,6 +5,7 @@ public class Customer {
     private int customerId;
     private String name;
     private Membership membership;
+    private ArrayList<Message> inbox;
 
     Helper helper=new Helper();
 
@@ -16,6 +17,7 @@ public class Customer {
     Customer(int customerId,String name){
         this.customerId=customerId;
         this.name=name;
+        this.inbox = new ArrayList<>();
         Membership membership = new Membership();
     }
 
