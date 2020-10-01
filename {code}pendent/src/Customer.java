@@ -21,6 +21,13 @@ public class Customer{
         Membership membership = new Membership();
     }
 
+    public Customer(int customerId,String name, String membership){
+        this.customerId=customerId;
+        this.name=name;
+        this.inbox = new ArrayList<>();
+        this.membership = new Membership();
+    }
+
     public String toString(){
         return  "\n" + "ID: "+ this.getCustomerId() + ", Name: " + this.getName() + ", Membership: " + this.getMembership();
     }

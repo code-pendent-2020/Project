@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -28,7 +29,7 @@ public class Rental {
 
     public void rentGame() {
         DartController dartController = new DartController();
-        ArrayList<Game> rental = dartController.getGames();
+        List<Game> rental = dartController.getGames();
         for (Game rentGame : rental) {
             System.out.println(rental.toString());
         }
