@@ -15,11 +15,11 @@ public class DartController {
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>();
     private ArrayList<Employee> employees = new ArrayList<>();
-    private List<Game> games = Arrays.asList(new Game( "Sonic: The Hedgehog", "Explore", 23, false),new Game( "Crash Bandicoot", "Racing", 24, false),new Game( "The Legend of Zelda", "Explore", 51, true),
+    private List<Game> games = new ArrayList<>(Arrays.asList(new Game( "Sonic: The Hedgehog", "Explore", 23, false),new Game( "Crash Bandicoot", "Racing", 24, false),new Game( "The Legend of Zelda", "Explore", 51, true),
             new Game ( "Prince of Persia", "Impossible", 33, false),
             new Game ( "Super Mario", "Classic", 32, false),
             new Game( "Street Fighter", "Fighting", 54, false),
-            new Game( "Tekken", "Fighting", 29, false));
+            new Game( "Tekken", "Fighting", 29, false)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(new Customer(1,"Vernita", "Silver"),new Customer(2,"Navya"), new Customer(3,"Drake"),new Customer(4,"Altan"),  new Customer(5,"Axel")));
 
@@ -48,7 +48,7 @@ public class DartController {
     public void addCustomer(){
        this.customerList.add(customer.addCustomer());
        System.out.println(customerList.toString());
-   }
+    }
 
     public void removeCustomer(){
        int removeId = helper.getInt("ID of customer to remove: ");

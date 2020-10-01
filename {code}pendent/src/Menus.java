@@ -8,6 +8,7 @@ public class Menus extends DartController{
 
     ArrayList<Membership> requestList = null;
     private Helper helper = new Helper();
+    private Customer customer = new Customer();
     public Menus() {
     }
 
@@ -117,9 +118,19 @@ public class Menus extends DartController{
     }
 
     public void membershipRequestList(){
-        System.out.println(requestList);
         for ( Membership request : requestList ){
-            System.out.println(request);
+            System.out.println("The following Customer has requested a membership: ");
+            System.out.println("Customer : " + request.getName() + "\n Requesting: " + request.getType() + " membership");
+            String requestListAnswer = helper.getInput("(Y/N): ");
+            if (requestListAnswer.equalsIgnoreCase("Y")){
+                for ( Customer requested : getCustomers()){
+                    if(requested.getName().equalsIgnoreCase(request.getName())){
+                        requested.setMembershipType(request.getType());
+                    }
+                }
+            } else {
+                System.out.println("Okay, fair enough");
+            }
         }
     }
 
@@ -210,7 +221,7 @@ public class Menus extends DartController{
     }
 
     public void customerMenu() {
-        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", "5) Add membership", "6) Upgrade membership", " 7) Messages", " 8) Return to Main Menu"};
+        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", " 5) Add membership", " 6) Upgrade membership", " 7) Messages", " 8) Return to Main Menu"};
         Menus menu = new Menus("--Customer-Menu--", options, "-----------------\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -242,7 +253,7 @@ public class Menus extends DartController{
                 case "5":
                     System.out.println("Add membership");
                     requestList = addMembership();
-                    employeeMenu();
+                    customerMenu();
                     mainMenu();
                     break;
                 case "6":
