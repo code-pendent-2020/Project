@@ -140,9 +140,17 @@ public class Storage {
             }
         }
     }
-    public void viewAlbums() {
+    public void viewAlbums(){
         for (Album album : albums) {
             System.out.println(album.toString());
+        }
+    }
+    public void searchAlbums(){
+        int google = helper.getInt("Album Search\nYear: ");
+        for (Album album : albums) {
+            if (album.getYear() == google) {
+                System.out.println(album.toString());
+            }
         }
     }
 
