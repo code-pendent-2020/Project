@@ -131,13 +131,15 @@ public class DartController extends Storage{
             } else {
                 System.out.println("Okay, fair enough");
             }
-        }
+        } requestList = null;
     }
 
     // todo EMPLOYEE MENU
     // TODO ---------------------------------------EMPLOYEE MENU--------------------------------------------------
     public void employeeMenu() {
-        membershipRequestList();
+        if (requestList != null) {
+            membershipRequestList();
+        }
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
         DartController menu = new DartController("\n----Employee-Menu----", options, dividerOne+"\nChoose your option: ");
         System.out.println(menu.title);
