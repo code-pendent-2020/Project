@@ -21,7 +21,7 @@ public class DartController {
             new Game( "Street Fighter", "Fighting", 54, false),
             new Game( "Tekken", "Fighting", 29, false));
 
-           private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(new Customer(1,"Vernita", "Silver"),new Customer(2,"Navya"), new Customer(3,"Drake"),new Customer(4,"Altan"),  new Customer(5,"Axel")));
+    private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(new Customer(1,"Vernita", "Silver"),new Customer(2,"Navya"), new Customer(3,"Drake"),new Customer(4,"Altan"),  new Customer(5,"Axel")));
 
     public ArrayList<Employee> getEmployees(){return employees;}
     public ArrayList<Customer> getCustomers() {
@@ -63,8 +63,8 @@ public class DartController {
         }
     }
 
-    public void addMembership(){
-        this.customer.addMembership();
+    public ArrayList<Membership> addMembership(){
+        return this.customer.addMembership();
     }
 
 

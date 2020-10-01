@@ -1,14 +1,17 @@
+import java.lang.reflect.Array;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Customer{
 
     private int customerId;
     private String name;
-    private Membership membership;
+    private String membershipType;
     private ArrayList<Message> inbox;
 
     Helper helper=new Helper();
-
+    Membership memberRequest = new Membership();
 
     // Default Constructor
     Customer() {
@@ -18,14 +21,14 @@ public class Customer{
         this.customerId=customerId;
         this.name=name;
         this.inbox = new ArrayList<>();
-        Membership membership = new Membership();
+        this.membershipType = null;
     }
 
     public Customer(int customerId,String name, String membership){
         this.customerId=customerId;
         this.name=name;
         this.inbox = new ArrayList<>();
-        this.membership = new Membership();
+        this.membershipType= membership;
     }
 
     public String toString(){
@@ -58,12 +61,12 @@ public class Customer{
         this.name = name;
     }
 
-    public Membership getMembership() {
-        return membership;
+    public String getMembership() {
+        return membershipType;
     }
 
-    public void setMembership(Membership membership) {
-        this.membership = membership;
+    public void setMembership(String membership) {
+        this.membershipType = membership;
     }
 
     /*
@@ -71,20 +74,30 @@ public class Customer{
             return null;
         }
     */
-    public void addMembership(){
-        String type = null;
-        int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
-        if(membershipType == 1){
-            type = "Silver";
-        }else if (membershipType == 2){
-            type = "Gold";
-        }else if (membershipType == 3){
-            type = "Platinum";
+    public ArrayList<Membership> addMembership(){
+        DartController dartController = new DartController();
+        ArrayList<Customer> customerList = dartController.getCustomers();
+        ArrayList<Membership> requestList = null;
+        String name = helper.getInput("What is your name?: ");
+        if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
+            String type = null;
+            int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum: " );
+            if(membershipType == 1){
+                type = "Silver";
+            }else if (membershipType == 2){
+                type = "Gold";
+            }else if (membershipType == 3){
+                type = "Platinum";
+            }else{
+                System.out.println("Not a valid input.");
+            }
+           requestList = memberRequest.requestMembership(name, type);
         }else{
-            System.out.println("Not a valid input.");
+            System.out.println("you dont exist");
         }
-        this.membership.requestMembership(type);
+        return requestList;
     }
+
    /*
     public void IncreaseArray() {
         ArrayList<Customer> customerListNew = new Customer[customerList.size() + (customerList.size() / 2)];

@@ -1,25 +1,25 @@
 import java.util.ArrayList;
+import java.util.List;
 
-    public class Membership {
+public class Membership {
 
         private String type;
+        private String name;
         private int discount;
-        private ArrayList<String> customerMember;
-
+        private ArrayList<Membership> customerMember = new ArrayList<>();
 
         public Membership() {
-            this.type = null;
         }
 
-        public Membership(String type) {
+        public Membership(String name, String type) {
+            this.name = name;
             this.type = type;
         }
 
 
-        public String requestMembership(String type){
-            customerMember.add(getType());
-            return requestMembership(type);
-
+        public ArrayList<Membership> requestMembership(String name, String type){
+            customerMember.add(new Membership(name, type));
+            return customerMember;
         }
 
         public double discount(){
