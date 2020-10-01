@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer extends DartController{
 
     private int customerId;
     private String name;
@@ -42,16 +42,13 @@ public class Customer {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
-
+/*
     public String removeCustomer(){
         return null;
     }
-
+*/
     public void addMembership(){
-
-
-
-        String type;
+        String type = null;
         int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
         if(membershipType == 1){
             type = "Silver";
@@ -62,6 +59,7 @@ public class Customer {
         }else{
             System.out.println("Not a valid input.");
         }
+        this.membership.requestMembership(type);
     }
    /*
     public void IncreaseArray() {

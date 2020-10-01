@@ -1,8 +1,9 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class Game {
+public class Game extends DartController{
 
     private String id;
     private String title;
@@ -13,15 +14,8 @@ public class Game {
 
     private Menus menus = new Menus(); // for now so shit isn't angry
 
-    private static Game[] games = { new Game( "Sonic: The Hedgehog", "Explore", 23, false),
-            new Game( "Crash Bandicoot", "Racing", 24, false),
-            new Game( "The Legend of Zelda", "Explore", 51, true),
-            new Game( "Prince of Persia", "Impossible", 33, false),
-            new Game( "Super Mario", "Classic", 32, false),
-            new Game( "Street Fighter", "Fighting", 54, false),
-            new Game( "Tekken", "Fighting", 29, false)};
-
     private final Helper helper = new Helper();
+    private DartController dartController = new DartController();
 
     Game(){
     }
@@ -35,7 +29,6 @@ public class Game {
         this.rentedDate = null;
     }
 
-
     Game(String gameTitle, String gameGenre, double gameRentCost, boolean gameIsRented) {
         this.id = UUID.randomUUID().toString();
         this.title = gameTitle;
@@ -45,10 +38,6 @@ public class Game {
         if (gameIsRented) {
             this.rentedDate =  LocalDate.of( 2020 , 8 , 23 );
         }else  this.rentedDate = null;
-    }
-
-    public static Game[] getGames(){
-        return games;
     }
 
     public String getId(){
@@ -99,11 +88,9 @@ public class Game {
     }
 
     public void increaseArray(){
-        Game[] gamesNew = new Game[games.length + (games.length/2)];
-        for (int i = 0; i < games.length; i++) {
-            gamesNew[i] = games[i];
+        Game[] gamesNew = new Game[games.size() + (games.size()/2)];
+        for (int i = 0; i < games.size(); i++) {
         }
-        games = gamesNew;
     }
 
     public String toString(){
@@ -115,9 +102,9 @@ public class Game {
                 + "kr. " + "Status: " + outOnRent + "\n";
         return outputString;
     }
-
+/*
     public void addNewGame() {
-        if (games[games.length - 1] != null) {
+        if (games[games.size() - 1] != null) {
             increaseArray();
         }
 
@@ -178,14 +165,12 @@ public class Game {
         } if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
         menus.employeeMenu();
     }
-
+*/
     public void viewAll(){
         System.out.println("Games:" + "\n");
-        for (int i = 0; i < games.length; i++) {
-            if (games[i] != null){
-                System.out.println(games[i].toString());
+        for ( Game game : games){
+                System.out.println(game.toString());
             }
-        }
 
         System.out.println("1) Back to Employee Menu " + "\n" + "2) Back to Main Menu");
         Scanner userChoice = new Scanner(System.in);

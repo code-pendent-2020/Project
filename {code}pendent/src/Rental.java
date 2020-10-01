@@ -1,7 +1,7 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.UUID;
 import static java.time.temporal.ChronoUnit.DAYS;
-
 
 public class Rental {
 
@@ -13,12 +13,14 @@ public class Rental {
     private LocalDate rentedDate;
 
     private Menus menus = new Menus(); // for now so shit isn't angry
+    private DartController dartController = new DartController(); //need to work out how to do this?
 
     private static double rentalIncome = 25.00;
 
-    private static Game[] rental = Game.getGames();
+    private ArrayList<Game> rental = dartController.getGames();
 
     private static Helper getInput = new Helper();
+
     // Default Constructor
     public Rental() {
     }
@@ -27,23 +29,44 @@ public class Rental {
         return rentalIncome;
     }
 
-
     public double totalProfit;
 
     public void rentGame() {
-
-        for(int i = 0; i < rental.length; i++){
-            if (rental[i] != null){
-                    System.out.println(rental[i].toString());
-                }
+        for (Game rentGame : rental) {
+            System.out.println(rental.toString());
         }
 
         String rentId = getInput.getInput("Enter the ID of the game would you like to rent: ");
+        for (Game rentGame : rental) {
+            if (!rental.contains(rentId)) {
+                System.out.println("Soz, wrong ID, try again");
+                rentGame();
+            } else if (rentGame.getId() == rentId && rentGame.getIsRented() == false) {
+                rentGame.setIsRented(true);
+                rentGame.setRentedDate(LocalDate.now());
+                System.out.println("Game is rented. Enjoy!");
+            } else if (rentGame.getId() == rentId && rentGame.getIsRented() == true) {
+                int choice = getInput.getInt("Sorry, that game is being rented at the moment + \n + 1) Try a different game + \n + 2) Back to Customer menu");
+
+                if (choice == 1) {
+                    rentGame();
+                } else if (choice == 2) {
+                    menus.customerMenu();
+                } else {
+                    System.out.println("Wrong entry");
+                    menus.mainMenu();
+                }
+            }
+        }
+    }
+}
+/*
         int idMatch = -1;
         Boolean rentalStatus = false;
         Boolean isFound = false;
 
-        for (int i = 0; i < rental.length;i++) {
+
+        for (int i = 0; i < rental.size();i++) {
             if (rental[i].getId().equals(rentId)) {
                 isFound = true;
                 idMatch = i;
@@ -60,11 +83,10 @@ public class Rental {
         } else {
                 System.out.println("Game with this ID not found.");
         }
+*/
 
-        menus.customerMenu();
-    }
 
-    public void returnGame() {
+    /* public void returnGame() {
         String rentId = getInput.getInput("Enter the ID of the game would you like to return: ");
         int idMatch = -1;
         long daysRented = 0;
@@ -73,7 +95,7 @@ public class Rental {
         double dailyRate = 0;
         double userBill = 0;
 
-        for (int i = 0; i < rental.length;i++) {
+        for (int i = 0; i < rental.size();i++) {
             if (rental[i].getId().equals(rentId)) {
                 daysRented = DAYS.between( rental[i].getRentedDate(), LocalDate.now());
                 isFound = true;
@@ -103,3 +125,4 @@ public class Rental {
         menus.employeeMenu();
     }
 }
+*/
