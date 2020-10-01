@@ -1,11 +1,13 @@
-public class Menus {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Menus extends DartController{
     private String title;
     private String[] options;
     private String prompt;
 
-    private DartController dartController = new DartController();
+    ArrayList<Membership> requestList = null;
     private Helper helper = new Helper();
-    private   Customer customer = new Customer();
     public Menus() {
     }
 
@@ -15,7 +17,9 @@ public class Menus {
         this.prompt = prompt;
     }
 
-    private static void exit() {
+    private void exit() {
+        //close (public static final scanner (in Helper class))
+        helper.input.close();
         System.out.println("-----------------\n    Good Bye!\n-----------------");
         System.exit(0);
     }
@@ -73,16 +77,17 @@ public class Menus {
                 case "1":
                     Employee addEmployee = new Employee();
                     System.out.print("Creating an Employee. Please type the Employee’s:\n");
-                    dartController.addEmployee();
+                    addEmployee();
+                    managerMenu();
                     break;
                 case "2":
-                    helper.getInput("ID: ");
-                    dartController.removeEmployee();
+                    viewEmployee();
+                    removeEmployee();
                     managerMenu();
                     break;
                 case "3":
                     System.out.println("All employees"); // not currently working
-                    dartController.viewEmployee();
+                    viewEmployee();
                     managerMenu();
                     break;
                 case "4":
@@ -111,7 +116,15 @@ public class Menus {
         }
     }
 
+    public void membershipRequestList(){
+        System.out.println(requestList);
+        for ( Membership request : requestList ){
+            System.out.println(request);
+        }
+    }
+
     public void employeeMenu() {
+        membershipRequestList();
         String[] options = {" 1) Register Game", " 2) Remove Game", " 3) View Games", " 4) Register Album",
                 " 5) Remove Albums", " 6) View Albums", " 7) Register Customer", " 8) Remove Customer",
                 " 9) View Customers", " 10) Total Rent Profit", " 11) Return to Main Menu"};
@@ -136,35 +149,35 @@ public class Menus {
                     break;
                 case "3":
                     System.out.println("View Games");
-                    dartController.addAlbum();
-
+                    addAlbum();
+                    employeeMenu();
                     break;
                 case "4":
                     System.out.println("Register Album");
-                    dartController.addAlbum();
+                    addAlbum();
                     break;
                 case "5":
                     System.out.println("Remove albums");
-                    dartController.viewAlbums();
+                    viewAlbums();
                     employeeMenu();
                     break;
                 case "6":
                     System.out.println("View Albums");
-                    dartController.viewAlbums();
+                    viewAlbums();
                     break;
                 case "7":
                     System.out.println("Register Customer");
-                    dartController.addCustomer();
+                    addCustomer();
                     employeeMenu();
                     break;
                 case "8":
                     System.out.println("Remove Customer");
-                    dartController.removeCustomer();
+                    removeCustomer();
                     mainMenu();
                     break;
                 case "9":
                     System.out.println("View Customers");
-                    dartController.viewCustomer();
+                    viewCustomer();
                     employeeMenu();
                     break;
                 case "10":
@@ -197,7 +210,7 @@ public class Menus {
     }
 
     public void customerMenu() {
-        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", " 5) Messages", " 6) Return to Main Menu"};
+        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", "5) Add membership", "6) Upgrade membership", " 7) Messages", " 8) Return to Main Menu"};
         Menus menu = new Menus("--Customer-Menu--", options, "-----------------\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -209,8 +222,7 @@ public class Menus {
             switch (choice) {
                 case "1":
                     System.out.println("Rent Game");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    rentGame();
                     break;
                 case "2":
                     System.out.println("Return Game");
@@ -228,11 +240,21 @@ public class Menus {
                     mainMenu();
                     break;
                 case "5":
+                    System.out.println("Add membership");
+                    requestList = addMembership();
+                    employeeMenu();
+                    mainMenu();
+                    break;
+                case "6":
+                    System.out.println("Upgrade membership");
+                    System.out.println("Method todo");
+                    break;
+                case "7":
                     System.out.println("Inbox");
                     System.out.println("add the method for now returns you to main menu");
                     mainMenu();
                     break;
-                case "6":
+                case "8":
                     mainMenu();
                     break;
                 default:
@@ -273,5 +295,8 @@ public class Menus {
                     break;
             }
         } while (true);
+    }
+    public void run(){
+        mainMenu();
     }
 }

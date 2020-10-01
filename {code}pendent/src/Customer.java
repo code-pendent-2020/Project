@@ -1,33 +1,45 @@
+import java.lang.reflect.Array;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Customer {
+public class Customer{
 
     private int customerId;
     private String name;
-    private Membership membership;
+    private String membershipType;
+    private ArrayList<Message> inbox;
 
     Helper helper=new Helper();
-
+    Membership memberRequest = new Membership();
 
     // Default Constructor
     Customer() {
     }
 
-    Customer(int customerId,String name){
+    public Customer(int customerId,String name){
         this.customerId=customerId;
         this.name=name;
-        Membership membership = new Membership();
+        this.inbox = new ArrayList<>();
+        this.membershipType = null;
+    }
+
+    public Customer(int customerId,String name, String membership){
+        this.customerId=customerId;
+        this.name=name;
+        this.inbox = new ArrayList<>();
+        this.membershipType= membership;
     }
 
     public String toString(){
-        return  "\n" + "ID: "+ this.customerId+ ", Name: " + this.name;
+        return  "\n" + "ID: "+ this.getCustomerId() + ", Name: " + this.getName() + ", Membership: " + this.getMembership();
     }
 
     public Customer addCustomer(){
-        System.out.print("Enter the customers ID : ");
+        System.out.print("Enter the customers ID: ");
         int customerID = helper.input.nextInt();
         helper.input.nextLine();
-        System.out.print("Enter the customers  name: ");
+        System.out.print("Enter the customers name: ");
         String customerName = helper.input.nextLine();
         Customer newCustomer = new Customer(customerID, customerName);
         return newCustomer;
@@ -41,26 +53,51 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String removeCustomer(){
-        return null;
+    public String getName() {
+        return name;
     }
 
-    public void addMembership(){
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getMembership() {
+        return membershipType;
+    }
 
+    public void setMembership(String membership) {
+        this.membershipType = membership;
+    }
 
-        String type;
-        int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
-        if(membershipType == 1){
-            type = "Silver";
-        }else if (membershipType == 2){
-            type = "Gold";
-        }else if (membershipType == 3){
-            type = "Platinum";
-        }else{
-            System.out.println("Not a valid input.");
+    /*
+        public String removeCustomer(){
+            return null;
         }
+    */
+    public ArrayList<Membership> addMembership(){
+        DartController dartController = new DartController();
+        ArrayList<Customer> customerList = dartController.getCustomers();
+        ArrayList<Membership> requestList = null;
+        String name = helper.getInput("What is your name?: ");
+        if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
+            String type = null;
+            int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum: " );
+            if(membershipType == 1){
+                type = "Silver";
+            }else if (membershipType == 2){
+                type = "Gold";
+            }else if (membershipType == 3){
+                type = "Platinum";
+            }else{
+                System.out.println("Not a valid input.");
+            }
+           requestList = memberRequest.requestMembership(name, type);
+        }else{
+            System.out.println("you dont exist");
+        }
+        return requestList;
     }
+
    /*
     public void IncreaseArray() {
         ArrayList<Customer> customerListNew = new Customer[customerList.size() + (customerList.size() / 2)];
