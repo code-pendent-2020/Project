@@ -102,6 +102,15 @@ public class DartController {
             }
         }
     }
+    public void returnAlbum(){ // still needs to do calculation of price
+        String rental = helper.getInput("Title: ");
+        for (Album album : albums) {
+            if (album.getTitle().equals(rental)) {
+                album.setRentStatus(false);
+                System.out.println("Returned "+ album.getTitle() + "- by "+ album.getArtist());
+            }
+        }
+    }
     public void viewAlbums() {
         for (Album album : albums) {
             System.out.println(album.toString());
