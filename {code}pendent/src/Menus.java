@@ -8,6 +8,7 @@ public class Menus extends DartController{
 
     ArrayList<Membership> requestList = null;
     private Helper helper = new Helper();
+    private Customer customer = new Customer();
     public Menus() {
     }
 
@@ -18,6 +19,7 @@ public class Menus extends DartController{
     }
 
     private void exit() {
+        //close (public static final scanner (in Helper class))
         helper.input.close();
         System.out.println("\n" + dividerOne + "\n     Good Bye!\n"+dividerOne);
         System.exit(0);
@@ -115,8 +117,27 @@ public class Menus extends DartController{
         }
     }
 
+    public void membershipRequestList(){
+        for ( Membership request : requestList ){
+            System.out.println("The following Customer has requested a membership: ");
+            System.out.println("Customer : " + request.getName() + "\n Requesting: " + request.getType() + " membership");
+            String requestListAnswer = helper.getInput("(Y/N): ");
+            if (requestListAnswer.equalsIgnoreCase("Y")){
+                for ( Customer requested : getCustomers()){
+                    if(requested.getName().equalsIgnoreCase(request.getName())){
+                        requested.setMembershipType(request.getType());
+                    }
+                }
+            } else {
+                System.out.println("Okay, fair enough");
+            }
+        }
+    }
+
+    // todo EMPLOYEE MENU
     // TODO ---------------------------------------EMPLOYEE MENU--------------------------------------------------
     public void employeeMenu() {
+        membershipRequestList();
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
         Menus menu = new Menus("\n----Employee-Menu----", options, dividerOne+"\nChoose your option: ");
         System.out.println(menu.title);
@@ -264,6 +285,14 @@ public class Menus extends DartController{
         } while (true);
     }
 
+    //-------------------------------------------------------------------------------------------------------
+    public void membershipRequestList(){
+        System.out.println(requestList);
+        for ( Membership request : requestList ){
+            System.out.println(request);
+        }
+    }
+
     public void authEmployee() {
         String password = "password123";
         Helper Authorize = new Helper();
@@ -313,8 +342,7 @@ public class Menus extends DartController{
                 case "5":
                     System.out.println("\n>> Add membership");
                     requestList = addMembership();
-                    employeeMenu();
-                    mainMenu();
+                    customerMenu();
                     break;
                 case "6":
                     System.out.println("\n>> Upgrade membership");
@@ -336,12 +364,6 @@ public class Menus extends DartController{
         } while (true);
     }
 
-    public void membershipRequestList(){
-        System.out.println(requestList);
-        for ( Membership request : requestList ){
-            System.out.println(request);
-        }
-    }
 
     // TODO ---------------------------------------Messenger/Inbox Menu--------------------------------------------------
 

@@ -1,5 +1,4 @@
-import java.lang.reflect.Array;
-import java.lang.reflect.Member;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class Customer{
     }
 
     public String toString(){
-        return  "\n" + "ID: "+ this.getCustomerId() + ", Name: " + this.getName() + ", Membership: " + this.getMembership();
+        return  "\n" + "ID: "+ this.getCustomerId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
     }
 
     public Customer addCustomer(){
@@ -43,6 +42,14 @@ public class Customer{
         String customerName = helper.input.nextLine();
         Customer newCustomer = new Customer(customerID, customerName);
         return newCustomer;
+    }
+
+    public String getMembershipType() {
+        return this.membershipType;
+    }
+
+    public void setMembershipType(String membershipType) {
+        this.membershipType = membershipType;
     }
 
     public int getCustomerId() {
@@ -61,13 +68,6 @@ public class Customer{
         this.name = name;
     }
 
-    public String getMembership() {
-        return membershipType;
-    }
-
-    public void setMembership(String membership) {
-        this.membershipType = membership;
-    }
 
     /*
         public String removeCustomer(){
