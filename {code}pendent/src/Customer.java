@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,7 +7,7 @@ public class Customer{
 
     private int customerId;
     private String name;
-    private Membership membership = new Membership();
+    private String membershipType;
     private ArrayList<Message> inbox;
 
     Helper helper=new Helper();
@@ -19,14 +21,14 @@ public class Customer{
         this.customerId=customerId;
         this.name=name;
         this.inbox = new ArrayList<>();
-        Membership membership = null;
+        this.membershipType = null;
     }
 
     public Customer(int customerId,String name, String membership){
         this.customerId=customerId;
         this.name=name;
         this.inbox = new ArrayList<>();
-        this.membership= new Membership(membership);
+        this.membershipType= membership;
     }
 
     public String toString(){
@@ -60,11 +62,11 @@ public class Customer{
     }
 
     public String getMembership() {
-        return membership.toString();
+        return membershipType;
     }
 
-    public void setMembership(Membership membership) {
-        this.membership = membership;
+    public void setMembership(String membership) {
+        this.membershipType = membership;
     }
 
     /*
@@ -72,9 +74,10 @@ public class Customer{
             return null;
         }
     */
-    public void addMembership(){
+    public ArrayList<Membership> addMembership(){
         DartController dartController = new DartController();
         ArrayList<Customer> customerList = dartController.getCustomers();
+        ArrayList<Membership> requestList = null;
         String name = helper.getInput("What is your name?: ");
         if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
             String type = null;
@@ -88,14 +91,13 @@ public class Customer{
             }else{
                 System.out.println("Not a valid input.");
             }
-            memberRequest.requestMembership(type);
+           requestList = memberRequest.requestMembership(name, type);
         }else{
             System.out.println("you dont exist");
-
         }
-
-
+        return requestList;
     }
+
    /*
     public void IncreaseArray() {
         ArrayList<Customer> customerListNew = new Customer[customerList.size() + (customerList.size() / 2)];

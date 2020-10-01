@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Menus extends DartController{
     private String title;
     private String[] options;
     private String prompt;
 
+    ArrayList<Membership> requestList = null;
     private Helper helper = new Helper();
     public Menus() {
     }
@@ -112,7 +116,15 @@ public class Menus extends DartController{
         }
     }
 
+    public void membershipRequestList(){
+        System.out.println(requestList);
+        for ( Membership request : requestList ){
+            System.out.println(request);
+        }
+    }
+
     public void employeeMenu() {
+        membershipRequestList();
         String[] options = {" 1) Register Game", " 2) Remove Game", " 3) View Games", " 4) Register Album",
                 " 5) Remove Albums", " 6) View Albums", " 7) Register Customer", " 8) Remove Customer",
                 " 9) View Customers", " 10) Total Rent Profit", " 11) Return to Main Menu"};
@@ -229,7 +241,8 @@ public class Menus extends DartController{
                     break;
                 case "5":
                     System.out.println("Add membership");
-                    addMembership();
+                    requestList = addMembership();
+                    employeeMenu();
                     mainMenu();
                     break;
                 case "6":
