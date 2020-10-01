@@ -8,7 +8,7 @@ public class Employee {
     private int birthYear;
     private String address;
     private double grossSalary;
-    private static Employee[] employees =  new Employee[4];
+    private String divider = "-----";
 
 
     private final double MIN_SALARY=100000.00;
@@ -27,8 +27,8 @@ public class Employee {
     public Employee(String name, int birthYear, String address, double salary) {
         this.employeeID = genEmployeeID();
         this.name = name;
-        this.grossSalary = salary;
         this.birthYear = birthYear;
+        this.grossSalary = salary;
         this.address = address;
 
     }
@@ -47,25 +47,6 @@ public class Employee {
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
-    public void removeEmployee(){
-    }
-/*
-    public Employee[] removeEmployee() {
-        viewEmployees();
-        String enteredID = tools.getInput("Which employee should be removed? ID: ");
-        for (int i = 0; i< employees.length-1; i++) { // iterates through the array of employees
-            if (enteredID.equals(employees[i].employeeID)) { // once it finds the employee with the id it enters are next loop
-                for (int j = i; j < employees.length-1; j++) { // once inside this loop it starts replacing the current index with the next one
-                    employees[i] = employees[j+1]; //shifting
-                    i++;
-                }
-                employees[employees.length-1] = null; // deletes the last position after the shift to get rid of duplicate
-                i = employees.length; // YEAH I KNOW THIS IS TECHNICALLY A BREAK FIGHT ME!
-            }
-        }
-        return employees;
-    }
-    */
 
 
     public double netSalary() {
@@ -115,13 +96,10 @@ public class Employee {
         return employeeID;
     }
 
-    public Employee[] getEmployees(){
-        return employees;
-    }
 
     public String toString() {
-        return "\nEmployee:\nID: " + this.employeeID + "\nName: " + this.name + "\nBirth year: " + this.birthYear
-                + "\nAddress: " + this.address + "\nNet salary: " + netSalary() + "\n";
+        return divider+ "\nID: " + this.employeeID + "\nName: " + this.name + "\nBirth year: " + this.birthYear
+                + "\nAddress: " + this.address + "\nsalary: " + netSalary();
     }
 }
 

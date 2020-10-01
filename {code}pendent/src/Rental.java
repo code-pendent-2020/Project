@@ -50,11 +50,11 @@ public class Rental {
                 if (choice == 1) {
                     rentGame();
                 } else if (choice == 2) {
-                    Menus menus = new Menus();
+                    DartController menus = new DartController();
                     menus.customerMenu();
                 } else {
                     System.out.println("Wrong entry");
-                    Menus menus = new Menus();
+                    DartController menus = new DartController();
                     menus.mainMenu();
                 }
             }
