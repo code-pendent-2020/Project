@@ -28,7 +28,7 @@ public class Menus extends DartController{
         return password.equals(enteredPassword);
     }
 
-    // todo MAIN MENU
+    // TODO ---------------------------------------MAIN MENU--------------------------------------------------
 
     public void mainMenu() {
         String[] options = {" 1) Manager Menu", " 2) Employee Menu", " 3) Customer Menu", " 4) Exit System"};
@@ -63,7 +63,7 @@ public class Menus extends DartController{
         } while (true);
     }
 
-    // todo MANAGER MENU
+    // TODO ---------------------------------------MANAGER MENU--------------------------------------------------
 
     public void managerMenu() {
         String[] options = {" 1) Register Employee", " 2) Remove Employee", " 3) View Employees", " 4) Main Menu"};
@@ -115,7 +115,7 @@ public class Menus extends DartController{
         }
     }
 
-    // todo EMPLOYEE MENU
+    // TODO ---------------------------------------EMPLOYEE MENU--------------------------------------------------
     public void employeeMenu() {
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
         Menus menu = new Menus("\n----Employee-Menu----", options, dividerOne+"\nChoose your option: ");
@@ -151,81 +151,9 @@ public class Menus extends DartController{
             }
         } while (true);
     }
-//    public void employeeMenu() {
-//        String[] options = {" 1) Register Game", " 2) Remove Game", " 3) View Games", " 4) Register Album",
-//                " 5) Remove Albums", " 6) View Albums", " 7) Register Customer", " 8) Remove Customer",
-//                " 9) View Customers", " 10) Total Rent Profit", " 11) Main Menu"};
-//        Menus menu = new Menus("\n----Employee-Menu----", options, dividerOne+"\nChoose your option: ");
-//        System.out.println(menu.title);
-//        for (int i = 0; i < options.length; i++) {
-//            System.out.println(options[i]);
-//        }
-//        System.out.print(menu.prompt);
-//        do {
-//            String choice = Helper.input.nextLine();
-//            switch (choice) {
-//                case "1":
-//                    System.out.println("\n>> New Game");
-//                    System.out.println("add the method for now returns you to main menu");
-//                    employeeMenu();
-//                    break;
-//                case "2":
-//                    System.out.println("\n>> Remove Game");
-//                    System.out.println("add the method for now returns you to main menu");
-//                    employeeMenu();
-//                    break;
-//                case "3":
-//                    System.out.println("\n>> All Games");
-//                    System.out.println("add the method for now returns you to main menu");
-//                    employeeMenu();
-//                    break;
-//                case "4":
-//                    System.out.println("\n>> New Album");
-//                    addAlbum();
-//                    employeeMenu();
-//                    break;
-//                case "5":
-//                    System.out.println("\n>> Remove Album:");
-//                    viewAlbums();
-//                    removeAlbum();
-//                    employeeMenu();
-//                    break;
-//                case "6":
-//                    System.out.println("\n>> All Albums");
-//                    viewAlbums();
-//                    employeeMenu();
-//                    break;
-//                case "7":
-//                    System.out.println("\n>> New Customer");
-//                    addCustomer();
-//                    employeeMenu();
-//                    break;
-//                case "8":
-//                    System.out.println("\n>> Remove Customer");
-//                    removeCustomer();
-//                    employeeMenu();
-//                    break;
-//                case "9":
-//                    System.out.println("\n>> All Customers");
-//                    viewCustomer();
-//                    employeeMenu();
-//                    break;
-//                case "10":
-//                    System.out.println("\n>> View Total Rent Profit");
-//                    System.out.println("add the method for now returns you to main menu");
-//                    employeeMenu();
-//                    break;
-//                case "11":
-//                    mainMenu();
-//                    break;
-//                default:
-//                    System.out.println(dividerOne+"\n--- Invalid input ---");
-//                    System.out.print(menu.prompt);
-//                    break;
-//            }
-//        } while (true);
-//    }
-    //-----------------------------------------------Employee sub menus--------------------------------------
+
+    // TODO ---------------------------------------Employee SUBMENUS--------------------------------------------------
+
     public void gameOptions() {
         String[] options = {" 1) Register Game", " 2) Remove Game", " 3) View Games", " 4) Employee Menu"};
         Menus menu = new Menus("\n-----Game-Options----", options, dividerOne+"\nChoose your option: ");
@@ -336,14 +264,6 @@ public class Menus extends DartController{
         } while (true);
     }
 
-    //-------------------------------------------------------------------------------------------------------
-    public void membershipRequestList(){
-        System.out.println(requestList);
-        for ( Membership request : requestList ){
-            System.out.println(request);
-        }
-    }
-
     public void authEmployee() {
         String password = "password123";
         Helper Authorize = new Helper();
@@ -357,7 +277,7 @@ public class Menus extends DartController{
         }
     }
 
-    // todo CUSTOMER MENU
+    // TODO ---------------------------------------CUSTOMER MENU--------------------------------------------------
 
     public void customerMenu() {
         String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", " 5) Add Membership", " 6) Upgrade Membership", " 7) Inbox", " 8) Main Menu"};
@@ -416,7 +336,14 @@ public class Menus extends DartController{
         } while (true);
     }
 
-    // todo INBOX MENU
+    public void membershipRequestList(){
+        System.out.println(requestList);
+        for ( Membership request : requestList ){
+            System.out.println(request);
+        }
+    }
+
+    // TODO ---------------------------------------Messenger/Inbox Menu--------------------------------------------------
 
     public void inboxMenu() {
         String[] options = {" 1) View messages", " 2) Send Message", " 3) Main Menu"};
