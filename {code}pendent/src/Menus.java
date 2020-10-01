@@ -198,7 +198,7 @@ public class Menus extends DartController{
     }
 
     public void customerMenu() {
-        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", " 5) Messages", " 6) Return to Main Menu"};
+        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", "5) Add membership", "6) Upgrade membership", " 7) Messages", " 8) Return to Main Menu"};
         Menus menu = new Menus("--Customer-Menu--", options, "-----------------\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -228,11 +228,20 @@ public class Menus extends DartController{
                     mainMenu();
                     break;
                 case "5":
+                    System.out.println("Add membership");
+                    addMembership();
+                    mainMenu();
+                    break;
+                case "6":
+                    System.out.println("Upgrade membership");
+                    System.out.println("Method todo");
+                    break;
+                case "7":
                     System.out.println("Inbox");
                     System.out.println("add the method for now returns you to main menu");
                     mainMenu();
                     break;
-                case "6":
+                case "8":
                     mainMenu();
                     break;
                 default:
