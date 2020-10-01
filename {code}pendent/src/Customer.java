@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Customer extends DartController{
+public class Customer{
 
     private int customerId;
     private String name;

@@ -155,7 +155,7 @@ public class Menus extends DartController{
                     break;
                 case "7":
                     System.out.println("Register Customer");
-                    addOneCustomer();
+                    addCustomer();
                     employeeMenu();
                     break;
                 case "8":

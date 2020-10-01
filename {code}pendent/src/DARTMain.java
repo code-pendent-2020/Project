@@ -1,6 +1,6 @@
 import java.lang.*;
 
-public class Launcher {
+public class DARTMain{
 
     public static void main(String[] args) {
         Menus menu = new Menus();

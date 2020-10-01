@@ -12,12 +12,7 @@ public class Rental {
     private boolean isRented;
     private LocalDate rentedDate;
 
-    private Menus menus = new Menus(); // for now so shit isn't angry
-    private DartController dartController = new DartController(); //need to work out how to do this?
-
     private static double rentalIncome = 25.00;
-
-    private ArrayList<Game> rental = dartController.getGames();
 
     private static Helper getInput = new Helper();
 
@@ -32,6 +27,8 @@ public class Rental {
     public double totalProfit;
 
     public void rentGame() {
+        DartController dartController = new DartController();
+        ArrayList<Game> rental = dartController.getGames();
         for (Game rentGame : rental) {
             System.out.println(rental.toString());
         }
@@ -51,9 +48,11 @@ public class Rental {
                 if (choice == 1) {
                     rentGame();
                 } else if (choice == 2) {
+                    Menus menus = new Menus();
                     menus.customerMenu();
                 } else {
                     System.out.println("Wrong entry");
+                    Menus menus = new Menus();
                     menus.mainMenu();
                 }
             }
