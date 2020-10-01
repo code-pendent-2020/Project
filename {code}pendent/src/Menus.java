@@ -152,7 +152,7 @@ public class Menus extends DartController{
                     break;
                 case "7":
                     System.out.println("Register Customer");
-                    addCustomer();
+                    addOneCustomer();
                     employeeMenu();
                     break;
                 case "8":
@@ -207,8 +207,7 @@ public class Menus extends DartController{
             switch (choice) {
                 case "1":
                     System.out.println("Rent Game");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    rentGame();
                     break;
                 case "2":
                     System.out.println("Return Game");

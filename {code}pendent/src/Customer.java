@@ -14,7 +14,7 @@ public class Customer extends DartController{
     Customer() {
     }
 
-    Customer(int customerId,String name){
+    public Customer(int customerId,String name){
         this.customerId=customerId;
         this.name=name;
         this.inbox = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Customer extends DartController{
     }
 
     public String toString(){
-        return  "\n" + "ID: "+ this.customerId+ ", Name: " + this.name;
+        return  "\n" + "ID: "+ this.getCustomerId() + ", Name: " + this.getName() + ", Membership: " + this.getMembership();
     }
 
     public Customer addCustomer(){
@@ -42,11 +42,28 @@ public class Customer extends DartController{
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
-/*
-    public String removeCustomer(){
-        return null;
+
+    public String getName() {
+        return name;
     }
-*/
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Membership getMembership() {
+        return membership;
+    }
+
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+
+    /*
+        public String removeCustomer(){
+            return null;
+        }
+    */
     public void addMembership(){
         String type = null;
         int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );

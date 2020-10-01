@@ -17,7 +17,8 @@ public class DartController {
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>();
     private ArrayList<Employee> employees = new ArrayList<>();
-    protected ArrayList<Game> games = new ArrayList<>(Arrays.asList(new Game( "Sonic: The Hedgehog", "Explore", 23, false),
+    private ArrayList<Game> games = new ArrayList<>();
+        /*(Arrays.asList(new Game( "Sonic: The Hedgehog", "Explore", 23, false),
             new Game( "Crash Bandicoot", "Racing", 24, false),
             new Game( "The Legend of Zelda", "Explore", 51, true),
             new Game( "Prince of Persia", "Impossible", 33, false),
@@ -25,11 +26,14 @@ public class DartController {
             new Game( "Street Fighter", "Fighting", 54, false),
             new Game( "Tekken", "Fighting", 29, false)
     ));
-    private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(new Customer(1,"Vernita"),
+    */
+
+    private ArrayList<Customer> customerList = new ArrayList<>();
+    /*(Arrays.asList(new Customer(1,"Vernita"),
             new Customer(2,"Navya"), new Customer(3,"Drake"),
             new Customer(4,"Altan"),  new Customer(5,"Axel")
     ));
-
+*/
     public ArrayList<Employee> getEmployees(){return employees;}
     public ArrayList<Customer> getCustomers() {
         return customerList;

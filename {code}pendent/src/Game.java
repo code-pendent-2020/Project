@@ -20,7 +20,7 @@ public class Game extends DartController{
     Game(){
     }
 
-    Game(String gameTitle, String gameGenre, double gameRentCost) {
+    public Game(String gameTitle, String gameGenre, double gameRentCost) {
         this.id = UUID.randomUUID().toString();
         this.genre = gameGenre;
         this.title = gameTitle;
@@ -29,7 +29,7 @@ public class Game extends DartController{
         this.rentedDate = null;
     }
 
-    Game(String gameTitle, String gameGenre, double gameRentCost, boolean gameIsRented) {
+    public Game(String gameTitle, String gameGenre, double gameRentCost, boolean gameIsRented) {
         this.id = UUID.randomUUID().toString();
         this.title = gameTitle;
         this.genre = gameGenre;
@@ -87,11 +87,6 @@ public class Game extends DartController{
         this.rentedDate = rentedDate;
     }
 
-    public void increaseArray(){
-        Game[] gamesNew = new Game[games.size() + (games.size()/2)];
-        for (int i = 0; i < games.size(); i++) {
-        }
-    }
 
     public String toString(){
         String outOnRent;
@@ -168,7 +163,7 @@ public class Game extends DartController{
 */
     public void viewAll(){
         System.out.println("Games:" + "\n");
-        for ( Game game : games){
+        for ( Game game : getGames()){
                 System.out.println(game.toString());
             }
 
