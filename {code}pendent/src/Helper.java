@@ -27,16 +27,18 @@ public class Helper {
     public int getInt(String message) { // Method to get string input from user and return
 
         System.out.print(message); //removed println and replaced with print (D) if we need and println version we'll make one
-        int userInput = input.nextInt();  // Read user input
-        input.nextLine();
-        // scanner.close(); // Close scanner - This causes issue, leave it commented out (Altan)
-        return userInput;  // Output user input
+        String userInput = input.nextLine().replaceAll("[^0-9]", "");  // replaces anything that isn't a number with nothing
+        if (userInput.isBlank() || userInput.isEmpty()){
+            System.out.println("-----------------\n- Invalid input -");
+            getInt(message); //calls the same method.
+        }
+        return Integer.parseInt(userInput);  // parses the string to return an integer
 
     }
     public double getDouble(String message) { // Method to get string input from user and return
 
         System.out.print(message); //removed println and replaced with print (D) if we need and println version we'll make one
-        double userInput = input.nextInt();  // Read user input
+        double userInput = input.nextDouble();  // Read user input
         input.nextLine();
         // scanner.close(); // Close scanner - This causes issue, leave it commented out (Altan)
         return userInput;  // Output user input

@@ -13,7 +13,9 @@ public class Menus extends DartController{
         this.prompt = prompt;
     }
 
-    private static void exit() {
+    private void exit() {
+        //close (public static final scanner (in Helper class))
+        helper.input.close();
         System.out.println("-----------------\n    Good Bye!\n-----------------");
         System.exit(0);
     }
@@ -72,9 +74,10 @@ public class Menus extends DartController{
                     Employee addEmployee = new Employee();
                     System.out.print("Creating an Employee. Please type the Employee’s:\n");
                     addEmployee();
+                    managerMenu();
                     break;
                 case "2":
-                    helper.getInput("ID: ");
+                    viewEmployee();
                     removeEmployee();
                     managerMenu();
                     break;
@@ -135,7 +138,7 @@ public class Menus extends DartController{
                 case "3":
                     System.out.println("View Games");
                     addAlbum();
-
+                    employeeMenu();
                     break;
                 case "4":
                     System.out.println("Register Album");
@@ -270,5 +273,8 @@ public class Menus extends DartController{
                     break;
             }
         } while (true);
+    }
+    public void run(){
+        mainMenu();
     }
 }
