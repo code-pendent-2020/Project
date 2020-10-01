@@ -10,6 +10,7 @@ public class Album {
     private double dailyRent;
     private LocalDate rentedDate;
     private boolean rentStatus;
+    private String divider = "-----";
     private int rating;
 
 
@@ -29,7 +30,7 @@ public class Album {
     }
 
         public String toString( ){
-        return this.getID() + " : " + this.getTitle() + " - by " + this.getArtist() + ". " + "Released in " + this.getYear() + ". " + " Price: " + this.getDailyRent() + " SEK. Status: " + this.getRentStatus();
+        return divider + "\nID: " +this.getID() + "\nAlbum: " + this.getTitle() + "\nArtist: " + this.getArtist() + ". " + "\nReleased year: " + this.getYear() + ". " + "\nDaily Price: " + this.getDailyRent() + " SEK. \nStatus: " + this.getRentStatus();
  }
 
     public String getID(){ return albumID; }
