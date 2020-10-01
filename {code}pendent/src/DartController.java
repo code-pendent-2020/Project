@@ -4,12 +4,12 @@ import java.util.Arrays;
 
 public class DartController {
 
-    //opening child classes
-    private static Employee employee = new Employee();
-    private static Customer customer = new Customer();
-    private static Helper helper = new Helper();
-    private static Menus menu = new Menus();
-    private static Album album = new Album();
+    //opening component classes
+    private Employee employee = new Employee();
+    private Customer customer = new Customer();
+    private Helper helper = new Helper();
+    private Menus menu = new Menus();
+    private Album album = new Album();
 
 
     // "kind of" Storage
