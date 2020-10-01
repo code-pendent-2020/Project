@@ -214,7 +214,7 @@ public class Menus extends DartController{
     // todo CUSTOMER MENU
 
     public void customerMenu() {
-        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", " 5) Messages", " 6) Main Menu"};
+        String[] options = {" 1) Rent a Game", " 2) Return a Game", " 3) Rent Album", " 4) Return Album", " 5) Add Membership", " 6) Upgrade Membership", " 7) Inbox", " 8) Main Menu"};
         Menus menu = new Menus("\n----Customer-Menu----", options, dividerOne+"\nChoose your option: ");
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -225,37 +225,37 @@ public class Menus extends DartController{
             String choice = Helper.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(">> Rent Game");
+                    System.out.println("\n>> Rent Game");
                     rentGame();
                     break;
                 case "2":
-                    System.out.println(">> Return Game");
+                    System.out.println("\n>> Return Game");
                     System.out.println("add the method for now returns you to main menu");
                     mainMenu();
                     break;
                 case "3":
                     viewAlbums();
-                    System.out.println(">> Rent Album");
+                    System.out.println("\n>> Rent Album");
                     rentAlbum();
                     mainMenu();
                     break;
                 case "4":
-                    System.out.println(">> Return Album");
-                    System.out.println("add the method for now returns you to main menu");
+                    System.out.println("\n>> Return Album");
+                    returnAlbum();
                     mainMenu();
                     break;
                 case "5":
-                    System.out.println("Add membership");
+                    System.out.println("\n>> Add membership");
                     requestList = addMembership();
                     employeeMenu();
                     mainMenu();
                     break;
                 case "6":
-                    System.out.println("Upgrade membership");
+                    System.out.println("\n>> Upgrade membership");
                     System.out.println("Method todo");
                     break;
                 case "7":
-                    System.out.println(">> Inbox");
+                    System.out.println("\n>> Inbox");
                     System.out.println("add the method for now returns you to main menu");
                     mainMenu();
                     break;

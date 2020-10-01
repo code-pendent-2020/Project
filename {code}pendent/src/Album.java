@@ -70,25 +70,4 @@ public class Album {
         return generatedID;
     }
 
-//    public void removeAlbum(){
-//        viewAlbums();
-//        String removeAlbum = helper.getInput("Enter id of album to remove: ");
-//        for(int i = 0; i < dartController.getAlbums().size(); i++){
-//            if(dartController.getAlbums().get(i).getID().equalsIgnoreCase(removeAlbum)){
-//                dartController.getAlbums().remove(i);
-//            }else{
-//                System.out.println("This album doesn't exist. Please check the id again.");
-//            }
-//        }
-//        viewAlbums();
-//        EmployeeMenu.employeeMenu();
-//    }
-
-    public void rentAlbum(){
-
-    }
-    public void returnAlbum(){
-
-    }
-
 }
