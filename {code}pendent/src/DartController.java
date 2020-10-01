@@ -73,7 +73,7 @@ public class DartController {
         this.employees.add(employee.addEmployee());
     }
     public void removeEmployee() {
-        String removeID = helper.getInput("Enter the ID of the employee you want to remove.\nID: ");
+        String removeID = helper.getInput("Enter the ID of the employee you want to remove.\nEmployee ID: ");
         this.employees.removeIf(employee -> employee.getEmployeeID().equals(removeID));
         System.out.println("Employee Removed\n");
     }
@@ -89,25 +89,27 @@ public class DartController {
         this.albums.add(album.addAlbum());
     }
     public void removeAlbum(){
-        String removeID = helper.getInput("Enter the ID of the album you want to remove.\nID: ");
+        String removeID = helper.getInput("Remove.\nAlbum ID: ");
         this.albums.removeIf(album -> album.getID().equals(removeID));
-        System.out.println("Employee Removed\n");
+        System.out.println("Album Removed\n");
     }
     public void rentAlbum(){
-        String rental = helper.getInput("Title: ");
+        String rental = helper.getInput("Rent\nAlbum ID: ");
         for (Album album : albums) {
-            if (album.getTitle().equals(rental)) {
+            if (album.getID().equals(rental)) {
                 album.setRentStatus(true);
-                System.out.println("Rented "+ album.getTitle() + "- by "+ album.getArtist());
+                System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist()+ " - Rented");
             }
         }
     }
     public void returnAlbum(){ // still needs to do calculation of price
-        String rental = helper.getInput("Title: ");
+        String rental = helper.getInput("Return\nAlbum ID: ");
+        int days = helper.getInt("Number of days rented: ");
         for (Album album : albums) {
-            if (album.getTitle().equals(rental)) {
+            if (album.getID().equals(rental)) {
+                double cost = album.getDailyRent() * days;
                 album.setRentStatus(false);
-                System.out.println("Returned "+ album.getTitle() + "- by "+ album.getArtist());
+                System.out.println("Returned "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK");
             }
         }
     }
