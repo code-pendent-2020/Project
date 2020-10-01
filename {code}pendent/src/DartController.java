@@ -134,10 +134,9 @@ public class DartController extends Storage{
         }
     }
 
-    // todo EMPLOYEE MENU
     // TODO ---------------------------------------EMPLOYEE MENU--------------------------------------------------
     public void employeeMenu() {
-        membershipRequestList();
+       // membershipRequestList();
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
         DartController menu = new DartController("\n----Employee-Menu----", options, dividerOne+"\nChoose your option: ");
         System.out.println(menu.title);
@@ -344,8 +343,7 @@ public class DartController extends Storage{
                     break;
                 case "7":
                     System.out.println("\n>> Inbox");
-                    System.out.println("add the method for now returns you to main menu");
-                    mainMenu();
+                    inboxMenu();
                     break;
                 case "8":
                     mainMenu();
@@ -362,8 +360,8 @@ public class DartController extends Storage{
     // TODO ---------------------------------------Messenger/Inbox Menu--------------------------------------------------
 
     public void inboxMenu() {
-        String[] options = {" 1) View messages", " 2) Send Message", " 3) Main Menu"};
-        DartController menu = new DartController("--Inbox--", options, dividerOne+"\nChoose your option: "); //add the name of the user whose inbox we are using to title
+        String[] options = {" 1) View messages", " 2) Send Message", " 3) Delete Message", " 4) Main Menu"};
+        DartController menu = new DartController("--------Inbox--------", options, dividerOne+"\nChoose your option: "); //add the name of the user whose inbox we are using to title
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -383,6 +381,11 @@ public class DartController extends Storage{
                     mainMenu();
                     break;
                 case "3":
+                    System.out.println("\n>> Delete Message");
+                    System.out.println("add the method for now returns you to main menu");
+                    mainMenu();
+                    break;
+                case "4":
                     mainMenu();
                     break;
                 default:
