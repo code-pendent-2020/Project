@@ -70,38 +70,38 @@ public class Storage {
     //Customer
     //--------------------------------------------------------------------------//
 
-    public void addCustomer(){
+    protected void addCustomer(){
        this.customerList.add(customer.addCustomer());
        System.out.println(customerList.toString());
     }
 
-    public void removeCustomer(){
+    protected void removeCustomer(){
        int removeId = helper.getInt("Enter the ID of the customer you want to remove.\nID: ");
        this.customerList.removeIf(customer -> customer.getCustomerId() == removeId);
        viewCustomer();
    }
 
-     public void viewCustomer(){
+     protected void viewCustomer(){
         for (Customer customer : customerList) {
             System.out.println(customer.toString());
         }
     }
 
-    public ArrayList<Membership> addMembership(){
+    protected ArrayList<Membership> addMembership(){
         return this.customer.addMembership();
     }
 
 
     //--------------------------------------------------------------------------//
-    public void addEmployee(){
+    protected void addEmployee(){
         this.employees.add(employee.addEmployee());
     }
-    public void removeEmployee() {
+    protected void removeEmployee() {
         String removeID = helper.getInput("Enter the ID of the employee you want to remove.\nEmployee ID: ");
         this.employees.removeIf(employee -> employee.getEmployeeID().equals(removeID));
         System.out.println("Employee Removed\n");
     }
-    public void viewEmployee(){
+    protected void viewEmployee(){
         for (Employee employee : employees){
             System.out.println(employee.toString());
         }
@@ -109,15 +109,15 @@ public class Storage {
     //--------------------------------------------------------------------------//
 
 
-    public void addAlbum(){
+    protected void addAlbum(){
         this.albums.add(album.addAlbum());
     }
-    public void removeAlbum(){
+    protected void removeAlbum(){
         String removeID = helper.getInput("Remove.\nAlbum ID: ");
         this.albums.removeIf(album -> album.getID().equals(removeID));
         System.out.println("Album Removed\n");
     }
-    public void rentAlbum(){
+    protected void rentAlbum(){
         String rental = helper.getInput("Rent\nAlbum ID: ");
         for (Album album : albums) {
             if (album.getID().equals(rental)) {
@@ -127,7 +127,7 @@ public class Storage {
             }
         }
     }
-    public void returnAlbum(){ // still needs to do calculation of price
+    protected void returnAlbum(){ // still needs to do calculation of price
         String rental = helper.getInput("Return\nAlbum ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
         for (Album album : albums) {
@@ -140,12 +140,12 @@ public class Storage {
             }
         }
     }
-    public void viewAlbums(){
+    protected void viewAlbums(){
         for (Album album : albums) {
             System.out.println(album.toString());
         }
     }
-    public void searchAlbums(){
+    protected void searchAlbums(){
         int google = helper.getInt("Album Search\nYear: ");
         for (Album album : albums) {
             if (album.getYear() == google) {
