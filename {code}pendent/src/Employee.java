@@ -38,7 +38,7 @@ public class Employee {
         return generatedID;
     }
 
-    public Employee addEmployee(){
+    public Employee addEmployee() {
         String name = tools.getInput("Name: ");
         int birthYear = tools.getInt("Birth year: ");
         String address = tools.getInput("Address: ");
@@ -47,7 +47,6 @@ public class Employee {
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
-
 
     public double netSalary() {
         Helper year = new Helper();

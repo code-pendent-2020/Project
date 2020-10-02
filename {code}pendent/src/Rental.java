@@ -30,7 +30,7 @@ public class Rental {
 
     public void rentGame() {
         DartController dartController = new DartController();
-        List<Game> rental = dartController.getGames();
+        List<Game> rental = dartController.storage.getGames();
         //for (Game rentGame : rental) {
             System.out.println(rental.toString());
       //  }
@@ -50,11 +50,11 @@ public class Rental {
                 if (choice == 1) {
                     rentGame();
                 } else if (choice == 2) {
-                    DartController menus = new DartController();
+                    Menus menus = new Menus();
                     menus.customerMenu();
                 } else {
                     System.out.println("Wrong entry");
-                    DartController menus = new DartController();
+                    Menus menus = new Menus();
                     menus.mainMenu();
                 }
             }
