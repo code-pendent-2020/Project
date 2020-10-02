@@ -76,7 +76,7 @@ public class Customer{
     */
     public ArrayList<Membership> addMembership(){
         DartController dartController = new DartController();
-        ArrayList<Customer> customerList = dartController.getCustomers();
+        ArrayList<Customer> customerList = dartController.storage.getCustomers();
         ArrayList<Membership> requestList = null;
         String name = helper.getInput("What is your name?: ");
         if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
