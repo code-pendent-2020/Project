@@ -194,7 +194,7 @@ public class Menus {
             switch (choice) {
                 case "1":
                     System.out.println(EOL+">> New Game");
-                    storage.addGame();
+                    storage.addNewGame();
                     mainMenu();
                     break;
                 case "2":
@@ -204,7 +204,7 @@ public class Menus {
                     break;
                 case "3":
                     System.out.println(EOL+">> All Games");
-                    storage.viewGames();
+                    storage.viewAll();
                     mainMenu();
                     break;
                 case "4":
