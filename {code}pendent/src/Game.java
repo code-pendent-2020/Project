@@ -43,7 +43,7 @@ public class Game {
         this.isRented = gameIsRented;
         if (gameIsRented) {
             this.rentedDate =  LocalDate.of( 2020 , 8 , 23 );
-        }else  this.rentedDate = null;
+        }else this.rentedDate = null;
     }
 
     public static Game[] getGames(){

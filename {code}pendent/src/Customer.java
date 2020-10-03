@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer{
+public class Customer extends Person {
 
     private int customerId;
     private String name;

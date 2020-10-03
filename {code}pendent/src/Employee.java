@@ -1,10 +1,8 @@
 import java.util.UUID;
 
 
-public class Employee {
+public class Employee extends Person {
 
-    private String employeeID;
-    private String name;
     private int birthYear;
     private String address;
     private double grossSalary;
@@ -25,8 +23,7 @@ public class Employee {
     }
 
     public Employee(String name, int birthYear, String address, double salary) {
-        this.employeeID = genEmployeeID();
-        this.name = name;
+        super();
         this.birthYear = birthYear;
         this.grossSalary = salary;
         this.address = address;
@@ -75,9 +72,6 @@ public class Employee {
         return netSalary / 12;
     }
     // getters
-    public String getName(){
-        return name;
-    }
 
     public double getSalary(){
         return netSalary();
@@ -91,14 +85,10 @@ public class Employee {
         return address;
     }
 
-    public String getEmployeeID(){
-        return employeeID;
-    }
-
 
     public String toString() {
-        return divider+ "\nID: " + this.employeeID + "\nName: " + this.name + "\nBirth year: " + this.birthYear
-                + "\nAddress: " + this.address + "\nsalary: " + netSalary();
+        return divider+ "\nID: " + this.getId() + "\nName: " + this.getName() + "\nBirth year: " + this.getBirthYear()
+                + "\nAddress: " + this.getAddress() + "\nsalary: " + this.netSalary();
     }
 }
 
