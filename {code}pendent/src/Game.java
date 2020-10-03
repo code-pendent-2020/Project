@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -11,16 +12,8 @@ public class Game {
     private boolean isRented;
     private LocalDate rentedDate;
 
-
-    private static Game[] games = { new Game( "Sonic: The Hedgehog", "Explore", 23, false),
-            new Game( "Crash Bandicoot", "Racing", 24, false),
-            new Game( "The Legend of Zelda", "Explore", 51, true),
-            new Game( "Prince of Persia", "Impossible", 33, false),
-            new Game( "Super Mario", "Classic", 32, false),
-            new Game( "Street Fighter", "Fighting", 54, false),
-            new Game( "Tekken", "Fighting", 29, false)};
-
     private final Helper helper = new Helper();
+//    private DartController dartController = new DartController();
 
     Game(){
     }
@@ -44,10 +37,6 @@ public class Game {
         if (gameIsRented) {
             this.rentedDate =  LocalDate.of( 2020 , 8 , 23 );
         }else this.rentedDate = null;
-    }
-
-    public static Game[] getGames(){
-        return games;
     }
 
     public String getId(){
@@ -97,14 +86,6 @@ public class Game {
         this.rentedDate = rentedDate;
     }
 
-    public void increaseArray(){
-        Game[] gamesNew = new Game[games.length + (games.length/2)];
-        for (int i = 0; i < games.length; i++) {
-            gamesNew[i] = games[i];
-        }
-        games = gamesNew;
-    }
-
     public String toString(){
         String outOnRent;
         if (this.isRented){
@@ -115,15 +96,10 @@ public class Game {
         return outputString;
     }
 
-    public void addNewGame() {
-        if (games[games.length - 1] != null) {
-            increaseArray();
-        }
+    public List<Game> addNewGame(List<Game> games) {
 
-        int countArray = 0;
-        for (int i = 0; games[i] != null; i++){
-            countArray = i + 1;
-        }
+        int countArray = games.size();
+
 
         System.out.print("Title:  ");
         String newGameTitle = helper.input.nextLine();
@@ -135,57 +111,52 @@ public class Game {
         double newGameRentCost = helper.input.nextDouble();
         helper.input.nextLine();
 
-        games[countArray] = new Game(newGameTitle, newGameGenre, newGameRentCost);
-        System.out.println("Game Added Successfully : " + games[countArray].toString());
+        games.add( new Game(newGameTitle, newGameGenre, newGameRentCost));
+        System.out.println("Game Added Successfully : " + games.toString());
 
         System.out.println("1) Add another game" + "\n" + "2) View all games" + "\n" + "3) Employee Menu");
         int userChoice = helper.input.nextInt();
         if (userChoice == 1) {
-            addNewGame();
+            addNewGame(games);
         } else if (userChoice == 2) {
-            viewAll();
+            viewAll(games);
         } // else employeeMenu();
+
+        return games;
     }
 
-    public void removeGame() {
+    public List<Game> removeGame(List<Game> games) {
         System.out.println("Which game should be removed? ID:");
         String gameId = helper.input.nextLine();
         boolean contains = false;
-        for (int i = 0; i < games.length; i++) {
-            if (games[i].id.equals(gameId)) {
-                contains = true;
-                if (games[i].isRented == false) {
-                    System.out.println("Are you sure you want to remove this game from the directory?" + "\n" + games[i].toString() + "\n" + "(Y/N)");
-                    String doubleCheck = helper.input.nextLine();
-                    if (doubleCheck.equalsIgnoreCase("y")) {
-                        for (int j = i + 1; j < games.length + 1; j++) {
-                            if (i == games.length - 1) {
-                                games[i] = null;
-                            } else {
-                                games[i] = games[j];
-                                i++;
-                            }
-                        }
-                        System.out.println("Game removed");
-                        viewAll();
-                    } else removeGame();
-                } else {
-                    System.out.println("Game has to be returned before it can be removed from the system.\n");
-                    viewAll();
-                }
+        if (games.contains(gameId)) {
+            contains = true;
+            System.out.println("Are you sure you want to remove this game from the directory?" + "\n" + games.toString() + "\n" + "(Y/N)");
+            String doubleCheck = helper.input.nextLine();
+            if (doubleCheck.equalsIgnoreCase("y")) {
+                games.remove(gameId);
+                System.out.println("Game removed");
+            } else {
+                System.out.println("Okay, no problem. ");
+//                dartController.menus.employeeMenu();
             }
-        } if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
-      //  menus.employeeMenu();
+            viewAll(games);
+        } else {
+            System.out.println("That game doesn't seem to be in the directory.");
+            viewAll(games);
+        }
+        return games;
+      //  System.out.println("Game has to be returned before it can be removed from the system.\n");
+           // if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
+            //  menus.employeeMenu();
     }
 
-    public void viewAll(){
+    public void viewAll(List<Game> games){
         System.out.println("Games:" + "\n");
-        for (int i = 0; i < games.length; i++) {
-            if (games[i] != null){
-                System.out.println(games[i].toString());
-            }
-        }
+        for (Game game : games) {
+                System.out.println(game.toString());
 
+        }
         System.out.println("1) Back to Employee Menu " + "\n" + "2) Back to Main Menu");
         Scanner userChoice = new Scanner(System.in);
         int whereTo = userChoice.nextInt();

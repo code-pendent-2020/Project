@@ -30,11 +30,6 @@ public class Employee extends Person {
 
     }
 
-    private String genEmployeeID() {
-        String generatedID = UUID.randomUUID().toString();
-        return generatedID;
-    }
-
     public Employee addEmployee() {
         String name = tools.getInput("Name: ");
         int birthYear = tools.getInt("Birth year: ");

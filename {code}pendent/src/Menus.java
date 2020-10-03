@@ -6,7 +6,7 @@ public class Menus {
     private String prompt;
     public static final String EOL = System.lineSeparator();
     private final String divider = "---------------------";
-    private Storage storage;
+    private Storage storage = new Storage();
 
     // Constructor
     public Menus(String title, String[] options, String prompt) {
@@ -194,17 +194,17 @@ public class Menus {
             switch (choice) {
                 case "1":
                     System.out.println(EOL+">> New Game");
-                    System.out.println("add the method for now returns you to main menu");
+                    storage.addGame();
                     mainMenu();
                     break;
                 case "2":
                     System.out.println(EOL+">> Remove Game");
-                    System.out.println("add the method for now returns you to main menu");
+                    storage.removeGame();
                     mainMenu();
                     break;
                 case "3":
                     System.out.println(EOL+">> All Games");
-                    System.out.println("add the method for now returns you to main menu");
+                    storage.viewGames();
                     mainMenu();
                     break;
                 case "4":

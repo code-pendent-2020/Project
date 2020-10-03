@@ -13,6 +13,7 @@ public class Storage {
     private Helper helper = new Helper();
     private Album album = new Album();
     private Rental rental = new Rental();
+    private Game game = new Game();
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
@@ -98,7 +99,7 @@ public class Storage {
     }
     protected void removeEmployee() {
         String removeID = helper.getInput("Enter the ID of the employee you want to remove.\nEmployee ID: ");
-        this.employees.removeIf(employee -> employee.getEmployeeID().equals(removeID));
+        this.employees.removeIf(employee -> employee.getId().equals(removeID));
         System.out.println("Employee Removed\n");
     }
     protected void viewEmployee(){
@@ -156,5 +157,18 @@ public class Storage {
 
     //--------------------------------------------------------------------------//
 
+// Games
+    public void addGame() {
+        games =  game.addNewGame(getGames());
+    }
 
+
+    public void removeGame() {
+        games = game.removeGame(getGames());
+    }
+
+    public void viewGames(){
+       game.viewAll(getGames());
+
+    }
 }
