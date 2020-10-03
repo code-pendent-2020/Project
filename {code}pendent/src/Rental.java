@@ -15,7 +15,7 @@ public class Rental {
 
     private static double rentalIncome = 25.00;
 
-    private static Helper getInput = new Helper();
+    private static Input getInput = new Input();
 
     // Default Constructor
     public Rental() {

@@ -4,7 +4,7 @@
         private String recipient;
         private String cc;
         private String subject;
-        Helper body = new Helper();
+        Input body = new Input();
 
 
         public Message(String recipient,String cc,String subject){

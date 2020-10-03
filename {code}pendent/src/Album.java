@@ -14,7 +14,7 @@ public class Album {
     private String divider = "-----";
 
 
-    private Helper helper = new Helper();
+    private Input helper = new Input();
 
     public Album(){
     };

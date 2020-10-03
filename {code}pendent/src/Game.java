@@ -12,7 +12,7 @@ public class Game {
     private boolean isRented;
     private LocalDate rentedDate;
 
-    private final Helper helper = new Helper();
+    private final Input helper = new Input();
 
     Game(){
     }

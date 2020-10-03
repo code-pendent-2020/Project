@@ -1,6 +1,3 @@
-import java.util.UUID;
-
-
 public class Employee extends Person {
 
     private int birthYear;
@@ -16,7 +13,7 @@ public class Employee extends Person {
     private final int FIRST_AGE_FOR_BONUS=22;
     private final int SECOND_AGE_FOR_BONUS=30;
 
-    Helper tools = new Helper();
+    Input tools = new Input();
 
     public Employee(){
 
@@ -41,7 +38,7 @@ public class Employee extends Person {
     }
 
     public double netSalary() {
-        Helper year = new Helper();
+        Input year = new Input();
         int age = year.CURRENT_YEAR - birthYear;
         double netSalary = 0;
         //public static final double MIN_SALARY=100000.00;
