@@ -15,7 +15,7 @@ public class Rental {
 
     private static double rentalIncome = 25.00;
 
-    private static Input getInput = new Input();
+    private Input input = Input.getInstance();
 
     // Default Constructor
     public Rental() {
@@ -34,7 +34,7 @@ public class Rental {
         System.out.println(rental.toString());
         //  }
 
-        String rentId = getInput.getInput("Enter the ID of the game would you like to rent: ");
+        String rentId = input.getInput("Enter the ID of the game would you like to rent: ");
         for (Game rentGame : rental) {
             if (!rental.contains(rentId)) {
                 System.out.println("Soz, wrong ID, try again");
@@ -44,7 +44,7 @@ public class Rental {
                 rentGame.setRentedDate(LocalDate.now());
                 System.out.println("Game is rented. Enjoy!");
             } else if (rentGame.getId() == rentId && rentGame.getIsRented() == true) {
-                int choice = getInput.getInt("Sorry, that game is being rented at the moment + \n + 1) Try a different game + \n + 2) Back to Customer menu");
+                int choice = input.getInt("Sorry, that game is being rented at the moment + \n + 1) Try a different game + \n + 2) Back to Customer menu");
 
                 if (choice == 1) {
                     rentGame();

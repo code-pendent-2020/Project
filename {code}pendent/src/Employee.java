@@ -13,7 +13,7 @@ public class Employee extends Person {
     private final int FIRST_AGE_FOR_BONUS=22;
     private final int SECOND_AGE_FOR_BONUS=30;
 
-    Input tools = new Input();
+    private Input input = Input.getInstance();
 
     public Employee(){
 
@@ -28,18 +28,17 @@ public class Employee extends Person {
     }
 
     public Employee addEmployee() {
-        String name = tools.getInput("Name: ");
-        int birthYear = tools.getInt("Birth year: ");
-        String address = tools.getInput("Address: ");
-        double monthlySalary = tools.getDouble("Monthly gross salary: ");
+        String name = input.getInput("Name: ");
+        int birthYear = input.getInt("Birth year: ");
+        String address = input.getInput("Address: ");
+        double monthlySalary = input.getDouble("Monthly gross salary: ");
         grossSalary = monthlySalary * 12;
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
 
     public double netSalary() {
-        Input year = new Input();
-        int age = year.CURRENT_YEAR - birthYear;
+        int age = Input.CURRENT_YEAR - birthYear;
         double netSalary = 0;
         //public static final double MIN_SALARY=100000.00;
         if (grossSalary < MIN_SALARY) {

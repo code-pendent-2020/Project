@@ -3,18 +3,17 @@ import java.util.ArrayList;
 public class Menus {
     private String title;
     private String[] options;
-    private String prompt;
-    public static final String EOL = System.lineSeparator();
-    private final String divider = "---------------------";
     private Storage storage = new Storage();
     private final Input helper = Input.getInstance();
+    public static final String PROMPT = "---------------------\nChoose your option: ";
+    public static final String EOL = System.lineSeparator();
+    public static final String DIVIDER = "---------------------";
 
     // Constructor
-    public Menus(String title, String[] options, String prompt) {
+    public Menus(String title, String[] options) {
         this.storage = new Storage();
         this.title = title;
         this.options = options;
-        this.prompt = prompt;
     }
 
     ArrayList<Membership> requestList = null;
@@ -26,7 +25,7 @@ public class Menus {
     private void exit() {
         //close (public static final scanner (in Helper class))
         Input.getInstance().tearDown();
-        System.out.println(EOL + divider + EOL + "     Good Bye!"+EOL+divider);
+        System.out.println(EOL + DIVIDER + EOL + "     Good Bye!"+EOL+DIVIDER);
         System.exit(0);
     }
 
@@ -39,20 +38,19 @@ public class Menus {
 
     public void mainMenu() {
         String[] options = {" 1) Manager Menu", " 2) Employee Menu", " 3) Customer Menu", " 4) Exit System"};
-        Menus menu = new Menus(EOL+"------Main-Menu------", options, divider +EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"------Main-Menu------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
-        DartController.mainMenuChoice();
+        System.out.print(menu.PROMPT);
     }
 
     // TODO ---------------------------------------MANAGER MENU--------------------------------------------------
 
     public void managerMenu() {
         String[] options = {" 1) Register Employee", " 2) Remove Employee", " 3) View Employees", " 4) Main Menu"};
-        Menus menu = new Menus(EOL+"-----Manager-Menu-----", options, divider+EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"-----Manager-Menu-----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -95,12 +93,12 @@ public class Menus {
             membershipRequestList();
         }
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
-        Menus menu = new Menus("\n----Employee-Menu----", options, divider+"\nChoose your option: ");
+        Menus menu = new Menus("\n----Employee-Menu----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
@@ -122,8 +120,8 @@ public class Menus {
                     mainMenu();
                     break;
                 default:
-                    System.out.println(divider+"\n--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(DIVIDER+"\n--- Invalid input ---");
+                    System.out.print(menu.PROMPT);
                     break;
             }
         } while (true);
@@ -133,22 +131,22 @@ public class Menus {
 
     public void empGameOptions() {
         String[] options = {" 1) Register Game", " 2) Remove Game", " 3) View Games", " 4) Employee Menu"};
-        Menus menu = new Menus(EOL+"-----Game-Options----", options, divider+EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"-----Game-Options----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
     }
 
     public void empAlbumOptions() {
         String[] options = {" 1) Register Album", " 2) Remove Album", " 3) View Albums", " 4) Employee Menu"};
-        Menus menu = new Menus(EOL+"----Album-Options----", options, divider+EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"----Album-Options----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
@@ -175,8 +173,8 @@ public class Menus {
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(DIVIDER+EOL+"--- Invalid input ---");
+                    System.out.print(menu.PROMPT);
                     break;
             }
         } while (true);
@@ -184,12 +182,12 @@ public class Menus {
 
     public void empCustomerOptions() {
         String[] options = {" 1) Register Customer", " 2) Remove Customer", " 3) View Customers", " 4) Employee Menu"};
-        Menus menu = new Menus(EOL+"---Customer-Options---", options, divider+EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"---Customer-Options---", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
@@ -215,8 +213,8 @@ public class Menus {
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(DIVIDER+EOL+"--- Invalid input ---");
+                    System.out.print(menu.PROMPT);
                     break;
             }
         } while (true);
@@ -226,7 +224,7 @@ public class Menus {
 
     public void authEmployee() {
         String password = "password123";
-        Input Authorize = new Input();
+
         Boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
@@ -241,12 +239,12 @@ public class Menus {
 
     public void customerMenu() {
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Add Membership", " 4) Upgrade Membership", " 5) Inbox", " 6) Main Menu"};
-        Menus menu = new Menus(EOL+"----Customer-Menu----", options, divider+EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"----Customer-Menu----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
@@ -277,8 +275,8 @@ public class Menus {
                     mainMenu();
                     break;
                 default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(DIVIDER+EOL+"--- Invalid input ---");
+                    System.out.print(menu.PROMPT);
                     break;
             }
         } while (true);
@@ -287,12 +285,12 @@ public class Menus {
 
     public void gameOptions() {
         String[] options = {" 1) Rent Game", " 2) Return Game", " 3) View Games", " 4) Search Games", " 5) Customer Menu"};
-        Menus menu = new Menus(EOL+"---------Game--------", options, divider+EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"---------Game--------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
@@ -325,8 +323,8 @@ public class Menus {
                     helper.userCheck();
                     break;
                 default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(DIVIDER+EOL+"--- Invalid input ---");
+                    System.out.print(menu.PROMPT);
                     break;
             }
         } while (true);
@@ -334,12 +332,12 @@ public class Menus {
 
     public void albumOptions() {
         String[] options = {" 1) Rent Album", " 2) Return Album", " 3) View Albums", " 4) Search Albums", " 5) Customer Menu"};
-        Menus menu = new Menus(EOL+"--------Album--------", options, divider+EOL+"Choose your option: ");
+        Menus menu = new Menus(EOL+"--------Album--------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
@@ -368,8 +366,8 @@ public class Menus {
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(DIVIDER+EOL+"--- Invalid input ---");
+                    System.out.print(menu.PROMPT);
                     break;
             }
         } while (true);
@@ -379,12 +377,12 @@ public class Menus {
 
     public void inboxMenu() {
         String[] options = {" 1) View messages", " 2) Send Message", " 3) Delete Message", " 4) Main Menu"};
-        Menus menu = new Menus("--------Inbox--------", options, divider+"\nChoose your option: "); //add the name of the user whose inbox we are using to title
+        Menus menu = new Menus("--------Inbox--------", options); //add the name of the user whose inbox we are using to title
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
+        System.out.print(menu.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
@@ -407,8 +405,8 @@ public class Menus {
                     mainMenu();
                     break;
                 default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(DIVIDER+EOL+"--- Invalid input ---");
+                    System.out.print(menu.PROMPT);
                     break;
             }
         } while (true);

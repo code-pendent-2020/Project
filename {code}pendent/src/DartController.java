@@ -1,6 +1,6 @@
 public class DartController{
     private Menus menus;
-    private Input input = Input.getInstance() // DO singleton
+    private Input input = Input.getInstance(); // DO singleton
     Storage storage; // at the moment rental and customer has to have full access to
     // dartcontroller we don't want games and rental to ever need to open dartcontroller
 
@@ -10,72 +10,68 @@ public class DartController{
     }
 
     public void run(){
-        menus.mainMenu();
+        mainMenu();
     }
 
-    public void mainMenuChoice(){
+    private void exit() {
+        //close (public static final scanner (in Helper class))
+        Input.getInstance().tearDown();
+        System.out.println(menus.EOL + menus.DIVIDER + menus.EOL + "     Good Bye!"+menus.EOL+menus.DIVIDER);
+        System.exit(0);
+    }
+    public void mainMenu(){
+        menus.mainMenu();
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(menus.EOL+">> New Game");
-                    storage.addNewGame();
-                    Input.userCheck();
-                    employeeMenu();
+                    menus.managerMenu();
                     break;
                 case "2":
-                    System.out.println(menus.EOL+">> Remove Game");
-                    storage.removeGame();
-                    helper.userCheck();
-                    employeeMenu();
+                    menus.employeeMenu();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> All Games");
-                    storage.viewAll();
-                    helper.userCheck();
-                    employeeMenu();
+                    menus.customerMenu();
                     break;
                 case "4":
-                    mainMenu();
+                    exit();
                     break;
                 default:
-                    System.out.println(menus.divider+menus.EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
 
     public void managerMenu() {
-        menus.managerMenu();
-        System.out.print(menu.prompt);
         do {
-            String choice = helper.getInput("");
+            String choice = input.getInput("");
             switch (choice) {
                 case "1":
-                    System.out.print(menus.EOL+">> New Employee"+EOL);
+                    System.out.print(menus.EOL+">> New Employee"+menus.EOL);
                     storage.addEmployee();
-                    helper.userCheck();
+                    input.userCheck();
                     managerMenu();
                     break;
                 case "2":
                     storage.viewEmployee();
                     storage.removeEmployee();
-                    helper.userCheck();
+                    input.userCheck();
                     managerMenu();
                     break;
                 case "3":
                     System.out.println(menus.EOL+">> All Employees");
                     storage.viewEmployee();
-                    helper.userCheck();
+                    input.userCheck();
                     managerMenu();
                     break;
                 case "4":
-                    mainMenu();
+                    menus.mainMenu();
                     break;
                 default:
-                    System.out.println(menus.divider+menus.EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
+                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);

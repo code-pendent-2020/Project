@@ -12,7 +12,7 @@ public class Game {
     private boolean isRented;
     private LocalDate rentedDate;
 
-    private final Input helper = new Input();
+    private Input input = Input.getInstance();
 
     Game(){
     }
