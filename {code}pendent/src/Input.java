@@ -2,14 +2,26 @@
 import java.time.Year;
 import java.util.*;
 
-import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
-
 public class Input {
     public static final int CURRENT_YEAR = Year.now().getValue();
     public static Scanner input = new Scanner(System.in); 
     String userInput;
 
-    public Input() {
+
+    private static Input instance = null; // Static so it can be access everywhere
+    private Input(){} // private so you cant explicitly instantiate a new Input instance
+
+    public static Input getInstance( ) {
+        if ( instance == null ) { // check if null
+            instance = new Input(); // Yes, make new instance
+        }
+        return instance; // No, return current instance
+    }
+
+    // Cleanup, save memory, etc
+    public void tearDown() {
+        instance = null;
+        input.close();
     }
 
 
