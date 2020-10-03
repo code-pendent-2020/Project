@@ -7,6 +7,7 @@ public class Menus {
     public static final String EOL = System.lineSeparator();
     private final String divider = "---------------------";
     private Storage storage = new Storage();
+    private final Input helper = Input.getInstance();
 
     // Constructor
     public Menus(String title, String[] options, String prompt) {
@@ -17,7 +18,6 @@ public class Menus {
     }
 
     ArrayList<Membership> requestList = null;
-    private Helper helper = new Helper();
     private Customer customer = new Customer();
     public Menus() {
     }
@@ -25,7 +25,7 @@ public class Menus {
 
     private void exit() {
         //close (public static final scanner (in Helper class))
-        helper.input.close();
+        Input.getInstance().tearDown();
         System.out.println(EOL + divider + EOL + "     Good Bye!"+EOL+divider);
         System.exit(0);
     }
@@ -45,29 +45,7 @@ public class Menus {
             System.out.println(options[i]);
         }
         System.out.print(menu.prompt);
-        do {
-            String choice = Helper.input.nextLine();
-            switch (choice) {
-                case "1":
-                    //authManager();
-                    managerMenu();
-                    break;
-                case "2":
-                    //authEmployee();
-                    employeeMenu();
-                    break;
-                case "3":
-                    customerMenu();
-                    break;
-                case "4":
-                    exit();
-                    break;
-                default:
-                    System.out.println(divider +EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
-                    break;
-            }
-        } while (true);
+        DartController.mainMenuChoice();
     }
 
     // TODO ---------------------------------------MANAGER MENU--------------------------------------------------
@@ -79,40 +57,12 @@ public class Menus {
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
         }
-        System.out.print(menu.prompt);
-        do {
-            String choice = Helper.input.nextLine();
-            switch (choice) {
-                case "1":
-                    System.out.print(EOL+">> New Employee"+EOL);
-                    storage.addEmployee();
-                    managerMenu();
-                    break;
-                case "2":
-                    storage.viewEmployee();
-                    storage.removeEmployee();
-                    managerMenu();
-                    break;
-                case "3":
-                    System.out.println(EOL+">> All Employees");
-                    storage.viewEmployee();
-                    managerMenu();
-                    break;
-                case "4":
-                    mainMenu();
-                    break;
-                default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
-                    break;
-            }
-        } while (true);
     }
 
-    public void authManager() {
+    // Move me daddy
+    public void authManager() { // Why is menu auth?
         String password = "admin1234";
-        Helper Authorize = new Helper();
-        Boolean authSuccess = authenticate(password);
+        boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
             managerMenu();
@@ -122,7 +72,7 @@ public class Menus {
         }
     }
 
-    public void membershipRequestList(){
+    private void membershipRequestList(){
         for ( Membership request : requestList ){
             System.out.println("The following Customer has requested a membership: ");
             System.out.println("Customer : " + request.getName() + "\n Requesting: " + request.getType() + " membership");
@@ -152,7 +102,7 @@ public class Menus {
         }
         System.out.print(menu.prompt);
         do {
-            String choice = Helper.input.nextLine();
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
                     empGameOptions();
@@ -189,33 +139,6 @@ public class Menus {
             System.out.println(options[i]);
         }
         System.out.print(menu.prompt);
-        do {
-            String choice = Helper.input.nextLine();
-            switch (choice) {
-                case "1":
-                    System.out.println(EOL+">> New Game");
-                    storage.addNewGame();
-                    mainMenu();
-                    break;
-                case "2":
-                    System.out.println(EOL+">> Remove Game");
-                    storage.removeGame();
-                    mainMenu();
-                    break;
-                case "3":
-                    System.out.println(EOL+">> All Games");
-                    storage.viewAll();
-                    mainMenu();
-                    break;
-                case "4":
-                    employeeMenu();
-                    break;
-                default:
-                    System.out.println(divider+EOL+"--- Invalid input ---");
-                    System.out.print(menu.prompt);
-                    break;
-            }
-        } while (true);
     }
 
     public void empAlbumOptions() {
@@ -227,22 +150,25 @@ public class Menus {
         }
         System.out.print(menu.prompt);
         do {
-            String choice = Helper.input.nextLine();
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
                     System.out.println(EOL+">> New Album");
                     storage.addAlbum();
+                    helper.userCheck();
                     employeeMenu();
                     break;
                 case "2":
                     System.out.println(EOL+">> Remove Album:");
                     storage.viewAlbums();
                     storage.removeAlbum();
+                    helper.userCheck();
                     employeeMenu();
                     break;
                 case "3":
                     System.out.println(EOL+">> All Albums");
                     storage.viewAlbums();
+                    helper.userCheck();
                     employeeMenu();
                     break;
                 case "4":
@@ -265,21 +191,24 @@ public class Menus {
         }
         System.out.print(menu.prompt);
         do {
-            String choice = Helper.input.nextLine();
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
                     System.out.println(EOL+">> New Customer");
                     storage.addCustomer();
+                    helper.userCheck();
                     employeeMenu();
                     break;
                 case "2":
                     System.out.println(EOL+">> Remove Customer");
                     storage.removeCustomer();
+                    helper.userCheck();
                     employeeMenu();
                     break;
                 case "3":
                     System.out.println(EOL+">> All Customers");
                     storage.viewCustomer();
+                    helper.userCheck();
                     employeeMenu();
                     break;
                 case "4":
@@ -297,7 +226,7 @@ public class Menus {
 
     public void authEmployee() {
         String password = "password123";
-        Helper Authorize = new Helper();
+        Input Authorize = new Input();
         Boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
@@ -319,18 +248,21 @@ public class Menus {
         }
         System.out.print(menu.prompt);
         do {
-            String choice = Helper.input.nextLine();
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
                     gameOptions();
+                    helper.userCheck();
                     break;
                 case "2":
                     albumOptions();
+                    helper.userCheck();
                     break;
                 case "3":
                     System.out.println(EOL+">> Add membership");
                     // requestList = addMembership();
                     customerMenu();
+                    helper.userCheck();
                     break;
                 case "4":
                     System.out.println(EOL+">> Upgrade membership");
@@ -339,6 +271,7 @@ public class Menus {
                 case "5":
                     System.out.println(EOL+">> Inbox");
                     inboxMenu();
+                    helper.userCheck();
                     break;
                 case "6":
                     mainMenu();
@@ -361,30 +294,35 @@ public class Menus {
         }
         System.out.print(menu.prompt);
         do {
-            String choice = Helper.input.nextLine();
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
                     System.out.println(EOL+">> Rent Game");
                     storage.rentGame();
+                    helper.userCheck();
                     customerMenu();
                     break;
                 case "2":
                     System.out.println(EOL+">> Return Game");
                     System.out.println("add the method for now returns you to main menu");
                     customerMenu();
+                    helper.userCheck();
                     break;
                 case "3":
                     System.out.println(EOL+">> All Games");
                     System.out.println("add the method for now returns you to main menu");
                     customerMenu();
+                    helper.userCheck();
                     break;
                 case "4":
                     System.out.println(EOL+">> Search Games");
                     System.out.println("add the method for now returns you to main menu");
                     customerMenu();
+                    helper.userCheck();
                     break;
                 case "5":
                     employeeMenu();
+                    helper.userCheck();
                     break;
                 default:
                     System.out.println(divider+EOL+"--- Invalid input ---");
@@ -403,7 +341,7 @@ public class Menus {
         }
         System.out.print(menu.prompt);
         do {
-            String choice = Helper.input.nextLine();
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
                     System.out.println(EOL+">> Rent Album");
@@ -448,7 +386,7 @@ public class Menus {
         }
         System.out.print(menu.prompt);
         do {
-            String choice = Helper.input.nextLine();
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
                     System.out.println(EOL+">> View Messages");

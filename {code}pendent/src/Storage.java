@@ -1,4 +1,4 @@
-import java.lang.*;
+import java.lang.*; // unused
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ public class Storage {
     //opening component classes
     private Employee employee = new Employee();
     private Customer customer = new Customer();
-    private Helper helper = new Helper();
+    private Input helper = Input.getInstance();
     private Album album = new Album();
     private Rental rental = new Rental();
     private Game game = new Game();

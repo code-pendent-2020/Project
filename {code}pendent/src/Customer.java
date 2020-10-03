@@ -9,7 +9,7 @@ public class Customer extends Person {
     private String membershipType;
     private ArrayList<Message> inbox;
 
-    Helper helper=new Helper();
+    Input helper=new Input();
     Membership memberRequest = new Membership();
 
     // Default Constructor
