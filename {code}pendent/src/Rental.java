@@ -27,13 +27,12 @@ public class Rental {
 
     public double totalProfit;
 
-
     public void rentGame() {
         DartController dartController = new DartController();
-        List<Game> rental = dartController.getGames();
+        List<Game> rental = dartController.storage.getGames();
         //for (Game rentGame : rental) {
-            System.out.println(rental.toString());
-      //  }
+        System.out.println(rental.toString());
+        //  }
 
         String rentId = getInput.getInput("Enter the ID of the game would you like to rent: ");
         for (Game rentGame : rental) {
@@ -50,44 +49,21 @@ public class Rental {
                 if (choice == 1) {
                     rentGame();
                 } else if (choice == 2) {
-                    DartController menus = new DartController();
+                    Menus menus = new Menus();
                     menus.customerMenu();
                 } else {
                     System.out.println("Wrong entry");
-                    DartController menus = new DartController();
+                    Menus menus = new Menus();
                     menus.mainMenu();
                 }
-            }
+            } //else
         }
     }
-}
+
 /*
-        int idMatch = -1;
-        Boolean rentalStatus = false;
-        Boolean isFound = false;
-
-
-        for (int i = 0; i < rental.size();i++) {
-            if (rental[i].getId().equals(rentId)) {
-                isFound = true;
-                idMatch = i;
-                rentalStatus = rental[i].getIsRented();
-            }
-        }
-
-        if (isFound == true && rentalStatus == false){
-            rental[idMatch].setIsRented(true);
-            rental[idMatch].setRentedDate(LocalDate.now());
-            System.out.println("Game rented now");
-        } else if (isFound == true && rentalStatus == true){
-            System.out.println("Game is already rented.");
-        } else {
-                System.out.println("Game with this ID not found.");
-        }
-*/
-
-
-    /* public void returnGame() {
+     public void returnGame() {
+        DartController dartController = new DartController();
+        List<Game> rental = dartController.storage.getGames();
         String rentId = getInput.getInput("Enter the ID of the game would you like to return: ");
         int idMatch = -1;
         long daysRented = 0;
@@ -125,5 +101,6 @@ public class Rental {
 
         menus.employeeMenu();
     }
-}
+
 */
+}

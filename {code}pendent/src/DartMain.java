@@ -5,7 +5,7 @@ public class DartMain{
 
     public static void main(String[] args) {
         System.out.println(WELCOME_MESSAGE);
-        DartController houstonWeHaveFuckingLiftOff = new DartController();
-        houstonWeHaveFuckingLiftOff.run();
+        DartController start = new DartController();
+        start.run();
     }
 }
