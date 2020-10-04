@@ -3,40 +3,31 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
 
-public class Album {
-    private String albumID;
-    private String title;
+public class Album extends Inventory {
     private String artist;
     private int year;
-    private double dailyRent;
-    private LocalDate rentedDate;
-    private boolean rentStatus;
     private String divider = "-----";
 
 
-    private Helper helper = new Helper();
+    private Input input = Input.getInstance();
 
     public Album(){
     };
 
     public Album(String title, String artist, int year, double dailyRent){
-        this.albumID = genAlbumID();
-        this.title = title;
+        super(title, dailyRent);
         this.artist = artist;
         this.year = year;
-        this.dailyRent = dailyRent;
-        this.rentStatus = false;
-        this.rentedDate = null;
     }
 
         public String toString( ){
         return divider + "\nID: " +this.getID() + "\nAlbum: " + this.getTitle() + "\nArtist: " + this.getArtist() + ". " + "\nReleased year: " + this.getYear() + ". " + "\nDaily Price: " + this.getDailyRent() + " SEK. \nStatus: " + this.getRentStatus();
  }
 
-    public String getID(){ return albumID; }
+    public String getID(){ return super.getId(); }
 
     public String getTitle(){
-        return title;
+        return super.getTitle();
     }
 
     public String getArtist(){
@@ -48,28 +39,28 @@ public class Album {
     }
 
     public double getDailyRent(){
-        return dailyRent;
+        return super.getDailyRent();
     }
 
-    public LocalDate getRentedDate() { return rentedDate; }
+    public LocalDate getRentedDate() { return super.getRentedDate(); }
 
     public String getRentStatus(){
-        if(this.rentStatus){
+        if(super.isRentStatus()){
             return "Not available";
         }else return "available";
     }
 
     public void setRentStatus(Boolean rentStatus){
-        this.rentStatus = rentStatus;
+        super.setRentStatus(rentStatus);
     }
 
-    public void setRentedDate(LocalDate rentedDate){ this.rentedDate = rentedDate; }
+    public void setRentedDate(LocalDate rentedDate){ super.setRentedDate(rentedDate); }
 
     public Album addAlbum(){
-        String addTitle = helper.getInput("Title: ");
-        String addArtist = helper.getInput("Artist: ");
-        int addYear = helper.getInt("Year: ");
-        double addDailyRent = helper.getDouble("Daily Rent amount: ");
+        String addTitle = input.getInput("Title: ");
+        String addArtist = input.getInput("Artist: ");
+        int addYear = input.getInt("Year: ");
+        double addDailyRent = input.getDouble("Daily Rent amount: ");
         Album album = new Album(addTitle, addArtist, addYear, addDailyRent);
         return album;
     }

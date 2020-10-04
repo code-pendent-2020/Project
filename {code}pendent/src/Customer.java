@@ -2,14 +2,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer{
+public class Customer extends Person {
 
     private int customerId;
     private String name;
     private String membershipType;
     private ArrayList<Message> inbox;
 
-    Helper helper=new Helper();
+    private Input input = Input.getInstance();
     Membership memberRequest = new Membership();
 
     // Default Constructor
@@ -36,10 +36,10 @@ public class Customer{
 
     public Customer addCustomer(){
         System.out.print("Enter the customers ID: ");
-        int customerID = helper.input.nextInt();
-        helper.input.nextLine();
+        int customerID = input.input.nextInt();
+        input.input.nextLine();
         System.out.print("Enter the customers name: ");
-        String customerName = helper.input.nextLine();
+        String customerName = input.input.nextLine();
         Customer newCustomer = new Customer(customerID, customerName);
         return newCustomer;
     }
@@ -78,10 +78,10 @@ public class Customer{
         DartController dartController = new DartController();
         ArrayList<Customer> customerList = dartController.storage.getCustomers();
         ArrayList<Membership> requestList = null;
-        String name = helper.getInput("What is your name?: ");
+        String name = input.getInput("What is your name?: ");
         if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
             String type = null;
-            int membershipType = helper.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum: " );
+            int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum: " );
             if(membershipType == 1){
                 type = "Silver";
             }else if (membershipType == 2){

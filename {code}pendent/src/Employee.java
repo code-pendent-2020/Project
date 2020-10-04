@@ -1,10 +1,5 @@
-import java.util.UUID;
+public class Employee extends Person {
 
-
-public class Employee {
-
-    private String employeeID;
-    private String name;
     private int birthYear;
     private String address;
     private double grossSalary;
@@ -18,39 +13,32 @@ public class Employee {
     private final int FIRST_AGE_FOR_BONUS=22;
     private final int SECOND_AGE_FOR_BONUS=30;
 
-    Helper tools = new Helper();
+    private Input input = Input.getInstance();
 
     public Employee(){
 
     }
 
     public Employee(String name, int birthYear, String address, double salary) {
-        this.employeeID = genEmployeeID();
-        this.name = name;
+        super();
         this.birthYear = birthYear;
         this.grossSalary = salary;
         this.address = address;
 
     }
 
-    private String genEmployeeID() {
-        String generatedID = UUID.randomUUID().toString();
-        return generatedID;
-    }
-
     public Employee addEmployee() {
-        String name = tools.getInput("Name: ");
-        int birthYear = tools.getInt("Birth year: ");
-        String address = tools.getInput("Address: ");
-        double monthlySalary = tools.getDouble("Monthly gross salary: ");
+        String name = input.getInput("Name: ");
+        int birthYear = input.getInt("Birth year: ");
+        String address = input.getInput("Address: ");
+        double monthlySalary = input.getDouble("Monthly gross salary: ");
         grossSalary = monthlySalary * 12;
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
 
     public double netSalary() {
-        Helper year = new Helper();
-        int age = year.CURRENT_YEAR - birthYear;
+        int age = Input.CURRENT_YEAR - birthYear;
         double netSalary = 0;
         //public static final double MIN_SALARY=100000.00;
         if (grossSalary < MIN_SALARY) {
@@ -75,9 +63,6 @@ public class Employee {
         return netSalary / 12;
     }
     // getters
-    public String getName(){
-        return name;
-    }
 
     public double getSalary(){
         return netSalary();
@@ -91,14 +76,10 @@ public class Employee {
         return address;
     }
 
-    public String getEmployeeID(){
-        return employeeID;
-    }
-
 
     public String toString() {
-        return divider+ "\nID: " + this.employeeID + "\nName: " + this.name + "\nBirth year: " + this.birthYear
-                + "\nAddress: " + this.address + "\nsalary: " + netSalary();
+        return divider+ "\nID: " + this.getId() + "\nName: " + this.getName() + "\nBirth year: " + this.getBirthYear()
+                + "\nAddress: " + this.getAddress() + "\nsalary: " + this.netSalary();
     }
 }
 

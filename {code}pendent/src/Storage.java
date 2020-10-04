@@ -1,8 +1,10 @@
-import java.lang.*;
+import java.lang.*; // unused
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Storage {
@@ -10,9 +12,10 @@ public class Storage {
     //opening component classes
     private Employee employee = new Employee();
     private Customer customer = new Customer();
-    private Helper helper = new Helper();
+    private Input helper = Input.getInstance();
     private Album album = new Album();
     private Rental rental = new Rental();
+    private Game game = new Game();
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
@@ -98,7 +101,7 @@ public class Storage {
     }
     protected void removeEmployee() {
         String removeID = helper.getInput("Enter the ID of the employee you want to remove.\nEmployee ID: ");
-        this.employees.removeIf(employee -> employee.getEmployeeID().equals(removeID));
+        this.employees.removeIf(employee -> employee.getId().equals(removeID));
         System.out.println("Employee Removed\n");
     }
     protected void viewEmployee(){
@@ -156,5 +159,67 @@ public class Storage {
 
     //--------------------------------------------------------------------------//
 
+// Games
+public void addNewGame() {
+    int countArray = games.size();
+    System.out.print("Title:  ");
+    String newGameTitle = helper.input.nextLine();
 
+    System.out.print("Genre:  ");
+    String newGameGenre = helper.input.nextLine();
+
+    System.out.print("Daily Rent Fee:  ");
+    double newGameRentCost = helper.input.nextDouble();
+    helper.input.nextLine();
+
+    games.add( new Game(newGameTitle, newGameGenre, newGameRentCost));
+    System.out.println("Game Added Successfully : " + games.toString());
+
+    System.out.println("1) Add another game" + "\n" + "2) View all games" + "\n" + "3) Employee Menu");
+    int userChoice = helper.input.nextInt();
+    if (userChoice == 1) {
+        addNewGame();
+    } else if (userChoice == 2) {
+        viewAll();
+    } // else employeeMenu();
+
+}
+    public void removeGame() {
+        System.out.println("Which game should be removed? ID:");
+        String gameId = helper.input.nextLine();
+        boolean contains = false;
+        if (games.contains(gameId)) {
+            contains = true;
+            System.out.println("Are you sure you want to remove this game from the directory?" + "\n" + games.toString() + "\n" + "(Y/N)");
+            String doubleCheck = helper.input.nextLine();
+            if (doubleCheck.equalsIgnoreCase("y")) {
+                games.remove(gameId);
+                System.out.println("Game removed");
+            } else {
+                System.out.println("Okay, no problem. ");
+//                dartController.menus.employeeMenu();
+            }
+        } else {
+            System.out.println("That game doesn't seem to be in the directory.");
+        }
+        viewAll();
+        //  System.out.println("Game has to be returned before it can be removed from the system.\n");
+        // if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
+        //  menus.employeeMenu();
+    }
+
+    public void viewAll(){
+        System.out.println("Games:" + "\n");
+        for (Game game : games) {
+            System.out.println(game.toString());
+
+        }
+        System.out.println("1) Back to Employee Menu " + "\n" + "2) Back to Main Menu");
+        Scanner userChoice = new Scanner(System.in);
+        int whereTo = userChoice.nextInt();
+
+        if (whereTo == 1){
+            // menus.employeeMenu();
+        } // else menus.mainMenu();
+    }
 }

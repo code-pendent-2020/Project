@@ -4,7 +4,7 @@
         private String recipient;
         private String cc;
         private String subject;
-        Helper body = new Helper();
+        private Input input = Input.getInstance();
 
 
         public Message(String recipient,String cc,String subject){
@@ -34,10 +34,10 @@
         }
 
         public void sendMessage() {
-            int cusInput = body.getInt("Enter the recipients ID to send message:  ");
+            int cusInput = input.getInt("Enter the recipients ID to send message:  ");
             if (getCusInMes().equals(cusInput)) {
 
-                String typeMes = body.getInput("Type your message: ");
+                String typeMes = input.getInput("Type your message: ");
                 System.out.print("Press enter to send the message.");
             }else{
                 System.out.print("There is no customer available ith this Id :( ");
