@@ -103,7 +103,7 @@ public class DartController {
                     managerMenu();
                     break;
                 case "4":
-                    menus.mainMenu();
+                    mainMenu();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
