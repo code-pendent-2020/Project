@@ -6,6 +6,7 @@ public class DartController{
     Storage storage; // at the moment rental and customer has to have full access to
     // dartcontroller we don't want games and rental to ever need to open dartcontroller
 
+
     public DartController(){
         this.menus = new Menus();
         this.storage = new Storage();
@@ -261,18 +262,20 @@ public class DartController{
                     break;
                 case "3":
                     System.out.println(menus.EOL+">> Add membership");
-                    // requestList = addMembership();
-                    customerMenu();
+                    menus.requestList = storage.addMembership();
                     input.userCheck();
+                    customerMenu();
                     break;
                 case "4":
                     System.out.println(menus.EOL+">> Upgrade membership");
-                    System.out.println("Method todo");
+                    menus.requestList = storage.upgradeMembership();
+                    input.userCheck();
+                    customerMenu();
                     break;
                 case "5":
                     System.out.println(menus.EOL+">> Inbox");
-                    inboxMenu();
                     input.userCheck();
+                    inboxMenu();
                     break;
                 case "6":
                     mainMenu();

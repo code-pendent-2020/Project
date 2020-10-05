@@ -8,7 +8,7 @@ public class Person {
     Person(){
     }
 
-    Person(String id, String name){
+    Person(String name){
         this.id = UUID.randomUUID().toString();
         this.name = name;
     }

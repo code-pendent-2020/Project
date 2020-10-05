@@ -1,6 +1,8 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Customer extends Person {
 
@@ -98,6 +100,45 @@ public class Customer extends Person {
         return requestList;
     }
 
+    public ArrayList<Membership> upgradeMembership() {
+        DartController dartController = new DartController();
+        ArrayList<Customer> customerList = dartController.storage.getCustomers();
+        ArrayList<Membership> upgradeList = null;
+        String name = input.getInput("What is your name?: ");
+        boolean contains = false;
+        for (Customer customer : customerList) {
+            if (customer.getName().equalsIgnoreCase(name)) {
+                contains = true;
+                String membershipType = customer.getMembershipType();
+                String databaseName = customer.getName();
+                if (customer.membershipType.equals(null)) {
+                    System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet.");
+                    return null;
+                }
+                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. \nWhich Membership would you like to upgrade to? \n");
+                String requestType = null;
+                int userInput;
+                if (membershipType.equals("Silver")) {
+                    userInput = input.getInt(" 1) Gold \n 2) Platinum \n 3) Back to Customer Menu");
+                    if (userInput == 1) {
+                        requestType = "Gold";
+                    } else if (userInput == (2)) {
+                        requestType = "Platinum";
+                    } else return null;
+                } else if (membershipType.equals("Gold")) {
+                    userInput = input.getInt("1) Platinum 2) Back to Customer Menu");
+                    if (userInput == 1) {
+                        requestType = "Platinum";
+                    } else return null;
+                }
+                System.out.println("Your request for " + requestType + " will be reviewed shortly.");
+                upgradeList = memberRequest.requestMembership(databaseName, requestType);
+            }
+        } if (!contains){
+            System.out.println("Sorry, " + name + "is not on our Customer database.");
+        }
+        return upgradeList;
+    }
    /*
     public void IncreaseArray() {
         ArrayList<Customer> customerListNew = new Customer[customerList.size() + (customerList.size() / 2)];
