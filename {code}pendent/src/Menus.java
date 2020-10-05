@@ -105,7 +105,7 @@ public class Menus {
         }
     }
 
-    public void gameOptions() {
+    public void cusGameOptions() {
         String[] options = {" 1) Rent Game", " 2) Return Game", " 3) View Games", " 4) Search Games", " 5) Customer Menu"};
         Menus menu = new Menus(EOL+"---------Game--------", options);
         System.out.println(menu.title);
@@ -114,7 +114,7 @@ public class Menus {
         }
     }
 
-    public void albumOptions() {
+    public void cusAlbumOptions() {
         String[] options = {" 1) Rent Album", " 2) Return Album", " 3) View Albums", " 4) Search Albums", " 5) Customer Menu"};
         Menus menu = new Menus(EOL+"--------Album--------", options);
         System.out.println(menu.title);
