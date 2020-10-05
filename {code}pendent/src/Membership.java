@@ -16,14 +16,12 @@ public class Membership {
             this.type = type;
         }
 
-
         public ArrayList<Membership> requestMembership(String name, String type){
             customerMember.add(new Membership(name, type));
             return customerMember;
         }
 
         public double discount(){
-
             return 0;
         }
 

@@ -20,7 +20,7 @@ public class Employee extends Person {
     }
 
     public Employee(String name, int birthYear, String address, double salary) {
-        super();
+        super(name);
         this.birthYear = birthYear;
         this.grossSalary = salary;
         this.address = address;

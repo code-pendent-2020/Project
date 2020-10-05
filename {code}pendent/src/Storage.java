@@ -94,6 +94,10 @@ public class Storage {
         return this.customer.addMembership();
     }
 
+    protected ArrayList<Membership> upgradeMembership(){
+        return this.customer.upgradeMembership();
+    }
+
 
     //--------------------------------------------------------------------------//
     protected void addEmployee(){
@@ -208,18 +212,10 @@ public void addNewGame() {
         //  menus.employeeMenu();
     }
 
-    public void viewAll(){
+    public void viewAll() {
         System.out.println("Games:" + "\n");
         for (Game game : games) {
             System.out.println(game.toString());
-
         }
-        System.out.println("1) Back to Employee Menu " + "\n" + "2) Back to Main Menu");
-        Scanner userChoice = new Scanner(System.in);
-        int whereTo = userChoice.nextInt();
-
-        if (whereTo == 1){
-            // menus.employeeMenu();
-        } // else menus.mainMenu();
     }
 }
