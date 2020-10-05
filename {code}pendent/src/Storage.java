@@ -13,8 +13,10 @@ public class Storage {
     private Customer customer = new Customer();
     private Input input = Input.getInstance();
     private Album album = new Album();
+    private Inventory inventory = new Inventory();
     private Rental rental = new Rental();
     private Game game = new Game();
+    private Rating rating = new Rating();
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
@@ -70,6 +72,12 @@ public class Storage {
     //Game
     public void rentGame(){
         rental.rentGame();
+    }
+
+    public void ratingAverage(){
+        int average = 0;
+        System.out.println("The average rating is " + average);
+
     }
     //Customer
     //--------------------------------------------------------------------------//
@@ -135,6 +143,7 @@ public class Storage {
             }
         }
     }
+
     public void returnAlbum(){ // still needs to do calculation of price
         String rental = input.getInput("Return\nAlbum ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
@@ -145,6 +154,16 @@ public class Storage {
                 album.setRentStatus(false);
                 album.setRentedDate(null);
                 System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
+                int rating = input.getInt("We hope you enjoyed the album. How would you rate it on a scale of 0-5? ");
+                String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
+                String feedback = null;
+                if (feedbackQuestion.equalsIgnoreCase("y")){
+                    feedback = input.getInput("Sooo - tell me a bit about it. How was it? Did you feeeeeel something? ");
+                }
+                System.out.println("Thank you for your feedback! ");
+                Rating customerRating = new Rating(rating, feedback);
+                System.out.println(album.getArtist());
+                album.getRatingSet().add(customerRating);
             }
         }
     }
@@ -185,7 +204,7 @@ public void addNewGame() {
     if (userChoice == 1) {
         addNewGame();
     } else if (userChoice == 2) {
-        viewAll();
+        viewGames();
     } // else employeeMenu();
 
 }
@@ -207,13 +226,13 @@ public void addNewGame() {
         } else {
             System.out.println("That game doesn't seem to be in the directory.");
         }
-        viewAll();
+        viewGames();
         //  System.out.println("Game has to be returned before it can be removed from the system.\n");
         // if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
         //  menus.employeeMenu();
     }
 
-    public void viewAll() {
+    public void viewGames() {
         System.out.println("Games:" + "\n");
         for (Game game : games) {
             System.out.println(game.toString());

@@ -6,7 +6,7 @@ public class Menus {
     private final Input helper = Input.getInstance();
     public static final String PROMPT = "---------------------\nChoose your option: ";
     public static final String EOL = System.lineSeparator();
-    public static final String DIVIDER = "---------------------";
+    public static final String DIVIDER = EOL + "---------------------";
 
     // Constructor
     public Menus(String title, String[] options) {
