@@ -2,8 +2,8 @@ import java.util.UUID;
 
 public class Person {
 
-    private String id;
-    private String name;
+    String id;
+    String name;
 
     Person(){
     }
