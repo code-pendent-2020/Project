@@ -3,9 +3,9 @@ import java.util.ArrayList;
 public class DartController {
     private Menus menus;
     private Input input = Input.getInstance(); // DO singleton
-    Storage storage; // at the moment rental and customer has to have full access to
-    // dartcontroller we don't want games and rental to ever need to open dartcontroller
+    Storage storage;
 
+    private ArrayList<Membership> requestList = null;
 
     public DartController() {
         this.menus = new Menus();
@@ -17,7 +17,6 @@ public class DartController {
     }
 
     private void exit() {
-        //close (public static final scanner (in Helper class))
         Input.getInstance().tearDown();
         System.out.println(menus.EOL + menus.DIVIDER + menus.EOL + "     Good Bye!" + menus.EOL + menus.DIVIDER);
         System.exit(0);
@@ -51,6 +50,23 @@ public class DartController {
             System.out.println(menus.EOL + "*** Wrong password ***" + menus.EOL);
             mainMenu();
         }
+    }
+
+    private void membershipRequestList(){
+        for ( Membership request : requestList ){
+            System.out.println("The following Customer has requested a membership: ");
+            System.out.println("Customer : " + request.getName() + "\n Requesting: " + request.getType() + " membership");
+            String requestListAnswer = input.getInput("(Y/N): ");
+            if (requestListAnswer.equalsIgnoreCase("Y")){
+                for ( Customer requested : storage.getCustomers()){
+                    if(requested.getName().equalsIgnoreCase(request.getName())){
+                        requested.setMembershipType(request.getType());
+                    }
+                }
+            } else {
+                System.out.println("Okay, fair enough");
+            }
+        } requestList.clear();
     }
 
     public void mainMenu() {
@@ -114,6 +130,9 @@ public class DartController {
     }
 
     public void employeeMenu() {
+        if (requestList != null) {
+            membershipRequestList();
+        }
         menus.employeeMenu();
         System.out.print(menus.PROMPT);
         do {
@@ -267,13 +286,13 @@ public class DartController {
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> Add membership");
-                    menus.requestList = storage.addMembership();
+                    requestList = storage.getCustomer().addMembership();
                     input.userCheck();
                     customerMenu();
                     break;
                 case "4":
                     System.out.println(menus.EOL + ">> Upgrade membership");
-                    menus.requestList = storage.upgradeMembership();
+                    requestList = storage.upgradeMembership();
                     input.userCheck();
                     customerMenu();
                     break;

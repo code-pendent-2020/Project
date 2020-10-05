@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Menus {
     private String title;
     private String[] options;
-    private Storage storage = new Storage();
     private final Input helper = Input.getInstance();
     public static final String PROMPT = "---------------------\nChoose your option: ";
     public static final String EOL = System.lineSeparator();
@@ -11,13 +10,10 @@ public class Menus {
 
     // Constructor
     public Menus(String title, String[] options) {
-        this.storage = new Storage();
         this.title = title;
         this.options = options;
     }
 
-    ArrayList<Membership> requestList = null;
-    private Customer customer = new Customer();
     public Menus() {
     }
 
@@ -40,27 +36,7 @@ public class Menus {
         }
     }
 
-    private void membershipRequestList(){
-        for ( Membership request : requestList ){
-            System.out.println("The following Customer has requested a membership: ");
-            System.out.println("Customer : " + request.getName() + "\n Requesting: " + request.getType() + " membership");
-            String requestListAnswer = helper.getInput("(Y/N): ");
-            if (requestListAnswer.equalsIgnoreCase("Y")){
-                for ( Customer requested : storage.getCustomers()){
-                    if(requested.getName().equalsIgnoreCase(request.getName())){
-                        requested.setMembershipType(request.getType());
-                    }
-                }
-            } else {
-                System.out.println("Okay, fair enough");
-            }
-        } requestList = null;
-    }
-
     public void employeeMenu() {
-        if (requestList != null) {
-            membershipRequestList();
-        }
         String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
         Menus menu = new Menus("\n----Employee-Menu----", options);
         System.out.println(menu.title);
