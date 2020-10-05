@@ -294,7 +294,7 @@ public class DartController {
     }
 
     public void cusGameOptions() {
-        menus.gameOptions();
+        menus.cusGameOptions();
         System.out.print(menus.PROMPT);
         do {
             String choice = Input.input.nextLine();
@@ -336,7 +336,7 @@ public class DartController {
     }
 
     public void cusAlbumOptions() {
-        menus.albumOptions();
+        menus.cusAlbumOptions();
         System.out.print(menus.PROMPT);
         do {
             String choice = Input.input.nextLine();
