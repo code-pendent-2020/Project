@@ -5,11 +5,9 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Customer extends Person {
-
-    private int customerId;
-    private String name;
     private String membershipType;
     private ArrayList<Message> inbox;
+    private Person person;
 
     private Input input = Input.getInstance();
     Membership memberRequest = new Membership();
@@ -18,32 +16,32 @@ public class Customer extends Person {
     Customer() {
     }
 
-    public Customer(int customerId,String name){
-        this.customerId=customerId;
-        this.name=name;
+    public Customer(String name){
+        super(name);
         this.inbox = new ArrayList<>();
         this.membershipType = null;
     }
 
-    public Customer(int customerId,String name, String membership){
-        this.customerId=customerId;
-        this.name=name;
+    public Customer(String name, String membership){
+        super(name);
         this.inbox = new ArrayList<>();
         this.membershipType= membership;
     }
 
     public String toString(){
-        return  "\n" + "ID: "+ this.getCustomerId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
+        return  "\n" + "ID: "+ super.getId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
     }
 
     public Customer addCustomer(){
-        System.out.print("Enter the customers ID: ");
-        int customerID = input.input.nextInt();
-        input.input.nextLine();
         System.out.print("Enter the customers name: ");
         String customerName = input.input.nextLine();
-        Customer newCustomer = new Customer(customerID, customerName);
+        Customer newCustomer = new Customer(customerName);
         return newCustomer;
+    }
+
+    @Override
+    public String getId() {
+        return super.getId();
     }
 
     public String getMembershipType() {
@@ -52,14 +50,6 @@ public class Customer extends Person {
 
     public void setMembershipType(String membershipType) {
         this.membershipType = membershipType;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
     }
 
     public String getName() {
@@ -83,7 +73,7 @@ public class Customer extends Person {
         String name = input.getInput("What is your name?: ");
         if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
             String type = null;
-            int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum: " );
+            int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
             if(membershipType == 1){
                 type = "Silver";
             }else if (membershipType == 2){
@@ -106,6 +96,7 @@ public class Customer extends Person {
         ArrayList<Membership> upgradeList = null;
         String name = input.getInput("What is your name?: ");
         boolean contains = false;
+        // requestingMember = customerList.stream().filter(customer -> getName().equalsIgnoreCase(name));
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
