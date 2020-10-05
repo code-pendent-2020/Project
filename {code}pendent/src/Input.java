@@ -25,7 +25,7 @@ public class Input {
     }
 
     public String getInput(String message) {
-        System.out.println(message);
+        System.out.print(message);
         String userInput = input.nextLine(); 
         return userInput;
     }
