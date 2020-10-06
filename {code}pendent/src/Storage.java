@@ -21,11 +21,11 @@ public class Storage {
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
-            new Album ("London Calling", "The Clash", 1980, 14.99),
-            new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99),
-            new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99),
-            new Album ("The Black Album", "Metallica", 1991, 19.99),
-            new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99)));
+            new Album ("London Calling", "The Clash", 1980, 14.99, false),
+            new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99, true),
+            new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false),
+            new Album ("The Black Album", "Metallica", 1991, 19.99, true),
+            new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false)));
 
     private ArrayList<Employee> employees = new ArrayList<>(Arrays.asList(
             new Employee("Bob", 1974, "1044 Randolph Street", 13457),
@@ -59,9 +59,6 @@ public class Storage {
         return customerList;
     }
 
-
-
-
     public List<Game> getGames(){
         return games;
     }
@@ -75,13 +72,16 @@ public class Storage {
     }
     //Game
     public void rentGame(){
-        rental.rentGame();
+        rental.rentGame(games);
     }
 
+   /* public void returnGame(){
+        rental.returnGame(games);
+    }
+*/
     public void ratingAverage(){
         int average = 0;
         System.out.println("The average rating is " + average);
-
     }
    /* private Customer getCusInMes() {
         return getId;
@@ -247,21 +247,21 @@ public void addNewGame() {
             System.out.println(game.toString());
         }
     }
+    int messageId=1;
+
     private ArrayList<Message> customerMessages=new ArrayList<>();
     public ArrayList<Message>sendMessage() {
-        String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
-        if (customer.getId().equals(cusMessage)) {
-            int messageId;
-            for(messageId=1; messageId>=100; messageId++){
-                String typeMes = input.getInput("Type your message: ");
-                System.out.print (messageId + typeMes);
-            }
+            String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
+        if (cusMessage.equals(customer.getId())) {
+            String typeMes = input.getInput("Type your message: ");
+            for(int messageId=1; messageId<=100; messageId++){}
             System.out.print("Press enter to send the message.");
-            return customerMessages;
-        } else {
+            System.out.println(messageId + ": " + typeMes);
+          //  return customerMessages;
+           } else if (!cusMessage.equals(customer.getId())){
             System.out.print("There is no customer available with this Id :( ");
         }
-        return null;
+        return customerMessages;
     }
 
     public void viewMessages(){
