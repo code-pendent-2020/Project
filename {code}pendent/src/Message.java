@@ -3,32 +3,65 @@ import java.util.ArrayList;
 public class Message {
 
 
+    private int messageId;
+    private String subject;
+    private Input input = Input.getInstance();
+    private String body;
+    private String sender;
 
-    private Customer cusInMes;
-        private String recipient;
-        private int messageId;
-        private String subject;
-        private Input input = Input.getInstance();
-        private ArrayList<Message> customerMessages=new ArrayList<>();
+    public Message(String subject, String body, String sender){
 
-        public Message(int messageId,String recipient){
-            this.recipient=recipient;
+        //this.messageId=messageId;
+    this.body = body;
+    this.subject = subject;
+    this.sender = sender;
+}
 
-            this.messageId=messageId;
+    public Message() {
+    }
+
+
+        public String getSubject() { return this.subject; }
+
+        public int getMessageId() {return this.messageId; }
+
+
+        public void setMessageId(int messageId) {
+        this.messageId = messageId;
         }
-        public Message() {
 
+        public void setSubject(String subject) {
+        this.subject = subject;
         }
 
-        public String getRecipient(){ return this.recipient;  }
-
-        public String getSubject(){ return this.subject; }
-
-        public int getMessageId(){return this.messageId; }
-
-        private Customer getCusInMes() {
-            return this.cusInMes;
+        public Input getInput() {
+        return input;
         }
+
+        public void setInput(Input input) {
+        this.input = input;
+        }
+
+        public String getBody() {
+        return body;
+        }
+
+        public void setBody(String body) {
+        this.body = body;
+        }
+
+        public String getSender() {
+        return sender;
+        }
+
+        public void setSender(String sender) {
+        this.sender = sender;
+        }
+
+        public String toString(){
+            return "\nSender: " + sender + "\nTitle: " + subject + "\nMessage: " + body;
+        }
+}
         //moved it to storage,if you feel the need of any changes you can Axel
       /*  public ArrayList<Message>sendMessage(int messageId,String recipient) {
             String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
@@ -72,4 +105,3 @@ public class Message {
         String messageDisplay = this.messageId + " : " + this.customerMessages ;
         return messageDisplay;
    }*/
-    }

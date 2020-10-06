@@ -60,12 +60,21 @@ public class Customer extends Person {
         this.name = name;
     }
 
+    public ArrayList<Message> getInbox() {
 
-    /*
-        public String removeCustomer(){
-            return null;
+        return inbox;
+    }
+
+    public void viewMessages(Customer customer) {
+        for (Message message : customer.getInbox()) {
+            System.out.println(message.toString());
         }
-    */
+    }
+    /*
+            public String removeCustomer(){
+                return null;
+            }
+        */
     public ArrayList<Membership> addMembership(){
         DartController dartController = new DartController();
         ArrayList<Customer> customerList = dartController.storage.getCustomers();
