@@ -22,11 +22,14 @@ public class Rental {
     public Rental() {
     }
 
+    public void totalProfit(){
+        System.out.println("Our total profit is: " + rentalIncome);
+    }
+
     public double getRentalIncome() {
         return rentalIncome;
     }
 
-    public double totalProfit;
 
     public void rentGame(List<Game> games) {
         String rentId = input.getInput("Enter the ID of the game would you like to rent: ");

@@ -150,6 +150,8 @@ public class DartController {
                     break;
                 case "4":
                     System.out.println("\n>> Total Rent Profit");
+                    Rental rental = new Rental();
+                    rental.totalProfit();
                     System.out.println("TODO!");
                     employeeMenu();
                     break;
@@ -298,7 +300,6 @@ public class DartController {
                     customerMenu();
                     break;
                 case "5":
-                    System.out.println(menus.EOL + ">> Inbox");
                     input.userCheck();
                     inboxMenu();
                     break;
