@@ -15,6 +15,14 @@ public class Inventory {
     public Inventory() {
     }
 
+    public Inventory(String title, double dailyRent, boolean rentStatus) {
+        this.id = UUID.randomUUID().toString();
+        this.title = title;
+        this.dailyRent = dailyRent;
+        this.rentStatus = rentStatus;
+        this.rentedDate = null;
+        this.ratingSet = new HashSet<Rating>();
+    }
 
     public Inventory(String title, double dailyRent) {
         this.id = UUID.randomUUID().toString();
@@ -24,7 +32,6 @@ public class Inventory {
         this.rentedDate = null;
         this.ratingSet = new HashSet<Rating>();
     }
-
 
     public String getId() {
         return id;

@@ -14,6 +14,12 @@ public class Album extends Inventory {
     public Album(){
     };
 
+    public Album(String title, String artist, int year, double dailyRent, boolean rentStatus){
+        super(title, dailyRent, rentStatus);
+        this.artist = artist;
+        this.year = year;
+    }
+
     public Album(String title, String artist, int year, double dailyRent){
         super(title, dailyRent);
         this.artist = artist;
