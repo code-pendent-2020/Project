@@ -13,16 +13,19 @@ public class Storage {
     private Customer customer = new Customer();
     private Input input = Input.getInstance();
     private Album album = new Album();
+    private Inventory inventory = new Inventory();
     private Rental rental = new Rental();
     private Game game = new Game();
+    private Rating rating = new Rating();
+    private Message message=new Message();
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
-            new Album ("London Calling", "The Clash", 1980, 14.99),
-            new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99),
-            new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99),
-            new Album ("The Black Album", "Metallica", 1991, 19.99),
-            new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99)));
+            new Album ("London Calling", "The Clash", 1980, 14.99, false),
+            new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99, true),
+            new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false),
+            new Album ("The Black Album", "Metallica", 1991, 19.99, true),
+            new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false)));
 
     private ArrayList<Employee> employees = new ArrayList<>(Arrays.asList(
             new Employee("Bob", 1974, "1044 Randolph Street", 13457),
@@ -69,8 +72,23 @@ public class Storage {
     }
     //Game
     public void rentGame(){
-        rental.rentGame();
+        rental.rentGame(games);
     }
+
+   /* public void returnGame(){
+        rental.returnGame(games);
+    }
+*/
+    public void ratingAverage(){
+        int average = 0;
+        System.out.println("The average rating is " + average);
+    }
+   /* private Customer getCusInMes() {
+        return getId;
+    }*/
+   // public Message getCusInMes() {
+     //   return cusInMes;
+    //}
     //Customer
     //--------------------------------------------------------------------------//
 
@@ -135,6 +153,7 @@ public class Storage {
             }
         }
     }
+
     public void returnAlbum(){ // still needs to do calculation of price
         String rental = input.getInput("Return\nAlbum ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
@@ -145,6 +164,16 @@ public class Storage {
                 album.setRentStatus(false);
                 album.setRentedDate(null);
                 System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
+                int rating = input.getInt("We hope you enjoyed the album. How would you rate it on a scale of 0-5? ");
+                String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
+                String feedback = null;
+                if (feedbackQuestion.equalsIgnoreCase("y")){
+                    feedback = input.getInput("Sooo - tell me a bit about it. How was it? Did you feeeeeel something? ");
+                }
+                System.out.println("Thank you for your feedback! ");
+                Rating customerRating = new Rating(rating, feedback);
+                System.out.println(album.getArtist());
+                album.getRatingSet().add(customerRating);
             }
         }
     }
@@ -161,8 +190,7 @@ public class Storage {
             }
         }
     }
-
-    //--------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------//
 
 // Games
 public void addNewGame() {
@@ -185,7 +213,7 @@ public void addNewGame() {
     if (userChoice == 1) {
         addNewGame();
     } else if (userChoice == 2) {
-        viewAll();
+        viewGames();
     } // else employeeMenu();
 
 }
@@ -207,16 +235,49 @@ public void addNewGame() {
         } else {
             System.out.println("That game doesn't seem to be in the directory.");
         }
-        viewAll();
+        viewGames();
         //  System.out.println("Game has to be returned before it can be removed from the system.\n");
         // if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
         //  menus.employeeMenu();
     }
 
-    public void viewAll() {
+    public void viewGames() {
         System.out.println("Games:" + "\n");
         for (Game game : games) {
             System.out.println(game.toString());
         }
+    }
+    private ArrayList<Message> customerMessages=new ArrayList<>();
+    public ArrayList<Message>sendMessage() {
+        String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
+        if (customer.getId().equals(cusMessage)) {
+            int messageId;
+            for(messageId=1; messageId>=100; messageId++){
+                String typeMes = input.getInput("Type your message: ");
+                System.out.print (messageId + typeMes);
+            }
+            System.out.print("Press enter to send the message.");
+            return customerMessages;
+        } else {
+            System.out.print("There is no customer available with this Id :( ");
+        }
+        return null;
+    }
+
+    public void viewMessages(){
+        for (Message message: customerMessages) {
+            System.out.println("Your inbox");
+            viewMessages();
+        }
+    }
+
+    public void removeMessages(){
+        viewMessages();
+        int removeMesNum=input.getInt("Enter the message number you want to delete");
+        this.customerMessages.removeIf(message -> message.getMessageId()==(removeMesNum));
+        System.out.println("The message is succesfully removed.");
+        viewMessages();
+
+
     }
 }

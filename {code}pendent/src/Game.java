@@ -1,93 +1,66 @@
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Scanner;
 import java.util.UUID;
 
-public class Game {
+public class Game extends Inventory{
 
-    private String id;
-    private String title;
     private String genre;
-    private double rentCost;
-    private boolean isRented;
-    private LocalDate rentedDate;
-
     private Input input = Input.getInstance();
 
     Game(){
     }
 
-    Game(String gameTitle, String gameGenre, double gameRentCost) {
-        this.id = UUID.randomUUID().toString();
-        this.genre = gameGenre;
-        this.title = gameTitle;
-        this.rentCost = gameRentCost;
-        this.isRented = false;
-        this.rentedDate = null;
+    Game(String title, String genre, double dailyRent) {
+        super(title, dailyRent);
+        this.genre = genre;
     }
 
-
-    Game(String gameTitle, String gameGenre, double gameRentCost, boolean gameIsRented) {
-        this.id = UUID.randomUUID().toString();
-        this.title = gameTitle;
+    Game(String title, String gameGenre, double dailyRent, boolean rentStatus) {
+        super(title, dailyRent, rentStatus);
         this.genre = gameGenre;
-        this.rentCost = gameRentCost;
-        this.isRented = gameIsRented;
-        if (gameIsRented) {
+       /* if (gameIsRented) {
             this.rentedDate =  LocalDate.of( 2020 , 8 , 23 );
-        }else this.rentedDate = null;
+     } else */
     }
 
     public String getId(){
-        return id;
+        return super.getId();
     }
 
     public void setId(String id){
-        this.id = id;
+        super.setId(id);
     }
 
     public String getTitle(){
-        return title;
-    }
-
-    public void setTitle(String title){
-        this.title = title;
+        return super.getTitle();
     }
 
     public String getGenre(){
         return genre;
     }
 
-    public void setGenre(String genre){
-        this.genre = genre;
-    }
-
     public double getRentCost(){
-        return rentCost;
+        return super.getDailyRent();
     }
 
-    public void setRentCost(double rentCost){
-        this.rentCost= rentCost;
+    public boolean getRentStatus(){
+        return super.isRentStatus();
     }
 
-    public boolean getIsRented(){
-        return isRented;
+    public void setRentStatus(boolean isRented){
+       super.setRentStatus(isRented);
     }
 
-    public void setIsRented(boolean isRented){
-        this.isRented = isRented;
-    }
     public LocalDate getRentedDate(){
-        return rentedDate;
+        return super.getRentedDate();
     }
 
     public void setRentedDate(LocalDate rentedDate){
-        this.rentedDate = rentedDate;
+       super.setRentedDate(rentedDate);
     }
 
     public String toString(){
         String outOnRent;
-        if (this.isRented){
+        if (this.getRentStatus()){
             outOnRent = "\033[31mOut on rent  \033[0m";
         } else outOnRent = "Available";
         String outputString = this.getId() + " : " + this.getTitle() + " (" + this.getGenre() + "). " + this.getRentCost()

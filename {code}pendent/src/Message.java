@@ -1,58 +1,75 @@
+import java.util.ArrayList;
 
-    public class Message {
-        private Customer cusInMes;
+public class Message {
+
+
+
+    private Customer cusInMes;
         private String recipient;
-        private String cc;
+        private int messageId;
         private String subject;
         private Input input = Input.getInstance();
+        private ArrayList<Message> customerMessages=new ArrayList<>();
 
-
-        public Message(String recipient,String cc,String subject){
+        public Message(int messageId,String recipient){
             this.recipient=recipient;
-            this.cc=cc;
-            this.subject=subject;
-        }
 
-        //   public Customer getCusInMes(int customerId) {
-        //       return cusInMes;
-        //   }
+            this.messageId=messageId;
+        }
         public Message() {
 
         }
 
-        public String getRecipient(){
-            return this.recipient;
-        }
-        public String getCc(){
-            return this.cc;
-        }
-        public String getSubject(){
-            return this.subject;
-        }
+        public String getRecipient(){ return this.recipient;  }
+
+        public String getSubject(){ return this.subject; }
+
+        public int getMessageId(){return this.messageId; }
+
         private Customer getCusInMes() {
             return this.cusInMes;
         }
-
-        public void sendMessage() {
-            int cusInput = input.getInt("Enter the recipients ID to send message:  ");
-            if (getCusInMes().equals(cusInput)) {
-
+        //moved it to storage,if you feel the need of any changes you can Axel
+      /*  public ArrayList<Message>sendMessage(int messageId,String recipient) {
+            String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
+            if (getCusInMes().equals(cusMessage)) {
+                customerMessages.add(new Message(messageId,recipient));
+                for( messageId=1;messageId>=100;messageId++){
                 String typeMes = input.getInput("Type your message: ");
+                System.out.print (messageId + typeMes);
+                }
                 System.out.print("Press enter to send the message.");
-            }else{
-                System.out.print("There is no customer available ith this Id :( ");
+                return customerMessages;
+            } else {
+                System.out.print("There is no customer available with this Id :( ");
             }
+            return null;
+        }
+
+    @Override
+    public String toString() {
+        String messageDisplay = this.messageId + " : " + this.customerMessages ;
+        return messageDisplay;
+    }
 
 
-            {
-
+    public void viewMessages(){
+            for (Message message: customerMessages) {
+                System.out.println(toString());
             }
+        }
 
+        public void removeMessages(){
+            viewMessages();
+            int removeMesNum=input.getInt("Enter the message number you want to delete");
+            this.customerMessages.removeIf(message -> message.messageId==(removeMesNum));
+            System.out.println("The message is succesfully removed.");
 
-        }}
-         //the message menu Drake I dont remember that you asked for it?
-    // public class MessageMenu {
-    //    private static Helper input = new Helper();
-    //
-    //    public static void MessageMenu(){
-    //        System.out.println("Find your new friends here: /n Whom do you want to start conversation with? ");
+        }*/
+
+   /* @Override
+    public static String toString() {
+        String messageDisplay = this.messageId + " : " + this.customerMessages ;
+        return messageDisplay;
+   }*/
+    }

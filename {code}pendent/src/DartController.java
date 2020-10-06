@@ -10,6 +10,7 @@ public class DartController {
     public DartController() {
         this.menus = new Menus();
         this.storage = new Storage();
+
     }
 
     public void run() {
@@ -320,12 +321,14 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(menus.EOL + ">> Rent Game");
+                    storage.viewGames();
                     storage.rentGame();
                     input.userCheck();
                     customerMenu();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Return Game");
+                    storage.viewGames();
                     System.out.println("add the method for now returns you to main menu");
                     customerMenu();
                     input.userCheck();
@@ -333,6 +336,7 @@ public class DartController {
                 case "3":
                     System.out.println(menus.EOL + ">> All Games");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.viewGames();
                     customerMenu();
                     input.userCheck();
                     break;
@@ -362,24 +366,27 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(menus.EOL + ">> Rent Album");
+                    storage.viewAlbums();
                     storage.rentAlbum();
-                    employeeMenu();
+                    input.userCheck();
+                    customerMenu();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Return Album:");
                     storage.viewAlbums();
                     storage.returnAlbum();
-                    employeeMenu();
+                    input.userCheck();
+                    customerMenu();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> All Albums");
                     storage.viewAlbums();
-                    employeeMenu();
+                    customerMenu();
                     break;
                 case "4":
                     System.out.println(menus.EOL + ">> Search Albums");
                     storage.searchAlbums();
-                    employeeMenu();
+                    customerMenu();
                     break;
                 case "5":
                     customerMenu();
@@ -402,16 +409,19 @@ public class DartController {
                 case "1":
                     System.out.println(menus.EOL + ">> View Messages");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.viewMessages();
                     mainMenu();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Send Message");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.sendMessage();
                     mainMenu();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> Delete Message");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.removeCustomer();
                     mainMenu();
                     break;
                 case "4":

@@ -130,9 +130,11 @@ public class Customer extends Person {
         }
         return upgradeList;
     }
+
+
    /*
     public void IncreaseArray() {
-        ArrayList<Customer> customerListNew = new Customer[customerList.size() + (customerList.size() / 2)];
+        ArrayList<Customer> customerListNevw = new Customer[customerList.size() + (customerList.size() / 2)];
         for (int i = 0; i < customerList.size(); i++) {
             customerListNew[i] = customerList(i);
         }
