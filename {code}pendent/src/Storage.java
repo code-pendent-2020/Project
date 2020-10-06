@@ -1,9 +1,8 @@
-import java.lang.*; // unused
+import java.lang.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -12,10 +11,13 @@ public class Storage {
     //opening component classes
     private Employee employee = new Employee();
     private Customer customer = new Customer();
-    private Input helper = Input.getInstance();
+    private Input input = Input.getInstance();
     private Album album = new Album();
+    private Inventory inventory = new Inventory();
     private Rental rental = new Rental();
     private Game game = new Game();
+    private Rating rating = new Rating();
+    private Message message=new Message();
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
@@ -43,17 +45,22 @@ public class Storage {
             new Game( "Tekken", "Fighting", 29, false)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-            new Customer(1,"Vernita", "Silver"),
-            new Customer(2,"Navya"),
-            new Customer(3,"Drake"),
-            new Customer(4,"Altan"),
-            new Customer(666,"Karen"),
-            new Customer(5,"Axel")));
+            new Customer("Vernita", "Silver"),
+            new Customer("Navya"),
+            new Customer("Drake"),
+            new Customer("Altan"),
+            new Customer("Karen"),
+            new Customer("Axel")));
+
 
     public ArrayList<Employee> getEmployees(){return employees;}
+
     public ArrayList<Customer> getCustomers() {
         return customerList;
     }
+
+
+
 
     public List<Game> getGames(){
         return games;
@@ -70,41 +77,57 @@ public class Storage {
     public void rentGame(){
         rental.rentGame();
     }
+
+    public void ratingAverage(){
+        int average = 0;
+        System.out.println("The average rating is " + average);
+
+    }
+   /* private Customer getCusInMes() {
+        return getId;
+    }*/
+   // public Message getCusInMes() {
+     //   return cusInMes;
+    //}
     //Customer
     //--------------------------------------------------------------------------//
 
-    protected void addCustomer(){
+    public void addCustomer(){
        this.customerList.add(customer.addCustomer());
        System.out.println(customerList.toString());
     }
 
-    protected void removeCustomer(){
-       int removeId = helper.getInt("Enter the ID of the customer you want to remove.\nID: ");
-       this.customerList.removeIf(customer -> customer.getCustomerId() == removeId);
+    public void removeCustomer(){
+       int removeId = input.getInt("Enter the ID of the customer you want to remove.\nID: ");
+       this.customerList.removeIf(customer -> customer.getId().equals(removeId));
        viewCustomer();
    }
 
-     protected void viewCustomer(){
+    public void viewCustomer(){
         for (Customer customer : customerList) {
             System.out.println(customer.toString());
         }
     }
 
-    protected ArrayList<Membership> addMembership(){
+    public ArrayList<Membership> addMembership(){
         return this.customer.addMembership();
+    }
+
+    public ArrayList<Membership> upgradeMembership(){
+        return this.customer.upgradeMembership();
     }
 
 
     //--------------------------------------------------------------------------//
-    protected void addEmployee(){
+    public void addEmployee(){
         this.employees.add(employee.addEmployee());
     }
-    protected void removeEmployee() {
-        String removeID = helper.getInput("Enter the ID of the employee you want to remove.\nEmployee ID: ");
+    public void removeEmployee() {
+        String removeID = input.getInput("Enter the ID of the employee you want to remove.\nEmployee ID: ");
         this.employees.removeIf(employee -> employee.getId().equals(removeID));
         System.out.println("Employee Removed\n");
     }
-    protected void viewEmployee(){
+    public void viewEmployee(){
         for (Employee employee : employees){
             System.out.println(employee.toString());
         }
@@ -112,16 +135,16 @@ public class Storage {
     //--------------------------------------------------------------------------//
 
 
-    protected void addAlbum(){
+    public void addAlbum(){
         this.albums.add(album.addAlbum());
     }
-    protected void removeAlbum(){
-        String removeID = helper.getInput("Remove.\nAlbum ID: ");
+    public void removeAlbum(){
+        String removeID = input.getInput("Remove.\nAlbum ID: ");
         this.albums.removeIf(album -> album.getID().equals(removeID));
         System.out.println("Album Removed\n");
     }
-    protected void rentAlbum(){
-        String rental = helper.getInput("Rent\nAlbum ID: ");
+    public void rentAlbum(){
+        String rental = input.getInput("Rent\nAlbum ID: ");
         for (Album album : albums) {
             if (album.getID().equals(rental)) {
                 album.setRentStatus(true);
@@ -130,8 +153,9 @@ public class Storage {
             }
         }
     }
-    protected void returnAlbum(){ // still needs to do calculation of price
-        String rental = helper.getInput("Return\nAlbum ID: ");
+
+    public void returnAlbum(){ // still needs to do calculation of price
+        String rental = input.getInput("Return\nAlbum ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
         for (Album album : albums) {
             if (album.getID().equals(rental)) {
@@ -140,58 +164,67 @@ public class Storage {
                 album.setRentStatus(false);
                 album.setRentedDate(null);
                 System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
+                int rating = input.getInt("We hope you enjoyed the album. How would you rate it on a scale of 0-5? ");
+                String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
+                String feedback = null;
+                if (feedbackQuestion.equalsIgnoreCase("y")){
+                    feedback = input.getInput("Sooo - tell me a bit about it. How was it? Did you feeeeeel something? ");
+                }
+                System.out.println("Thank you for your feedback! ");
+                Rating customerRating = new Rating(rating, feedback);
+                System.out.println(album.getArtist());
+                album.getRatingSet().add(customerRating);
             }
         }
     }
-    protected void viewAlbums(){
+    public void viewAlbums(){
         for (Album album : albums) {
             System.out.println(album.toString());
         }
     }
-    protected void searchAlbums(){
-        int google = helper.getInt("Album Search\nYear: ");
+    public void searchAlbums(){
+        int google = input.getInt("Album Search\nYear: ");
         for (Album album : albums) {
             if (album.getYear() == google) {
                 System.out.println(album.toString());
             }
         }
     }
-
-    //--------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------//
 
 // Games
 public void addNewGame() {
     int countArray = games.size();
     System.out.print("Title:  ");
-    String newGameTitle = helper.input.nextLine();
+    String newGameTitle = input.input.nextLine();
 
     System.out.print("Genre:  ");
-    String newGameGenre = helper.input.nextLine();
+    String newGameGenre = input.input.nextLine();
 
     System.out.print("Daily Rent Fee:  ");
-    double newGameRentCost = helper.input.nextDouble();
-    helper.input.nextLine();
+    double newGameRentCost = input.input.nextDouble();
+    input.input.nextLine();
 
     games.add( new Game(newGameTitle, newGameGenre, newGameRentCost));
     System.out.println("Game Added Successfully : " + games.toString());
 
     System.out.println("1) Add another game" + "\n" + "2) View all games" + "\n" + "3) Employee Menu");
-    int userChoice = helper.input.nextInt();
+    int userChoice = input.input.nextInt();
     if (userChoice == 1) {
         addNewGame();
     } else if (userChoice == 2) {
-        viewAll();
+        viewGames();
     } // else employeeMenu();
 
 }
     public void removeGame() {
         System.out.println("Which game should be removed? ID:");
-        String gameId = helper.input.nextLine();
+        String gameId = input.input.nextLine();
         boolean contains = false;
         if (games.contains(gameId)) {
             contains = true;
             System.out.println("Are you sure you want to remove this game from the directory?" + "\n" + games.toString() + "\n" + "(Y/N)");
-            String doubleCheck = helper.input.nextLine();
+            String doubleCheck = input.input.nextLine();
             if (doubleCheck.equalsIgnoreCase("y")) {
                 games.remove(gameId);
                 System.out.println("Game removed");
@@ -202,24 +235,49 @@ public void addNewGame() {
         } else {
             System.out.println("That game doesn't seem to be in the directory.");
         }
-        viewAll();
+        viewGames();
         //  System.out.println("Game has to be returned before it can be removed from the system.\n");
         // if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
         //  menus.employeeMenu();
     }
 
-    public void viewAll(){
+    public void viewGames() {
         System.out.println("Games:" + "\n");
         for (Game game : games) {
             System.out.println(game.toString());
-
         }
-        System.out.println("1) Back to Employee Menu " + "\n" + "2) Back to Main Menu");
-        Scanner userChoice = new Scanner(System.in);
-        int whereTo = userChoice.nextInt();
+    }
+    private ArrayList<Message> customerMessages=new ArrayList<>();
+    public ArrayList<Message>sendMessage() {
+        String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
+        if (customer.getId().equals(cusMessage)) {
+            int messageId;
+            for(messageId=1; messageId>=100; messageId++){
+                String typeMes = input.getInput("Type your message: ");
+                System.out.print (messageId + typeMes);
+            }
+            System.out.print("Press enter to send the message.");
+            return customerMessages;
+        } else {
+            System.out.print("There is no customer available with this Id :( ");
+        }
+        return null;
+    }
 
-        if (whereTo == 1){
-            // menus.employeeMenu();
-        } // else menus.mainMenu();
+    public void viewMessages(){
+        for (Message message: customerMessages) {
+            System.out.println("Your inbox");
+            viewMessages();
+        }
+    }
+
+    public void removeMessages(){
+        viewMessages();
+        int removeMesNum=input.getInt("Enter the message number you want to delete");
+        this.customerMessages.removeIf(message -> message.getMessageId()==(removeMesNum));
+        System.out.println("The message is succesfully removed.");
+        viewMessages();
+
+
     }
 }

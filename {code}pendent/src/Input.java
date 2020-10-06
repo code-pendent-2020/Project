@@ -24,17 +24,14 @@ public class Input {
         input.close();
     }
 
-
     public String getInput(String message) {
         System.out.print(message);
         String userInput = input.nextLine(); 
-        return userInput; 
-
+        return userInput;
     }
 
-
     public int getInt(String message) {
-        System.out.print(message);
+        System.out.println(message);
         String userInput = input.nextLine().replaceAll("[^0-9]", ""); 
         if (userInput.isBlank() || userInput.isEmpty()){
             System.out.println("-----------------\n- Invalid input -");
@@ -48,11 +45,10 @@ public class Input {
         double userInput = input.nextDouble();  
         input.nextLine();
         return userInput;
-
     }
 
     public void userCheck(){
-        String check = getInput(Menus.EOL+">> Press any key to continue: ");
+        String check = getInput(Menus.EOL+">> Press 'Enter' to continue: ");
         }
     }
 

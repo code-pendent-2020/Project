@@ -1,9 +1,7 @@
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Scanner;
 import java.util.UUID;
 
-public class Game {
+public class Game extends Inventory{
 
     private String id;
     private String title;
@@ -11,21 +9,15 @@ public class Game {
     private double rentCost;
     private boolean isRented;
     private LocalDate rentedDate;
-
     private Input input = Input.getInstance();
 
     Game(){
     }
 
-    Game(String gameTitle, String gameGenre, double gameRentCost) {
-        this.id = UUID.randomUUID().toString();
+    Game(String title, String gameGenre, double dailyRent) {
+        super(title, dailyRent);
         this.genre = gameGenre;
-        this.title = gameTitle;
-        this.rentCost = gameRentCost;
-        this.isRented = false;
-        this.rentedDate = null;
     }
-
 
     Game(String gameTitle, String gameGenre, double gameRentCost, boolean gameIsRented) {
         this.id = UUID.randomUUID().toString();

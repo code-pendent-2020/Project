@@ -1,24 +1,25 @@
 import java.util.ArrayList;
 
-public class DartController{
+public class DartController {
     private Menus menus;
     private Input input = Input.getInstance(); // DO singleton
-    Storage storage; // at the moment rental and customer has to have full access to
-    // dartcontroller we don't want games and rental to ever need to open dartcontroller
+    Storage storage;
 
-    public DartController(){
+    private ArrayList<Membership> requestList = null;
+
+    public DartController() {
         this.menus = new Menus();
         this.storage = new Storage();
+
     }
 
-    public void run(){
+    public void run() {
         mainMenu();
     }
 
     private void exit() {
-        //close (public static final scanner (in Helper class))
         Input.getInstance().tearDown();
-        System.out.println(menus.EOL + menus.DIVIDER + menus.EOL + "     Good Bye!"+menus.EOL+menus.DIVIDER);
+        System.out.println(menus.EOL + menus.DIVIDER + menus.EOL + "     Good Bye!" + menus.EOL + menus.DIVIDER);
         System.exit(0);
     }
 
@@ -34,10 +35,11 @@ public class DartController{
         if (authSuccess) {
             managerMenu();
         } else {
-            System.out.println(menus.EOL+"*** Wrong password *** "+menus.EOL);
+            System.out.println(menus.EOL + "*** Wrong password *** " + menus.EOL);
             mainMenu();
         }
     }
+
     public void authEmployee() {
         String password = "password123";
 
@@ -46,12 +48,29 @@ public class DartController{
         if (authSuccess) {
             employeeMenu();
         } else {
-            System.out.println(menus.EOL+"*** Wrong password ***"+menus.EOL);
+            System.out.println(menus.EOL + "*** Wrong password ***" + menus.EOL);
             mainMenu();
         }
     }
 
-    public void mainMenu(){
+    private void membershipRequestList(){
+        for ( Membership request : requestList ){
+            System.out.println("The following Customer has requested a membership: ");
+            System.out.println("Customer : " + request.getName() + "\n Requesting: " + request.getType() + " membership");
+            String requestListAnswer = input.getInput("(Y/N): ");
+            if (requestListAnswer.equalsIgnoreCase("Y")){
+                for ( Customer requested : storage.getCustomers()){
+                    if(requested.getName().equalsIgnoreCase(request.getName())){
+                        requested.setMembershipType(request.getType());
+                    }
+                }
+            } else {
+                System.out.println("Okay, fair enough");
+            }
+        } requestList.clear();
+    }
+
+    public void mainMenu() {
         menus.mainMenu();
         do {
             String choice = Input.input.nextLine();
@@ -69,7 +88,7 @@ public class DartController{
                     exit();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -80,10 +99,10 @@ public class DartController{
         menus.managerMenu();
         System.out.print(menus.PROMPT);
         do {
-            String choice = input.getInput("");
+            String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.print(menus.EOL+">> New Employee"+menus.EOL);
+                    System.out.print(menus.EOL + ">> New Employee" + menus.EOL);
                     storage.addEmployee();
                     input.userCheck();
                     managerMenu();
@@ -95,23 +114,26 @@ public class DartController{
                     managerMenu();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> All Employees");
+                    System.out.println(menus.EOL + ">> All Employees");
                     storage.viewEmployee();
                     input.userCheck();
                     managerMenu();
                     break;
                 case "4":
-                    menus.mainMenu();
+                    mainMenu();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
 
-    public void employeeMenu(){
+    public void employeeMenu() {
+        if (requestList != null) {
+            membershipRequestList();
+        }
         menus.employeeMenu();
         System.out.print(menus.PROMPT);
         do {
@@ -135,12 +157,13 @@ public class DartController{
                     mainMenu();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+"\n--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + "\n--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
+
     public void empGameOptions() {
         menus.empGameOptions();
         System.out.print(menus.PROMPT);
@@ -148,20 +171,20 @@ public class DartController{
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(menus.EOL+">> New Game");
+                    System.out.println(menus.EOL + ">> New Game");
                     storage.addAlbum();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(menus.EOL+">> Remove Game:");
+                    System.out.println(menus.EOL + ">> Remove Game:");
                     storage.viewAlbums();
                     storage.removeAlbum();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> All Games");
+                    System.out.println(menus.EOL + ">> All Games");
                     storage.viewAlbums();
                     input.userCheck();
                     employeeMenu();
@@ -170,12 +193,13 @@ public class DartController{
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
+
     public void empAlbumOptions() {
         menus.empAlbumOptions();
         System.out.print(menus.PROMPT);
@@ -183,20 +207,20 @@ public class DartController{
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(menus.EOL+">> New Album");
+                    System.out.println(menus.EOL + ">> New Album");
                     storage.addAlbum();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(menus.EOL+">> Remove Album:");
+                    System.out.println(menus.EOL + ">> Remove Album:");
                     storage.viewAlbums();
                     storage.removeAlbum();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> All Albums");
+                    System.out.println(menus.EOL + ">> All Albums");
                     storage.viewAlbums();
                     input.userCheck();
                     employeeMenu();
@@ -205,12 +229,13 @@ public class DartController{
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
+
     public void empCustomerOptions() {
         menus.empCustomerOptions();
         System.out.print(menus.PROMPT);
@@ -218,19 +243,19 @@ public class DartController{
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(menus.EOL+">> New Customer");
+                    System.out.println(menus.EOL + ">> New Customer");
                     storage.addCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(menus.EOL+">> Remove Customer");
+                    System.out.println(menus.EOL + ">> Remove Customer");
                     storage.removeCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> All Customers");
+                    System.out.println(menus.EOL + ">> All Customers");
                     storage.viewCustomer();
                     input.userCheck();
                     employeeMenu();
@@ -239,12 +264,13 @@ public class DartController{
                     employeeMenu();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
+
     public void customerMenu() {
         menus.customerMenu();
         System.out.print(menus.PROMPT);
@@ -252,64 +278,70 @@ public class DartController{
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    gameOptions();
+                    cusGameOptions();
                     input.userCheck();
                     break;
                 case "2":
-                    albumOptions();
+                    cusAlbumOptions();
                     input.userCheck();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> Add membership");
-                    // requestList = addMembership();
-                    customerMenu();
+                    System.out.println(menus.EOL + ">> Add membership");
+                    requestList = storage.getCustomer().addMembership();
                     input.userCheck();
+                    customerMenu();
                     break;
                 case "4":
-                    System.out.println(menus.EOL+">> Upgrade membership");
-                    System.out.println("Method todo");
+                    System.out.println(menus.EOL + ">> Upgrade membership");
+                    requestList = storage.upgradeMembership();
+                    input.userCheck();
+                    customerMenu();
                     break;
                 case "5":
-                    System.out.println(menus.EOL+">> Inbox");
-                    inboxMenu();
+                    System.out.println(menus.EOL + ">> Inbox");
                     input.userCheck();
+                    inboxMenu();
                     break;
                 case "6":
                     mainMenu();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
-    public void gameOptions() {
-        menus.gameOptions();
+
+    public void cusGameOptions() {
+        menus.cusGameOptions();
         System.out.print(menus.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(menus.EOL+">> Rent Game");
+                    System.out.println(menus.EOL + ">> Rent Game");
+                    storage.viewGames();
                     storage.rentGame();
                     input.userCheck();
                     customerMenu();
                     break;
                 case "2":
-                    System.out.println(menus.EOL+">> Return Game");
+                    System.out.println(menus.EOL + ">> Return Game");
+                    storage.viewGames();
                     System.out.println("add the method for now returns you to main menu");
                     customerMenu();
                     input.userCheck();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> All Games");
+                    System.out.println(menus.EOL + ">> All Games");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.viewGames();
                     customerMenu();
                     input.userCheck();
                     break;
                 case "4":
-                    System.out.println(menus.EOL+">> Search Games");
+                    System.out.println(menus.EOL + ">> Search Games");
                     System.out.println("add the method for now returns you to main menu");
                     customerMenu();
                     input.userCheck();
@@ -319,49 +351,55 @@ public class DartController{
                     input.userCheck();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
-    public void albumOptions() {
-        menus.albumOptions();
+
+    public void cusAlbumOptions() {
+        menus.cusAlbumOptions();
         System.out.print(menus.PROMPT);
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(menus.EOL+">> Rent Album");
+                    System.out.println(menus.EOL + ">> Rent Album");
+                    storage.viewAlbums();
                     storage.rentAlbum();
-                    employeeMenu();
+                    input.userCheck();
+                    customerMenu();
                     break;
                 case "2":
-                    System.out.println(menus.EOL+">> Return Album:");
+                    System.out.println(menus.EOL + ">> Return Album:");
                     storage.viewAlbums();
                     storage.returnAlbum();
-                    employeeMenu();
+                    input.userCheck();
+                    customerMenu();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> All Albums");
+                    System.out.println(menus.EOL + ">> All Albums");
                     storage.viewAlbums();
-                    employeeMenu();
+                    customerMenu();
                     break;
                 case "4":
-                    System.out.println(menus.EOL+">> Search Albums");
+                    System.out.println(menus.EOL + ">> Search Albums");
                     storage.searchAlbums();
-                    employeeMenu();
+                    customerMenu();
                     break;
                 case "5":
-                    employeeMenu();
+                    customerMenu();
+                    input.userCheck();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
+
     public void inboxMenu() {
         menus.inboxMenu();
         System.out.print(menus.PROMPT);
@@ -369,32 +407,35 @@ public class DartController{
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(menus.EOL+">> View Messages");
+                    System.out.println(menus.EOL + ">> View Messages");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.viewMessages();
                     mainMenu();
                     break;
                 case "2":
-                    System.out.println(menus.EOL+">> Send Message");
+                    System.out.println(menus.EOL + ">> Send Message");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.sendMessage();
                     mainMenu();
                     break;
                 case "3":
-                    System.out.println(menus.EOL+">> Delete Message");
+                    System.out.println(menus.EOL + ">> Delete Message");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.removeCustomer();
                     mainMenu();
                     break;
                 case "4":
                     mainMenu();
                     break;
                 default:
-                    System.out.println(menus.DIVIDER+menus.EOL+"--- Invalid input ---");
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
                     System.out.print(menus.PROMPT);
                     break;
             }
         } while (true);
     }
-}
 
     // Getters
 
     // Setters
+}

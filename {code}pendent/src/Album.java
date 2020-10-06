@@ -21,7 +21,8 @@ public class Album extends Inventory {
     }
 
         public String toString( ){
-        return divider + "\nID: " +this.getID() + "\nAlbum: " + this.getTitle() + "\nArtist: " + this.getArtist() + ". " + "\nReleased year: " + this.getYear() + ". " + "\nDaily Price: " + this.getDailyRent() + " SEK. \nStatus: " + this.getRentStatus();
+        return divider + "\nID: " +this.getID() + "\nAlbum: " + this.getTitle() + "\nArtist: " + this.getArtist() + ". " + "\nReleased year: " +
+                this.getYear() + ". " + "\nDaily Price: " + this.getDailyRent() + " SEK. \nStatus: " + this.getRentStatus() + "\nRating: " + this.averageRating() ;
  }
 
     public String getID(){ return super.getId(); }
@@ -55,6 +56,7 @@ public class Album extends Inventory {
     }
 
     public void setRentedDate(LocalDate rentedDate){ super.setRentedDate(rentedDate); }
+
 
     public Album addAlbum(){
         String addTitle = input.getInput("Title: ");

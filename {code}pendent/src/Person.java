@@ -2,13 +2,13 @@ import java.util.UUID;
 
 public class Person {
 
-    private String id;
-    private String name;
+    String id;
+    String name;
 
     Person(){
     }
 
-    Person(String id, String name){
+    Person(String name){
         this.id = UUID.randomUUID().toString();
         this.name = name;
     }
