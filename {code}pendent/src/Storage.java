@@ -247,21 +247,21 @@ public void addNewGame() {
             System.out.println(game.toString());
         }
     }
+    int messageId=1;
+
     private ArrayList<Message> customerMessages=new ArrayList<>();
     public ArrayList<Message>sendMessage() {
-        String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
-        if (customer.getId().equals(cusMessage)) {
-            int messageId;
-            for(messageId=1; messageId>=100; messageId++){
-                String typeMes = input.getInput("Type your message: ");
-                System.out.print (messageId + typeMes);
-            }
+            String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
+        if (cusMessage.equals(customer.getId())) {
+            String typeMes = input.getInput("Type your message: ");
+            for(int messageId=1; messageId<=100; messageId++){}
             System.out.print("Press enter to send the message.");
-            return customerMessages;
-        } else {
+            System.out.println(messageId + ": " + typeMes);
+          //  return customerMessages;
+           } else if (!cusMessage.equals(customer.getId())){
             System.out.print("There is no customer available with this Id :( ");
         }
-        return null;
+        return customerMessages;
     }
 
     public void viewMessages(){
