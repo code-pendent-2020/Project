@@ -10,6 +10,7 @@ public class DartController {
     public DartController() {
         this.menus = new Menus();
         this.storage = new Storage();
+
     }
 
     public void run() {
@@ -408,16 +409,19 @@ public class DartController {
                 case "1":
                     System.out.println(menus.EOL + ">> View Messages");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.viewMessages();
                     mainMenu();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Send Message");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.sendMessage();
                     mainMenu();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> Delete Message");
                     System.out.println("add the method for now returns you to main menu");
+                    storage.removeCustomer();
                     mainMenu();
                     break;
                 case "4":

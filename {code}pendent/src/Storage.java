@@ -17,6 +17,7 @@ public class Storage {
     private Rental rental = new Rental();
     private Game game = new Game();
     private Rating rating = new Rating();
+    private Message message=new Message();
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
@@ -58,6 +59,9 @@ public class Storage {
         return customerList;
     }
 
+
+
+
     public List<Game> getGames(){
         return games;
     }
@@ -79,6 +83,12 @@ public class Storage {
         System.out.println("The average rating is " + average);
 
     }
+   /* private Customer getCusInMes() {
+        return getId;
+    }*/
+   // public Message getCusInMes() {
+     //   return cusInMes;
+    //}
     //Customer
     //--------------------------------------------------------------------------//
 
@@ -180,8 +190,7 @@ public class Storage {
             }
         }
     }
-
-    //--------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------//
 
 // Games
 public void addNewGame() {
@@ -237,5 +246,38 @@ public void addNewGame() {
         for (Game game : games) {
             System.out.println(game.toString());
         }
+    }
+    private ArrayList<Message> customerMessages=new ArrayList<>();
+    public ArrayList<Message>sendMessage() {
+        String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
+        if (customer.getId().equals(cusMessage)) {
+            int messageId;
+            for(messageId=1; messageId>=100; messageId++){
+                String typeMes = input.getInput("Type your message: ");
+                System.out.print (messageId + typeMes);
+            }
+            System.out.print("Press enter to send the message.");
+            return customerMessages;
+        } else {
+            System.out.print("There is no customer available with this Id :( ");
+        }
+        return null;
+    }
+
+    public void viewMessages(){
+        for (Message message: customerMessages) {
+            System.out.println("Your inbox");
+            viewMessages();
+        }
+    }
+
+    public void removeMessages(){
+        viewMessages();
+        int removeMesNum=input.getInt("Enter the message number you want to delete");
+        this.customerMessages.removeIf(message -> message.getMessageId()==(removeMesNum));
+        System.out.println("The message is succesfully removed.");
+        viewMessages();
+
+
     }
 }

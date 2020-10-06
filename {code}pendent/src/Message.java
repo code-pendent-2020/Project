@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 
 public class Message {
-        private Customer cusInMes;
+
+
+
+    private Customer cusInMes;
         private String recipient;
         private int messageId;
         private String subject;
         private Input input = Input.getInstance();
         private ArrayList<Message> customerMessages=new ArrayList<>();
 
-        public Message(int messageId,String recipient,String subject){
+        public Message(int messageId,String recipient){
             this.recipient=recipient;
-            this.subject=subject;
+
             this.messageId=messageId;
         }
         public Message() {
@@ -26,11 +29,12 @@ public class Message {
         private Customer getCusInMes() {
             return this.cusInMes;
         }
-        public ArrayList<Message>sendMessage(String recipient,String subject) {
+        //moved it to storage,if you feel the need of any changes you can Axel
+      /*  public ArrayList<Message>sendMessage(int messageId,String recipient) {
             String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
             if (getCusInMes().equals(cusMessage)) {
-                customerMessages.add(new Message(messageId,recipient, subject));
-                for(int messageId=1;messageId>=100;messageId++){
+                customerMessages.add(new Message(messageId,recipient));
+                for( messageId=1;messageId>=100;messageId++){
                 String typeMes = input.getInput("Type your message: ");
                 System.out.print (messageId + typeMes);
                 }
@@ -61,7 +65,11 @@ public class Message {
             this.customerMessages.removeIf(message -> message.messageId==(removeMesNum));
             System.out.println("The message is succesfully removed.");
 
-        }
+        }*/
 
-
+   /* @Override
+    public static String toString() {
+        String messageDisplay = this.messageId + " : " + this.customerMessages ;
+        return messageDisplay;
+   }*/
     }
