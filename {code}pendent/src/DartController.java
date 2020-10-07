@@ -150,6 +150,8 @@ public class DartController {
                     break;
                 case "4":
                     System.out.println("\n>> Total Rent Profit");
+                    Rental rental = new Rental();
+                    rental.totalProfit();
                     System.out.println("TODO!");
                     employeeMenu();
                     break;
@@ -298,7 +300,6 @@ public class DartController {
                     customerMenu();
                     break;
                 case "5":
-                    System.out.println(menus.EOL + ">> Inbox");
                     input.userCheck();
                     inboxMenu();
                     break;
@@ -408,21 +409,24 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(menus.EOL + ">> View Messages");
-                    System.out.println("add the method for now returns you to main menu");
+                   // System.out.println("add the method for now returns you to main menu");
                     storage.viewMessages();
-                    mainMenu();
+                    customerMenu();
+                  //  mainMenu();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Send Message");
-                    System.out.println("add the method for now returns you to main menu");
+                    //System.out.println("add the method for now returns you to main menu");
                     storage.sendMessage();
-                    mainMenu();
+                    customerMenu();
+                    //mainMenu();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> Delete Message");
-                    System.out.println("add the method for now returns you to main menu");
-                    storage.removeCustomer();
-                    mainMenu();
+                  //  System.out.println("add the method for now returns you to main menu");
+                    storage.removeMessages();
+                    customerMenu();
+                    //mainMenu();
                     break;
                 case "4":
                     mainMenu();

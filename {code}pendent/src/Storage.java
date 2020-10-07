@@ -1,3 +1,4 @@
+import javax.security.auth.Subject;
 import java.lang.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -253,35 +254,48 @@ public void addNewGame() {
             System.out.println(game.toString());
         }
     }
+
+
     private ArrayList<Message> customerMessages=new ArrayList<>();
-    public ArrayList<Message>sendMessage() {
-        String cusMessage=input.getInput("enter the customer Id of the person you want to send message to:  ");
-        if (customer.getId().equals(cusMessage)) {
-            int messageId;
-            for(messageId=1; messageId>=100; messageId++){
-                String typeMes = input.getInput("Type your message: ");
-                System.out.print (messageId + typeMes);
+
+
+    public void sendMessage() {
+        viewCustomer();
+        String recipientId= input.getInput("enter the customer Id of the person you want to send message to:  ");
+        for (Customer customer : customerList) {
+            if (customer.getId().equalsIgnoreCase(recipientId)) {
+                String senderName = input.getInput("Type your Name: ");
+                String subject = input.getInput("Type your titytel: ");
+                String body = input.getInput("Type your message: ");
+
+                Message newMessage = new Message(subject, body, senderName);
+               // for (int messageId = 1; messageId <= 100; messageId++) {
+               // }
+                System.out.println("Your message has been sent.");
+                customer.getInbox().add(newMessage);
+                //  return customerMessages;
+                //   } else if (!Message.equals(customer.getId())) {
+                //    System.out.print("There is no customer available with this Id :(. ");
             }
-            System.out.print("Press enter to send the message.");
-            return customerMessages;
-        } else {
-            System.out.print("There is no customer available with this Id :( ");
+
         }
-        return null;
     }
 
     public void viewMessages(){
-        for (Message message: customerMessages) {
-            System.out.println("Your inbox");
-            viewMessages();
+        String name = input.getInput("\nType your name to view your inbox: ");
+        for (Customer reader: customerList){
+            if(reader.getName().equalsIgnoreCase(name)){
+                customer.viewMessages(reader);
+            }
+
         }
     }
 
     public void removeMessages(){
         viewMessages();
-        int removeMesNum=input.getInt("Enter the message number you want to delete");
-        this.customerMessages.removeIf(message -> message.getMessageId()==(removeMesNum));
-        System.out.println("The message is succesfully removed.");
+        int removeMessage=input.getInt("Enter the message number you want to delete");
+        this.customerMessages.removeIf(message -> message.getMessageId()==(removeMessage));
+        System.out.println("The message is successfully removed.");
         viewMessages();
 
 
