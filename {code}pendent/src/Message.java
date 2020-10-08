@@ -8,13 +8,15 @@ public class Message {
     private String subject;
     private Input input = Input.getInstance();
     private String body;
+    private String senderID;
     private String sender;
 
-    public Message(String subject, String body, String sender){
+    public Message(String subject, String body, String senderID, String sender){
 
     this.messageId= UUID.randomUUID().toString();
     this.body = body;
     this.subject = subject;
+    this.senderID = senderID;
     this.sender = sender;
 }
 
@@ -56,7 +58,7 @@ public class Message {
         }
 
         public String toString(){
-            return "\nID: " + messageId + "\nSender: " + sender + "\nTitle: " + subject + "\nMessage: " + body;
+            return "\nMessage ID: " + messageId + "\nSender's ID: " + senderID +"\nSender: " + sender + "\nTitle: " + subject + "\nMessage: " + body;
         }
 }
         //moved it to storage,if you feel the need of any changes you can Axel

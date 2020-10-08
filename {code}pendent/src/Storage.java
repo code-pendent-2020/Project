@@ -201,7 +201,6 @@ public class Storage {
         }
     }
     public void sortAlbumsRecentYear(){
-
     }
     public void sortAlbumsHighestRating(){
 
@@ -290,11 +289,12 @@ public void addNewGame() {
         String recipientId= input.getInput("\nenter the customer ID of the person you want to send message to:  ");
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
+                String senderID = input.getInput("Type your ID: ");
                 String senderName = input.getInput("Type your Name: ");
                 String subject = input.getInput("Type your Title: ");
                 String body = input.getInput("Type your message: ");
 
-                Message newMessage = new Message(subject, body, senderName);
+                Message newMessage = new Message(subject, body, senderID, senderName);
                // for (int messageId = 1; messageId <= 100; messageId++) {
                // }
                 System.out.println("Your message has been sent.");
