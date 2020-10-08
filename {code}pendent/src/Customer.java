@@ -75,9 +75,7 @@ public class Customer extends Person {
                 return null;
             }
         */
-    public ArrayList<Membership> addMembership(){
-        DartController dartController = new DartController();
-        ArrayList<Customer> customerList = dartController.storage.getCustomers();
+    public ArrayList<Membership> addMembership(ArrayList<Customer> customerList){
         ArrayList<Membership> requestList = null;
         String name = input.getInput("What is your name?: ");
         if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
@@ -99,9 +97,7 @@ public class Customer extends Person {
         return requestList;
     }
 
-    public ArrayList<Membership> upgradeMembership() {
-        DartController dartController = new DartController();
-        ArrayList<Customer> customerList = dartController.storage.getCustomers();
+    public ArrayList<Membership> upgradeMembership(ArrayList<Customer> customerList) {
         ArrayList<Membership> upgradeList = null;
         String name = input.getInput("What is your name?: ");
         boolean contains = false;

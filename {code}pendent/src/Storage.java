@@ -1,10 +1,8 @@
 import javax.security.auth.Subject;
 import java.lang.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -38,13 +36,13 @@ public class Storage {
             new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
 
     private List<Game> games = new ArrayList<>(Arrays.asList(
-            new Game( "Sonic: The Hedgehog", "Explore", 23, 1857, false, null),
-            new Game( "Crash Bandicoot", "Racing", 24, 1957, false, null),
-            new Game( "The Legend of Zelda", "Explore", 51, 1874, true, LocalDate.of(1, 1, 1)),
-            new Game ( "Prince of Persia", "Impossible", 33, 1984, false, null),
-            new Game ( "Super Mario", "Classic", 32, 1983, false, null),
-            new Game( "Street Fighter", "Fighting", 54, 1991, false, null),
-            new Game( "Tekken", "Fighting", 29, 1932, false, null)));
+            new Game( "Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
+            new Game( "Crash Bandicoot", "Racing", 17.59, 1957, false, null),
+            new Game( "The Legend of Zelda", "Explore", 12.29, 1874, true, LocalDate.of(2020, 8, 20)),
+            new Game ( "Prince of Persia", "Impossible", 15.39, 1984, false, null),
+            new Game ( "Super Mario", "Classic", 18.99, 1999, false, null),
+            new Game( "Street Fighter", "Fighting", 11.99, 1991, true, LocalDate.of(2020, 8, 20)),
+            new Game( "Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
@@ -53,6 +51,8 @@ public class Storage {
             new Customer("Altan"),
             new Customer("Karen"),
             new Customer("Axel")));
+
+    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
 
     public ArrayList<Employee> getEmployees(){return employees;}
@@ -72,25 +72,39 @@ public class Storage {
     public void setCustomer(){
         this.customer = customer;
     }
+
     //Game
     public void rentGame(){
-        rental.rentGame(games);
+        rental.rentGame(getGames());
     }
 
-   /* public void returnGame(){
-        rental.returnGame(games);
+    public void returnGame() {
+        String name = input.getInput("Hiya! What is your name, customer?  ");
+        boolean contains = false;
+        for (Customer customer : customerList) {
+           if (customer.getName().equalsIgnoreCase(name)){
+               contains = true;
+               viewGames();
+               rental.returnGame(customer.getId(), getGames());
+           }
+        }
+        if (!contains){
+            System.out.println("That customer doesn't exist on our database, please try again.");
+            returnGame();
+        }
     }
-*/
+
+    public void totalProfit(){
+        double profit = 0;
+        rental.getRentalIncome();
+        System.out.println();
+    }
+
     public void ratingAverage(){
         int average = 0;
         System.out.println("The average rating is " + average);
     }
-   /* private Customer getCusInMes() {
-        return getId;
-    }*/
-   // public Message getCusInMes() {
-     //   return cusInMes;
-    //}
+
     //Customer
     //--------------------------------------------------------------------------//
 
@@ -112,11 +126,11 @@ public class Storage {
     }
 
     public ArrayList<Membership> addMembership(){
-        return this.customer.addMembership();
+        return this.customer.addMembership(getCustomers());
     }
 
     public ArrayList<Membership> upgradeMembership(){
-        return this.customer.upgradeMembership();
+        return this.customer.upgradeMembership(getCustomers());
     }
 
 
@@ -140,11 +154,13 @@ public class Storage {
     public void addAlbum(){
         this.albums.add(album.addAlbum());
     }
+
     public void removeAlbum(){
         String removeID = input.getInput("Remove.\nAlbum ID: ");
         this.albums.removeIf(album -> album.getID().equals(removeID));
         System.out.println("Album Removed\n");
     }
+
     public void rentAlbum(){
         String rental = input.getInput("\nRent\nAlbum ID: ");
         for (Album album : albums) {
@@ -185,7 +201,10 @@ public class Storage {
             }
         }
     }
+
     public void viewAlbums(){
+        albums.sort(Comparator.comparingInt(Album::getYear));
+        Collections.reverse(albums);
         for (Album album : albums) {
             System.out.println(album.toString());
         }
@@ -200,10 +219,13 @@ public class Storage {
             }
         }
     }
-    public void sortAlbumsRecentYear(){
-    }
-    public void sortAlbumsHighestRating(){
 
+    public void viewAlbumsByRating(){
+        albums.sort(Comparator.comparingDouble(Album::getRating));
+        Collections.reverse(albums);
+        for (Album album : albums) {
+            System.out.println(album.toString());
+        }
     }
     //----------------------------------------------------------------------------//
 
@@ -260,7 +282,8 @@ public void addNewGame() {
     }
 
     public void viewGames() {
-        System.out.println("Games:" + "\n");
+        games.sort(Comparator.comparingInt(Game::getYear));
+        Collections.reverse(games);
         for (Game game : games) {
             System.out.println(game.toString());
         }
@@ -273,11 +296,13 @@ public void addNewGame() {
             }
         }
     }
-    public void sortGamesRecentYear(){
 
-    }
-    public void sortGamesHighestRating(){
-
+    public void viewGamesByRating(){
+        games.sort(Comparator.comparingDouble(Game::getRating));
+        Collections.reverse(games);
+        for (Game game : games) {
+            System.out.println(game.toString());
+        }
     }
 
 
@@ -303,7 +328,6 @@ public void addNewGame() {
                 //   } else if (!Message.equals(customer.getId())) {
                 //    System.out.print("There is no customer available with this Id :(. ");
             }
-
         }
     }
 

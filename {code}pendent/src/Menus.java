@@ -82,7 +82,7 @@ public class Menus {
     }
 
     public void cusGameOptions() {
-        String[] options = {" 1) Rent Game", " 2) Return Game", " 3) View Games", " 4) Search Games", " 5) Customer Menu"};
+        String[] options = {" 1) Rent Game", " 2) Return Game", " 3) Search Game by Genre", " 4) View Games by Year", " 5) View Games by Rating", " 6) Customer Menu"};
         Menus menu = new Menus(EOL+"---------Game--------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -91,7 +91,7 @@ public class Menus {
     }
 
     public void cusAlbumOptions() {
-        String[] options = {" 1) Rent Album", " 2) Return Album", " 3) View Albums", " 4) Search Albums", " 5) Customer Menu"};
+        String[] options = {" 1) Rent Album", " 2) Return Album", " 3) Search Album by Year", " 4) View Albums by Year"," 5) View Albums by Rating", " 6) Customer Menu"};
         Menus menu = new Menus(EOL+"--------Album--------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -111,23 +111,6 @@ public class Menus {
     public void inboxMenu() {
         String[] options = {" 1) View messages", " 2) Send Message", " 3) Delete Message", " 4) Customer Menu"};
         Menus menu = new Menus("--------Inbox--------", options); //add the name of the user whose inbox we are using to title
-        System.out.println(menu.title);
-        for (int i = 0; i < options.length; i++) {
-            System.out.println(options[i]);
-        }
-    }
-
-    public void albumSearchBy() {
-        String[] options = {" 1) Search by Year", " 2) Sort all by Rating", " 3) Sort all by Year", " 4) Album Options"};
-        Menus menu = new Menus("-------Search--------", options); //add the name of the user whose inbox we are using to title
-        System.out.println(menu.title);
-        for (int i = 0; i < options.length; i++) {
-            System.out.println(options[i]);
-        }
-    }
-    public void gameSearchBy() {
-        String[] options = {" 1) Search by Genre", " 2) Sort all by Rating", " 3) Sort all by Year", " 4) Game Options"};
-        Menus menu = new Menus("-------Search--------", options); //add the name of the user whose inbox we are using to title
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
