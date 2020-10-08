@@ -5,10 +5,10 @@ public class Person {
     String id;
     String name;
 
-    Person(){
+    Person() {
     }
 
-    Person(String name){
+    Person(String name) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
     }

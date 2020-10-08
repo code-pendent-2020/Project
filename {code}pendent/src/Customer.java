@@ -19,12 +19,13 @@ public class Customer extends Person {
 
     public Customer(String name, String membership){
         super(name);
-        this.inbox = new ArrayList<>();
+        this.inbox = new ArrayList<>(Arrays.asList(
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!\n", UUID.randomUUID().toString(),"DART")));
         this.membershipType= membership;
     }
 
-    public String toString(){
-        return  "\n" + "ID: "+ super.getId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
+    public String toString() {
+        return input.EOL + "ID: " + super.getId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
     }
 
     public Customer addCustomer(){
@@ -95,13 +96,14 @@ public class Customer extends Person {
         ArrayList<Membership> upgradeList = null;
         String name = input.getInput("What is your name?: ");
         boolean contains = false;
+        // requestingMember = customerList.stream().filter(customer -> getName().equalsIgnoreCase(name));
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
                 String membershipType = customer.getMembershipType();
                 String databaseName = customer.getName();
-                if (customer.getMembershipType() == null) {
-                    System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet. Try adding a membership instead.");
+                if (membershipType == null) {
+                    System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet.");
                     return null;
                 }
                 System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. \nWhich Membership would you like to upgrade to? \n");
@@ -123,91 +125,12 @@ public class Customer extends Person {
                 System.out.println("Your request for " + requestType + " will be reviewed shortly.");
                 upgradeList = memberRequest.requestMembership(databaseName, requestType);
             }
-        } if (!contains){
-            System.out.println("Sorry, " + name + "is not on our Customer database.");
+        }
+        if (!contains) {
+            System.out.println("Sorry, " + name + "is not in our Customer database.");
         }
         return upgradeList;
     }
-
-
-   /*
-    public void IncreaseArray() {
-        ArrayList<Customer> customerListNevw = new Customer[customerList.size() + (customerList.size() / 2)];
-        for (int i = 0; i < customerList.size(); i++) {
-            customerListNew[i] = customerList(i);
-        }
-        customerList = customerListNew;
-    }
-
-    public void addCustomer() {
-        int countArray = 0;
-        for(int i = 0; i < customerList.length; i++){
-            if(customerList[i] != null){
-                countArray++;
-            }
-        }
-
-        int countId = customerList[countArray - 1].customerId + 1;
-
-        if (customerList[customerList.length - 1] != null) {
-            IncreaseArray();
-        }
-
-        System.out.println("Add a customer here");
-        System.out.println("Suggested ID: " + countId);
-        System.out.print("Enter the customers ID : ");
-        int cusIdInputs = helper.input.nextInt();
-        helper.input.nextLine();
-        System.out.print("Enter the customers  name: ");
-        String cusName = helper.input.nextLine();
-        int arrayCount = 0;
-        for (int i = 0; customerList[i] != null; i++) {
-            arrayCount = i + 1;
-        }
-        customerList[arrayCount] = new Customer(cusIdInputs, cusName);
-        System.out.println("Customer added successfully :" + customerList[arrayCount].toString());
-        System.out.print("If you want to add another customer press '1': ");
-        int anotherEntry = helper.input.nextInt();
-        if (anotherEntry == 1) {
-            addCustomer();
-        }
-        else if (anotherEntry!=1){
-            System.out.print("Invalid entry ");
-            EmployeeMenu.employeeMenu();
-        }
-    }
-
-    public void removeCustomer() {
-        viewCustomer();
-        int cusIdToRemove = helper.getInt("Remove a customer here by entering their ID : ");
-
-        for (int i = 0; i < customerList.size(); i++) {
-            if (customerList[i].customerId == cusIdToRemove) {
-                for (int j = i + 1; j < customerList.size(); j++) {
-                    customerList[i] = customerList[j];
-                    i++;
-                }
-                int arrayCount = 0;
-                for (int k = 0; k < customerList.length; k++){
-                    if (customerList[k] != null){
-                        arrayCount++;
-                    }
-                }
-                customerList[arrayCount-1] = null;
-            }
-        }
-        System.out.println("Customer Removed");
-        EmployeeMenu.employeeMenu();
-    }
-
-*/
-
- //   public void viewCustomer(){
-        /*for (int i = 0; i < customerList.size(); i++) {
-            if (customerList == null) {
-                continue;
-            } */
-
 }
 
 
