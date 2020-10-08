@@ -78,18 +78,19 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    input.userCheck();
                     // authManager();
                     managerMenu();
+                    input.userCheck();
                     break;
                 case "2":
-                    input.userCheck();
                     // authEmployee();
                     employeeMenu();
+                    input.userCheck();
+
                     break;
                 case "3":
-                    input.userCheck();
                     customerMenu();
+                    input.userCheck();
                     break;
                 case "4":
                     exit();
@@ -127,7 +128,6 @@ public class DartController {
                     managerMenu();
                     break;
                 case "4":
-                    input.userCheck();
                     mainMenu();
                     break;
                 default:
@@ -148,15 +148,12 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    input.userCheck();
                     empGameOptions();
                     break;
                 case "2":
-                    input.userCheck();
                     empAlbumOptions();
                     break;
                 case "3":
-                    input.userCheck();
                     empCustomerOptions();
                     break;
               case "4":
@@ -164,11 +161,9 @@ public class DartController {
                     Rental rental = new Rental();
                     rental.totalProfit();
                     input.userCheck();
-                
                     employeeMenu();
                     break;
                 case "5":
-                    input.userCheck();
                     mainMenu();
                     break;
                 default:
@@ -205,7 +200,6 @@ public class DartController {
                     employeeMenu();
                     break;
                 case "4":
-                    input.userCheck();
                     employeeMenu();
                     break;
                 default:
@@ -242,7 +236,6 @@ public class DartController {
                     employeeMenu();
                     break;
                 case "4":
-                    input.userCheck();
                     employeeMenu();
                     break;
                 default:
@@ -278,7 +271,6 @@ public class DartController {
                     employeeMenu();
                     break;
                 case "4":
-                    input.userCheck();
                     employeeMenu();
                     break;
                 default:
@@ -296,22 +288,17 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    input.userCheck();
                     cusGameOptions();
                     break;
                 case "2":
-                    input.userCheck();
                     cusAlbumOptions();
                     break;
                 case "3":
-                    input.userCheck();
                     cusMembershipOptions();
                 case "4":
-                    input.userCheck();
                     inboxMenu();
                     break;
                 case "5":
-                    input.userCheck();
                     mainMenu();
                     break;
                 default:
@@ -361,7 +348,6 @@ public class DartController {
                     cusGameOptions();
                     break;
                 case "6":
-                    input.userCheck();
                     employeeMenu();
                     break;
                 default:
@@ -411,7 +397,6 @@ public class DartController {
                     cusAlbumOptions();
                     break;
                 case "6":
-                    input.userCheck();
                     customerMenu();
                     break;
                 default:
@@ -441,7 +426,6 @@ public class DartController {
                     cusMembershipOptions();
                     break;
                 case "3":
-                    input.userCheck();
                     customerMenu();
                     break;
                 default:
@@ -477,7 +461,6 @@ public class DartController {
                     inboxMenu();
                     break;
                 case "4":
-                    input.userCheck();
                     customerMenu();
                     break;
                 default:
