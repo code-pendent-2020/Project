@@ -62,7 +62,7 @@ public class Menus {
     }
 
     public void empCustomerOptions() {
-        String[] options = {" 1) Register Customer", " 2) Remove Customer", " 3) View Customers", " 4) Employee Menu"};
+        String[] options = {" 1) View Membership requests", "2) Register Customer", " 3) Remove Customer", " 4) View Customers", " 5) Employee Menu"};
         Menus menu = new Menus(input.EOL + "---Customer-Options---", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
