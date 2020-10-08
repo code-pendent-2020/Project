@@ -22,11 +22,11 @@ public class Storage {
 
     // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
-            new Album ("London Calling", "The Clash", 1980, 14.99, false),
-            new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99, true),
-            new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false),
-            new Album ("The Black Album", "Metallica", 1991, 19.99, true),
-            new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false)));
+            new Album ("London Calling", "The Clash", 1980, 14.99, false, null),
+            new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of( 2020 , 8 , 23 )),
+            new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false, null),
+            new Album ("The Black Album", "Metallica", 1991, 19.99, true,LocalDate.of( 2020 , 8 , 23 )),
+            new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false, null)));
 
     private ArrayList<Employee> employees = new ArrayList<>(Arrays.asList(
             new Employee("Bob", 1974, "1044 Randolph Street", 13457),
@@ -37,13 +37,13 @@ public class Storage {
             new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
 
     private List<Game> games = new ArrayList<>(Arrays.asList(
-            new Game( "Sonic: The Hedgehog", "Explore", 23, false),
-            new Game( "Crash Bandicoot", "Racing", 24, false),
-            new Game( "The Legend of Zelda", "Explore", 51, true),
-            new Game ( "Prince of Persia", "Impossible", 33, false),
-            new Game ( "Super Mario", "Classic", 32, false),
-            new Game( "Street Fighter", "Fighting", 54, false),
-            new Game( "Tekken", "Fighting", 29, false)));
+            new Game( "Sonic: The Hedgehog", "Explore", 23, false, null),
+            new Game( "Crash Bandicoot", "Racing", 24, false, null),
+            new Game( "The Legend of Zelda", "Explore", 51, true, LocalDate.of(1, 1, 1)),
+            new Game ( "Prince of Persia", "Impossible", 33, false, null),
+            new Game ( "Super Mario", "Classic", 32, false, null),
+            new Game( "Street Fighter", "Fighting", 54, false, null),
+            new Game( "Tekken", "Fighting", 29, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
@@ -145,12 +145,17 @@ public class Storage {
         System.out.println("Album Removed\n");
     }
     public void rentAlbum(){
-        String rental = input.getInput("Rent\nAlbum ID: ");
+        String rental = input.getInput("\nRent\nAlbum ID: ");
         for (Album album : albums) {
-            if (album.getID().equals(rental)) {
-                album.setRentStatus(true);
-                album.setRentedDate(LocalDate.now());
-                System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist()+ " - Rented");
+            if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
+                if (album.getRentStatus().equalsIgnoreCase("unavailable")) {
+                    System.out.println("That item is currently unavailable you fucking pleb. \ntry another: ");
+                    rentAlbum();
+                } else {
+                    album.setRentStatus(true);
+                    album.setRentedDate(LocalDate.now());
+                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Rented");
+                }
             }
         }
     }
@@ -159,8 +164,9 @@ public class Storage {
         String rental = input.getInput("Return\nAlbum ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
         for (Album album : albums) {
-            if (album.getID().equals(rental)) {
-                long daysRented = DAYS.between(album.getRentedDate(),/* set to hard date for testing purposes*/ LocalDate.of(2020,10,5));
+
+            if (album.getID().equals(rental) && album.getRentStatus().equals("unavailable")) {
+                long daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020,10,31));
                 double cost = album.getDailyRent() * daysRented;
                 album.setRentStatus(false);
                 album.setRentedDate(null);

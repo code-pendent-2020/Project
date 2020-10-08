@@ -14,8 +14,8 @@ public class Game extends Inventory{
         this.genre = genre;
     }
 
-    Game(String title, String gameGenre, double dailyRent, boolean rentStatus) {
-        super(title, dailyRent, rentStatus);
+    Game(String title, String gameGenre, double dailyRent, boolean rentStatus, LocalDate date) {
+        super(title, dailyRent, rentStatus, date);
         this.genre = gameGenre;
        /* if (gameIsRented) {
             this.rentedDate =  LocalDate.of( 2020 , 8 , 23 );

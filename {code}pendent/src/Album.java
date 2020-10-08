@@ -14,8 +14,8 @@ public class Album extends Inventory {
     public Album(){
     };
 
-    public Album(String title, String artist, int year, double dailyRent, boolean rentStatus){
-        super(title, dailyRent, rentStatus);
+    public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date){
+        super(title, dailyRent, rentStatus, date);
         this.artist = artist;
         this.year = year;
     }
@@ -53,7 +53,7 @@ public class Album extends Inventory {
 
     public String getRentStatus(){
         if(super.isRentStatus()){
-            return "Not available";
+            return "unavailable";
         }else return "available";
     }
 

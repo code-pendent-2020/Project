@@ -15,12 +15,12 @@ public class Inventory {
     public Inventory() {
     }
 
-    public Inventory(String title, double dailyRent, boolean rentStatus) {
+    public Inventory(String title, double dailyRent, boolean rentStatus, LocalDate date) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.dailyRent = dailyRent;
         this.rentStatus = rentStatus;
-        this.rentedDate = null;
+        this.rentedDate = date;
         this.ratingSet = new HashSet<Rating>();
     }
 
