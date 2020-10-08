@@ -2,18 +2,18 @@ import java.util.HashSet;
 
 public class Rating {
 
-    private int rating;
+    private double rating;
     private String feedback;
 
     Rating(){
     }
 
-    Rating(int rating, String feedback){
+    Rating(double rating, String feedback){
         this.rating = rating;
         this.feedback = feedback;
     }
 
-    public int getRating(){
+    public double getRating(){
         return this.rating;
     }
 }

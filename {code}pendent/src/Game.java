@@ -58,6 +58,13 @@ public class Game extends Inventory{
        super.setRentedDate(rentedDate);
     }
 
+    public int getYear(){
+        return super.getYear();
+    }
+    public double getRating(){
+        return super.averageRating();
+    }
+
     public String toString(){
         String outOnRent;
         if (this.getRentStatus()){
