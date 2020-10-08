@@ -1,6 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -16,15 +15,11 @@ public class Customer extends Person {
     Customer() {
     }
 
-    public Customer(String name){
-        super(name);
-        this.inbox = new ArrayList<>();
-        this.membershipType = null;
-    }
 
     public Customer(String name, String membership){
         super(name);
-        this.inbox = new ArrayList<>();
+        this.inbox = new ArrayList<>(Arrays.asList(
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!\n", UUID.randomUUID().toString(),"DART")));
         this.membershipType= membership;
     }
 
@@ -35,7 +30,7 @@ public class Customer extends Person {
     public Customer addCustomer(){
         System.out.print("Enter the customers name: ");
         String customerName = input.input.nextLine();
-        Customer newCustomer = new Customer(customerName);
+        Customer newCustomer = new Customer(customerName, "Basic");
         return newCustomer;
     }
 

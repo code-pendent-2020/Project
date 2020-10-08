@@ -46,11 +46,11 @@ public class Storage {
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
-            new Customer("Navya"),
-            new Customer("Drake"),
-            new Customer("Altan"),
-            new Customer("Karen"),
-            new Customer("Axel")));
+            new Customer("Navya","Basic"),
+            new Customer("Drake","God Tier"),
+            new Customer("Altan","Basic"),
+            new Customer("Karen","Evil..."),
+            new Customer("Axel","noob")));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
@@ -328,14 +328,20 @@ public void addNewGame() {
                 //   } else if (!Message.equals(customer.getId())) {
                 //    System.out.print("There is no customer available with this Id :(. ");
             }
+
         }
     }
 
-    public void viewMessages(){
+    public void viewMessages() {
         String name = input.getInput("Type your name to view your inbox: ");
-        for (Customer reader: customerList){
-            if(reader.getName().equalsIgnoreCase(name)){
+        for (Customer reader : customerList) {
+            if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
+                Collections.reverse(reader.getInbox());
+                System.out.print("\n>> List of messages in order received <<");
                 customer.viewMessages(reader);
+                Collections.reverse(reader.getInbox());
+            }else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0){
+                System.out.println("\nNo messages to view.");
             }
 
         }
