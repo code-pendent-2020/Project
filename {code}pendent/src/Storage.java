@@ -45,11 +45,11 @@ public class Storage {
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
-            new Customer("Navya","Basic"),
-            new Customer("Drake","God Tier"),
-            new Customer("Altan","Basic"),
-            new Customer("Karen","Evil..."),
-            new Customer("Axel","noob")));
+            new Customer("Navya"),
+            new Customer("Drake"),
+            new Customer("Altan"),
+            new Customer("Karen"),
+            new Customer("Axel")));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
@@ -120,8 +120,11 @@ public class Storage {
         }
     }
 
+   // public ArrayList<Membership> addMembership(){
+   //     return this.customer.addMembership(getCustomers());
+   // }
     public ArrayList<Membership> addMembership(){
-        return this.customer.addMembership(getCustomers());
+        return this.customer.addMembership();
     }
 
     public ArrayList<Membership> upgradeMembership(){
