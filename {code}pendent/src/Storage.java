@@ -46,11 +46,11 @@ public class Storage {
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
-            new Customer("Navya","Basic"),
-            new Customer("Drake","God Tier"),
-            new Customer("Altan","Basic"),
-            new Customer("Karen","Evil..."),
-            new Customer("Axel","noob")));
+            new Customer("Navya", null),
+            new Customer("Drake", null),
+            new Customer("Altan", null),
+            new Customer("Karen",null),
+            new Customer("Axel",null)));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
@@ -305,10 +305,6 @@ public void addNewGame() {
         }
     }
 
-
-    private ArrayList<Message> customerMessages=new ArrayList<>();
-
-
     public void sendMessage() {
         viewCustomer();
         String recipientId= input.getInput("\nenter the customer ID of the person you want to send message to:  ");
@@ -320,13 +316,8 @@ public void addNewGame() {
                 String body = input.getInput("Type your message: ");
 
                 Message newMessage = new Message(subject, body, senderID, senderName);
-               // for (int messageId = 1; messageId <= 100; messageId++) {
-               // }
                 System.out.println("Your message has been sent.");
                 customer.getInbox().add(newMessage);
-                //  return customerMessages;
-                //   } else if (!Message.equals(customer.getId())) {
-                //    System.out.print("There is no customer available with this Id :(. ");
             }
 
         }

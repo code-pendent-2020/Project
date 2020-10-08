@@ -15,7 +15,12 @@ public class Customer extends Person {
     Customer() {
     }
 
-
+    public Customer (String name){
+        super(name);
+        this.inbox = new ArrayList<>(Arrays.asList(
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!\n", UUID.randomUUID().toString(),"DART")));
+        this.membershipType= null;
+    }
     public Customer(String name, String membership){
         super(name);
         this.inbox = new ArrayList<>(Arrays.asList(
@@ -30,7 +35,7 @@ public class Customer extends Person {
     public Customer addCustomer(){
         System.out.print("Enter the customers name: ");
         String customerName = input.input.nextLine();
-        Customer newCustomer = new Customer(customerName, "Basic");
+        Customer newCustomer = new Customer(customerName);
         return newCustomer;
     }
 
@@ -102,7 +107,7 @@ public class Customer extends Person {
                 contains = true;
                 String membershipType = customer.getMembershipType();
                 String databaseName = customer.getName();
-                if (customer.membershipType.equals(null)) {
+                if (customer.membershipType.equals("Basic")) {
                     System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet.");
                     return null;
                 }
