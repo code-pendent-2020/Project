@@ -1,5 +1,6 @@
 import javax.security.auth.Subject;
 import java.lang.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,20 +82,17 @@ public class Storage {
         rental.returnGame(games);
     }
 
-   /* public void returnGame(){
-        rental.returnGame(games);
+    public void totalProfit(){
+        double profit = 0;
+        rental.getRentalIncome();
+        System.out.println();
     }
-*/
+
     public void ratingAverage(){
         int average = 0;
         System.out.println("The average rating is " + average);
     }
-   /* private Customer getCusInMes() {
-        return getId;
-    }*/
-   // public Message getCusInMes() {
-     //   return cusInMes;
-    //}
+
     //Customer
     //--------------------------------------------------------------------------//
 
@@ -149,6 +147,7 @@ public class Storage {
         this.albums.removeIf(album -> album.getID().equals(removeID));
         System.out.println("Album Removed\n");
     }
+
     public void rentAlbum(){
         String rental = input.getInput("\nRent\nAlbum ID: ");
         for (Album album : albums) {
@@ -189,6 +188,7 @@ public class Storage {
             }
         }
     }
+
     public void viewAlbums(){
         for (Album album : albums) {
             System.out.println(album.toString());
@@ -307,7 +307,6 @@ public void addNewGame() {
                 //   } else if (!Message.equals(customer.getId())) {
                 //    System.out.print("There is no customer available with this Id :(. ");
             }
-
         }
     }
 

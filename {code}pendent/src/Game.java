@@ -63,8 +63,8 @@ public class Game extends Inventory{
         if (this.getRentStatus()){
             outOnRent = "\033[31mOut on rent  \033[0m";
         } else outOnRent = "Available";
-        String outputString = this.getId() + " : " + this.getTitle() + " (" + this.getGenre() + "). " + "Released in " + super.getYear()+ ". " + this.getRentCost()
-                + "kr. " + "Status: " + outOnRent + "\n";
+        String outputString = this.getId() + "\n" + this.getTitle() + " (" + this.getGenre() + ") - " + " Released in " + super.getYear()+ " \nDaily Rent: " + this.getRentCost()
+                + "kr. " + "Status: " + outOnRent + "\nRating: " + this.averageRating() + "\n" ;
         return outputString;
     }
 }

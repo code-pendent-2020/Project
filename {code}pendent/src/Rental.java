@@ -31,15 +31,17 @@ public class Rental {
     }
 
     public void rentGame(List<Game> games) {
+        boolean contains = false;
         String rentId = input.getInput("Enter the ID of the game would you like to rent: ");
-        if (games.contains(rentId)) {
             for (Game rentGame : games) {
                 if (rentGame.getId().equals(rentId) && !rentGame.getRentStatus()) {
+                    contains = true;
                     rentGame.setRentStatus(true);
                     rentGame.setRentedDate(LocalDate.now());
                     System.out.println("Game is rented. Enjoy!");
                 } else if (rentGame.getId().equals(rentId) && rentGame.getRentStatus()) {
-                    int choice = input.getInt("Sorry, that game is being rented at the moment + \n + 1) Try a different game + \n + 2) Back to Customer menu");
+                    contains = true;
+                    int choice = input.getInt("Sorry, that game is being rented at the moment \n1) Try a different game \n2) Back to Customer menu \n");
                     if (choice == 1) {
                         rentGame(games);
                     } else if (choice == 2) {
@@ -52,7 +54,7 @@ public class Rental {
                     }
                 }
             }
-        } else {
+        if (!contains) {
             System.out.println("Soz, wrong ID, try again");
             rentGame(games);
         }
@@ -74,7 +76,15 @@ public class Rental {
                     userBill = daysRented * rentedGame.getDailyRent();
                     rentalIncome = rentalIncome + userBill;
                     System.out.println("\nYou rented " + rentedGame.getTitle() + " for " + daysRented + " days. \nYour total is " + userBill + " SEK \n");
-                    System.out.println("The Game has now been returned.");
+                    System.out.println("The Game has now been returned. \n");
+                    int rating = input.getInt("We hope you enjoyed playing this classic. How would you rate it on a scale of 0-5? ");
+                    String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
+                    String feedback = null;
+                    if (feedbackQuestion.equalsIgnoreCase("y")){
+                        feedback = input.getInput("How did you experience the game? Do you have any advice for other players?");
+                    }
+                    System.out.println("Thank you for your feedback! ");
+                    Rating customerRating = new Rating(rating, feedback);
                 } else if (!rentedGame.getRentStatus()){
                     System.out.println("This game hasn't been rented. Please try again");
                     returnGame(games);
