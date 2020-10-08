@@ -45,14 +45,17 @@ public class Storage {
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
-            new Customer("Navya","Basic"),
-            new Customer("Drake","God Tier"),
-            new Customer("Altan","Basic"),
-            new Customer("Karen","Evil..."),
-            new Customer("Axel","noob")));
+            new Customer("Navya"),
+            new Customer("Drake"),
+            new Customer("Altan"),
+            new Customer("Karen"),
+            new Customer("Axel")));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
+    public ArrayList<Rental> getRentalHistory() {
+        return rentalHistory;
+    }
 
     public ArrayList<Employee> getEmployees(){return employees;}
 
@@ -83,7 +86,8 @@ public class Storage {
            if (customer.getName().equalsIgnoreCase(name)){
                contains = true;
                viewGames();
-               rental.returnGame(customer.getId(), getGames());
+               Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+               getRentalHistory().add(newTransaction);
            }
         }
         if (!contains){
@@ -91,7 +95,11 @@ public class Storage {
             returnGame();
         }
     }
-
+    public void viewTransactions() {
+        for (Rental rental : getRentalHistory()){
+            System.out.println(rental);
+        }
+    }
     public void totalProfit(){
         double profit = 0;
         rental.getRentalIncome();
@@ -120,8 +128,11 @@ public class Storage {
         }
     }
 
+   // public ArrayList<Membership> addMembership(){
+   //     return this.customer.addMembership(getCustomers());
+   // }
     public ArrayList<Membership> addMembership(){
-        return this.customer.addMembership(getCustomers());
+        return this.customer.addMembership();
     }
 
     public ArrayList<Membership> upgradeMembership(){

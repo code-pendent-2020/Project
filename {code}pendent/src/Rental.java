@@ -31,6 +31,10 @@ public class Rental {
         this.rating = rating;
     }
 
+    public Rating getRating() {
+        return rating;
+    }
+
     public String getCustomerId() {
         return customerId;
     }
@@ -63,6 +67,10 @@ public class Rental {
         return rentalIncome;
     }
 
+    public String toString(){
+        return "Customer ID: " + getCustomerId() + "\nRental Item: " + getItemId() + "\nTransaction Cost: " + getRentExpense() + "\n" +  getRating() +"\n";
+    }
+
     public void rentGame(List<Game> games) {
         boolean contains = false;
         String rentId = input.getInput("Enter the ID of the game would you like to rent: ");
@@ -73,16 +81,13 @@ public class Rental {
                     rentGame.setRentedDate(LocalDate.now());
                     System.out.println("Game has been rented. Enjoy!");
                 } else if (rentGame.getId().equals(rentId) && rentGame.getRentStatus()) {
-                    int choice = input.getInt("Sorry, that game is being rented at the moment "+input.EOL+" 1) Try a different game"+input.EOL+" 2) Back to Customer menu");
+                    int choice = input.getInt("Sorry, that game is being rented at the moment "+input.EOL+" 1) Try a different game"+input.EOL+" 2) Back to Customer menu\n");
                     if (choice == 1) {
                         rentGame(games);
                     } else if (choice == 2) {
-                        Menus menus = new Menus();
-                        menus.customerMenu(); // Just print statements
+                        return;
                     } else {
                         System.out.println("Wrong entry");
-                        Menus menus = new Menus();
-                        menus.mainMenu(); // Just print statements
                     }
                 }
             }
@@ -93,13 +98,11 @@ public class Rental {
     }
 
 
-
-     public void returnGame(String customerId, List<Game> games) {
-        String rentId = input.getInput("Enter the ID of the game would you like to return: ");
+     public Rental returnGame(String customerId, List<Game> games) {
+        String rentId = input.getInput("\nEnter the ID of the game would you like to return: ");
         long daysRented = 0;
         double userBill = 0;
         boolean contains = false;
-
         for (Game rentedGame : games) {
             if (rentedGame.getId().equals(rentId)) {
                 contains = true;
@@ -108,19 +111,32 @@ public class Rental {
                     rentedGame.setRentStatus(false);
                     userBill = daysRented * rentedGame.getDailyRent();
                     rentalIncome = rentalIncome + userBill;
-                } else if (!rentedGame.getRentStatus()) {
-                    System.out.println("This Game hasn't been rented. Please try again");
                     System.out.println(input.EOL+"You rented " + rentedGame.getTitle() + " for " + daysRented + " days. "+input.EOL+"Your total is " + userBill + " SEK \n");
                     System.out.println("The Game has now been returned.");
-                    int rating = input.getInt("We hope you enjoyed playing this classic. How would you rate it on a scale of 0-5? ");
-                    String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
-                    String feedback = null;
-                    if (feedbackQuestion.equalsIgnoreCase("y")){
-                        feedback = input.getInput("How did you experience the game? Do you have any advice for other players?");
-                    }
-                    System.out.println("Thank you for your feedback! ");
-                    Rating customerRating = new Rating(rating, feedback);
 
+                    String ratingQuestion = input.getInput("We hope you enjoyed playing this classic. Would you like to rate it? Y/N ");
+                    String feedback = null;
+                    int rating = 0;
+                    Rating customerRating = null;
+                    Rental rentTransaction = null;
+                    if (ratingQuestion.equalsIgnoreCase("n")) {
+                        rentTransaction = new Rental(customerId, rentId, userBill);
+                        return rentTransaction;
+                    } else if (ratingQuestion.equalsIgnoreCase("y")){
+                        rating = input.getInt("How would you rate it on a scale of 0-5? ");
+                        String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
+                        if (feedbackQuestion.equalsIgnoreCase("y")){
+                            feedback = input.getInput("How did you experience the game? Do you have any advice for other players?");
+                            System.out.println("Thank you for your feedback!");
+                            customerRating = new Rating(rating, feedback);
+                        } else {
+                            System.out.println("Thank you for your feedback!");
+                            customerRating = new Rating(rating);
+                        }
+                        rentTransaction = new Rental(customerId, rentId, userBill, customerRating);
+                    }
+                    rentedGame.getRatingSet().add(customerRating);
+                    return rentTransaction;
                 } else if (!rentedGame.getRentStatus()){
                     System.out.println("This game hasn't been rented. Please try again");
                     returnGame(customerId, games);
@@ -128,8 +144,10 @@ public class Rental {
             }
         }
         if (!contains) {
-            System.out.println("Game with this ID not found.");
+            System.out.println("Game with this ID doesn't exist in this here dimension.");
+            returnGame(customerId, games);
         }
+        return null;
     }
 
     public void showRentalIncome() {
