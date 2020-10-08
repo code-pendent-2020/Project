@@ -5,6 +5,7 @@ import java.util.UUID;
 public class Inventory {
     private String id;
     private String title;
+    private int year;
     private double dailyRent;
     private LocalDate rentedDate;
     private boolean rentStatus;
@@ -15,20 +16,22 @@ public class Inventory {
     public Inventory() {
     }
 
-    public Inventory(String title, double dailyRent, boolean rentStatus, LocalDate date) {
+    public Inventory(String title, double dailyRent, int year, boolean rentStatus, LocalDate date) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.dailyRent = dailyRent;
+        this.year = year;
         this.rentStatus = rentStatus;
         this.rentedDate = date;
         this.ratingSet = new HashSet<Rating>();
     }
 
-    public Inventory(String title, double dailyRent) {
+    public Inventory(String title, double dailyRent, int year) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.dailyRent = dailyRent;
         this.rentStatus = false;
+        this.year = year;
         this.rentedDate = null;
         this.ratingSet = new HashSet<Rating>();
     }
@@ -55,6 +58,14 @@ public class Inventory {
 
     public void setDailyRent(double dailyRent) {
         this.dailyRent = dailyRent;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public LocalDate getRentedDate() {

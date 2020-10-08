@@ -5,7 +5,6 @@ import java.util.UUID;
 
 public class Album extends Inventory {
     private String artist;
-    private int year;
     private String divider = "-----";
 
 
@@ -15,15 +14,13 @@ public class Album extends Inventory {
     };
 
     public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date){
-        super(title, dailyRent, rentStatus, date);
+        super(title, dailyRent, year, rentStatus, date);
         this.artist = artist;
-        this.year = year;
     }
 
     public Album(String title, String artist, int year, double dailyRent){
-        super(title, dailyRent);
+        super(title, dailyRent, year);
         this.artist = artist;
-        this.year = year;
     }
 
         public String toString( ){
@@ -42,7 +39,7 @@ public class Album extends Inventory {
     }
 
     public int getYear(){
-        return year;
+        return super.getYear();
     }
 
     public double getDailyRent(){

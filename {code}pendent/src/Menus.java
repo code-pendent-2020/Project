@@ -107,4 +107,21 @@ public class Menus {
             System.out.println(options[i]);
         }
     }
+
+    public void albumSearchBy() {
+        String[] options = {" 1) Search by Year", " 2) Sort all by Rating", " 3) Sort all by Year", " 4) Album Options"};
+        Menus menu = new Menus("-------Search--------", options); //add the name of the user whose inbox we are using to title
+        System.out.println(menu.title);
+        for (int i = 0; i < options.length; i++) {
+            System.out.println(options[i]);
+        }
+    }
+    public void gameSearchBy() {
+        String[] options = {" 1) Search by Genre", " 2) Sort all by Rating", " 3) Sort all by Year", " 4) Game Options"};
+        Menus menu = new Menus("-------Search--------", options); //add the name of the user whose inbox we are using to title
+        System.out.println(menu.title);
+        for (int i = 0; i < options.length; i++) {
+            System.out.println(options[i]);
+        }
+    }
 }
