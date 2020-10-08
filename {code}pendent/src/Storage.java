@@ -1,10 +1,7 @@
 import javax.security.auth.Subject;
 import java.lang.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -186,6 +183,8 @@ public class Storage {
         }
     }
     public void viewAlbums(){
+        albums.sort(Comparator.comparingInt(Album::getYear));
+        Collections.reverse(albums);
         for (Album album : albums) {
             System.out.println(album.toString());
         }
@@ -200,8 +199,7 @@ public class Storage {
             }
         }
     }
-    public void sortAlbumsRecentYear(){
-    }
+
     public void sortAlbumsHighestRating(){
 
     }
@@ -260,7 +258,6 @@ public void addNewGame() {
     }
 
     public void viewGames() {
-        System.out.println("Games:" + "\n");
         for (Game game : games) {
             System.out.println(game.toString());
         }
