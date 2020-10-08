@@ -288,22 +288,13 @@ public class DartController {
                     input.userCheck();
                     break;
                 case "3":
-                    System.out.println(menus.EOL + ">> Add membership");
-                    requestList = storage.getCustomer().addMembership();
+                    cusMembershipOptions();
                     input.userCheck();
-                    customerMenu();
-                    break;
                 case "4":
-                    System.out.println(menus.EOL + ">> Upgrade membership");
-                    requestList = storage.upgradeMembership();
-                    input.userCheck();
-                    customerMenu();
-                    break;
-                case "5":
                     input.userCheck();
                     inboxMenu();
                     break;
-                case "6":
+                case "5":
                     mainMenu();
                     break;
                 default:
@@ -457,6 +448,32 @@ public class DartController {
             }
         } while (true);
     }
+    public void cusMembershipOptions(){
+        menus.cusMembershipOptions();
+        System.out.print(menus.PROMPT);
+        do {
+            String choice = Input.input.nextLine();
+        switch (choice) {
+            case "1":
+                System.out.println(menus.EOL + ">> Add Membership");
+                storage.addMembership();
+                cusMembershipOptions();
+                break;
+            case "2":
+                System.out.println(menus.EOL + ">> Upgrade Membership ");
+                storage.upgradeMembership();
+                cusMembershipOptions();
+                break;
+            case "3":
+                customerMenu();
+                break;
+            default:
+                System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
+                System.out.print(menus.PROMPT);
+                break;
+        }
+    } while (true);
+    }
 
     public void inboxMenu() {
         menus.inboxMenu();
@@ -466,27 +483,24 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(menus.EOL + ">> View Messages");
-                   // System.out.println("add the method for now returns you to main menu");
                     storage.viewMessages();
-                    customerMenu();
-                  //  mainMenu();
+                    inboxMenu();
+
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Send Message");
-                    //System.out.println("add the method for now returns you to main menu");
                     storage.sendMessage();
-                    customerMenu();
-                    //mainMenu();
+                    inboxMenu();
+
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> Delete Message");
-                  //  System.out.println("add the method for now returns you to main menu");
                     storage.removeMessages();
-                    customerMenu();
-                    //mainMenu();
+                    inboxMenu();
+
                     break;
                 case "4":
-                    mainMenu();
+                    customerMenu();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
