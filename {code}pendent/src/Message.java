@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Message {
 
 
-    private int messageId;
+    private String messageId;
     private String subject;
     private Input input = Input.getInstance();
     private String body;
@@ -11,7 +12,7 @@ public class Message {
 
     public Message(String subject, String body, String sender){
 
-        //this.messageId=messageId;
+    this.messageId= UUID.randomUUID().toString();
     this.body = body;
     this.subject = subject;
     this.sender = sender;
@@ -23,12 +24,8 @@ public class Message {
 
         public String getSubject() { return this.subject; }
 
-        public int getMessageId() {return this.messageId; }
+        public String getMessageId() {return this.messageId; }
 
-
-        public void setMessageId(int messageId) {
-        this.messageId = messageId;
-        }
 
         public void setSubject(String subject) {
         this.subject = subject;
@@ -59,7 +56,7 @@ public class Message {
         }
 
         public String toString(){
-            return "\nSender: " + sender + "\nTitle: " + subject + "\nMessage: " + body;
+            return "\nID: " + messageId + "\nSender: " + sender + "\nTitle: " + subject + "\nMessage: " + body;
         }
 }
         //moved it to storage,if you feel the need of any changes you can Axel

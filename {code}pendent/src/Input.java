@@ -48,7 +48,7 @@ public class Input {
     }
 
     public void userCheck(){
-        String check = getInput(Menus.EOL+">> Press 'Enter' to continue: ");
+        String check = getInput(">> Press 'Enter' to continue: ");
         }
     }
 
