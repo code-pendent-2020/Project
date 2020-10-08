@@ -200,8 +200,12 @@ public class Storage {
         }
     }
 
-    public void sortAlbumsHighestRating(){
-
+    public void viewAlbumsByRating(){
+        albums.sort(Comparator.comparingDouble(Album::getRating));
+        Collections.reverse(albums);
+        for (Album album : albums) {
+            System.out.println(album.toString());
+        }
     }
     //----------------------------------------------------------------------------//
 
@@ -258,6 +262,8 @@ public void addNewGame() {
     }
 
     public void viewGames() {
+        games.sort(Comparator.comparingInt(Game::getYear));
+        Collections.reverse(games);
         for (Game game : games) {
             System.out.println(game.toString());
         }
@@ -270,11 +276,13 @@ public void addNewGame() {
             }
         }
     }
-    public void sortGamesRecentYear(){
 
-    }
-    public void sortGamesHighestRating(){
-
+    public void viewGamesByRating(){
+        games.sort(Comparator.comparingDouble(Game::getRating));
+        Collections.reverse(games);
+        for (Game game : games) {
+            System.out.println(game.toString());
+        }
     }
 
 

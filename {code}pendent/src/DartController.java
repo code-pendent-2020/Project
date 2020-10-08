@@ -338,7 +338,8 @@ public class DartController {
                     break;
                 case "5":
                     System.out.println(menus.EOL + ">> All Games by Rating");
-                    System.out.println("should show you all games by rating");
+                    storage.viewGamesByRating();
+                    cusGameOptions();
                     input.userCheck();
                     break;
                 case "6":
@@ -387,7 +388,8 @@ public class DartController {
                     break;
                 case "5":
                     System.out.println(menus.EOL + ">> All Albums by Rating");
-                    System.out.println("should show a list of albums by rating");
+                    storage.viewAlbumsByRating();
+                    cusAlbumOptions();
                     input.userCheck();
                     break;
                 case "6":
