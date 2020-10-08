@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -9,8 +10,7 @@ public class Inventory {
     private double dailyRent;
     private LocalDate rentedDate;
     private boolean rentStatus;
-    private HashSet<Rating> ratingSet;
-    private Rating rating;
+    private ArrayList<Rating> ratings;
 
     // Constructor
     public Inventory() {
@@ -23,7 +23,7 @@ public class Inventory {
         this.year = year;
         this.rentStatus = rentStatus;
         this.rentedDate = date;
-        this.ratingSet = new HashSet<Rating>();
+        this.ratings = new ArrayList<Rating>();
     }
 
     public Inventory(String title, double dailyRent, int year) {
@@ -33,7 +33,7 @@ public class Inventory {
         this.rentStatus = false;
         this.year = year;
         this.rentedDate = null;
-        this.ratingSet = new HashSet<Rating>();
+        this.ratings = new ArrayList<Rating>();
     }
 
     public String getId() {
@@ -84,21 +84,17 @@ public class Inventory {
         this.rentStatus = rentStatus;
     }
 
-    public HashSet getRatingSet() {
-        return ratingSet;
-    }
-
-    public void setRatingSet(Rating rating) {
-        this.rating = rating;
+    public ArrayList getRatingSet() {
+        return ratings;
     }
 
     public double averageRating() {
-        if (ratingSet.size() != 0) {
-            int sum = 0;
-            for (Rating rating : ratingSet) {
+        if (ratings.size() != 0) {
+            double sum = 0;
+            for (Rating rating : ratings) {
                 sum = sum + rating.getRating();
             }
-            return Math.round((sum / ratingSet.size())*100)/100;
+            return Math.round((sum / ratings.size())*100)/100;
         } else {
             return 0;
         }

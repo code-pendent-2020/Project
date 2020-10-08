@@ -314,59 +314,36 @@ public class DartController {
                     storage.viewGames();
                     storage.rentGame();
                     input.userCheck();
-                    customerMenu();
+                    cusGameOptions();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Return Game");
                     storage.viewGames();
                     storage.returnGame();
                     input.userCheck();
-                    customerMenu();
+                    cusGameOptions();
                     break;
                 case "3":
-                    System.out.println(menus.EOL + ">> All Games");
-                    System.out.println("add the method for now returns you to main menu");
-                    storage.viewGames();
-                    customerMenu();
-                    input.userCheck();
-                    break;
-                case "4":
-                    System.out.println(menus.EOL + ">> Search Games");
-                    gameSearchOptions();
-                    break;
-                case "5":
-                    employeeMenu();
-                    input.userCheck();
-                    break;
-                default:
-                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
-                    System.out.print(menus.PROMPT);
-                    break;
-            }
-        } while (true);
-    }
-    public void gameSearchOptions() {
-        menus.gameSearchBy();
-        System.out.print(menus.PROMPT);
-        do {
-            String choice = Input.input.nextLine();
-            switch (choice) {
-                case "1":
-                    System.out.println(menus.EOL + ">> Search Game by Genre");
+                    System.out.println(menus.EOL + ">> Search Games by Genre");
                     storage.searchGames();
                     cusGameOptions();
-                    break;
-                case "2":
-                    System.out.println(menus.EOL + ">> Sorted Game by Rating");
-
-                    cusGameOptions();
-                    break;
-                case "3":
-                    System.out.println(menus.EOL + ">> Sorted Game by Year");
-                    cusGameOptions();
+                    input.userCheck();
                     break;
                 case "4":
+                    System.out.println(menus.EOL + ">> All Games by Year");
+                    storage.viewGames();
                     cusGameOptions();
+                    input.userCheck();
+                    break;
+                case "5":
+                    System.out.println(menus.EOL + ">> All Games by Rating");
+                    storage.viewGamesByRating();
+                    cusGameOptions();
+                    input.userCheck();
+                    break;
+                case "6":
+                    employeeMenu();
+                    input.userCheck();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
@@ -387,25 +364,31 @@ public class DartController {
                     storage.viewAlbums();
                     storage.rentAlbum();
                     input.userCheck();
-                    customerMenu();
+                    cusAlbumOptions();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Return Album:");
                     storage.viewAlbums();
                     storage.returnAlbum();
                     input.userCheck();
-                    customerMenu();
+                    cusAlbumOptions();
                     break;
                 case "3":
-                    System.out.println(menus.EOL + ">> All Albums");
-                    storage.viewAlbums();
-                    customerMenu();
+                    System.out.println(menus.EOL + ">> Search Albums by Year");
+                    storage.searchAlbums();
+                    cusAlbumOptions();
                     break;
                 case "4":
-                    System.out.println(menus.EOL + ">> Search Albums");
-                    albumSearchOptions();
+                    System.out.println(menus.EOL + ">> All Albums by Year");
+                    storage.viewAlbums();
+                    cusAlbumOptions();
                     break;
                 case "5":
+                    System.out.println(menus.EOL + ">> All Albums by Rating");
+                    storage.viewAlbumsByRating();
+                    cusAlbumOptions();
+                    break;
+                case "6":
                     customerMenu();
                     input.userCheck();
                     break;
@@ -416,36 +399,7 @@ public class DartController {
             }
         } while (true);
     }
-    public void albumSearchOptions() {
-        menus.albumSearchBy();
-        System.out.print(menus.PROMPT);
-        do {
-            String choice = Input.input.nextLine();
-            switch (choice) {
-                case "1":
-                    System.out.println(menus.EOL + ">> Search Album by Year");
-                    storage.searchAlbums();
-                    cusAlbumOptions();
-                    break;
-                case "2":
-                    System.out.println(menus.EOL + ">> Sorted Album by Rating");
 
-                    cusAlbumOptions();
-                    break;
-                case "3":
-                    System.out.println(menus.EOL + ">> Sorted Album by Year");
-                    cusAlbumOptions();
-                    break;
-                case "4":
-                    cusAlbumOptions();
-                    break;
-                default:
-                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
-                    System.out.print(menus.PROMPT);
-                    break;
-            }
-        } while (true);
-    }
     public void cusMembershipOptions(){
         menus.cusMembershipOptions();
         System.out.print(menus.PROMPT);

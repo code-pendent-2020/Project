@@ -41,6 +41,9 @@ public class Album extends Inventory {
     public int getYear(){
         return super.getYear();
     }
+    public double getRating(){
+        return super.averageRating();
+    }
 
     public double getDailyRent(){
         return super.getDailyRent();
