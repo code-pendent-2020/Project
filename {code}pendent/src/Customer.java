@@ -1,15 +1,10 @@
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class Customer extends Person {
     private String membershipType;
     private ArrayList<Message> inbox;
-    private Person person;
 
-    private Input input = Input.getInstance();
+    private final Input input = Input.getInstance();
     Membership memberRequest = new Membership();
 
     // Default Constructor
@@ -35,8 +30,7 @@ public class Customer extends Person {
     public Customer addCustomer(){
         System.out.print("Enter the customers name: ");
         String customerName = input.input.nextLine();
-        Customer newCustomer = new Customer(customerName);
-        return newCustomer;
+        return new Customer(customerName);
     }
 
     @Override
@@ -101,14 +95,13 @@ public class Customer extends Person {
         ArrayList<Membership> upgradeList = null;
         String name = input.getInput("What is your name?: ");
         boolean contains = false;
-        // requestingMember = customerList.stream().filter(customer -> getName().equalsIgnoreCase(name));
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
                 String membershipType = customer.getMembershipType();
                 String databaseName = customer.getName();
-                if (customer.membershipType.equals(null)) {
-                    System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet.");
+                if (customer.getMembershipType() == null) {
+                    System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet. Try adding a membership instead.");
                     return null;
                 }
                 System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. \nWhich Membership would you like to upgrade to? \n");
