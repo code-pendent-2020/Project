@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -286,11 +287,11 @@ public void addNewGame() {
 
     public void sendMessage() {
         viewCustomer();
-        String recipientId= input.getInput("enter the customer Id of the person you want to send message to:  ");
+        String recipientId= input.getInput("\nenter the customer ID of the person you want to send message to:  ");
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderName = input.getInput("Type your Name: ");
-                String subject = input.getInput("Type your titytel: ");
+                String subject = input.getInput("Type your Title: ");
                 String body = input.getInput("Type your message: ");
 
                 Message newMessage = new Message(subject, body, senderName);
@@ -307,7 +308,7 @@ public void addNewGame() {
     }
 
     public void viewMessages(){
-        String name = input.getInput("\nType your name to view your inbox: ");
+        String name = input.getInput("Type your name to view your inbox: ");
         for (Customer reader: customerList){
             if(reader.getName().equalsIgnoreCase(name)){
                 customer.viewMessages(reader);
@@ -318,11 +319,11 @@ public void addNewGame() {
 
     public void removeMessages(){
         viewMessages();
-        int removeMessage=input.getInt("Enter the message number you want to delete");
-        this.customerMessages.removeIf(message -> message.getMessageId()==(removeMessage));
-        System.out.println("The message is successfully removed.");
+        String removeMessage=input.getInput("Enter the message ID you want to delete: ");
+        for (Customer customer: customerList) {
+            customer.getInbox().removeIf(message -> message.getMessageId().equalsIgnoreCase(removeMessage));
+        }
+        System.out.println("The message has been deleted.");
         viewMessages();
-
-
     }
 }

@@ -73,7 +73,7 @@ public class Menus {
     }
 
     public void customerMenu() {
-        String[] options = {" 1) Game Options", " 2) Album Options", " 3) Add Membership", " 4) Upgrade Membership", " 5) Inbox", " 6) Main Menu"};
+        String[] options = {" 1) Game Options", " 2) Album Options", " 3) Membership Options", " 4) Inbox", " 5) Main Menu"};
         Menus menu = new Menus(EOL + "----Customer-Menu----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -99,8 +99,17 @@ public class Menus {
         }
     }
 
+    public void cusMembershipOptions() {
+        String[] options = {" 1) Add Membership", " 2) Upgrade Membership", " 3) Customer Menu"};
+        Menus menu = new Menus(EOL+"-----Membership------", options);
+        System.out.println(menu.title);
+        for (int i = 0; i < options.length; i++) {
+            System.out.println(options[i]);
+        }
+    }
+
     public void inboxMenu() {
-        String[] options = {" 1) View messages", " 2) Send Message", " 3) Delete Message", " 4) Main Menu"};
+        String[] options = {" 1) View messages", " 2) Send Message", " 3) Delete Message", " 4) Customer Menu"};
         Menus menu = new Menus("--------Inbox--------", options); //add the name of the user whose inbox we are using to title
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
