@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class DartController {
     private Menus menus;
     private Input input = Input.getInstance(); // DO singleton
-    Storage storage;
+    private Storage storage;
 
     private ArrayList<Membership> requestList = null;
 
@@ -318,7 +318,6 @@ public class DartController {
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Return Game");
-                    storage.viewGames();
                     storage.returnGame();
                     input.userCheck();
                     cusGameOptions();

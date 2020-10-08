@@ -52,6 +52,8 @@ public class Storage {
             new Customer("Karen"),
             new Customer("Axel")));
 
+    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
+
 
     public ArrayList<Employee> getEmployees(){return employees;}
 
@@ -70,13 +72,26 @@ public class Storage {
     public void setCustomer(){
         this.customer = customer;
     }
+
     //Game
     public void rentGame(){
-        rental.rentGame(games);
+        rental.rentGame(getGames());
     }
 
     public void returnGame() {
-        rental.returnGame(games);
+        String name = input.getInput("Hiya! What is your name, customer?  ");
+        boolean contains = false;
+        for (Customer customer : customerList) {
+           if (customer.getName().equalsIgnoreCase(name)){
+               contains = true;
+               viewGames();
+               rental.returnGame(customer.getId(), getGames());
+           }
+        }
+        if (!contains){
+            System.out.println("That customer doesn't exist on our database, please try again.");
+            returnGame();
+        }
     }
 
     public void totalProfit(){
@@ -111,11 +126,11 @@ public class Storage {
     }
 
     public ArrayList<Membership> addMembership(){
-        return this.customer.addMembership();
+        return this.customer.addMembership(getCustomers());
     }
 
     public ArrayList<Membership> upgradeMembership(){
-        return this.customer.upgradeMembership();
+        return this.customer.upgradeMembership(getCustomers());
     }
 
 
@@ -139,6 +154,7 @@ public class Storage {
     public void addAlbum(){
         this.albums.add(album.addAlbum());
     }
+
     public void removeAlbum(){
         String removeID = input.getInput("Remove.\nAlbum ID: ");
         this.albums.removeIf(album -> album.getID().equals(removeID));

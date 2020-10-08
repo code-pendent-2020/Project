@@ -1,25 +1,55 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Rental {
 
-    private UUID id;
-    private String title;
-    private String genre;
-    private double rentCost;
-    private boolean isRented;
-    private LocalDate rentedDate;
-
+    private String customerId;
+    private String itemId;
+    private double rentExpense;
+    private Rating rating;
     private static double rentalIncome = 25.00;
-
     private Input input = Input.getInstance();
-    private List<Game> games;
 
     // Default Constructor
-    public Rental() {
+    public Rental(){
+    }
+
+    public Rental(String  customerId, String itemId, double rentExpense) {
+        this.customerId = customerId;
+        this.itemId = itemId;
+        this.rentExpense = rentExpense;
+    }
+
+    public Rental(String  customerId, String itemId, double rentExpense, Rating rating) {
+        this.customerId = customerId;
+        this.itemId = itemId;
+        this.rentExpense = rentExpense;
+        this.rating = rating;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public double getRentExpense() {
+        return rentExpense;
+    }
+
+    public void setRentExpense(double rentExpense) {
+        this.rentExpense = rentExpense;
     }
 
     public void totalProfit(){
@@ -61,12 +91,11 @@ public class Rental {
     }
 
 
-     public void returnGame(List<Game> games) {
+     public void returnGame(String customerId, List<Game> games) {
         String rentId = input.getInput("Enter the ID of the game would you like to return: ");
         long daysRented = 0;
         double userBill = 0;
         boolean contains = false;
-
          for (Game rentedGame : games) {
             if (rentedGame.getId().equals(rentId)) {
                 contains = true;
@@ -85,9 +114,10 @@ public class Rental {
                     }
                     System.out.println("Thank you for your feedback! ");
                     Rating customerRating = new Rating(rating, feedback);
+
                 } else if (!rentedGame.getRentStatus()){
                     System.out.println("This game hasn't been rented. Please try again");
-                    returnGame(games);
+                    returnGame(customerId, games);
                 }
             }
         }
