@@ -26,12 +26,12 @@ public class Input {
 
     public String getInput(String message) {
         System.out.print(message);
-        String userInput = input.nextLine(); 
+        String userInput = input.nextLine();
         return userInput;
     }
 
     public int getInt(String message) {
-        System.out.println(message);
+        System.out.print(message);
         String userInput = input.nextLine().replaceAll("[^0-9]", ""); 
         if (userInput.isBlank() || userInput.isEmpty()){
             System.out.println("-----------------\n- Invalid input -");
