@@ -365,19 +365,19 @@ public class DartController {
                 case "1":
                     System.out.println(menus.EOL + ">> Search Game by Genre");
                     storage.searchGames();
-                    customerMenu();
+                    cusGameOptions();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Sorted Game by Rating");
 
-                    customerMenu();
+                    cusGameOptions();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> Sorted Game by Year");
-                    customerMenu();
+                    cusGameOptions();
                     break;
                 case "4":
-                    mainMenu();
+                    cusGameOptions();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
@@ -436,19 +436,19 @@ public class DartController {
                 case "1":
                     System.out.println(menus.EOL + ">> Search Album by Year");
                     storage.searchAlbums();
-                    customerMenu();
+                    cusAlbumOptions();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Sorted Album by Rating");
 
-                    customerMenu();
+                    cusAlbumOptions();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> Sorted Album by Year");
-                    customerMenu();
+                    cusAlbumOptions();
                     break;
                 case "4":
-                    mainMenu();
+                    cusAlbumOptions();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");

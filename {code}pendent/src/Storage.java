@@ -199,6 +199,12 @@ public class Storage {
             }
         }
     }
+    public void sortAlbumsRecentYear(){
+
+    }
+    public void sortAlbumsHighestRating(){
+
+    }
     //----------------------------------------------------------------------------//
 
 // Games
@@ -266,6 +272,12 @@ public void addNewGame() {
                 System.out.println(game.toString());
             }
         }
+    }
+    public void sortGamesRecentYear(){
+
+    }
+    public void sortGamesHighestRating(){
+
     }
 
 
