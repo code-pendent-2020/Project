@@ -9,13 +9,13 @@ public class Game extends Inventory{
     Game(){
     }
 
-    Game(String title, String genre, double dailyRent) {
-        super(title, dailyRent);
+    Game(String title, String genre, double dailyRent, int year) {
+        super(title, dailyRent,year);
         this.genre = genre;
     }
 
-    Game(String title, String gameGenre, double dailyRent, boolean rentStatus, LocalDate date) {
-        super(title, dailyRent, rentStatus, date);
+    Game(String title, String gameGenre, double dailyRent, int year, boolean rentStatus, LocalDate date) {
+        super(title, dailyRent, year, rentStatus, date);
         this.genre = gameGenre;
        /* if (gameIsRented) {
             this.rentedDate =  LocalDate.of( 2020 , 8 , 23 );
@@ -63,7 +63,7 @@ public class Game extends Inventory{
         if (this.getRentStatus()){
             outOnRent = "\033[31mOut on rent  \033[0m";
         } else outOnRent = "Available";
-        String outputString = this.getId() + " : " + this.getTitle() + " (" + this.getGenre() + "). " + this.getRentCost()
+        String outputString = this.getId() + " : " + this.getTitle() + " (" + this.getGenre() + "). " + "Released in " + super.getYear()+ ". " + this.getRentCost()
                 + "kr. " + "Status: " + outOnRent + "\n";
         return outputString;
     }

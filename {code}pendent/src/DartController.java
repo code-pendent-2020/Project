@@ -174,20 +174,20 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(menus.EOL + ">> New Game");
-                    storage.addAlbum();
+                    storage.addNewGame();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
                     System.out.println(menus.EOL + ">> Remove Game:");
-                    storage.viewAlbums();
-                    storage.removeAlbum();
+                    storage.viewGames();
+                    storage.removeGame();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> All Games");
-                    storage.viewAlbums();
+                    storage.viewGames();
                     input.userCheck();
                     employeeMenu();
                     break;
@@ -343,13 +343,41 @@ public class DartController {
                     break;
                 case "4":
                     System.out.println(menus.EOL + ">> Search Games");
-                    System.out.println("add the method for now returns you to main menu");
-                    customerMenu();
-                    input.userCheck();
+                    gameSearchOptions();
                     break;
                 case "5":
                     employeeMenu();
                     input.userCheck();
+                    break;
+                default:
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
+                    System.out.print(menus.PROMPT);
+                    break;
+            }
+        } while (true);
+    }
+    public void gameSearchOptions() {
+        menus.gameSearchBy();
+        System.out.print(menus.PROMPT);
+        do {
+            String choice = Input.input.nextLine();
+            switch (choice) {
+                case "1":
+                    System.out.println(menus.EOL + ">> Search Game by Genre");
+                    storage.searchGames();
+                    cusGameOptions();
+                    break;
+                case "2":
+                    System.out.println(menus.EOL + ">> Sorted Game by Rating");
+
+                    cusGameOptions();
+                    break;
+                case "3":
+                    System.out.println(menus.EOL + ">> Sorted Game by Year");
+                    cusGameOptions();
+                    break;
+                case "4":
+                    cusGameOptions();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
@@ -386,12 +414,41 @@ public class DartController {
                     break;
                 case "4":
                     System.out.println(menus.EOL + ">> Search Albums");
-                    storage.searchAlbums();
-                    customerMenu();
+                    albumSearchOptions();
                     break;
                 case "5":
                     customerMenu();
                     input.userCheck();
+                    break;
+                default:
+                    System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
+                    System.out.print(menus.PROMPT);
+                    break;
+            }
+        } while (true);
+    }
+    public void albumSearchOptions() {
+        menus.albumSearchBy();
+        System.out.print(menus.PROMPT);
+        do {
+            String choice = Input.input.nextLine();
+            switch (choice) {
+                case "1":
+                    System.out.println(menus.EOL + ">> Search Album by Year");
+                    storage.searchAlbums();
+                    cusAlbumOptions();
+                    break;
+                case "2":
+                    System.out.println(menus.EOL + ">> Sorted Album by Rating");
+
+                    cusAlbumOptions();
+                    break;
+                case "3":
+                    System.out.println(menus.EOL + ">> Sorted Album by Year");
+                    cusAlbumOptions();
+                    break;
+                case "4":
+                    cusAlbumOptions();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + menus.EOL + "--- Invalid input ---");
