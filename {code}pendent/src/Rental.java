@@ -31,10 +31,11 @@ public class Rental {
     }
 
     public void rentGame(List<Game> games) {
-        String rentId = input.getInput("Enter the ID of the game you would like to rent: ");
-        if (games.contains(rentId)) {
+        boolean contains = false;
+        String rentId = input.getInput("Enter the ID of the game would you like to rent: ");
             for (Game rentGame : games) {
                 if (rentGame.getId().equals(rentId) && !rentGame.getRentStatus()) {
+                    contains = true;
                     rentGame.setRentStatus(true);
                     rentGame.setRentedDate(LocalDate.now());
                     System.out.println("Game has been rented. Enjoy!");
@@ -52,7 +53,7 @@ public class Rental {
                     }
                 }
             }
-        } else {
+        if (!contains) {
             System.out.println("Soz, wrong ID, try again");
             rentGame(games);
         }
@@ -73,10 +74,20 @@ public class Rental {
                     rentedGame.setRentStatus(false);
                     userBill = daysRented * rentedGame.getDailyRent();
                     rentalIncome = rentalIncome + userBill;
-                    System.out.println(input.EOL+"You rented " + rentedGame.getTitle() + " for " + daysRented + " days. "+input.EOL+"Your total is " + userBill + " SEK \n");
-                    System.out.println("The Game has now been returned.");
                 } else if (!rentedGame.getRentStatus()) {
                     System.out.println("This Game hasn't been rented. Please try again");
+                    System.out.println(input.EOL+"You rented " + rentedGame.getTitle() + " for " + daysRented + " days. "+input.EOL+"Your total is " + userBill + " SEK \n");
+                    System.out.println("The Game has now been returned.");
+                    int rating = input.getInt("We hope you enjoyed playing this classic. How would you rate it on a scale of 0-5? ");
+                    String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
+                    String feedback = null;
+                    if (feedbackQuestion.equalsIgnoreCase("y")){
+                        feedback = input.getInput("How did you experience the game? Do you have any advice for other players?");
+                    }
+                    System.out.println("Thank you for your feedback! ");
+                    Rating customerRating = new Rating(rating, feedback);
+                } else if (!rentedGame.getRentStatus()){
+                    System.out.println("This game hasn't been rented. Please try again");
                     returnGame(games);
                 }
             }

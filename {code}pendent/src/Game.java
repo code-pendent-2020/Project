@@ -67,6 +67,7 @@ public class Game extends Inventory {
         if (this.getRentStatus()) {
             outOnRent = "\033[31mOut on rent  \033[0m";
         } else outOnRent = "Available";
+
         String outputString = this.getId() + " : " + this.getTitle() + " (" + this.getGenre() + "). " + "Released in " + super.getYear() + ". " + this.getRentCost()
                 + "kr. " + "Status: " + outOnRent + input.EOL;
         return outputString;
