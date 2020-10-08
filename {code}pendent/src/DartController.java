@@ -321,9 +321,9 @@ public class DartController {
                 case "2":
                     System.out.println(menus.EOL + ">> Return Game");
                     storage.viewGames();
-                    System.out.println("add the method for now returns you to main menu");
-                    customerMenu();
+                    storage.returnGame();
                     input.userCheck();
+                    customerMenu();
                     break;
                 case "3":
                     System.out.println(menus.EOL + ">> All Games");

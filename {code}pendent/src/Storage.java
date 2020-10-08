@@ -38,13 +38,13 @@ public class Storage {
             new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
 
     private List<Game> games = new ArrayList<>(Arrays.asList(
-            new Game( "Sonic: The Hedgehog", "Explore", 23, 1857, false, null),
-            new Game( "Crash Bandicoot", "Racing", 24, 1957, false, null),
-            new Game( "The Legend of Zelda", "Explore", 51, 1874, true, LocalDate.of(1, 1, 1)),
-            new Game ( "Prince of Persia", "Impossible", 33, 1984, false, null),
-            new Game ( "Super Mario", "Classic", 32, 1983, false, null),
-            new Game( "Street Fighter", "Fighting", 54, 1991, false, null),
-            new Game( "Tekken", "Fighting", 29, 1932, false, null)));
+            new Game( "Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
+            new Game( "Crash Bandicoot", "Racing", 17.59, 1957, false, null),
+            new Game( "The Legend of Zelda", "Explore", 12.29, 1874, true, LocalDate.of(2020, 8, 20)),
+            new Game ( "Prince of Persia", "Impossible", 15.39, 1984, false, null),
+            new Game ( "Super Mario", "Classic", 18.99, 1999, false, null),
+            new Game( "Street Fighter", "Fighting", 11.99, 1991, true, LocalDate.of(2020, 8, 20)),
+            new Game( "Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
@@ -75,6 +75,10 @@ public class Storage {
     //Game
     public void rentGame(){
         rental.rentGame(games);
+    }
+
+    public void returnGame() {
+        rental.returnGame(games);
     }
 
    /* public void returnGame(){
