@@ -6,6 +6,9 @@ public class Rating {
     Rating() {
     }
 
+    Rating(double Rating) {
+    }
+
     Rating(double rating, String feedback) {
         this.rating = rating;
         this.feedback = feedback;
@@ -13,5 +16,18 @@ public class Rating {
 
     public double getRating() {
         return this.rating;
+    }
+
+    public String getFeedback() {
+        return this.feedback;
+    }
+
+    public String toString() {
+        if (getRating()>0 && getFeedback()!=null){
+        return "Rating: " + getRating() + "\nFeedback: " + getFeedback();
+        } else if (getRating()>0 && getFeedback()==null){
+            return "Rating: " + getRating();
+        }
+        return null;
     }
 }

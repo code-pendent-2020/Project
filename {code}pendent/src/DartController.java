@@ -128,6 +128,12 @@ public class DartController {
                     managerMenu();
                     break;
                 case "4":
+                    System.out.println(input.EOL + ">> Transaction History");
+                    storage.viewTransactions();
+                    input.userCheck();
+                    managerMenu();
+                    break;
+                case "5":
                     mainMenu();
                     break;
                 default:
@@ -324,7 +330,6 @@ public class DartController {
                     break;
                 case "2":
                     System.out.println(input.EOL + ">> Return Game");
-                    storage.viewGames();
                     storage.returnGame();
                     input.userCheck();
                     cusGameOptions();

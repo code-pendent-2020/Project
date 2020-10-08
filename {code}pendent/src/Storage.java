@@ -53,6 +53,9 @@ public class Storage {
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
+    public ArrayList<Rental> getRentalHistory() {
+        return rentalHistory;
+    }
 
     public ArrayList<Employee> getEmployees(){return employees;}
 
@@ -83,7 +86,8 @@ public class Storage {
            if (customer.getName().equalsIgnoreCase(name)){
                contains = true;
                viewGames();
-               rental.returnGame(customer.getId(), getGames());
+               Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+               getRentalHistory().add(newTransaction);
            }
         }
         if (!contains){
@@ -91,7 +95,11 @@ public class Storage {
             returnGame();
         }
     }
-
+    public void viewTransactions() {
+        for (Rental rental : getRentalHistory()){
+            System.out.println(rental);
+        }
+    }
     public void totalProfit(){
         double profit = 0;
         rental.getRentalIncome();

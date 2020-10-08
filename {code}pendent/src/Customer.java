@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
 
 public class Customer extends Person {
     private String membershipType;
@@ -85,6 +87,7 @@ public class Customer extends Person {
             }else{
                 System.out.println("Not a valid input.");
             }
+            System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
            requestList = memberRequest.requestMembership(name, type);
         }else{
             System.out.println("you dont exist");
@@ -110,19 +113,19 @@ public class Customer extends Person {
                 String requestType = null;
                 int userInput;
                 if (membershipType.equals("Silver")) {
-                    userInput = input.getInt(" 1) Gold \n 2) Platinum \n 3) Back to Customer Menu");
+                    userInput = input.getInt(" 1) Gold \n 2) Platinum \n 3) Back to Customer Menu \n");
                     if (userInput == 1) {
                         requestType = "Gold";
                     } else if (userInput == (2)) {
                         requestType = "Platinum";
-                    } else return null;
+                    }
                 } else if (membershipType.equals("Gold")) {
                     userInput = input.getInt("1) Platinum 2) Back to Customer Menu");
                     if (userInput == 1) {
                         requestType = "Platinum";
-                    } else return null;
+                    }
                 }
-                System.out.println("Your request for " + requestType + " will be reviewed shortly.");
+                System.out.println("Your request for a " + requestType + " membership will be reviewed shortly.");
                 upgradeList = memberRequest.requestMembership(databaseName, requestType);
             }
         }
