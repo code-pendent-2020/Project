@@ -30,7 +30,6 @@ public class Rental {
         return rentalIncome;
     }
 
-
     public void rentGame(List<Game> games) {
         String rentId = input.getInput("Enter the ID of the game would you like to rent: ");
         if (games.contains(rentId)) {

@@ -37,13 +37,13 @@ public class Storage {
             new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
 
     private List<Game> games = new ArrayList<>(Arrays.asList(
-            new Game( "Sonic: The Hedgehog", "Explore", 23, false, null),
-            new Game( "Crash Bandicoot", "Racing", 24, false, null),
-            new Game( "The Legend of Zelda", "Explore", 51, true, LocalDate.of(1, 1, 1)),
-            new Game ( "Prince of Persia", "Impossible", 33, false, null),
-            new Game ( "Super Mario", "Classic", 32, false, null),
-            new Game( "Street Fighter", "Fighting", 54, false, null),
-            new Game( "Tekken", "Fighting", 29, false, null)));
+            new Game( "Sonic: The Hedgehog", "Explore", 23, 1857, false, null),
+            new Game( "Crash Bandicoot", "Racing", 24, 1957, false, null),
+            new Game( "The Legend of Zelda", "Explore", 51, 1874, true, LocalDate.of(1, 1, 1)),
+            new Game ( "Prince of Persia", "Impossible", 33, 1984, false, null),
+            new Game ( "Super Mario", "Classic", 32, 1983, false, null),
+            new Game( "Street Fighter", "Fighting", 54, 1991, false, null),
+            new Game( "Tekken", "Fighting", 29, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", "Silver"),
@@ -189,6 +189,8 @@ public class Storage {
             System.out.println(album.toString());
         }
     }
+
+
     public void searchAlbums(){
         int google = input.getInt("Album Search\nYear: ");
         for (Album album : albums) {
@@ -208,11 +210,14 @@ public void addNewGame() {
     System.out.print("Genre:  ");
     String newGameGenre = input.input.nextLine();
 
+    System.out.print("Year:  ");
+    int newGameYear = input.input.nextInt();
+
     System.out.print("Daily Rent Fee:  ");
     double newGameRentCost = input.input.nextDouble();
     input.input.nextLine();
 
-    games.add( new Game(newGameTitle, newGameGenre, newGameRentCost));
+    games.add( new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear));
     System.out.println("Game Added Successfully : " + games.toString());
 
     System.out.println("1) Add another game" + "\n" + "2) View all games" + "\n" + "3) Employee Menu");
@@ -252,6 +257,14 @@ public void addNewGame() {
         System.out.println("Games:" + "\n");
         for (Game game : games) {
             System.out.println(game.toString());
+        }
+    }
+    public void searchGames(){
+        String google = input.getInput("Game Search\nGenre: ");
+        for (Game game : games) {
+            if (game.getGenre().equalsIgnoreCase(google)) {
+                System.out.println(game.toString());
+            }
         }
     }
 
