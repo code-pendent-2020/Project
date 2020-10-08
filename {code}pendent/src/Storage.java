@@ -315,11 +315,11 @@ public void addNewGame() {
         for (Customer reader : customerList) {
             if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
                 Collections.reverse(reader.getInbox());
-                System.out.print("\n>> List of messages in order received <<");
+                System.out.print(input.EOL + ">> List of messages in order received <<");
                 customer.viewMessages(reader);
                 Collections.reverse(reader.getInbox());
             }else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0){
-                System.out.println("\nNo messages to view.");
+                System.out.println(input.EOL + "No messages to view.");
             }
         }
     }

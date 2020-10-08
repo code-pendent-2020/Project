@@ -17,6 +17,7 @@ public class Customer extends Person {
         super(name);
         this.inbox = new ArrayList<>();
         this.membershipType = null;
+    }
 
     public Customer(String name, String membership) {
         super(name);
