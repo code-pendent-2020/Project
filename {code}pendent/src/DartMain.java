@@ -1,5 +1,4 @@
-package controllers;
-
+import controllers.DartController;
 import tools.Input;
 
 public class DartMain {
