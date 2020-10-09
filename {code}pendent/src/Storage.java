@@ -16,6 +16,7 @@ public class Storage {
     private Message message=new Message();
 
     // "kind of" Storage
+
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
             new Album ("London Calling", "The Clash", 1980, 14.99, false, null),
             new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of( 2020 , 8 , 23 )),
@@ -31,7 +32,7 @@ public class Storage {
             new Employee("Sam", 1993, "1784 Sunrise Blvd", 12385),
             new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
 
-    private List<Game> games = new ArrayList<>(Arrays.asList(
+    private ArrayList<Game> games = new ArrayList<>(Arrays.asList(
             new Game( "Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
             new Game( "Crash Bandicoot", "Racing", 17.59, 1957, false, null),
             new Game( "The Legend of Zelda", "Explore", 12.29, 1874, true, LocalDate.of(2020, 8, 20)),
@@ -60,8 +61,12 @@ public class Storage {
         return customerList;
     }
 
-    public List<Game> getGames(){
+    public ArrayList<Game> getGames(){
         return games;
+    }
+
+    public ArrayList<Album> getAlbums() {
+        return albums;
     }
 
     public Customer getCustomer(){
@@ -92,15 +97,16 @@ public class Storage {
             returnGame();
         }
     }
+
     public void viewTransactions() {
         for (Rental rental : getRentalHistory()){
             System.out.println(rental);
         }
     }
+
     public void totalProfit(){
-        double profit = 0;
-        rental.getRentalIncome();
-        System.out.println();
+        double profit = rental.getRentalIncome();
+        System.out.println("The total profit is " + profit + "SEK");
     }
 
     public void ratingAverage(){
@@ -160,44 +166,25 @@ public class Storage {
         System.out.println("Album Removed"+input.EOL);
     }
 
+
     public void rentAlbum(){
-        String rental = input.getInput(input.EOL+"Rent"+input.EOL+"Album ID: ");
-        for (Album album : albums) {
-            if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
-                if (album.getRentStatus().equalsIgnoreCase("unavailable")) {
-                    System.out.println("Item is unavailable");
-                    rentAlbum();
-                } else {
-                    album.setRentStatus(true);
-                    album.setRentedDate(LocalDate.now());
-                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Rented");
-                }
-            }
-        }
+        rental.rentAlbum(getAlbums());
     }
 
-    public void returnAlbum(){
-        String rental = input.getInput("Return"+input.EOL+"Album ID: ");
-        // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
-        for (Album album : albums) {
-
-            if (album.getID().equals(rental) && album.getRentStatus().equals("unavailable")) {
-                long daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020,10,31));
-                double cost = album.getDailyRent() * daysRented;
-                album.setRentStatus(false);
-                album.setRentedDate(null);
-                System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
-                int rating = input.getInt("We hope you enjoyed the album. How would you rate it on a scale of 0-5? ");
-                String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
-                String feedback = null;
-                if (feedbackQuestion.equalsIgnoreCase("y")){
-                    feedback = input.getInput("Please type your feedback: ");
-                }
-                System.out.println("Thank you for your feedback! ");
-                Rating customerRating = new Rating(rating, feedback);
-                System.out.println(album.getArtist());
-                album.getRatingSet().add(customerRating);
+    public void returnAlbum() {
+        String name = input.getInput("Hiya! What is your name, customer?  ");
+        boolean contains = false;
+        for (Customer customer : customerList) {
+            if (customer.getName().equalsIgnoreCase(name)){
+                contains = true;
+                viewGames();
+                Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+                getRentalHistory().add(newTransaction);
             }
+        }
+        if (!contains){
+            System.out.println("That customer doesn't exist on our database, please try again.");
+            returnGame();
         }
     }
 
