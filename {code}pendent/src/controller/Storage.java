@@ -187,7 +187,7 @@ public class Storage {
             if (customer.getName().equalsIgnoreCase(name)){
                 contains = true;
                 viewGames();
-                Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+                Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
             }
         }

@@ -4,6 +4,7 @@ import people.features.Membership;
 import people.features.Message;
 import tools.Input;
 
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
@@ -15,6 +16,10 @@ public class Customer extends Person {
     private boolean readStatus;
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
+    public static final int BASIC_MEMBERSHIP = 0;
+    public static final int SILVER_MEMBERSHIP = 1;
+    public static final int GOLD_MEMBERSHIP = 2;
+    public static final int PlATINUM_MEMBERSHIP = 3;
 
     public Customer(String name){
         super(name);
@@ -90,12 +95,12 @@ public class Customer extends Person {
                 contains = true;
                 if(customer.getMembership().getType().equals("No membership")) {
                     String type = null;
-                    int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum \n");
-                    if (membershipType == 1) {
+                    int membershipType = input.getInt("Which membership do you want to apply for? " +input.EOL+ "1) Silver "+input.EOL+" 2) Gold "+input.EOL+" 3) Platinum" + input.EOL);
+                    if (membershipType == SILVER_MEMBERSHIP) {
                         type = "Silver";
-                    } else if (membershipType == 2) {
+                    } else if (membershipType == GOLD_MEMBERSHIP) {
                         type = "Gold";
-                    } else if (membershipType == 3) {
+                    } else if (membershipType == PlATINUM_MEMBERSHIP) {
                         type = "Platinum";
                     } else {
                         System.out.println("Not a valid input.");
@@ -127,18 +132,18 @@ public class Customer extends Person {
                     System.out.println("Sorry " + databaseName + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
                     return null;
                 }
-                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. \nWhich Membership would you like to upgrade to? \n");
+                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. "+input.EOL+"Which Membership would you like to upgrade to? \n");
                 String requestType = null;
                 int userInput;
                 if (membershipType.equals("Silver")) {
-                    userInput = input.getInt("1) Gold \n2) Platinum \n3) Back to Customer Menu \n");
-                    if (userInput == 1) {
+                    userInput = input.getInt("1) Gold "+input.EOL+"2) Platinum " +input.EOL +"3) Back to Customer Menu"+ input.EOL);
+                    if (userInput == GOLD_MEMBERSHIP) {
                         requestType = "Gold";
-                    } else if (userInput == (2)) {
+                    } else if (userInput == (PlATINUM_MEMBERSHIP)) {
                         requestType = "Platinum";
                     }
                 } else if (membershipType.equals("Gold")) {
-                    userInput = input.getInt("1) Platinum \n2) Back to Customer Menu");
+                    userInput = input.getInt("1) Platinum "+input.EOL+"2) Back to Customer Menu");
                     if (userInput == 1) {
                         requestType = "Platinum";
                     }
