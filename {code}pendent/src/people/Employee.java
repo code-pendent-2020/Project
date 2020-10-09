@@ -15,7 +15,13 @@ public class Employee extends Person {
     private final double BONUS_HIGH = 7500.00;
     private final int FIRST_AGE_FOR_BONUS = 22;
     private final int SECOND_AGE_FOR_BONUS = 30;
+    private final int MONTHS = 12;
+
     private Input input = Input.getInstance();
+
+    public Employee() {
+
+    }
 
     public Employee(String name, int birthYear, String address, double salary) {
         super(name);
@@ -30,7 +36,7 @@ public class Employee extends Person {
         int birthYear = input.getInt("Birth year: ");
         String address = input.getInput("Address: ");
         double monthlySalary = input.getDouble("Monthly gross salary: ");
-        grossSalary = monthlySalary * 12;
+        grossSalary = monthlySalary * MONTHS;
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }

@@ -63,7 +63,8 @@ public class Album extends Inventory {
     public String getRentStatus() {
         if (super.isRentStatus()) {
             return "unavailable";
-        } else return "available";
+        }
+        return "available";
     }
 
     public void setRentStatus(Boolean rentStatus) {
@@ -75,8 +76,7 @@ public class Album extends Inventory {
         String addArtist = input.getInput("Artist: ");
         int addYear = input.getInt("Year: ");
         double addDailyRent = input.getDouble("Daily Rent amount: ");
-        Album album = new Album(addTitle, addArtist, addYear, addDailyRent);
-        return album;
+        return new Album(addTitle, addArtist, addYear, addDailyRent);
     }
 
     private String genAlbumID() {

@@ -94,8 +94,7 @@ public class Inventory {
                 sum = sum + rating.getRating();
             }
             return Math.round((sum / ratings.size()) * 100) / 100;
-        } else {
-            return 0;
         }
+        return 0;
     }
 }

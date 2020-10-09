@@ -1,3 +1,4 @@
+import java.util.*;
 package controllers;
 
 import items.Album;
@@ -13,7 +14,8 @@ import tools.Input;
 
 import java.lang.*;
 import java.time.LocalDate;
-import java.util.*;
+import java.time.LocalDate;
+
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -28,12 +30,12 @@ public class Storage {
     private Message message;
     private Input input = Input.getInstance();
 
-    // "kind of" controllers.Storage
+    // "kind of" Storage
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
             new Album ("London Calling", "The Clash", 1980, 14.99, false, null),
             new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of( 2020 , 8 , 23 )),
             new Album ("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false, null),
-            new Album ("The Black items.Album", "Metallica", 1991, 19.99, true,LocalDate.of( 2020 , 8 , 23 )),
+            new Album ("The Black Album", "Metallica", 1991, 19.99, true,LocalDate.of( 2020 , 8 , 23 )),
             new Album ("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false, null)));
 
     private ArrayList<Employee> employees = new ArrayList<>(Arrays.asList(
@@ -49,17 +51,17 @@ public class Storage {
             new Game( "Crash Bandicoot", "Racing", 17.59, 1957, false, null),
             new Game( "The Legend of Zelda", "Explore", 12.29, 1874, true, LocalDate.of(2020, 8, 20)),
             new Game ( "Prince of Persia", "Impossible", 15.39, 1984, false, null),
-            new Game( "Super Mario", "Classic", 18.99, 1999, false, null),
+            new Game ( "Super Mario", "Classic", 18.99, 1999, false, null),
             new Game( "Street Fighter", "Fighting", 11.99, 1991, true, LocalDate.of(2020, 8, 20)),
             new Game( "Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-            new Customer("Vernita", "Silver"),
+            new Customer("Vernita", new Membership("Silver", 0)),
             new Customer("Navya"),
             new Customer("Drake"),
-            new Customer("Altan"),
+            new Customer("Altan", new Membership("Silver", 0)),
             new Customer("Karen"),
-            new Customer("Axel")));
+            new Customer("Axel", new Membership("Gold", 0))));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
@@ -138,7 +140,7 @@ public class Storage {
         }
     }
 
-   // public ArrayList<people.membership.Membership> addMembership(){
+   // public ArrayList<Membership> addMembership(){
    //     return this.customer.addMembership(getCustomers());
    // }
     public ArrayList<Membership> addMembership(){
@@ -153,9 +155,9 @@ public class Storage {
         this.employees.add(employee.addEmployee());
     }
     public void removeEmployee() {
-        String removeID = input.getInput("Enter the ID of the employee you want to remove."+input.EOL+"people.Employee ID: ");
+        String removeID = input.getInput("Enter the ID of the employee you want to remove."+input.EOL+"Employee ID: ");
         this.employees.removeIf(employee -> employee.getId().equals(removeID));
-        System.out.println("people.Employee Removed"+input.EOL);
+        System.out.println("Employee Removed"+input.EOL);
     }
     public void viewEmployee(){
         for (Employee employee : employees){
@@ -168,13 +170,13 @@ public class Storage {
     }
 
     public void removeAlbum(){
-        String removeID = input.getInput("Remove."+input.EOL+"items.Album ID: ");
+        String removeID = input.getInput("Remove."+input.EOL+"Album ID: ");
         this.albums.removeIf(album -> album.getID().equals(removeID));
-        System.out.println("items.Album Removed"+input.EOL);
+        System.out.println("Album Removed"+input.EOL);
     }
 
     public void rentAlbum(){
-        String rental = input.getInput(input.EOL+"Rent"+input.EOL+"items.Album ID: ");
+        String rental = input.getInput(input.EOL+"Rent"+input.EOL+"Album ID: ");
         for (Album album : albums) {
             if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
                 if (album.getRentStatus().equalsIgnoreCase("unavailable")) {
@@ -190,7 +192,7 @@ public class Storage {
     }
 
     public void returnAlbum(){
-        String rental = input.getInput("Return"+input.EOL+"items.Album ID: ");
+        String rental = input.getInput("Return"+input.EOL+"Album ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
         for (Album album : albums) {
 
@@ -223,7 +225,7 @@ public class Storage {
     }
 
     public void searchAlbums(){
-        int google = input.getInt("items.Album Search"+input.EOL+"Year: ");
+        int google = input.getInt("Album Search"+input.EOL+"Year: ");
         for (Album album : albums) {
             if (album.getYear() == google) {
                 System.out.println(album.toString());
@@ -255,9 +257,9 @@ public void addNewGame() {
     input.input.nextLine();
 
     games.add( new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear));
-    System.out.println("items.Game Added Successfully : " + games.toString());
+    System.out.println("Game Added Successfully : " + games.toString());
 
-    System.out.println("1) Add another game" + input.EOL + "2) View all games" + input.EOL + "3) people.Employee Menu");
+    System.out.println("1) Add another game" + input.EOL + "2) View all games" + input.EOL + "3) Employee Menu");
     int userChoice = input.input.nextInt();
     if (userChoice == 1) {
         addNewGame();
@@ -276,7 +278,7 @@ public void addNewGame() {
             String doubleCheck = input.input.nextLine();
             if (doubleCheck.equalsIgnoreCase("y")) {
                 games.remove(gameId);
-                System.out.println("items.Game removed");
+                System.out.println("Game removed");
             } else {
                 System.out.println("Okay, no problem. ");
             }
@@ -294,7 +296,7 @@ public void addNewGame() {
         }
     }
     public void searchGames(){
-        String google = input.getInput("items.Game Search"+input.EOL+"Genre: ");
+        String google = input.getInput("Game Search"+input.EOL+"Genre: ");
         for (Game game : games) {
             if (game.getGenre().equalsIgnoreCase(google)) {
                 System.out.println(game.toString());
