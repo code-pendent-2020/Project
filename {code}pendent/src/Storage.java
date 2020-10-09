@@ -310,14 +310,17 @@ public void addNewGame() {
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderID = input.getInput("Type your ID: ");
-                String senderName = input.getInput("Type your Name: ");
-                String subject = input.getInput("Type your Title: ");
-                String body = input.getInput("Type your message: ");
-                Message newMessage = new Message(subject, body, senderID, senderName);
-                System.out.println("Your message has been sent.");
-                customer.getInbox().add(newMessage);
-            }
+                if (customer.getId().equalsIgnoreCase(senderID)) {
 
+                    String senderName = input.getInput("Type your Name: ");
+                    String subject = input.getInput("Type your Title: ");
+                    String body = input.getInput("Type your message: ");
+                    Message newMessage = new Message(subject, body, senderID, senderName);
+                    System.out.println("Your message has been sent.");
+
+                    customer.getInbox().add(newMessage);
+                }
+            }
         }
     }
 
@@ -328,6 +331,8 @@ public void addNewGame() {
                 Collections.reverse(reader.getInbox());
                 System.out.print(input.EOL + ">> List of messages in order received <<");
                 customer.viewMessages(reader);
+                customer.getReadStatus();
+
                 Collections.reverse(reader.getInbox());
             }else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0){
                 System.out.println(input.EOL + "No messages to view.");

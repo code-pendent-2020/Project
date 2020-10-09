@@ -9,6 +9,7 @@ public class Message {
     private String body;
     private String senderID;
     private String sender;
+    private boolean readStatus;
 
     public Message(String subject, String body, String senderID, String sender) {
 
@@ -17,12 +18,20 @@ public class Message {
         this.subject = subject;
         this.senderID = senderID;
         this.sender = sender;
+        this.readStatus=false;
     }
 
     public Message() {
     }
 
 
+
+    public void setReadStatus(boolean status){
+        this.readStatus=status;
+    }
+    public boolean getReadStatus(){
+        return this.readStatus;
+    }
     public String getSubject() {
         return this.subject;
     }

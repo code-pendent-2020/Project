@@ -6,6 +6,7 @@ public class Customer extends Person {
     private String membershipType;
     private Membership membership;
     private ArrayList<Message> inbox;
+    private boolean readStatus;
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
 
@@ -69,10 +70,18 @@ public class Customer extends Person {
     public void setMembership(Membership membership) {
         this.membership = membership;
     }
-
+    public boolean getReadStatus(){
+        return readStatus;
+    }
     public void viewMessages(Customer customer) {
         for (Message message : customer.getInbox()) {
             System.out.println(message.toString());
+            if(!message.getReadStatus()){
+                message.setReadStatus(true);
+                System.out.println("unread");}
+            else{
+                System.out.println("read");
+            }
         }
     }
 
