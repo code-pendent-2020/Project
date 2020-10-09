@@ -27,9 +27,10 @@ public class Membership {
     }
 
     public String getType() {
-        if (type == null) {
+        if (this.type == null) {
             return "No membership";
-        } else return type;
+        }
+        return type;
     }
 
     public void setType(String type) {

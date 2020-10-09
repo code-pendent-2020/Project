@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.UUID;
@@ -71,7 +73,7 @@ public class Rental {
         return "Customer ID: " + getCustomerId() + "\nRental Item: " + getItemId() + "\nTransaction Cost: " + getRentExpense() + "\n" +  getRating() +"\n";
     }
 
-    public void rentGame(List<Game> games) {
+    public void rentGame(ArrayList<Game> games) {
         boolean contains = false;
         String rentId = input.getInput("Enter the ID of the game would you like to rent: ");
             for (Game rentGame : games) {
@@ -97,8 +99,7 @@ public class Rental {
         }
     }
 
-
-     public Rental returnGame(String customerId, List<Game> games) {
+     public Rental returnGame(String customerId, ArrayList<Game> games) {
         String rentId = input.getInput("\nEnter the ID of the game would you like to return: ");
         long daysRented = 0;
         double userBill = 0;
@@ -114,11 +115,12 @@ public class Rental {
                     System.out.println(input.EOL+"You rented " + rentedGame.getTitle() + " for " + daysRented + " days. "+input.EOL+"Your total is " + userBill + " SEK \n");
                     System.out.println("The Game has now been returned.");
 
-                    String ratingQuestion = input.getInput("We hope you enjoyed playing this classic. Would you like to rate it? Y/N ");
                     String feedback = null;
                     int rating = 0;
                     Rating customerRating = null;
                     Rental rentTransaction = null;
+                    String ratingQuestion = input.getInput("We hope you enjoyed playing this classic. Would you like to rate it? Y/N ");
+
                     if (ratingQuestion.equalsIgnoreCase("n")) {
                         rentTransaction = new Rental(customerId, rentId, userBill);
                         return rentTransaction;
@@ -148,6 +150,48 @@ public class Rental {
             returnGame(customerId, games);
         }
         return null;
+    }
+
+    public void rentAlbum(ArrayList<Album> albums){
+        String rental = input.getInput(input.EOL+"Rent"+input.EOL+"Album ID: ");
+        for (Album album : albums) {
+            if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
+                if (album.getRentStatus().equalsIgnoreCase("unavailable")) {
+                    System.out.println("Item is unavailable");
+                    rentAlbum(albums);
+                } else {
+                    album.setRentStatus(true);
+                    album.setRentedDate(LocalDate.now());
+                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Rented");
+                }
+            }
+        }
+    }
+
+    public void returnAlbum(ArrayList<Album> albums){
+        String rental = input.getInput("Return"+input.EOL+"Album ID: ");
+        // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
+        for (Album album : albums) {
+
+            if (album.getID().equals(rental) && album.getRentStatus().equals("unavailable")) {
+                long daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020,10,31));
+                double cost = album.getDailyRent() * daysRented;
+                album.setRentStatus(false);
+                album.setRentedDate(null);
+                System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
+                rentalIncome += cost;
+                int rating = input.getInt("We hope you enjoyed the album. How would you rate it on a scale of 0-5? ");
+                String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
+                String feedback = null;
+                if (feedbackQuestion.equalsIgnoreCase("y")){
+                    feedback = input.getInput("Please type your feedback: ");
+                }
+                System.out.println("Thank you for your feedback! ");
+                Rating customerRating = new Rating(rating, feedback);
+                System.out.println(album.getArtist());
+                album.getRatingSet().add(customerRating);
+            }
+        }
     }
 
     public void showRentalIncome() {
