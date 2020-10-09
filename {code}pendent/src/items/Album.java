@@ -1,3 +1,7 @@
+package items;
+
+import tools.Input;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -6,9 +10,6 @@ public class Album extends Inventory {
 
 
     private final Input input = Input.getInstance();
-
-    public Album() {
-    }
 
     public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date) {
         super(title, dailyRent, year, rentStatus, date);
@@ -21,10 +22,10 @@ public class Album extends Inventory {
     }
 
     public String toString() {
-        return input.DIVIDER + input.EOL + "ID: " + this.getID() + input.EOL + "Album: " + this.getTitle()
+        return input.DIVIDER + input.EOL + "ID: " + this.getID() + input.EOL + "items.Album: " + this.getTitle()
                 + input.EOL + "Artist: " + this.getArtist() + ". " + input.EOL + "Released year: " +
                 this.getYear() + ". " + input.EOL + "Daily Price: " + this.getDailyRent() + " SEK."
-                + input.EOL +"Status: " + this.getRentStatus() + input.EOL + "Rating: " + this.averageRating();
+                + input.EOL +"Status: " + this.getRentStatus() + input.EOL + "items.properties.Rating: " + this.averageRating();
     }
 
     public String getID() {

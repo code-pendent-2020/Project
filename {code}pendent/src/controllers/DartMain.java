@@ -1,4 +1,6 @@
-import java.lang.*;
+package controllers;
+
+import tools.Input;
 
 public class DartMain {
     private static final String WELCOME_MESSAGE = Input.EOL +"Welcome to DART, your good old game rental system. The competition has no steam to keep up!";

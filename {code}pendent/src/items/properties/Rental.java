@@ -1,7 +1,10 @@
+package items.properties;
+
+import items.Game;
+import tools.Input;
+
 import java.time.LocalDate;
 import java.util.List;
-
-import java.util.UUID;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -11,7 +14,7 @@ public class Rental {
     private String itemId;
     private double rentExpense;
     private Rating rating;
-    private static double rentalIncome = 25.00;
+    private double rentalIncome = 25.00;
     private Input input = Input.getInstance();
 
     // Default Constructor
@@ -68,7 +71,7 @@ public class Rental {
     }
 
     public String toString(){
-        return "Customer ID: " + getCustomerId() + "\nRental Item: " + getItemId() + "\nTransaction Cost: " + getRentExpense() + "\n" +  getRating() +"\n";
+        return "people.Customer ID: " + getCustomerId() + "\nitems.properties.Rental Item: " + getItemId() + "\nTransaction Cost: " + getRentExpense() + "\n" +  getRating() +"\n";
     }
 
     public void rentGame(List<Game> games) {
@@ -79,9 +82,9 @@ public class Rental {
                     contains = true;
                     rentGame.setRentStatus(true);
                     rentGame.setRentedDate(LocalDate.now());
-                    System.out.println("Game has been rented. Enjoy!");
+                    System.out.println("items.Game has been rented. Enjoy!");
                 } else if (rentGame.getId().equals(rentId) && rentGame.getRentStatus()) {
-                    int choice = input.getInt("Sorry, that game is being rented at the moment "+input.EOL+" 1) Try a different game"+input.EOL+" 2) Back to Customer menu\n");
+                    int choice = input.getInt("Sorry, that game is being rented at the moment "+input.EOL+" 1) Try a different game"+input.EOL+" 2) Back to people.Customer menu\n");
                     if (choice == 1) {
                         rentGame(games);
                     } else if (choice == 2) {
@@ -112,7 +115,7 @@ public class Rental {
                     userBill = daysRented * rentedGame.getDailyRent();
                     rentalIncome = rentalIncome + userBill;
                     System.out.println(input.EOL+"You rented " + rentedGame.getTitle() + " for " + daysRented + " days. "+input.EOL+"Your total is " + userBill + " SEK \n");
-                    System.out.println("The Game has now been returned.");
+                    System.out.println("The items.Game has now been returned.");
 
                     String ratingQuestion = input.getInput("We hope you enjoyed playing this classic. Would you like to rate it? Y/N ");
                     String feedback = null;
@@ -144,14 +147,14 @@ public class Rental {
             }
         }
         if (!contains) {
-            System.out.println("Game with this ID doesn't exist in this here dimension.");
+            System.out.println("items.Game with this ID doesn't exist in this here dimension.");
             returnGame(customerId, games);
         }
         return null;
     }
 
     public void showRentalIncome() {
-        System.out.println("Rental income to-date is: " + getRentalIncome() + " SEK"+input.EOL);
+        System.out.println("items.properties.Rental income to-date is: " + getRentalIncome() + " SEK"+input.EOL);
 
     }
 }

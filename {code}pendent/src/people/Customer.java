@@ -1,3 +1,8 @@
+package people;
+
+import people.features.Membership;
+import people.features.Message;
+import tools.Input;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
@@ -9,11 +14,7 @@ public class Customer extends Person {
     private final Input input = Input.getInstance();
     Membership memberRequest = new Membership();
 
-    // Default Constructor
-    Customer() {
-    }
-
-    public Customer(String name){
+    public Customer(String name) {
         super(name);
         this.inbox = new ArrayList<>();
         this.membershipType = null;
@@ -27,7 +28,7 @@ public class Customer extends Person {
     }
 
     public String toString() {
-        return input.EOL + "ID: " + super.getId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
+        return input.EOL + "ID: " + super.getId() + ", Name: " + this.getName() + ", people.membership.Membership: " + this.getMembershipType();
     }
 
     public Customer addCustomer(){
@@ -75,16 +76,16 @@ public class Customer extends Person {
     public ArrayList<Membership> addMembership(ArrayList<Customer> customerList){
         ArrayList<Membership> requestList = null;
         String name = input.getInput("What is your name?: ");
-        if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
+        if (customerList.stream().anyMatch(o -> o.getName().equalsIgnoreCase(name))) {
             String type = null;
-            int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
-            if(membershipType == 1){
+            int membershipType = input.getInt("Which membership do you want to apply for?"+ input.EOL +" 1) Silver"+ input.EOL +" 2) Gold"+ input.EOL +" 3) Platinum"+ input.EOL +"Choose your Option: ");
+            if (membershipType == 1) {
                 type = "Silver";
-            }else if (membershipType == 2){
+            } else if (membershipType == 2) {
                 type = "Gold";
-            }else if (membershipType == 3){
+            } else if (membershipType == 3) {
                 type = "Platinum";
-            }else{
+            } else {
                 System.out.println("Not a valid input.");
             }
             System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
@@ -109,18 +110,18 @@ public class Customer extends Person {
                     System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet.");
                     return null;
                 }
-                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. \nWhich Membership would you like to upgrade to? \n");
+                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. \nWhich people.membership.Membership would you like to upgrade to? \n");
                 String requestType = null;
                 int userInput;
                 if (membershipType.equals("Silver")) {
-                    userInput = input.getInt(" 1) Gold \n 2) Platinum \n 3) Back to Customer Menu \n");
+                    userInput = input.getInt(" 1) Gold"+ input.EOL +" 2) Platinum"+ input.EOL +" 3) Back to people.Customer Menu");
                     if (userInput == 1) {
                         requestType = "Gold";
                     } else if (userInput == (2)) {
                         requestType = "Platinum";
                     }
                 } else if (membershipType.equals("Gold")) {
-                    userInput = input.getInt("1) Platinum 2) Back to Customer Menu");
+                    userInput = input.getInt("1) Platinum 2) Back to people.Customer Menu");
                     if (userInput == 1) {
                         requestType = "Platinum";
                     }
@@ -130,7 +131,7 @@ public class Customer extends Person {
             }
         }
         if (!contains) {
-            System.out.println("Sorry, " + name + "is not in our Customer database.");
+            System.out.println("Sorry, " + name + "is not in our people.Customer database.");
         }
         return upgradeList;
     }

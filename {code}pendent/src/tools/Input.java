@@ -1,5 +1,7 @@
+package tools;
+
 import java.time.Year;
-import java.util.*;
+import java.util.Scanner;
 
 public class Input {
     public static final String EOL = System.lineSeparator();
@@ -12,7 +14,7 @@ public class Input {
     private static Input instance = null; // Static so it can be access everywhere
 
     private Input() {
-    } // private so you cant explicitly instantiate a new Input instance
+    } // private so you cant explicitly instantiate a new tools.Input instance
 
     public static Input getInstance() {
         if (instance == null) { // check if null

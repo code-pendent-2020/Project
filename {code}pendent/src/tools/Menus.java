@@ -1,3 +1,5 @@
+package tools;
+
 public class Menus {
 
     private String title;
@@ -16,7 +18,7 @@ public class Menus {
     }
 
     public void mainMenu() {
-        String[] options = {" 1) Manager Menu", " 2) Employee Menu", " 3) Customer Menu", " 4) Exit System"};
+        String[] options = {" 1) Manager Menu", " 2) people.Employee Menu", " 3) people.Customer Menu", " 4) Exit System"};
         Menus menu = new Menus(input.EOL + "------Main-Menu------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -26,7 +28,7 @@ public class Menus {
     }
 
     public void managerMenu() {
-        String[] options = {" 1) Register Employee", " 2) Remove Employee", " 3) View Employees", " 4) View Rental History ", "5) Main Menu"};
+        String[] options = {" 1) Register people.Employee", " 2) Remove people.Employee", " 3) View Employees", " 4) View items.properties.Rental History ", "5) Main Menu"};
         Menus menu = new Menus(input.EOL + "-----Manager-Menu-----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
@@ -35,8 +37,8 @@ public class Menus {
     }
 
     public void employeeMenu() {
-        String[] options = {" 1) Game Options", " 2) Album Options", " 3) Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
-        Menus menu = new Menus(input.EOL+"----Employee-Menu----", options);
+        String[] options = {" 1) items.Game Options", " 2) items.Album Options", " 3) people.Customer Options", " 4) Total Rent Profit", " 5) Main Menu"};
+        Menus menu = new Menus(input.EOL+"----people.Employee-Menu----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -44,8 +46,8 @@ public class Menus {
     }
 
     public void empGameOptions() {
-        String[] options = {" 1) Register Game", " 2) Remove Game", " 3) View Games", " 4) Employee Menu"};
-        Menus menu = new Menus(input.EOL + "-----Game-Options----", options);
+        String[] options = {" 1) Register items.Game", " 2) Remove items.Game", " 3) View Games", " 4) people.Employee Menu"};
+        Menus menu = new Menus(input.EOL + "-----items.Game-Options----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -53,8 +55,8 @@ public class Menus {
     }
 
     public void empAlbumOptions() {
-        String[] options = {" 1) Register Album", " 2) Remove Album", " 3) View Albums", " 4) Employee Menu"};
-        Menus menu = new Menus(input.EOL + "----Album-Options----", options);
+        String[] options = {" 1) Register items.Album", " 2) Remove items.Album", " 3) View Albums", " 4) people.Employee Menu"};
+        Menus menu = new Menus(input.EOL + "----items.Album-Options----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -62,8 +64,8 @@ public class Menus {
     }
 
     public void empCustomerOptions() {
-        String[] options = {" 1) Register Customer", " 2) Remove Customer", " 3) View Customers", " 4) Employee Menu"};
-        Menus menu = new Menus(input.EOL + "---Customer-Options---", options);
+        String[] options = {" 1) Register people.Customer", " 2) Remove people.Customer", " 3) View Customers", " 4) people.Employee Menu"};
+        Menus menu = new Menus(input.EOL + "---people.Customer-Options---", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -71,8 +73,8 @@ public class Menus {
     }
 
     public void customerMenu() {
-        String[] options = {" 1) Game Options", " 2) Album Options", " 3) Membership Options", " 4) Inbox", " 5) Main Menu"};
-        Menus menu = new Menus(input.EOL + "----Customer-Menu----", options);
+        String[] options = {" 1) items.Game Options", " 2) items.Album Options", " 3) people.membership.Membership Options", " 4) Inbox", " 5) Main Menu"};
+        Menus menu = new Menus(input.EOL + "----people.Customer-Menu----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -80,8 +82,8 @@ public class Menus {
     }
 
     public void cusGameOptions() {
-        String[] options = {" 1) Rent Game", " 2) Return Game", " 3) Search Game by Genre", " 4) View Games by Year", " 5) View Games by Rating", " 6) Customer Menu"};
-        Menus menu = new Menus(input.EOL + "---------Game--------", options);
+        String[] options = {" 1) Rent items.Game", " 2) Return items.Game", " 3) Search items.Game by Genre", " 4) View Games by Year", " 5) View Games by items.properties.Rating", " 6) people.Customer Menu"};
+        Menus menu = new Menus(input.EOL + "---------items.Game--------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -89,8 +91,8 @@ public class Menus {
     }
 
     public void cusAlbumOptions() {
-        String[] options = {" 1) Rent Album", " 2) Return Album", " 3) Search Album by Year", " 4) View Albums by Year", " 5) View Albums by Rating", " 6) Customer Menu"};
-        Menus menu = new Menus(input.EOL + "--------Album--------", options);
+        String[] options = {" 1) Rent items.Album", " 2) Return items.Album", " 3) Search items.Album by Year", " 4) View Albums by Year", " 5) View Albums by items.properties.Rating", " 6) people.Customer Menu"};
+        Menus menu = new Menus(input.EOL + "--------items.Album--------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -98,8 +100,8 @@ public class Menus {
     }
 
     public void cusMembershipOptions() {
-        String[] options = {" 1) Add Membership", " 2) Upgrade Membership", " 3) Customer Menu"};
-        Menus menu = new Menus(input.EOL + "-----Membership------", options);
+        String[] options = {" 1) Add people.membership.Membership", " 2) Upgrade people.membership.Membership", " 3) people.Customer Menu"};
+        Menus menu = new Menus(input.EOL + "-----people.membership.Membership------", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
             System.out.println(options[i]);
@@ -107,7 +109,7 @@ public class Menus {
     }
 
     public void inboxMenu() {
-        String[] options = {" 1) View messages", " 2) Send Message", " 3) Delete Message", " 4) Customer Menu"};
+        String[] options = {" 1) View messages", " 2) Send people.membership.Message", " 3) Delete people.membership.Message", " 4) people.Customer Menu"};
         Menus menu = new Menus("--------Inbox--------", options); //add the name of the user whose inbox we are using to title
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {

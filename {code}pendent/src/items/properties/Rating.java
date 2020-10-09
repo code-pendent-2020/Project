@@ -1,3 +1,5 @@
+package items.properties;
+
 public class Rating {
 
     private double rating;
@@ -9,7 +11,7 @@ public class Rating {
     Rating(double Rating) {
     }
 
-    Rating(double rating, String feedback) {
+    public Rating(double rating, String feedback) {
         this.rating = rating;
         this.feedback = feedback;
     }

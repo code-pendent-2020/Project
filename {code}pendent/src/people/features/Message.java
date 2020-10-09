@@ -1,3 +1,7 @@
+package people.features;
+
+import tools.Input;
+
 import java.util.UUID;
 
 public class Message {
@@ -18,10 +22,6 @@ public class Message {
         this.senderID = senderID;
         this.sender = sender;
     }
-
-    public Message() {
-    }
-
 
     public String getSubject() {
         return this.subject;
@@ -61,7 +61,7 @@ public class Message {
     }
 
     public String toString() {
-        return input.EOL +"Message ID: " + messageId + input.EOL + "Senders ID: " + senderID +
-                input.EOL +"Sender: " + sender + input.EOL + "Title: " + subject + input.EOL + "Message: " + body;
+        return input.EOL +"people.membership.Message ID: " + messageId + input.EOL + "Senders ID: " + senderID +
+                input.EOL +"Sender: " + sender + input.EOL + "Title: " + subject + input.EOL + "people.membership.Message: " + body;
     }
 }

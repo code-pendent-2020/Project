@@ -1,3 +1,11 @@
+package controllers;
+
+import items.properties.Rental;
+import people.Customer;
+import people.features.Membership;
+import tools.Input;
+import tools.Menus;
+
 import java.util.ArrayList;
 
 public class DartController {
@@ -56,8 +64,8 @@ public class DartController {
 
     private void membershipRequestList() {
         for (Membership request : requestList) {
-            System.out.println("The following Customer has requested a membership: ");
-            System.out.println("Customer : " + request.getName() + input.EOL + " Requesting: " + request.getType() + " membership");
+            System.out.println("The following people.Customer has requested a membership: ");
+            System.out.println("people.Customer : " + request.getName() + input.EOL + " Requesting: " + request.getType() + " membership");
             String requestListAnswer = input.getInput("(Y/N): ");
             if (requestListAnswer.equalsIgnoreCase("Y")) {
                 for (Customer requested : storage.getCustomers()) {
@@ -110,7 +118,7 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.print(input.EOL + ">> New Employee" + input.EOL);
+                    System.out.print(input.EOL + ">> New people.Employee" + input.EOL);
                     storage.addEmployee();
                     input.userCheck();
                     managerMenu();
@@ -187,13 +195,13 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> New Game");
+                    System.out.println(input.EOL + ">> New items.Game");
                     storage.addNewGame();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Remove Game:");
+                    System.out.println(input.EOL + ">> Remove items.Game:");
                     storage.viewGames();
                     storage.removeGame();
                     input.userCheck();
@@ -223,13 +231,13 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> New Album");
+                    System.out.println(input.EOL + ">> New items.Album");
                     storage.addAlbum();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Remove Album:");
+                    System.out.println(input.EOL + ">> Remove items.Album:");
                     storage.viewAlbums();
                     storage.removeAlbum();
                     input.userCheck();
@@ -259,13 +267,13 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> New Customer");
+                    System.out.println(input.EOL + ">> New people.Customer");
                     storage.addCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Remove Customer");
+                    System.out.println(input.EOL + ">> Remove people.Customer");
                     storage.removeCustomer();
                     input.userCheck();
                     employeeMenu();
@@ -322,14 +330,14 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> Rent Game");
+                    System.out.println(input.EOL + ">> Rent items.Game");
                     storage.viewGames();
                     storage.rentGame();
                     input.userCheck();
                     cusGameOptions();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Return Game");
+                    System.out.println(input.EOL + ">> Return items.Game");
                     storage.returnGame();
                     input.userCheck();
                     cusGameOptions();
@@ -347,7 +355,7 @@ public class DartController {
                     cusGameOptions();
                     break;
                 case "5":
-                    System.out.println(input.EOL + ">> All Games by Rating");
+                    System.out.println(input.EOL + ">> All Games by items.properties.Rating");
                     storage.viewGamesByRating();
                     input.userCheck();
                     cusGameOptions();
@@ -370,14 +378,14 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> Rent Album");
+                    System.out.println(input.EOL + ">> Rent items.Album");
                     storage.viewAlbums();
                     storage.rentAlbum();
                     input.userCheck();
                     cusAlbumOptions();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Return Album:");
+                    System.out.println(input.EOL + ">> Return items.Album:");
                     storage.viewAlbums();
                     storage.returnAlbum();
                     input.userCheck();
@@ -396,7 +404,7 @@ public class DartController {
                     cusAlbumOptions();
                     break;
                 case "5":
-                    System.out.println(input.EOL + ">> All Albums by Rating");
+                    System.out.println(input.EOL + ">> All Albums by items.properties.Rating");
                     storage.viewAlbumsByRating();
                     input.userCheck();
                     cusAlbumOptions();
@@ -419,13 +427,13 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> Add Membership");
+                    System.out.println(input.EOL + ">> Add people.membership.Membership");
                     storage.addMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Upgrade Membership ");
+                    System.out.println(input.EOL + ">> Upgrade people.membership.Membership ");
                     storage.upgradeMembership();
                     input.userCheck();
                     cusMembershipOptions();
@@ -454,13 +462,13 @@ public class DartController {
                     inboxMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Send Message");
+                    System.out.println(input.EOL + ">> Send people.membership.Message");
                     storage.sendMessage();
                     input.userCheck();
                     inboxMenu();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> Delete Message");
+                    System.out.println(input.EOL + ">> Delete people.membership.Message");
                     storage.removeMessages();
                     input.userCheck();
                     inboxMenu();

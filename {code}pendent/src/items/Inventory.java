@@ -1,3 +1,7 @@
+package items;
+
+import items.properties.Rating;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -10,10 +14,6 @@ public class Inventory {
     private LocalDate rentedDate;
     private boolean rentStatus;
     private ArrayList<Rating> ratings;
-
-    // Constructor
-    public Inventory() {
-    }
 
     public Inventory(String title, double dailyRent, int year, boolean rentStatus, LocalDate date) {
         this.id = UUID.randomUUID().toString();
