@@ -1,8 +1,6 @@
-import javax.security.auth.Subject;
-import java.lang.*;
-import java.lang.reflect.Array;
-import java.time.LocalDate;
 import java.util.*;
+import java.time.LocalDate;
+
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -44,12 +42,12 @@ public class Storage {
             new Game( "Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-            new Customer("Vernita", "Silver"),
+            new Customer("Vernita", new Membership("Silver", 0)),
             new Customer("Navya"),
             new Customer("Drake"),
-            new Customer("Altan"),
+            new Customer("Altan", new Membership("Silver", 0)),
             new Customer("Karen"),
-            new Customer("Axel")));
+            new Customer("Axel", new Membership("Gold", 0))));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
@@ -132,7 +130,7 @@ public class Storage {
    //     return this.customer.addMembership(getCustomers());
    // }
     public ArrayList<Membership> addMembership(){
-        return this.customer.addMembership();
+        return this.customer.addMembership(getCustomers());
     }
 
     public ArrayList<Membership> upgradeMembership(){

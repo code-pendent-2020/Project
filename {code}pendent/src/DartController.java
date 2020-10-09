@@ -1,17 +1,15 @@
 import java.util.ArrayList;
 
 public class DartController {
-    private Menus menus;
-    private Input input = Input.getInstance();
-    Storage storage; // should be private
+    private final Menus menus;
+    private final Input input = Input.getInstance();
+    private final Storage storage; // should be private
     private final String invalidInput = "--- Invalid input ---";
-
     private ArrayList<Membership> requestList = null;
 
     public DartController() {
         this.menus = new Menus();
         this.storage = new Storage();
-
     }
 
     public void run() {
@@ -44,7 +42,7 @@ public class DartController {
     public void authEmployee() {
         String password = "password123";
 
-        Boolean authSuccess = authenticate(password);
+        boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
             employeeMenu();
@@ -259,24 +257,30 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
+                    System.out.println(input.EOL + ">> Membership Requests");
+                    membershipRequestList();
+                    input.userCheck();
+                    employeeMenu();
+                    break;
+                case "2":
                     System.out.println(input.EOL + ">> New Customer");
                     storage.addCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
-                case "2":
+                case "3":
                     System.out.println(input.EOL + ">> Remove Customer");
                     storage.removeCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
-                case "3":
+                case "4":
                     System.out.println(input.EOL + ">> All Customers");
                     storage.viewCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
-                case "4":
+                case "5":
                     employeeMenu();
                     break;
                 default:
@@ -420,13 +424,13 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + ">> Add Membership");
-                    storage.addMembership();
+                    requestList = storage.addMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;
                 case "2":
                     System.out.println(input.EOL + ">> Upgrade Membership ");
-                    storage.upgradeMembership();
+                    requestList = storage.upgradeMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;
