@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.UUID;
 
 public class Inventory {
@@ -94,7 +93,7 @@ public class Inventory {
             for (Rating rating : ratings) {
                 sum = sum + rating.getRating();
             }
-            return Math.round((sum / ratings.size())*100)/100;
+            return Math.round((sum / ratings.size()) * 100) / 100;
         } else {
             return 0;
         }

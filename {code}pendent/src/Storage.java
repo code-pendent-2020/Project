@@ -8,7 +8,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Storage {
 
-    //opening component classes
     private Employee employee = new Employee();
     private Customer customer = new Customer();
     private Input input = Input.getInstance();
@@ -45,13 +44,18 @@ public class Storage {
             new Game( "Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-            new Customer("Vernita", "Silver"),
+            new Customer("Vernita", new Membership("Silver", 0)),
             new Customer("Navya"),
             new Customer("Drake"),
-            new Customer("Altan"),
+            new Customer("Altan", new Membership("Silver", 0)),
             new Customer("Karen"),
-            new Customer("Axel")));
+            new Customer("Axel", new Membership("Gold", 0))));
 
+    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
+
+    public ArrayList<Rental> getRentalHistory() {
+        return rentalHistory;
+    }
 
     public ArrayList<Employee> getEmployees(){return employees;}
 
@@ -70,15 +74,32 @@ public class Storage {
     public void setCustomer(){
         this.customer = customer;
     }
-    //Game
+
     public void rentGame(){
-        rental.rentGame(games);
+        rental.rentGame(getGames());
     }
 
     public void returnGame() {
-        rental.returnGame(games);
+        String name = input.getInput("Hiya! What is your name, customer?  ");
+        boolean contains = false;
+        for (Customer customer : customerList) {
+           if (customer.getName().equalsIgnoreCase(name)){
+               contains = true;
+               viewGames();
+               Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+               getRentalHistory().add(newTransaction);
+           }
+        }
+        if (!contains){
+            System.out.println("That customer doesn't exist on our database, please try again.");
+            returnGame();
+        }
     }
-
+    public void viewTransactions() {
+        for (Rental rental : getRentalHistory()){
+            System.out.println(rental);
+        }
+    }
     public void totalProfit(){
         double profit = 0;
         rental.getRentalIncome();
@@ -89,9 +110,6 @@ public class Storage {
         int average = 0;
         System.out.println("The average rating is " + average);
     }
-
-    //Customer
-    //--------------------------------------------------------------------------//
 
     public void addCustomer(){
        this.customerList.add(customer.addCustomer());
@@ -110,47 +128,47 @@ public class Storage {
         }
     }
 
+   // public ArrayList<Membership> addMembership(){
+   //     return this.customer.addMembership(getCustomers());
+   // }
     public ArrayList<Membership> addMembership(){
-        return this.customer.addMembership();
+        return this.customer.addMembership(getCustomers());
     }
 
     public ArrayList<Membership> upgradeMembership(){
-        return this.customer.upgradeMembership();
+        return this.customer.upgradeMembership(getCustomers());
     }
 
-
-    //--------------------------------------------------------------------------//
     public void addEmployee(){
         this.employees.add(employee.addEmployee());
     }
     public void removeEmployee() {
-        String removeID = input.getInput("Enter the ID of the employee you want to remove.\nEmployee ID: ");
+        String removeID = input.getInput("Enter the ID of the employee you want to remove."+input.EOL+"Employee ID: ");
         this.employees.removeIf(employee -> employee.getId().equals(removeID));
-        System.out.println("Employee Removed\n");
+        System.out.println("Employee Removed"+input.EOL);
     }
     public void viewEmployee(){
         for (Employee employee : employees){
             System.out.println(employee.toString());
         }
     }
-    //--------------------------------------------------------------------------//
-
 
     public void addAlbum(){
         this.albums.add(album.addAlbum());
     }
+
     public void removeAlbum(){
-        String removeID = input.getInput("Remove.\nAlbum ID: ");
+        String removeID = input.getInput("Remove."+input.EOL+"Album ID: ");
         this.albums.removeIf(album -> album.getID().equals(removeID));
-        System.out.println("Album Removed\n");
+        System.out.println("Album Removed"+input.EOL);
     }
 
     public void rentAlbum(){
-        String rental = input.getInput("\nRent\nAlbum ID: ");
+        String rental = input.getInput(input.EOL+"Rent"+input.EOL+"Album ID: ");
         for (Album album : albums) {
             if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
                 if (album.getRentStatus().equalsIgnoreCase("unavailable")) {
-                    System.out.println("That item is currently unavailable you fucking pleb. \ntry another: ");
+                    System.out.println("Item is unavailable");
                     rentAlbum();
                 } else {
                     album.setRentStatus(true);
@@ -161,8 +179,8 @@ public class Storage {
         }
     }
 
-    public void returnAlbum(){ // still needs to do calculation of price
-        String rental = input.getInput("Return\nAlbum ID: ");
+    public void returnAlbum(){
+        String rental = input.getInput("Return"+input.EOL+"Album ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
         for (Album album : albums) {
 
@@ -176,7 +194,7 @@ public class Storage {
                 String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
                 String feedback = null;
                 if (feedbackQuestion.equalsIgnoreCase("y")){
-                    feedback = input.getInput("Sooo - tell me a bit about it. How was it? Did you feeeeeel something? ");
+                    feedback = input.getInput("Please type your feedback: ");
                 }
                 System.out.println("Thank you for your feedback! ");
                 Rating customerRating = new Rating(rating, feedback);
@@ -194,9 +212,8 @@ public class Storage {
         }
     }
 
-
     public void searchAlbums(){
-        int google = input.getInt("Album Search\nYear: ");
+        int google = input.getInt("Album Search"+input.EOL+"Year: ");
         for (Album album : albums) {
             if (album.getYear() == google) {
                 System.out.println(album.toString());
@@ -211,9 +228,7 @@ public class Storage {
             System.out.println(album.toString());
         }
     }
-    //----------------------------------------------------------------------------//
 
-// Games
 public void addNewGame() {
     int countArray = games.size();
     System.out.print("Title:  ");
@@ -232,37 +247,33 @@ public void addNewGame() {
     games.add( new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear));
     System.out.println("Game Added Successfully : " + games.toString());
 
-    System.out.println("1) Add another game" + "\n" + "2) View all games" + "\n" + "3) Employee Menu");
+    System.out.println("1) Add another game" + input.EOL + "2) View all games" + input.EOL + "3) Employee Menu");
     int userChoice = input.input.nextInt();
     if (userChoice == 1) {
         addNewGame();
     } else if (userChoice == 2) {
         viewGames();
-    } // else employeeMenu();
-
+    }
 }
+
     public void removeGame() {
         System.out.println("Which game should be removed? ID:");
         String gameId = input.input.nextLine();
         boolean contains = false;
         if (games.contains(gameId)) {
             contains = true;
-            System.out.println("Are you sure you want to remove this game from the directory?" + "\n" + games.toString() + "\n" + "(Y/N)");
+            System.out.println("Are you sure you want to remove this game from the directory?" + input.EOL + games.toString() + input.EOL + "(Y/N)");
             String doubleCheck = input.input.nextLine();
             if (doubleCheck.equalsIgnoreCase("y")) {
                 games.remove(gameId);
                 System.out.println("Game removed");
             } else {
                 System.out.println("Okay, no problem. ");
-//                dartController.menus.employeeMenu();
             }
         } else {
             System.out.println("That game doesn't seem to be in the directory.");
         }
         viewGames();
-        //  System.out.println("Game has to be returned before it can be removed from the system.\n");
-        // if (!contains) System.out.println("Couldn't find that game. Please make sure you enter the correct ID.\n");
-        //  menus.employeeMenu();
     }
 
     public void viewGames() {
@@ -273,7 +284,7 @@ public void addNewGame() {
         }
     }
     public void searchGames(){
-        String google = input.getInput("Game Search\nGenre: ");
+        String google = input.getInput("Game Search"+input.EOL+"Genre: ");
         for (Game game : games) {
             if (game.getGenre().equalsIgnoreCase(google)) {
                 System.out.println(game.toString());
@@ -295,33 +306,32 @@ public void addNewGame() {
 
     public void sendMessage() {
         viewCustomer();
-        String recipientId= input.getInput("\nenter the customer ID of the person you want to send message to:  ");
+        String recipientId= input.getInput(input.EOL+"enter the customer ID of the person you want to send message to:  ");
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderID = input.getInput("Type your ID: ");
                 String senderName = input.getInput("Type your Name: ");
                 String subject = input.getInput("Type your Title: ");
                 String body = input.getInput("Type your message: ");
-
                 Message newMessage = new Message(subject, body, senderID, senderName);
-               // for (int messageId = 1; messageId <= 100; messageId++) {
-               // }
                 System.out.println("Your message has been sent.");
                 customer.getInbox().add(newMessage);
-                //  return customerMessages;
-                //   } else if (!Message.equals(customer.getId())) {
-                //    System.out.print("There is no customer available with this Id :(. ");
             }
+
         }
     }
 
-    public void viewMessages(){
+    public void viewMessages() {
         String name = input.getInput("Type your name to view your inbox: ");
-        for (Customer reader: customerList){
-            if(reader.getName().equalsIgnoreCase(name)){
+        for (Customer reader : customerList) {
+            if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
+                Collections.reverse(reader.getInbox());
+                System.out.print(input.EOL + ">> List of messages in order received <<");
                 customer.viewMessages(reader);
+                Collections.reverse(reader.getInbox());
+            }else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0){
+                System.out.println(input.EOL + "No messages to view.");
             }
-
         }
     }
 

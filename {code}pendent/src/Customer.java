@@ -1,16 +1,13 @@
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.UUID;
 
 public class Customer extends Person {
     private String membershipType;
+    private Membership membership;
     private ArrayList<Message> inbox;
-    private Person person;
-
-    private Input input = Input.getInstance();
-    Membership memberRequest = new Membership();
+    private final Input input = Input.getInstance();
+    private Membership memberRequest = new Membership();
 
     // Default Constructor
     Customer() {
@@ -22,21 +19,21 @@ public class Customer extends Person {
         this.membershipType = null;
     }
 
-    public Customer(String name, String membership){
+    public Customer(String name, Membership membership){
         super(name);
-        this.inbox = new ArrayList<>();
-        this.membershipType= membership;
+        this.inbox = new ArrayList<>(Arrays.asList(
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!\n", UUID.randomUUID().toString(),"DART")));
+        this.membership = membership;
     }
 
-    public String toString(){
-        return  "\n" + "ID: "+ super.getId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
+    public String toString() {
+        return input.EOL + "ID: " + super.getId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
     }
 
     public Customer addCustomer(){
         System.out.print("Enter the customers name: ");
         String customerName = input.input.nextLine();
-        Customer newCustomer = new Customer(customerName);
-        return newCustomer;
+        return new Customer(customerName);
     }
 
     @Override
@@ -65,24 +62,26 @@ public class Customer extends Person {
         return inbox;
     }
 
+    public Membership getMembership() {
+        return membership;
+    }
+
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+
     public void viewMessages(Customer customer) {
         for (Message message : customer.getInbox()) {
             System.out.println(message.toString());
         }
     }
-    /*
-            public String removeCustomer(){
-                return null;
-            }
-        */
-    public ArrayList<Membership> addMembership(){
-        DartController dartController = new DartController();
-        ArrayList<Customer> customerList = dartController.storage.getCustomers();
+
+    public ArrayList<Membership> addMembership(ArrayList<Customer> customerList){
         ArrayList<Membership> requestList = null;
         String name = input.getInput("What is your name?: ");
         if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
             String type = null;
-            int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum" );
+            int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum \n");
             if(membershipType == 1){
                 type = "Silver";
             }else if (membershipType == 2){
@@ -92,6 +91,7 @@ public class Customer extends Person {
             }else{
                 System.out.println("Not a valid input.");
             }
+            System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
            requestList = memberRequest.requestMembership(name, type);
         }else{
             System.out.println("you dont exist");
@@ -99,9 +99,7 @@ public class Customer extends Person {
         return requestList;
     }
 
-    public ArrayList<Membership> upgradeMembership() {
-        DartController dartController = new DartController();
-        ArrayList<Customer> customerList = dartController.storage.getCustomers();
+    public ArrayList<Membership> upgradeMembership(ArrayList<Customer> customerList) {
         ArrayList<Membership> upgradeList = null;
         String name = input.getInput("What is your name?: ");
         boolean contains = false;
@@ -109,9 +107,9 @@ public class Customer extends Person {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
-                String membershipType = customer.getMembershipType();
+                String membershipType = customer.getMembership().getType();
                 String databaseName = customer.getName();
-                if (customer.membershipType.equals(null)) {
+                if (membershipType == null) {
                     System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet.");
                     return null;
                 }
@@ -119,105 +117,28 @@ public class Customer extends Person {
                 String requestType = null;
                 int userInput;
                 if (membershipType.equals("Silver")) {
-                    userInput = input.getInt(" 1) Gold \n 2) Platinum \n 3) Back to Customer Menu");
+                    userInput = input.getInt(" 1) Gold \n 2) Platinum \n 3) Back to Customer Menu \n");
                     if (userInput == 1) {
                         requestType = "Gold";
                     } else if (userInput == (2)) {
                         requestType = "Platinum";
-                    } else return null;
+                    }
                 } else if (membershipType.equals("Gold")) {
                     userInput = input.getInt("1) Platinum 2) Back to Customer Menu");
                     if (userInput == 1) {
                         requestType = "Platinum";
-                    } else return null;
+                    }
                 }
-                System.out.println("Your request for " + requestType + " will be reviewed shortly.");
+                System.out.println("Your request for a " + requestType + " membership will be reviewed shortly.");
                 upgradeList = memberRequest.requestMembership(databaseName, requestType);
             }
-        } if (!contains){
-            System.out.println("Sorry, " + name + "is not on our Customer database.");
+        }
+        if (!contains) {
+            System.out.println("Sorry, " + name + "is not in our Customer database.");
         }
         return upgradeList;
     }
 
-
-   /*
-    public void IncreaseArray() {
-        ArrayList<Customer> customerListNevw = new Customer[customerList.size() + (customerList.size() / 2)];
-        for (int i = 0; i < customerList.size(); i++) {
-            customerListNew[i] = customerList(i);
-        }
-        customerList = customerListNew;
-    }
-
-    public void addCustomer() {
-        int countArray = 0;
-        for(int i = 0; i < customerList.length; i++){
-            if(customerList[i] != null){
-                countArray++;
-            }
-        }
-
-        int countId = customerList[countArray - 1].customerId + 1;
-
-        if (customerList[customerList.length - 1] != null) {
-            IncreaseArray();
-        }
-
-        System.out.println("Add a customer here");
-        System.out.println("Suggested ID: " + countId);
-        System.out.print("Enter the customers ID : ");
-        int cusIdInputs = helper.input.nextInt();
-        helper.input.nextLine();
-        System.out.print("Enter the customers  name: ");
-        String cusName = helper.input.nextLine();
-        int arrayCount = 0;
-        for (int i = 0; customerList[i] != null; i++) {
-            arrayCount = i + 1;
-        }
-        customerList[arrayCount] = new Customer(cusIdInputs, cusName);
-        System.out.println("Customer added successfully :" + customerList[arrayCount].toString());
-        System.out.print("If you want to add another customer press '1': ");
-        int anotherEntry = helper.input.nextInt();
-        if (anotherEntry == 1) {
-            addCustomer();
-        }
-        else if (anotherEntry!=1){
-            System.out.print("Invalid entry ");
-            EmployeeMenu.employeeMenu();
-        }
-    }
-
-    public void removeCustomer() {
-        viewCustomer();
-        int cusIdToRemove = helper.getInt("Remove a customer here by entering their ID : ");
-
-        for (int i = 0; i < customerList.size(); i++) {
-            if (customerList[i].customerId == cusIdToRemove) {
-                for (int j = i + 1; j < customerList.size(); j++) {
-                    customerList[i] = customerList[j];
-                    i++;
-                }
-                int arrayCount = 0;
-                for (int k = 0; k < customerList.length; k++){
-                    if (customerList[k] != null){
-                        arrayCount++;
-                    }
-                }
-                customerList[arrayCount-1] = null;
-            }
-        }
-        System.out.println("Customer Removed");
-        EmployeeMenu.employeeMenu();
-    }
-
-*/
-
- //   public void viewCustomer(){
-        /*for (int i = 0; i < customerList.size(); i++) {
-            if (customerList == null) {
-                continue;
-            } */
 
 }
 

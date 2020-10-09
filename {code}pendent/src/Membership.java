@@ -1,48 +1,44 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Membership {
 
-        private String type;
-        private String name;
-        private int discount;
-        private ArrayList<Membership> customerMember = new ArrayList<>();
+    private String name;
+    private String type;
+    private int credits;
+    private ArrayList<Membership> membershipRequest = new ArrayList<>();
 
-        public Membership() {
-        }
-
-        public Membership(String name, String type) {
-            this.name = name;
-            this.type = type;
-        }
-
-        public ArrayList<Membership> requestMembership(String name, String type){
-            customerMember.add(new Membership(name, type));
-            return customerMember;
-        }
-
-        public double discount(){
-            return 0;
-        }
-
-    public String getName() {
-        return name;
+    public Membership() {
     }
 
-    public void setName(String name) {
+    public Membership(String type, int credits) {
+        this.type = type;
+        this.credits = 0;
+    }
+
+    public Membership(String name, String type) {
         this.name = name;
+        this.type = type;
+        this.credits = 0;
+    }
+
+    public ArrayList<Membership> requestMembership(String name, String type) {
+        membershipRequest.add(new Membership(name, type));
+        return membershipRequest;
     }
 
     public String getType() {
-            if (type == null){
-                return "No membership";
-            } else return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
+        if (type == null) {
+            return "No membership";
+        } else return type;
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+}
 
 
