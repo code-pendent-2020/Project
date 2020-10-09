@@ -36,7 +36,6 @@ public class Customer extends Person {
         return new Customer(customerName);
     }
 
-    @Override
     public String getId() {
         return super.getId();
     }
@@ -50,11 +49,7 @@ public class Customer extends Person {
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return super.getName();
     }
 
     public ArrayList<Message> getInbox() {
@@ -138,8 +133,6 @@ public class Customer extends Person {
         }
         return upgradeList;
     }
-
-
 }
 
 
