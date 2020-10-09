@@ -16,7 +16,6 @@ public class Customer extends Person {
     public Customer(String name){
         super(name);
         this.inbox = new ArrayList<>();
-        this.membershipType = null;
     }
 
     public Customer(String name, Membership membership){
@@ -41,11 +40,11 @@ public class Customer extends Person {
     }
 
     public String getMembershipType() {
-        return this.membershipType;
+        return this.membership.getType();
     }
 
     public void setMembershipType(String membershipType) {
-        this.membershipType = membershipType;
+        this.membership.setType(membershipType);
     }
 
     public String getName() {
@@ -73,23 +72,32 @@ public class Customer extends Person {
 
     public ArrayList<Membership> addMembership(ArrayList<Customer> customerList){
         ArrayList<Membership> requestList = null;
+        boolean contains = false;
         String name = input.getInput("What is your name?: ");
-        if (customerList.stream().anyMatch(o->o.getName().equalsIgnoreCase(name))){
-            String type = null;
-            int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum \n");
-            if(membershipType == 1){
-                type = "Silver";
-            }else if (membershipType == 2){
-                type = "Gold";
-            }else if (membershipType == 3){
-                type = "Platinum";
-            }else{
-                System.out.println("Not a valid input.");
+        for (Customer customer : customerList){
+            if (customer.getName().equalsIgnoreCase(name)){
+                contains = true;
+                if(customer.getMembership().getType().equals("No membership")) {
+                    String type = null;
+                    int membershipType = input.getInt("Which membership do you want to apply for? \n 1) Silver \n 2) Gold \n 3) Platinum \n");
+                    if (membershipType == 1) {
+                        type = "Silver";
+                    } else if (membershipType == 2) {
+                        type = "Gold";
+                    } else if (membershipType == 3) {
+                        type = "Platinum";
+                    } else {
+                        System.out.println("Not a valid input.");
+                    }
+                    System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
+                    requestList = memberRequest.requestMembership(name, type);
+                } else {
+                    System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and already have a " + customer.getMembershipType() + " membership already. Perhaps you want to try upgrading instead.\n");
+                }
             }
-            System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
-           requestList = memberRequest.requestMembership(name, type);
-        }else{
-            System.out.println("you dont exist");
+        }
+        if (!contains) {
+            System.out.println("Sorry, " + name + " doesn't exist in this dimension");
         }
         return requestList;
     }
@@ -104,22 +112,22 @@ public class Customer extends Person {
                 contains = true;
                 String membershipType = customer.getMembership().getType();
                 String databaseName = customer.getName();
-                if (membershipType == null) {
-                    System.out.println("Sorry, it seems " + databaseName + " doesn't have a membership yet.");
+                if (membershipType.equalsIgnoreCase("No membership")) {
+                    System.out.println("Sorry " + databaseName + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
                     return null;
                 }
                 System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. \nWhich Membership would you like to upgrade to? \n");
                 String requestType = null;
                 int userInput;
                 if (membershipType.equals("Silver")) {
-                    userInput = input.getInt(" 1) Gold \n 2) Platinum \n 3) Back to Customer Menu \n");
+                    userInput = input.getInt("1) Gold \n2) Platinum \n3) Back to Customer Menu \n");
                     if (userInput == 1) {
                         requestType = "Gold";
                     } else if (userInput == (2)) {
                         requestType = "Platinum";
                     }
                 } else if (membershipType.equals("Gold")) {
-                    userInput = input.getInt("1) Platinum 2) Back to Customer Menu");
+                    userInput = input.getInt("1) Platinum \n2) Back to Customer Menu");
                     if (userInput == 1) {
                         requestType = "Platinum";
                     }

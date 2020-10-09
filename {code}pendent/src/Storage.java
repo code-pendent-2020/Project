@@ -1,7 +1,6 @@
 import java.util.*;
 import java.time.LocalDate;
 
-
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Storage {
@@ -43,10 +42,10 @@ public class Storage {
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
             new Customer("Vernita", new Membership("Silver", 0)),
-            new Customer("Navya"),
-            new Customer("Drake"),
+            new Customer("Navya", new Membership(null, 0)),
+            new Customer("Drake", new Membership(null, 0)),
             new Customer("Altan", new Membership("Silver", 0)),
-            new Customer("Karen"),
+            new Customer("Karen", new Membership(null, 0)),
             new Customer("Axel", new Membership("Gold", 0))));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());

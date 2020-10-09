@@ -114,11 +114,12 @@ public class Rental {
                     System.out.println(input.EOL+"You rented " + rentedGame.getTitle() + " for " + daysRented + " days. "+input.EOL+"Your total is " + userBill + " SEK \n");
                     System.out.println("The Game has now been returned.");
 
-                    String ratingQuestion = input.getInput("We hope you enjoyed playing this classic. Would you like to rate it? Y/N ");
                     String feedback = null;
                     int rating = 0;
                     Rating customerRating = null;
                     Rental rentTransaction = null;
+                    String ratingQuestion = input.getInput("We hope you enjoyed playing this classic. Would you like to rate it? Y/N ");
+
                     if (ratingQuestion.equalsIgnoreCase("n")) {
                         rentTransaction = new Rental(customerId, rentId, userBill);
                         return rentTransaction;

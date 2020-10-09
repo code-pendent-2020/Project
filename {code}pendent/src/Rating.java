@@ -6,7 +6,8 @@ public class Rating {
     Rating() {
     }
 
-    Rating(double Rating) {
+    Rating(double rating) {
+        this.rating = rating;
     }
 
     Rating(double rating, String feedback) {
