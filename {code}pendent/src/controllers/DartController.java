@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DartController {
     private final Menus menus;
     private final Input input = Input.getInstance();
-    private final Storage storage; // should be private
+    private final Storage storage;
     private final String invalidInput = "--- Invalid input ---";
     private ArrayList<Membership> requestList = null;
 
@@ -288,7 +288,7 @@ public class DartController {
                     input.userCheck();
                     employeeMenu();
                     break;
-                case "4":
+                case "5":
                     employeeMenu();
                     break;
                 default:

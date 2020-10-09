@@ -1,19 +1,12 @@
-import java.util.*;
 package controllers;
 
-import items.Album;
-import items.Game;
-import items.properties.Rating;
-import items.properties.Rental;
-import people.Customer;
-import people.Employee;
-import items.Inventory;
-import people.features.Membership;
-import people.features.Message;
-import tools.Input;
+import java.util.*;
 
-import java.lang.*;
-import java.time.LocalDate;
+import items.*;
+import items.properties.*;
+import people.*;
+import people.features.*;
+import tools.Input;
 import java.time.LocalDate;
 
 
