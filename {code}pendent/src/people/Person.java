@@ -1,12 +1,11 @@
+package people;
+
 import java.util.UUID;
 
 public class Person {
 
     private String id;
     private String name;
-
-    Person() {
-    }
 
     Person(String name) {
         this.id = UUID.randomUUID().toString();

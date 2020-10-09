@@ -1,3 +1,5 @@
+package tools;
+
 import java.time.Year;
 import java.util.*;
 
@@ -6,7 +8,6 @@ public class Input {
     public static final String DIVIDER = "-----";
     public static final int CURRENT_YEAR = Year.now().getValue();
     public static Scanner input = new Scanner(System.in);
-    String userInput;
 
 
     private static Input instance = null; // Static so it can be access everywhere

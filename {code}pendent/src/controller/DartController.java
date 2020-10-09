@@ -1,3 +1,11 @@
+package controller;
+
+import items.properties.Rental;
+import people.Customer;
+import people.features.Membership;
+import tools.Input;
+import tools.Menus;
+
 import java.util.ArrayList;
 
 public class DartController {

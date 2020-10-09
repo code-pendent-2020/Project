@@ -1,9 +1,11 @@
-import java.lang.reflect.Array;
+package items.properties;
+
+import items.Album;
+import items.Game;
+import tools.Input;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-
-import java.util.UUID;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 

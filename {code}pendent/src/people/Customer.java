@@ -1,3 +1,9 @@
+package people;
+
+import people.features.Membership;
+import people.features.Message;
+import tools.Input;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
@@ -8,10 +14,6 @@ public class Customer extends Person {
     private ArrayList<Message> inbox;
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
-
-    // Default Constructor
-    Customer() {
-    }
 
     public Customer(String name){
         super(name);

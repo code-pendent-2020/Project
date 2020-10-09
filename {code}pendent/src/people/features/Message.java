@@ -1,3 +1,7 @@
+package people.features;
+
+import tools.Input;
+
 import java.util.UUID;
 
 public class Message {
@@ -18,10 +22,6 @@ public class Message {
         this.senderID = senderID;
         this.sender = sender;
     }
-
-    public Message() {
-    }
-
 
     public String getSubject() {
         return this.subject;

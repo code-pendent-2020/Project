@@ -1,19 +1,28 @@
+package controller;
+
+import items.*;
+import items.properties.Rating;
+import items.properties.Rental;
+import people.Customer;
+import people.Employee;
+import people.features.Membership;
+import people.features.Message;
+import tools.Input;
+
 import java.util.*;
 import java.time.LocalDate;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 public class Storage {
 
-    private Employee employee = new Employee();
-    private Customer customer = new Customer();
+    private Employee employee;
+    private Customer customer;
+    private Album album;
+    private Inventory inventory;
+    private Rental rental;
+    private Game game;
+    private Rating rating;
+    private Message message;
     private Input input = Input.getInstance();
-    private Album album = new Album();
-    private Inventory inventory = new Inventory();
-    private Rental rental = new Rental();
-    private Game game = new Game();
-    private Rating rating = new Rating();
-    private Message message=new Message();
 
     // "kind of" Storage
 
@@ -191,9 +200,7 @@ public class Storage {
     public void viewAlbums(){
         albums.sort(Comparator.comparingInt(Album::getYear));
         Collections.reverse(albums);
-        for (Album album : albums) {
-            System.out.println(album.toString());
-        }
+        albums.forEach(System.out::println);
     }
 
     public void searchAlbums(){
@@ -206,11 +213,11 @@ public class Storage {
     }
 
     public void viewAlbumsByRating(){
+        // sorts albums by comparing the rating value
+        // the :: (invokes the method getRating from the album class. compares albums ratings as a double)
         albums.sort(Comparator.comparingDouble(Album::getRating));
         Collections.reverse(albums);
-        for (Album album : albums) {
-            System.out.println(album.toString());
-        }
+        albums.forEach(System.out::println); // using the :: operator to invoke the println function for each album
     }
 
 public void addNewGame() {
@@ -263,9 +270,7 @@ public void addNewGame() {
     public void viewGames() {
         games.sort(Comparator.comparingInt(Game::getYear));
         Collections.reverse(games);
-        for (Game game : games) {
-            System.out.println(game.toString());
-        }
+        games.forEach(System.out::println);
     }
     public void searchGames(){
         String google = input.getInput("Game Search"+input.EOL+"Genre: ");
@@ -279,9 +284,7 @@ public void addNewGame() {
     public void viewGamesByRating(){
         games.sort(Comparator.comparingDouble(Game::getRating));
         Collections.reverse(games);
-        for (Game game : games) {
-            System.out.println(game.toString());
-        }
+        games.forEach(System.out::println);
     }
 
 

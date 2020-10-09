@@ -1,3 +1,7 @@
+package items;
+
+import tools.Input;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -6,9 +10,6 @@ public class Album extends Inventory {
 
 
     private final Input input = Input.getInstance();
-
-    public Album() {
-    }
 
     public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date) {
         super(title, dailyRent, year, rentStatus, date);

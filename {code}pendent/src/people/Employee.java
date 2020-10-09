@@ -1,3 +1,7 @@
+package people;
+
+import tools.Input;
+
 public class Employee extends Person {
 
     private int birthYear;
@@ -14,10 +18,6 @@ public class Employee extends Person {
     private final int MONTHS = 12;
 
     private Input input = Input.getInstance();
-
-    public Employee() {
-
-    }
 
     public Employee(String name, int birthYear, String address, double salary) {
         super(name);

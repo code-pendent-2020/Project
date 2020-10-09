@@ -1,3 +1,5 @@
+package people.features;
+
 import java.util.ArrayList;
 
 public class Membership {

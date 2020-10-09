@@ -1,3 +1,5 @@
+package tools;
+
 public class Menus {
 
     private String title;
