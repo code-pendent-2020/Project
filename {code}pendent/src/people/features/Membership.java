@@ -35,6 +35,18 @@ public class Membership {
         return type;
     }
 
+    public void incrementCredit(){
+        this.credits++;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
     public void setType(String type) {
         this.type = type;
     }

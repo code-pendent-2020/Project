@@ -61,14 +61,14 @@ public class Input {
         return userInput;
     }
 
-    public void slowPrint(String message) throws InterruptedException {
+    public void slowPrint(String str) throws InterruptedException {
         // Get message, convert to char array
-        char[] chars = message.toCharArray();
+        char[] eachChar = str.toCharArray();
 
         // Print a char from the array, then sleep for 1/10 second
-        for (int i = 0; i < chars.length; i++) {
+        for (int i = 0; i < eachChar.length; i++) {
             Thread.sleep(100);
-            System.out.print(chars[i]);
+            System.out.print(eachChar[i]);
             Thread.sleep(10);
         }
     }

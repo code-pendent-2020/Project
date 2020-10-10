@@ -1,5 +1,6 @@
 package controller;
 
+import items.Inventory;
 import items.properties.Rental;
 import people.Customer;
 import people.features.Membership;

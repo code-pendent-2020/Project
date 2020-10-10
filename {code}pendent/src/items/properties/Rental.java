@@ -2,6 +2,7 @@ package items.properties;
 
 import items.Album;
 import items.Game;
+import people.Customer;
 import tools.Input;
 import tools.Menus;
 
@@ -17,6 +18,9 @@ public class Rental {
     private double rentExpense;
     private Rating rating;
     private static double rentalIncome = 25.00;
+    private static final double SILVER_DISCOUNT = .90;
+    private static final double GOLD_DISCOUNT = .85;
+    private static final double PLATINUM_DISCOUNT = .75;
     private Input input = Input.getInstance();
 
     // Default Constructor
@@ -102,7 +106,7 @@ public class Rental {
         }
     }
 
-    public Rental returnGame(String customerId, ArrayList<Game> games) {
+    public Rental returnGame(int numberCredits, String membershipType, String customerId, ArrayList<Game> games) {
         String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
         long daysRented = 0;
         double userBill = 0;
@@ -113,8 +117,23 @@ public class Rental {
                 if (rentedGame.getRentStatus()) {
                     daysRented = DAYS.between(rentedGame.getRentedDate(), LocalDate.now());
                     rentedGame.setRentStatus(false);
-                    userBill = daysRented * rentedGame.getDailyRent();
-                    rentalIncome = rentalIncome + userBill;
+                    switch (membershipType){
+                        case "Silver":
+                            userBill = (daysRented * rentedGame.getDailyRent())*SILVER_DISCOUNT;
+                            break;
+                        case "Gold":
+                            userBill = (daysRented * rentedGame.getDailyRent())*GOLD_DISCOUNT;
+                            break;
+                        case "Platinum":
+                            userBill = (daysRented * rentedGame.getDailyRent())*PLATINUM_DISCOUNT;
+                            break;
+                        default:
+                            userBill = daysRented * rentedGame.getDailyRent();
+                            break;
+                    }
+                    if (numberCredits == 5) {
+                        userBill = 0;
+                    }
                     System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + userBill + " SEK \n");
                     System.out.println("The Game has now been returned.");
 
@@ -150,13 +169,13 @@ public class Rental {
                     return rentTransaction;
                 } else if (!rentedGame.getRentStatus()) {
                     System.out.println("This game hasn't been rented. Please try again");
-                    returnGame(customerId, games);
+                    returnGame(numberCredits, membershipType, customerId, games);
                 }
             }
         }
         if (!contains) {
             System.out.println("Game with this ID doesn't exist in this here dimension.");
-            returnGame(customerId, games);
+            returnGame(numberCredits, membershipType, customerId, games);
         }
         return null;
     }
@@ -178,18 +197,35 @@ public class Rental {
     }
 
 
-    public Rental returnAlbum(String customerId, ArrayList<Album> albums) {
+    public Rental returnAlbum(int numberCredits, String membershipType, String customerId, ArrayList<Album> albums) {
         Rating customerRating = null;
         Rental rentTransaction = null;
+        double userBill;
         String rental = input.getInput("Return" + input.EOL + "Album ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
         for (Album album : albums) {
             if (album.getID().equals(rental)) {
                 if (album.getRentStatus().equals("\033[31mRented\033[0m")) {
-                    long daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020, 10, 31));
+                    double daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020, 10, 31));
                     album.setRentStatus(false);
                     album.setRentedDate(null);
-                    double userBill = daysRented * album.getDailyRent();
+                    switch (membershipType){
+                        case "Silver":
+                            userBill = (daysRented * album.getDailyRent())*SILVER_DISCOUNT;
+                            break;
+                        case "Gold":
+                            userBill = (daysRented * album.getDailyRent())*GOLD_DISCOUNT;
+                            break;
+                        case "Platinum":
+                            userBill = (daysRented * album.getDailyRent())*PLATINUM_DISCOUNT;
+                            break;
+                        default:
+                            userBill = daysRented * album.getDailyRent();
+                            break;
+                    }
+                    if (numberCredits == 5) {
+                        userBill = 0;
+                    }
                     rentalIncome = rentalIncome + userBill;
                     System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Total Cost: " + userBill + " SEK - Returned"+ input.EOL);
                     String ratingPrompt = input.getInput("We hope you enjoyed " + album.getTitle() + ". Would you like to rate it? Y/N ");
@@ -226,7 +262,7 @@ public class Rental {
 //                Rating customerRating = new Rating(rating, feedback);
                 } else {
                     System.out.println("That Album has not been rented or it does not exist");
-                    returnAlbum(customerId, albums);
+                    returnAlbum(numberCredits, membershipType, customerId, albums);
                 }
             }
         }

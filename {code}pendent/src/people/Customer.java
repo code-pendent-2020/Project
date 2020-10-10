@@ -1,5 +1,6 @@
 package people;
 
+import items.Inventory;
 import people.features.Membership;
 import people.features.Message;
 import tools.Input;
@@ -16,24 +17,27 @@ public class Customer extends Person {
     private boolean readStatus;
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
+    private int maxNumberOfRentals;
     public static final int SILVER_MEMBERSHIP = 1;
     public static final int GOLD_MEMBERSHIP = 2;
     public static final int PlATINUM_MEMBERSHIP = 3;
 
-    public Customer(){
+    public Customer() {
     }
 
-    public Customer(String name){
+    public Customer(String name) {
         super(name);
-        this.inbox = new ArrayList<>();
+        this.maxNumberOfRentals = 0;
     }
 
-    public Customer(String name, Membership membership){
+    public Customer(String name, Membership membership) {
         super(name);
         this.inbox = new ArrayList<>(Arrays.asList(
-                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!\n", UUID.randomUUID().toString(),"DART")));
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!\n", UUID.randomUUID().toString(), "DART")));
         this.membership = membership;
+        this.maxNumberOfRentals = 0;
     }
+
 
     public String toString() {
         return input.EOL + "ID: " + super.getId() + ", Name: " + this.getName() + ", Membership: " + this.getMembershipType();
@@ -43,6 +47,10 @@ public class Customer extends Person {
         System.out.print("Enter the customers name: ");
         String customerName = input.input.nextLine();
         return new Customer(customerName);
+    }
+
+    public int getMaxNumberOfRentals() {
+        return maxNumberOfRentals;
     }
 
     public String getId() {
@@ -136,7 +144,7 @@ public class Customer extends Person {
                     System.out.println("Sorry " + databaseName + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
                     return null;
                 }
-                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. "+input.EOL+"Which Membership would you like to upgrade to? \n");
+                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. "+input.EOL+"Which Membership would you like to upgrade to?: \n");
                 String requestType = null;
                 int userInput;
                 if (membershipType.equals("Silver")) {
@@ -161,7 +169,13 @@ public class Customer extends Person {
         }
         return upgradeList;
     }
+    public void incrementMaxNumberOfRentals(){
+        this.maxNumberOfRentals++;
+    }
+
+
 }
+
 
 
 
