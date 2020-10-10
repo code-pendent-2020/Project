@@ -24,13 +24,6 @@ public class Album extends Inventory {
         this.artist = artist;
     }
 
-    public String toString() {
-        return input.DIVIDER + input.EOL + "ID: " + this.getID() + input.EOL + "Album: " + this.getTitle()
-                + input.EOL + "Artist: " + this.getArtist() + ". " + input.EOL + "Released year: " +
-                this.getYear() + ". " + input.EOL + "Daily Price: " + this.getDailyRent() + " SEK."
-                + input.EOL + "Status: " + this.getRentStatus() + input.EOL + "Rating: " + this.averageRating();
-    }
-
     public String getID() {
         return super.getId();
     }
@@ -64,10 +57,10 @@ public class Album extends Inventory {
     }
 
     public String getRentStatus() {
-        if (super.isRentStatus()) {
+        if (super.isRentStatus() == true) {
             return "\033[31mRented\033[0m";
         }
-        return "Available";
+        return "available";
     }
 
     public int getRentFrequency() {
@@ -84,6 +77,13 @@ public class Album extends Inventory {
         int addYear = input.getInt("Year: ");
         double addDailyRent = input.getDouble("Daily Rent amount: ");
         return new Album(addTitle, addArtist, addYear, addDailyRent);
+    }
+
+    public String toString() {
+        return input.DIVIDER + input.EOL + "ID: " + this.getID() + input.EOL + "Album: " + this.getTitle()
+                + input.EOL + "Artist: " + this.getArtist() + ". " + input.EOL + "Released year: " +
+                this.getYear() + ". " + input.EOL + "Daily Price: " + this.getDailyRent() + " SEK."
+                + input.EOL + "Status: " + this.getRentStatus() + input.EOL + "Rating: " + this.averageRating();
     }
 
 }
