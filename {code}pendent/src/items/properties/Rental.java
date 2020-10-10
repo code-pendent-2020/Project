@@ -227,6 +227,7 @@ public class Rental {
                         userBill = 0;
                     }
                     rentalIncome = rentalIncome + userBill;
+                    album.rentFrequencyIncrement();
                     System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Total Cost: " + userBill + " SEK - Returned"+ input.EOL);
                     String ratingPrompt = input.getInput("We hope you enjoyed " + album.getTitle() + ". Would you like to rate it? Y/N ");
                     ratingPrompt = ratingPrompt.toLowerCase();
@@ -274,4 +275,7 @@ public class Rental {
             System.out.println("Rental income to-date is: " + getRentalIncome() + " SEK" + input.EOL);
 
         }
+    public String toString() {
+        return "Customer ID: " + getCustomerId() + input.EOL + "Rental Item: " + getItemId() + input.EOL + "Transaction Cost: " + getRentExpense() + input.EOL + "Rating: " + getRating() + Input.EOL;
     }
+}

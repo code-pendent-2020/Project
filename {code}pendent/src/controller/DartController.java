@@ -78,6 +78,7 @@ public class DartController {
         requestList.clear();
     }
 
+
     public void mainMenu() {
         menus.mainMenu();
         do {
@@ -142,13 +143,14 @@ public class DartController {
                     break;
                 case "5":
                     System.out.println(input.EOL + input.ANSI_PURPLE +">> Most Profitable Item"+ input.ANSI_RESET);
-                    System.out.println("to be added.");
+                    storage.itemsByProfit();
                     input.userCheck();
                     managerMenu();
                     break;
                 case "6":
                     System.out.println(input.EOL + input.ANSI_PURPLE +">> View Rent Frequency"+ input.ANSI_RESET);
-                    System.out.println("to be added.");
+                    storage.gamesByFrequency();
+                    storage.albumsByFrequency();
                     input.userCheck();
                     managerMenu();
                     break;

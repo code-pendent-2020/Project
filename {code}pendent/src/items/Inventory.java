@@ -13,6 +13,7 @@ public class Inventory {
     private double dailyRent;
     private LocalDate rentedDate;
     private boolean rentStatus;
+    private int rentalFrequency;
     private ArrayList<Rating> ratings;
 
     public Inventory(){
@@ -25,6 +26,7 @@ public class Inventory {
         this.year = year;
         this.rentStatus = rentStatus;
         this.rentedDate = date;
+        this.rentalFrequency = 0;
         this.ratings = new ArrayList<Rating>();
     }
 
@@ -35,6 +37,7 @@ public class Inventory {
         this.rentStatus = false;
         this.year = year;
         this.rentedDate = null;
+        this.rentalFrequency = 0;
         this.ratings = new ArrayList<Rating>();
     }
 
@@ -90,6 +93,14 @@ public class Inventory {
         return ratings;
     }
 
+    public int getRentalFrequency() {
+        return rentalFrequency;
+    }
+
+    public void setRentalFrequency(int rentalFrequency) {
+        this.rentalFrequency = rentalFrequency;
+    }
+
     public double averageRating() {
         if (ratings.size() != 0) {
             double sum = 0;
@@ -99,5 +110,8 @@ public class Inventory {
             return Math.round((sum / ratings.size()) * 100) / 100;
         }
         return 0;
+    }
+    public void rentFrequencyIncrement(){
+        this.rentalFrequency++;
     }
 }
