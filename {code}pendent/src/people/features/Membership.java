@@ -30,12 +30,12 @@ public class Membership {
 
     public String getType() {
         if (this.type == null) {
-            return "No membership";
+            return "No Membership";
         }
         return type;
     }
 
-    public void incrementCredit(){
+    public void incrementCredit() {
         this.credits++;
     }
 

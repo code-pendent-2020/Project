@@ -1,14 +1,12 @@
 import controller.DartController;
 import tools.Input;
 
-import java.lang.*;
-
 public class DartMain {
-    private static final String WELCOME_MESSAGE = Input.EOL + Input.ANSI_BLUE + "Welcome to DART, your good old game rental system. The competition has no steam to keep up!"+Input.EOL;
+    private static final String WELCOME_MESSAGE = Input.EOL + Input.ANSI_BLUE + "Welcome to DART, your good old game rental system. The competition has no steam to keep up!" + Input.EOL;
 
     public static void main(String[] args) throws InterruptedException {
         Input input = Input.getInstance();
-       // input.slowPrint(WELCOME_MESSAGE);
+        input.slowPrint(WELCOME_MESSAGE);
         DartController start = new DartController();
         start.run();
     }

@@ -22,20 +22,21 @@ public class Message {
         this.subject = subject;
         this.senderID = senderID;
         this.sender = sender;
-        this.readStatus=false;
+        this.readStatus = false;
     }
 
     public Message() {
     }
 
 
-
-    public void setReadStatus(boolean status){
-        this.readStatus=status;
+    public void setReadStatus(boolean status) {
+        this.readStatus = status;
     }
-    public boolean getReadStatus(){
+
+    public boolean getReadStatus() {
         return this.readStatus;
     }
+
     public String getSubject() {
         return this.subject;
     }
@@ -75,6 +76,6 @@ public class Message {
 
     public String toString() {
         return input.EOL + "Message ID: " + messageId + input.EOL + "Senders ID: " + senderID +
-                input.EOL +"Sender: " + sender + input.EOL + "Title: " + subject + input.EOL + "Message: " + body;
+                input.EOL + "Sender: " + sender + input.EOL + "Title: " + subject + input.EOL + "Message: " + body;
     }
 }
