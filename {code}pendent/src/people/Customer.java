@@ -16,6 +16,9 @@ public class Customer extends Person {
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
 
+    public Customer(){
+    }
+
     public Customer(String name){
         super(name);
         this.inbox = new ArrayList<>();

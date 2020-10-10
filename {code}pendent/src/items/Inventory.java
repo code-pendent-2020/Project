@@ -15,6 +15,9 @@ public class Inventory {
     private boolean rentStatus;
     private ArrayList<Rating> ratings;
 
+    public Inventory(){
+    }
+
     public Inventory(String title, double dailyRent, int year, boolean rentStatus, LocalDate date) {
         this.id = UUID.randomUUID().toString();
         this.title = title;

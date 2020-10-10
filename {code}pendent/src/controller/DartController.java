@@ -365,7 +365,7 @@ public class DartController {
                     cusGameOptions();
                     break;
                 case "6":
-                    employeeMenu();
+                    customerMenu();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);

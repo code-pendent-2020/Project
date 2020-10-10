@@ -11,6 +11,8 @@ public class Album extends Inventory {
 
     private final Input input = Input.getInstance();
 
+    public Album(){}
+
     public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date) {
         super(title, dailyRent, year, rentStatus, date);
         this.artist = artist;
