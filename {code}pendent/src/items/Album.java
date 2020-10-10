@@ -69,6 +69,8 @@ public class Album extends Inventory {
         return "Available";
     }
 
+    public int getRentFrequency(){ return super.getRentalFrequency(); }
+
     public void setRentStatus(Boolean rentStatus) {
         super.setRentStatus(rentStatus);
     }

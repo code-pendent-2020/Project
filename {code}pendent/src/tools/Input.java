@@ -65,7 +65,7 @@ public class Input {
         // Get message, convert to char array
         char[] chars = message.toCharArray();
 
-        // Print a char from the array, then sleep for 1/10 second
+        // Print a char from the array, then sleep for millis
         for (int i = 0; i < chars.length; i++) {
             Thread.sleep(100);
             System.out.print(chars[i]);

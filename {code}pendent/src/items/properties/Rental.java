@@ -72,10 +72,6 @@ public class Rental {
         return rentalIncome;
     }
 
-    public String toString() {
-        return "Customer ID: " + getCustomerId() + input.EOL + "Rental Item: " + getItemId() + input.EOL + "Transaction Cost: " + getRentExpense() + input.EOL + getRating() + Input.EOL;
-    }
-
     public void rentGame(ArrayList<Game> games) {
         boolean contains = false;
         String rentId = input.getInput("Enter the ID of the game would you like to rent: ");
@@ -115,6 +111,7 @@ public class Rental {
                     rentedGame.setRentStatus(false);
                     userBill = daysRented * rentedGame.getDailyRent();
                     rentalIncome = rentalIncome + userBill;
+                    rentedGame.rentFrequencyIncrement();
                     System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + userBill + " SEK \n");
                     System.out.println("The Game has now been returned.");
 
@@ -191,6 +188,7 @@ public class Rental {
                     album.setRentedDate(null);
                     double userBill = daysRented * album.getDailyRent();
                     rentalIncome = rentalIncome + userBill;
+                    album.rentFrequencyIncrement();
                     System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Total Cost: " + userBill + " SEK - Returned"+ input.EOL);
                     String ratingPrompt = input.getInput("We hope you enjoyed " + album.getTitle() + ". Would you like to rate it? Y/N ");
                     ratingPrompt = ratingPrompt.toLowerCase();
@@ -238,4 +236,7 @@ public class Rental {
             System.out.println("Rental income to-date is: " + getRentalIncome() + " SEK" + input.EOL);
 
         }
+    public String toString() {
+        return "Customer ID: " + getCustomerId() + input.EOL + "Rental Item: " + getItemId() + input.EOL + "Transaction Cost: " + getRentExpense() + input.EOL + "Rating: " + getRating() + Input.EOL;
     }
+}
