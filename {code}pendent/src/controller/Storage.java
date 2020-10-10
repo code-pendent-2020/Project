@@ -184,19 +184,19 @@ public class Storage {
     }
 
     public void returnAlbum() {
-        String name = input.getInput("Hiya! What is your name, customer?  ");
+        String name = input.getInput("Type your name to begin return process: ");
         boolean contains = false;
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)){
                 contains = true;
-                viewGames();
-                Rental newTransaction = rental.returnGame(customer.getId(), getAlbums());
+                viewAlbums();
+                Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
             }
         }
         if (!contains){
             System.out.println("That customer doesn't exist on our database, please try again.");
-            returnGame();
+            returnAlbum();
         }
     }
 

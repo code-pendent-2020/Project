@@ -81,9 +81,4 @@ public class Album extends Inventory {
         return new Album(addTitle, addArtist, addYear, addDailyRent);
     }
 
-    private String genAlbumID() {
-        String generatedID = UUID.randomUUID().toString();
-        return generatedID;
-    }
-
 }
