@@ -8,6 +8,8 @@ public class Input {
     public static final String DIVIDER = "-----";
     public static final int CURRENT_YEAR = Year.now().getValue();
     public static Scanner input = new Scanner(System.in);
+
+    // already knew how to use the color swaps but we copied the constants from https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -45,12 +47,12 @@ public class Input {
 
     public int getInt(String message) {
         System.out.print(message);
-        String userInput = input.nextLine().replaceAll("[^0-9]", "");
-        if (userInput.isBlank() || userInput.isEmpty()) {
-            System.out.println("-----------------"+EOL+"--- Invalid input ---");
+        String userInput = input.nextLine().replaceAll("[^0-9]", ""); // only accepts 0-9
+        if (userInput.isBlank() || userInput.isEmpty()) { // check to make sure user enters something
+            System.out.println("-----------------" + EOL + "--- Invalid input ---");
             getInt(message);
         }
-        return Integer.parseInt(userInput);
+        return Integer.parseInt(userInput); // parses a string to a integer
 
     }
 
@@ -74,7 +76,9 @@ public class Input {
     }
 
     public void userCheck() {
-        String check = getInput(">> Press \u001B[31m'Enter'\u001B[0m to continue: ");
+        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: ";
+        System.out.print(check);
+        input.nextLine();
     }
 }
 

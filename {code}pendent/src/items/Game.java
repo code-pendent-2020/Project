@@ -9,7 +9,7 @@ public class Game extends Inventory {
     private String genre;
     private Input input = Input.getInstance();
 
-    public Game(){
+    public Game() {
     }
 
     public Game(String title, String genre, double dailyRent, int year) {
@@ -66,7 +66,9 @@ public class Game extends Inventory {
         return super.averageRating();
     }
 
-    public int getRentFrequency(){ return super.getRentalFrequency(); }
+    public int getRentFrequency() {
+        return super.getRentalFrequency();
+    }
 
     @Override
     public String toString() {
@@ -75,8 +77,13 @@ public class Game extends Inventory {
             outOnRent = "\033[31mOut on rent  \033[0m";
         } else outOnRent = "Available";
 
-        String outputString = this.getId() + " : " + this.getTitle() + " (" + this.getGenre() + "). " + "Released in " + super.getYear() + ". " + this.getRentCost()
-                + "kr. " + "Status: " + outOnRent + input.EOL;
-        return outputString;
+        //String outputString = this.getId() + " : " + this.getTitle() + " (" + this.getGenre() + "). " + "Released in " + super.getYear() + ". " + this.getRentCost()
+        //        + "kr. " + "Status: " + outOnRent + input.EOL;
+        String outPutString = input.DIVIDER + input.EOL + "ID: " + this.getId() + input.EOL + "Game: " + this.getTitle()
+                + input.EOL + "Genre: " + this.getGenre() + ". " + input.EOL + "Released year: " +
+                super.getYear() + ". " + input.EOL + "Daily Price: " + this.getDailyRent() + "kr."
+                + input.EOL + "Status: " + outOnRent + input.EOL + "Rating: " + this.averageRating();
+        return outPutString;
+
     }
 }
