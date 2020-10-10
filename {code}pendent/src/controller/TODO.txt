@@ -3,6 +3,6 @@ Rental history
 1. retrieve the most profitable item.
 2. retrieve rent frequency.
 3. customer that has spent the most money.
-4. Do some user niceness (colors, check the print statements, and \n) (do cute funny statements!)
+4. Do some user niceness (colors, check the print statements, and \n) (do cute funny statements!) make the welcome statement a slow print
 4. customer credits. (when you return credit the customer with one credit)(their max credit should be 5 and if it is 5 they get the return for free) (vernita)
 5. set maximum rentals for each membership (vernita)
