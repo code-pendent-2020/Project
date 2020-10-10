@@ -11,7 +11,7 @@ public class DartController {
     private final Menus menus;
     private final Input input = Input.getInstance();
     private final Storage storage; // should be private
-    private final String invalidInput = "--- Invalid input ---";
+    private final String invalidInput = System.lineSeparator() + "--- Invalid input ---";
     private ArrayList<Membership> requestList = null;
 
     public DartController() {
@@ -102,6 +102,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    mainMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -161,6 +162,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    managerMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -197,6 +199,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    employeeMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -233,6 +236,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    empGameOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -269,6 +273,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    empAlbumOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -310,6 +315,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    empCustomerOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -338,6 +344,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    customerMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -386,6 +393,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    cusGameOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -435,6 +443,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    cusAlbumOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -464,6 +473,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    cusMembershipOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -499,6 +509,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    inboxMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
