@@ -16,7 +16,6 @@ public class Customer extends Person {
     private boolean readStatus;
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
-    public static final int BASIC_MEMBERSHIP = 0;
     public static final int SILVER_MEMBERSHIP = 1;
     public static final int GOLD_MEMBERSHIP = 2;
     public static final int PlATINUM_MEMBERSHIP = 3;
@@ -74,18 +73,20 @@ public class Customer extends Person {
     public void setMembership(Membership membership) {
         this.membership = membership;
     }
+
     public boolean getReadStatus(){
         return readStatus;
     }
+
     public void viewMessages(Customer customer) {
         for (Message message : customer.getInbox()) {
-            System.out.println(message.toString());
-            if(!message.getReadStatus()){
+            if(!message.getReadStatus()) {
                 message.setReadStatus(true);
-                System.out.println("unread");}
+                System.out.print("Unread");}
             else{
-                System.out.println("read");
+                System.out.print("Read");
             }
+            System.out.println(message.toString());
         }
     }
 

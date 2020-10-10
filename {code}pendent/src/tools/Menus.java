@@ -28,7 +28,7 @@ public class Menus {
     }
 
     public void managerMenu() {
-        String[] options = {" 1) Register Employee", " 2) Remove Employee", " 3) View Employees", " 4) View Rental History ", "5) Main Menu"};
+        String[] options = {" 1) Register Employee", " 2) Remove Employee", " 3) View Employees", " 4) View Rental History ", " 5) Main Menu"};
         Menus menu = new Menus(input.EOL + "-----Manager-Menu-----", options);
         System.out.println(menu.title);
         for (int i = 0; i < options.length; i++) {
