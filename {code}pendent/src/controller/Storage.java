@@ -94,7 +94,7 @@ public class Storage {
     }
 
     public void returnGame() {
-        String name = input.getInput("Hiya! What is your name, customer?  ");
+        String name = input.getInput("Hiya! What is your name, customer? ");
         boolean contains = false;
         for (Customer customer : customerList) {
            if (customer.getName().equalsIgnoreCase(name)){
@@ -132,7 +132,7 @@ public class Storage {
     }
 
     public void removeCustomer(){
-       int removeId = input.getInt("Enter the ID of the customer you want to remove.\nID: ");
+       int removeId = input.getInt("Enter the ID of the customer you want to remove. "+input.EOL+"ID: ");
        this.customerList.removeIf(customer -> customer.getId().equals(removeId));
        viewCustomer();
    }
@@ -189,7 +189,6 @@ public class Storage {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)){
                 contains = true;
-                viewAlbums();
                 Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
             }
@@ -296,7 +295,7 @@ public void addNewGame() {
 
     public void sendMessage() {
         viewCustomer();
-        String recipientId= input.getInput(input.EOL+"enter the customer ID of the person you want to send message to:  ");
+        String recipientId = input.getInput(input.EOL + "enter the customer ID of the person you want to send message to: ");
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderID = input.getInput("Type your ID: ");
@@ -312,17 +311,16 @@ public void addNewGame() {
                 }
             }
         }
-    }
+    } // never prompts you to type your name etc.
 
     public void viewMessages() {
         String name = input.getInput("Type your name to view your inbox: ");
         for (Customer reader : customerList) {
             if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
                 Collections.reverse(reader.getInbox());
-                System.out.print(input.EOL + ">> List of messages in order received <<");
+                System.out.println(input.EOL + ">> List of messages in order received <<");
+                System.lineSeparator();
                 customer.viewMessages(reader);
-                customer.getReadStatus();
-
                 Collections.reverse(reader.getInbox());
             }else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0){
                 System.out.println(input.EOL + "No messages to view.");

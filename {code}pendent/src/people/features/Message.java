@@ -74,7 +74,7 @@ public class Message {
     }
 
     public String toString() {
-        return input.EOL +"Message ID: " + messageId + input.EOL + "Senders ID: " + senderID +
+        return input.EOL + "Message ID: " + messageId + input.EOL + "Senders ID: " + senderID +
                 input.EOL +"Sender: " + sender + input.EOL + "Title: " + subject + input.EOL + "Message: " + body;
     }
 }
