@@ -130,7 +130,7 @@ public class Rental {
                     if (numberCredits == 5) {
                         userBill = 0;
                     }
-                    System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + userBill + " SEK \n");
+                    System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + userBill + " kr"+input.EOL);
                     System.out.println("The Game has now been returned.");
 
                     String feedback = null;
@@ -179,7 +179,7 @@ public class Rental {
     public void rentAlbum(ArrayList<Album> albums) {
         String rental = input.getInput(input.EOL + "Rent" + input.EOL + "Album ID: ");
         for (Album album : albums) {
-            if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
+            if (album.getID().equals(rental) && album.getRentStatus().equalsIgnoreCase("available")) {
                 if (album.getRentStatus().equalsIgnoreCase("\033[31mRented\033[0m")) {
                     System.out.println("Item is unavailable");
                     rentAlbum(albums);

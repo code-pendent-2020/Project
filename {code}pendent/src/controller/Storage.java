@@ -137,9 +137,9 @@ public class Storage {
 
     public void rentGame() {
         String maxRentals = "You currently have too many rentals for your membership! That's awesome that you enjoy our products so much!";
-        String user = input.getInput("Please enter your ID: ");
+        String user = input.getInput("Please enter your name: ");
         for (Customer customer : customerList) {
-            if (user.equalsIgnoreCase(getCustomer().getId())) {
+            if (user.equalsIgnoreCase(getCustomer().getName())) {
                 switch (customer.getMembershipType()) {
                     case "Silver":
                         if (customer.getMaxNumberOfRentals() < 4) {
@@ -269,42 +269,41 @@ public class Storage {
 
     public void rentAlbum() {
         String maxRentals = "Sorry you need to return an item to able rent a new one, you've reached your memberships maximum rentals. Let the other customers enjoy stuff also!";
-        String user = input.getInput("Please enter your ID: ");
+        String user = input.getInput("Please enter your name: ");
         for (Customer customer : customerList) {
-            if (user.equalsIgnoreCase(getCustomer().getId())) {
+            if (user.equalsIgnoreCase(getCustomer().getName())) {
                 switch (customer.getMembershipType()) {
                     case "Silver":
-                        if (customer.getMaxNumberOfRentals() < 4) {
-                            rental.rentAlbum(getAlbums());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
+                        if (customer.getMembership().getCredits() >= 5) {
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() >= 0) {
+                            customer.getMembership().incrementCredit();
                         }
                         break;
                     case "Gold":
-                        if (customer.getMaxNumberOfRentals() < 6) {
-                            rental.rentAlbum(getAlbums());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
+                        if (customer.getMembership().getCredits() >= 5) {
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() >= 0) {
+                            for (int i = 1; i < 2; i++) {
+                                customer.getMembership().incrementCredit();
+                            }
                         }
                         break;
                     case "Platinum":
-                        if (customer.getMaxNumberOfRentals() < 8) {
-                            rental.rentAlbum(getAlbums());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
+                        if (customer.getMembership().getCredits() >= 5) {
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() >= 0) {
+                            for (int i = 1; i < 3; i++) {
+                                customer.getMembership().incrementCredit();
+                            }
                         }
                         break;
                     default:
-                        if (customer.getMaxNumberOfRentals() < 2) {
-                            rental.rentAlbum(getAlbums());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
                         break;
+
                 }
             }
         }
@@ -323,26 +322,26 @@ public class Storage {
                         if (customer.getMembership().getCredits() >= 5) {
                             customer.getMembership().setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() != 0) {
+                        if (customer.getMembership().getCredits() >= 0) {
                             customer.getMembership().incrementCredit();
                         }
                         break;
                     case "Gold":
-                        if (customer.getMembership().getCredits() == 5) {
+                        if (customer.getMembership().getCredits() >= 5) {
                             customer.getMembership().setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() != 0) {
-                            for (int i = 1; i < 2; i++) {
+                        if (customer.getMembership().getCredits() >= 0) {
+                            for (int i = 0; i < 2; i++) {
                                 customer.getMembership().incrementCredit();
                             }
                         }
                         break;
                     case "Platinum":
-                        if (customer.getMembership().getCredits() == 5) {
+                        if (customer.getMembership().getCredits() >= 5) {
                             customer.getMembership().setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() != 0) {
-                            for (int i = 1; i < 3; i++) {
+                        if (customer.getMembership().getCredits() >= 0) {
+                            for (int i = 0; i < 3; i++) {
                                 customer.getMembership().incrementCredit();
                             }
                         }
