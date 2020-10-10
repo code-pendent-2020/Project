@@ -73,7 +73,7 @@ public class Rental {
     }
 
     public String toString(){
-        return "Customer ID: " + getCustomerId() + "\nRental Item: " + getItemId() + "\nTransaction Cost: " + getRentExpense() + "\n" +  getRating() +"\n";
+        return "Customer ID: " + getCustomerId() + input.EOL + "Rental Item: " + getItemId() + input.EOL + "Transaction Cost: " + getRentExpense() + input.EOL +  getRating() + Input.EOL;
     }
 
     public void rentGame(ArrayList<Game> games) {
@@ -97,13 +97,13 @@ public class Rental {
                 }
             }
         if (!contains) {
-            System.out.println("Soz, wrong ID, try again");
+            System.out.println("Incorrect ID, please try again");
             rentGame(games);
         }
     }
 
      public Rental returnGame(String customerId, ArrayList<Game> games) {
-        String rentId = input.getInput("\nEnter the ID of the game would you like to return: ");
+        String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
         long daysRented = 0;
         double userBill = 0;
         boolean contains = false;
@@ -171,30 +171,28 @@ public class Rental {
         }
     }
 
-    public Rental returnAlbum(String customerId,ArrayList<Album> albums){
-        String rental = input.getInput("Return"+input.EOL+"Album ID: ");
+
+    public Rental returnAlbum(String customerId,ArrayList<Album> albums) {
+        Rating customerRating = null;
+        Rental rentTransaction = null;
+        String rental = input.getInput("Return" + input.EOL + "Album ID: ");
         // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
-        boolean contains = false;
         for (Album album : albums) {
-            Rating customerRating = null;
-            Rental rentTransaction = null;
             if (album.getID().equals(rental) && album.getRentStatus().equals("unavailable")) {
-                contains = true;
-                long daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020,10,31));
-                double cost = album.getDailyRent() * daysRented;
+                long daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020, 10, 31));
                 album.setRentStatus(false);
                 album.setRentedDate(null);
                 double userBill = daysRented * album.getDailyRent();
                 rentalIncome = rentalIncome + userBill;
-                System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
+                System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + "Total Cost: " + userBill + " SEK - Returned");
                 String ratingPrompt = input.getInput("We hope you enjoyed " + album + ". Would you like to rate it? Y/N ");
                 ratingPrompt = ratingPrompt.toLowerCase();
                 if (ratingPrompt.equalsIgnoreCase("n")) {
                     rentTransaction = new Rental(customerId, rental, userBill);
-                } else if (ratingPrompt.equalsIgnoreCase("y")){
+                } else if (ratingPrompt.equalsIgnoreCase("y")) {
                     int rating = input.getInt("How would you rate it on a scale of 0-5? ");
                     String review = input.getInput("Would you like to leave a written review? Y/N ");
-                    if (review.equalsIgnoreCase("y")){
+                    if (review.equalsIgnoreCase("y")) {
                         String feedback = input.getInput("Did you enjoy listening to " + album + "? Do you have any advice for other listeners?");
                         System.out.println("Thank you for your feedback!");
                         customerRating = new Rating(rating, feedback);
@@ -205,7 +203,6 @@ public class Rental {
                     rentTransaction = new Rental(customerId, rental, userBill, customerRating);
                 }
                 album.getRatingSet().add(customerRating);
-                return rentTransaction;
 //                int rating = input.getInt("We hope you enjoyed the" + album + ". How would you rate it on a scale of 0-5? ");
 //                String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
 //                String feedback = null;
@@ -214,16 +211,12 @@ public class Rental {
 //                }
 //                System.out.println("Thank you for your feedback! ");
 //                Rating customerRating = new Rating(rating, feedback);
-            } else if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
-                System.out.println("That Album has not been rented");
+            } else {
+                System.out.println("That Album has not been rented or it does not exist");
                 returnAlbum(customerId, albums);
             }
         }
-        if (!contains) {
-            System.out.println("Album with this ID doesn't exist in this here dimension.");
-            returnAlbum(customerId, albums);
-        }
-        return null;
+        return rentTransaction;
     }
 
 

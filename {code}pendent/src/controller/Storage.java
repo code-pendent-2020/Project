@@ -90,23 +90,6 @@ public class Storage {
         rental.rentGame(getGames());
     }
 
-    public void returnGame() {
-        String name = input.getInput("Hiya! What is your name, customer?  ");
-        boolean contains = false;
-        for (Customer customer : customerList) {
-           if (customer.getName().equalsIgnoreCase(name)){
-               contains = true;
-               viewGames();
-               Rental newTransaction = rental.returnGame(customer.getId(), getGames());
-               getRentalHistory().add(newTransaction);
-           }
-        }
-        if (!contains){
-            System.out.println("That customer doesn't exist on our database, please try again.");
-            returnGame();
-        }
-    }
-
     public void viewTransactions() {
         for (Rental rental : getRentalHistory()){
             System.out.println(rental);
@@ -181,19 +164,19 @@ public class Storage {
     }
 
     public void returnAlbum() {
-        String name = input.getInput("Hiya! What is your name, customer?  ");
+        String name = input.getInput("Type your name to begin return process: ");
         boolean contains = false;
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)){
                 contains = true;
-                viewGames();
+                viewAlbums();
                 Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
             }
         }
         if (!contains){
             System.out.println("That customer doesn't exist on our database, please try again.");
-            returnGame();
+            returnAlbum();
         }
     }
 
@@ -285,6 +268,23 @@ public void addNewGame() {
         games.sort(Comparator.comparingDouble(Game::getRating));
         Collections.reverse(games);
         games.forEach(System.out::println);
+    }
+
+    public void returnGame() {
+        String name = input.getInput("Hiya! What is your name, customer?  ");
+        boolean contains = false;
+        for (Customer customer : customerList) {
+            if (customer.getName().equalsIgnoreCase(name)){
+                contains = true;
+                viewGames();
+                Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+                getRentalHistory().add(newTransaction);
+            }
+        }
+        if (!contains){
+            System.out.println("That customer doesn't exist on our database, please try again.");
+            returnGame();
+        }
     }
 
 
