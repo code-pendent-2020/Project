@@ -8,6 +8,15 @@ public class Input {
     public static final String DIVIDER = "-----";
     public static final int CURRENT_YEAR = Year.now().getValue();
     public static Scanner input = new Scanner(System.in);
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
 
     private static Input instance = null; // Static so it can be access everywhere
@@ -52,8 +61,20 @@ public class Input {
         return userInput;
     }
 
+    public void slowPrint(String message) throws InterruptedException {
+        // Get message, convert to char array
+        char[] chars = message.toCharArray();
+
+        // Print a char from the array, then sleep for 1/10 second
+        for (int i = 0; i < chars.length; i++) {
+            Thread.sleep(100);
+            System.out.print(chars[i]);
+            Thread.sleep(10);
+        }
+    }
+
     public void userCheck() {
-        String check = getInput(">> Press 'Enter' to continue: ");
+        String check = getInput(">> Press \u001B[31m'Enter'\u001B[0m to continue: ");
     }
 }
 

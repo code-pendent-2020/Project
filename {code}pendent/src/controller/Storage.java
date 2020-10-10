@@ -299,19 +299,16 @@ public void addNewGame() {
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderID = input.getInput("Type your ID: ");
-                if (customer.getId().equalsIgnoreCase(senderID)) {
-
-                    String senderName = input.getInput("Type your Name: ");
-                    String subject = input.getInput("Type your Title: ");
-                    String body = input.getInput("Type your message: ");
-                    Message newMessage = new Message(subject, body, senderID, senderName);
-                    System.out.println("Your message has been sent.");
+                String senderName = input.getInput("Type your Name: ");
+                String subject = input.getInput("Type your Title: ");
+                String body = input.getInput("Type your message: ");
+                Message newMessage = new Message(subject, body, senderID, senderName);
+                System.out.println("Your message has been sent.");
 
                     customer.getInbox().add(newMessage);
                 }
             }
         }
-    } // never prompts you to type your name etc.
 
     public void viewMessages() {
         String name = input.getInput("Type your name to view your inbox: ");

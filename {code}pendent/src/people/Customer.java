@@ -99,7 +99,7 @@ public class Customer extends Person {
                 contains = true;
                 if(customer.getMembership().getType().equals("No membership")) {
                     String type = null;
-                    int membershipType = input.getInt("Which membership do you want to apply for? " +input.EOL+ "1) Silver "+input.EOL+" 2) Gold "+input.EOL+" 3) Platinum" + input.EOL);
+                    int membershipType = input.getInt("Which membership do you want to apply for? " +input.EOL+ " 1) Silver "+input.EOL+" 2) Gold "+input.EOL+" 3) Platinum" + input.EOL);
                     if (membershipType == SILVER_MEMBERSHIP) {
                         type = "Silver";
                     } else if (membershipType == GOLD_MEMBERSHIP) {

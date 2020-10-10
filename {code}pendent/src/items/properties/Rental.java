@@ -129,6 +129,12 @@ public class Rental {
                         return rentTransaction;
                     } else if (ratingQuestion.equalsIgnoreCase("y")) {
                         rating = input.getInt("How would you rate it on a scale of 0-5? ");
+                        if (rating > 5){
+                            rating = 5;
+                        }
+                        if (rating < 0){
+                            rating = 0;
+                        }
                         String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
                         if (feedbackQuestion.equalsIgnoreCase("y")) {
                             feedback = input.getInput("How did you experience the game? Do you have any advice for other players?");
@@ -192,6 +198,12 @@ public class Rental {
                         rentTransaction = new Rental(customerId, rental, userBill);
                     } else if (ratingPrompt.equalsIgnoreCase("y")) {
                         int rating = input.getInt("How would you rate it on a scale of 0-5? ");
+                        if (rating > 5){
+                            rating = 5;
+                        }
+                        if (rating < 0){
+                            rating = 0;
+                        }
                         String review = input.getInput("Would you like to leave a written review? Y/N ");
                         if (review.equalsIgnoreCase("y")) {
                             String feedback = input.getInput("Did you enjoy listening to " + album.getTitle() + "? Do you have any advice for other listeners?");
