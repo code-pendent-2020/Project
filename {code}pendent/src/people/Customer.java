@@ -21,6 +21,9 @@ public class Customer extends Person {
     public static final int GOLD_MEMBERSHIP = 2;
     public static final int PlATINUM_MEMBERSHIP = 3;
 
+    public Customer(){
+    }
+
     public Customer(String name){
         super(name);
         this.inbox = new ArrayList<>();

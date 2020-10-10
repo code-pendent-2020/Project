@@ -5,11 +5,14 @@ public class Rating {
     private double rating;
     private String feedback;
 
-    Rating(double rating) {
+    public Rating(){
+    }
+
+    public Rating(double rating) {
         this.rating = rating;
     }
 
-    Rating(double rating, String feedback) {
+    public Rating(double rating, String feedback) {
         this.rating = rating;
         this.feedback = feedback;
     }

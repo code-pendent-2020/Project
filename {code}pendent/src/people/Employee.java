@@ -20,6 +20,9 @@ public class Employee extends Person {
 
     private Input input = Input.getInstance();
 
+    public Employee(){
+    }
+
     public Employee(String name, int birthYear, String address, double salary) {
         super(name);
         this.birthYear = birthYear;

@@ -9,6 +9,9 @@ public class Game extends Inventory {
     private String genre;
     private Input input = Input.getInstance();
 
+    public Game(){
+    }
+
     public Game(String title, String genre, double dailyRent, int year) {
         super(title, dailyRent, year);
         this.genre = genre;
