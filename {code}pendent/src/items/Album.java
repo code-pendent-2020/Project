@@ -11,6 +11,8 @@ public class Album extends Inventory {
 
     private final Input input = Input.getInstance();
 
+    public Album(){}
+
     public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date) {
         super(title, dailyRent, year, rentStatus, date);
         this.artist = artist;
@@ -77,11 +79,6 @@ public class Album extends Inventory {
         int addYear = input.getInt("Year: ");
         double addDailyRent = input.getDouble("Daily Rent amount: ");
         return new Album(addTitle, addArtist, addYear, addDailyRent);
-    }
-
-    private String genAlbumID() {
-        String generatedID = UUID.randomUUID().toString();
-        return generatedID;
     }
 
 }

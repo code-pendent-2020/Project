@@ -16,8 +16,12 @@ public class Employee extends Person {
     private final int FIRST_AGE_FOR_BONUS = 22;
     private final int SECOND_AGE_FOR_BONUS = 30;
     private final int MONTHS = 12;
+    private final double TAX_DEDUCTION = .7; // removes 30% when you times something by this.
 
     private Input input = Input.getInstance();
+
+    public Employee(){
+    }
 
     public Employee(String name, int birthYear, String address, double salary) {
         super(name);
@@ -45,7 +49,7 @@ public class Employee extends Person {
 
         } else {
             if (grossSalary >= MIN_SALARY) {
-                netSalary = grossSalary - ((30.0 / 100) * grossSalary);
+                netSalary = grossSalary * TAX_DEDUCTION;
             }
         }
         double bonus;
@@ -59,7 +63,7 @@ public class Employee extends Person {
             bonus = BONUS_HIGH;
             netSalary = netSalary + bonus;
         }
-        return netSalary / 12;
+        return netSalary / MONTHS;
     }
 
     public double getSalary() {

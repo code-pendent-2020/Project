@@ -9,19 +9,22 @@ import people.features.Membership;
 import people.features.Message;
 import tools.Input;
 
-import java.util.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Storage {
 
-    private Employee employee;
-    private Customer customer;
-    private Album album;
-    private Inventory inventory;
-    private Rental rental;
-    private Game game;
-    private Rating rating;
-    private Message message;
+    private Employee employee = new Employee();
+    private Customer customer = new Customer();
+    private Album album = new Album();
+    private Inventory inventory = new Inventory();
+    private Rental rental = new Rental();
+    private Game game = new Game();
+    private Rating rating = new Rating();
+    private Message message = new Message();
     private Input input = Input.getInstance();
 
     // "kind of" Storage
@@ -181,19 +184,19 @@ public class Storage {
     }
 
     public void returnAlbum() {
-        String name = input.getInput("Hiya! What is your name, customer?  ");
+        String name = input.getInput("Type your name to begin return process: ");
         boolean contains = false;
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)){
                 contains = true;
-                viewGames();
-                Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+                viewAlbums();
+                Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
             }
         }
         if (!contains){
             System.out.println("That customer doesn't exist on our database, please try again.");
-            returnGame();
+            returnAlbum();
         }
     }
 
