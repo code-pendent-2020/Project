@@ -5,6 +5,7 @@ import people.Customer;
 import people.features.Membership;
 import tools.Input;
 import tools.Menus;
+import tools.s.Secret;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class DartController {
         return password.equals(enteredPassword);
     }
 
-    public void authManager() { // Why is menu auth?
+    public void authManager() {
         String password = "admin1234";
         boolean authSuccess = authenticate(password);
 
@@ -59,6 +60,7 @@ public class DartController {
             mainMenu();
         }
     }
+
 
     private void membershipRequestList() {
         for (Membership request : requestList) {
@@ -85,13 +87,13 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    authManager();
-                    //managerMenu();
+                    //authManager();
+                    managerMenu();
                     input.userCheck();
                     break;
                 case "2":
-                    authEmployee();
-                    //employeeMenu();
+                    // authEmployee();
+                    employeeMenu();
                     input.userCheck();
 
                     break;
@@ -316,6 +318,9 @@ public class DartController {
                 case "5":
                     employeeMenu();
                     break;
+                case "secret":
+                    s();
+                    break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
                     empCustomerOptions();
@@ -517,5 +522,88 @@ public class DartController {
                     break;
             }
         } while (true);
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+private void s(){Secret s=new Secret();String str ="1337";boolean n=authenticate(str);if(n){s.secret();} else{mainMenu();}}}
