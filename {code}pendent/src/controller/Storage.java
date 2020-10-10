@@ -1,24 +1,34 @@
-import javax.security.auth.Subject;
-import java.lang.*;
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.*;
+package controller;
 
-import static java.time.temporal.ChronoUnit.DAYS;
+import items.*;
+import items.properties.Rating;
+import items.properties.Rental;
+import people.Customer;
+import people.Employee;
+import people.features.Membership;
+import people.features.Message;
+import tools.Input;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Storage {
 
     private Employee employee = new Employee();
     private Customer customer = new Customer();
-    private Input input = Input.getInstance();
     private Album album = new Album();
     private Inventory inventory = new Inventory();
     private Rental rental = new Rental();
     private Game game = new Game();
     private Rating rating = new Rating();
-    private Message message=new Message();
+    private Message message = new Message();
+    private Input input = Input.getInstance();
 
     // "kind of" Storage
+
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
             new Album ("London Calling", "The Clash", 1980, 14.99, false, null),
             new Album ("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of( 2020 , 8 , 23 )),
@@ -34,7 +44,7 @@ public class Storage {
             new Employee("Sam", 1993, "1784 Sunrise Blvd", 12385),
             new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
 
-    private List<Game> games = new ArrayList<>(Arrays.asList(
+    private ArrayList<Game> games = new ArrayList<>(Arrays.asList(
             new Game( "Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
             new Game( "Crash Bandicoot", "Racing", 17.59, 1957, false, null),
             new Game( "The Legend of Zelda", "Explore", 12.29, 1874, true, LocalDate.of(2020, 8, 20)),
@@ -44,15 +54,18 @@ public class Storage {
             new Game( "Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-            new Customer("Vernita", "Silver"),
-            new Customer("Navya"),
-            new Customer("Drake"),
-            new Customer("Altan"),
-            new Customer("Karen"),
-            new Customer("Axel")));
+            new Customer("Vernita", new Membership("Silver", 0)),
+            new Customer("Navya", new Membership(null, 0)),
+            new Customer("Drake", new Membership(null, 0)),
+            new Customer("Altan", new Membership("Silver", 0)),
+            new Customer("Karen", new Membership(null, 0)),
+            new Customer("Axel", new Membership("Gold", 0))));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
 
+    public ArrayList<Rental> getRentalHistory() {
+        return rentalHistory;
+    }
 
     public ArrayList<Employee> getEmployees(){return employees;}
 
@@ -60,8 +73,12 @@ public class Storage {
         return customerList;
     }
 
-    public List<Game> getGames(){
+    public ArrayList<Game> getGames(){
         return games;
+    }
+
+    public ArrayList<Album> getAlbums() {
+        return albums;
     }
 
     public Customer getCustomer(){
@@ -77,13 +94,14 @@ public class Storage {
     }
 
     public void returnGame() {
-        String name = input.getInput("Hiya! What is your name, customer?  ");
+        String name = input.getInput("Hiya! What is your name, customer? ");
         boolean contains = false;
         for (Customer customer : customerList) {
            if (customer.getName().equalsIgnoreCase(name)){
                contains = true;
                viewGames();
-               rental.returnGame(customer.getId(), getGames());
+               Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+               getRentalHistory().add(newTransaction);
            }
         }
         if (!contains){
@@ -92,10 +110,15 @@ public class Storage {
         }
     }
 
+    public void viewTransactions() {
+        for (Rental rental : getRentalHistory()){
+            System.out.println(rental);
+        }
+    }
+
     public void totalProfit(){
-        double profit = 0;
-        rental.getRentalIncome();
-        System.out.println();
+        double profit = rental.getRentalIncome();
+        System.out.println("The total profit is " + profit + "SEK");
     }
 
     public void ratingAverage(){
@@ -109,7 +132,7 @@ public class Storage {
     }
 
     public void removeCustomer(){
-       int removeId = input.getInt("Enter the ID of the customer you want to remove.\nID: ");
+       int removeId = input.getInt("Enter the ID of the customer you want to remove. "+input.EOL+"ID: ");
        this.customerList.removeIf(customer -> customer.getId().equals(removeId));
        viewCustomer();
    }
@@ -124,7 +147,7 @@ public class Storage {
    //     return this.customer.addMembership(getCustomers());
    // }
     public ArrayList<Membership> addMembership(){
-        return this.customer.addMembership();
+        return this.customer.addMembership(getCustomers());
     }
 
     public ArrayList<Membership> upgradeMembership(){
@@ -155,53 +178,31 @@ public class Storage {
         System.out.println("Album Removed"+input.EOL);
     }
 
+
     public void rentAlbum(){
-        String rental = input.getInput(input.EOL+"Rent"+input.EOL+"Album ID: ");
-        for (Album album : albums) {
-            if (album.getID().equals(rental) && album.getRentStatus().equals("available")) {
-                if (album.getRentStatus().equalsIgnoreCase("unavailable")) {
-                    System.out.println("Item is unavailable");
-                    rentAlbum();
-                } else {
-                    album.setRentStatus(true);
-                    album.setRentedDate(LocalDate.now());
-                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Rented");
-                }
-            }
-        }
+        rental.rentAlbum(getAlbums());
     }
 
-    public void returnAlbum(){
-        String rental = input.getInput("Return"+input.EOL+"Album ID: ");
-        // int days = helper.getInt("Number of days rented: "); for hard day entry to calculate cost
-        for (Album album : albums) {
-
-            if (album.getID().equals(rental) && album.getRentStatus().equals("unavailable")) {
-                long daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020,10,31));
-                double cost = album.getDailyRent() * daysRented;
-                album.setRentStatus(false);
-                album.setRentedDate(null);
-                System.out.println(">> "+ album.getTitle() + " by "+ album.getArtist() + "Total Cost: " + cost + " SEK - Returned");
-                int rating = input.getInt("We hope you enjoyed the album. How would you rate it on a scale of 0-5? ");
-                String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
-                String feedback = null;
-                if (feedbackQuestion.equalsIgnoreCase("y")){
-                    feedback = input.getInput("Please type your feedback: ");
-                }
-                System.out.println("Thank you for your feedback! ");
-                Rating customerRating = new Rating(rating, feedback);
-                System.out.println(album.getArtist());
-                album.getRatingSet().add(customerRating);
+    public void returnAlbum() {
+        String name = input.getInput("Type your name to begin return process: ");
+        boolean contains = false;
+        for (Customer customer : customerList) {
+            if (customer.getName().equalsIgnoreCase(name)){
+                contains = true;
+                Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
+                getRentalHistory().add(newTransaction);
             }
+        }
+        if (!contains){
+            System.out.println("That customer doesn't exist on our database, please try again.");
+            returnAlbum();
         }
     }
 
     public void viewAlbums(){
         albums.sort(Comparator.comparingInt(Album::getYear));
         Collections.reverse(albums);
-        for (Album album : albums) {
-            System.out.println(album.toString());
-        }
+        albums.forEach(System.out::println);
     }
 
     public void searchAlbums(){
@@ -214,11 +215,11 @@ public class Storage {
     }
 
     public void viewAlbumsByRating(){
+        // sorts albums by comparing the rating value
+        // the :: (invokes the method getRating from the album class. compares albums ratings as a double)
         albums.sort(Comparator.comparingDouble(Album::getRating));
         Collections.reverse(albums);
-        for (Album album : albums) {
-            System.out.println(album.toString());
-        }
+        albums.forEach(System.out::println); // using the :: operator to invoke the println function for each album
     }
 
 public void addNewGame() {
@@ -271,9 +272,7 @@ public void addNewGame() {
     public void viewGames() {
         games.sort(Comparator.comparingInt(Game::getYear));
         Collections.reverse(games);
-        for (Game game : games) {
-            System.out.println(game.toString());
-        }
+        games.forEach(System.out::println);
     }
     public void searchGames(){
         String google = input.getInput("Game Search"+input.EOL+"Genre: ");
@@ -287,9 +286,7 @@ public void addNewGame() {
     public void viewGamesByRating(){
         games.sort(Comparator.comparingDouble(Game::getRating));
         Collections.reverse(games);
-        for (Game game : games) {
-            System.out.println(game.toString());
-        }
+        games.forEach(System.out::println);
     }
 
 
@@ -298,7 +295,7 @@ public void addNewGame() {
 
     public void sendMessage() {
         viewCustomer();
-        String recipientId= input.getInput(input.EOL+"enter the customer ID of the person you want to send message to:  ");
+        String recipientId = input.getInput(input.EOL + "enter the customer ID of the person you want to send message to: ");
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderID = input.getInput("Type your ID: ");
@@ -307,18 +304,19 @@ public void addNewGame() {
                 String body = input.getInput("Type your message: ");
                 Message newMessage = new Message(subject, body, senderID, senderName);
                 System.out.println("Your message has been sent.");
-                customer.getInbox().add(newMessage);
-            }
 
+                    customer.getInbox().add(newMessage);
+                }
+            }
         }
-    }
 
     public void viewMessages() {
         String name = input.getInput("Type your name to view your inbox: ");
         for (Customer reader : customerList) {
             if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
                 Collections.reverse(reader.getInbox());
-                System.out.print(input.EOL + ">> List of messages in order received <<");
+                System.out.println(input.EOL + ">> List of messages in order received <<");
+                System.lineSeparator();
                 customer.viewMessages(reader);
                 Collections.reverse(reader.getInbox());
             }else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0){

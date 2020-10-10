@@ -1,3 +1,7 @@
+package people;
+
+import tools.Input;
+
 public class Employee extends Person {
 
     private int birthYear;
@@ -11,11 +15,12 @@ public class Employee extends Person {
     private final double BONUS_HIGH = 7500.00;
     private final int FIRST_AGE_FOR_BONUS = 22;
     private final int SECOND_AGE_FOR_BONUS = 30;
+    private final int MONTHS = 12;
+    private final double TAX_DEDUCTION = .7; // removes 30% when you times something by this.
 
     private Input input = Input.getInstance();
 
-    public Employee() {
-
+    public Employee(){
     }
 
     public Employee(String name, int birthYear, String address, double salary) {
@@ -31,7 +36,7 @@ public class Employee extends Person {
         int birthYear = input.getInt("Birth year: ");
         String address = input.getInput("Address: ");
         double monthlySalary = input.getDouble("Monthly gross salary: ");
-        grossSalary = monthlySalary * 12;
+        grossSalary = monthlySalary * MONTHS;
         Employee employee = new Employee(name, birthYear, address, grossSalary);
         return employee;
     }
@@ -44,7 +49,7 @@ public class Employee extends Person {
 
         } else {
             if (grossSalary >= MIN_SALARY) {
-                netSalary = grossSalary - ((30.0 / 100) * grossSalary);
+                netSalary = grossSalary * TAX_DEDUCTION;
             }
         }
         double bonus;
@@ -58,7 +63,7 @@ public class Employee extends Person {
             bonus = BONUS_HIGH;
             netSalary = netSalary + bonus;
         }
-        return netSalary / 12;
+        return netSalary / MONTHS;
     }
 
     public double getSalary() {

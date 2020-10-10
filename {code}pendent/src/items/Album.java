@@ -1,3 +1,7 @@
+package items;
+
+import tools.Input;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -7,8 +11,7 @@ public class Album extends Inventory {
 
     private final Input input = Input.getInstance();
 
-    public Album() {
-    }
+    public Album(){}
 
     public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date) {
         super(title, dailyRent, year, rentStatus, date);
@@ -61,8 +64,9 @@ public class Album extends Inventory {
 
     public String getRentStatus() {
         if (super.isRentStatus()) {
-            return "unavailable";
-        } else return "available";
+            return "\033[31mRented\033[0m";
+        }
+        return "Available";
     }
 
     public void setRentStatus(Boolean rentStatus) {
@@ -74,13 +78,7 @@ public class Album extends Inventory {
         String addArtist = input.getInput("Artist: ");
         int addYear = input.getInt("Year: ");
         double addDailyRent = input.getDouble("Daily Rent amount: ");
-        Album album = new Album(addTitle, addArtist, addYear, addDailyRent);
-        return album;
-    }
-
-    private String genAlbumID() {
-        String generatedID = UUID.randomUUID().toString();
-        return generatedID;
+        return new Album(addTitle, addArtist, addYear, addDailyRent);
     }
 
 }

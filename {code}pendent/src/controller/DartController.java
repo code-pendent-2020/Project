@@ -1,17 +1,22 @@
+package controller;
+
+import items.properties.Rental;
+import people.Customer;
+import people.features.Membership;
+import tools.Input;
+import tools.Menus;
 import java.util.ArrayList;
 
 public class DartController {
-    private Menus menus;
-    private Input input = Input.getInstance();
-    Storage storage; // should be private
-    private final String invalidInput = "--- Invalid input ---";
-
+    private final Menus menus;
+    private final Input input = Input.getInstance();
+    private final Storage storage; // should be private
+    private final String invalidInput = System.lineSeparator() + "--- Invalid input ---";
     private ArrayList<Membership> requestList = null;
 
     public DartController() {
         this.menus = new Menus();
         this.storage = new Storage();
-
     }
 
     public void run() {
@@ -44,7 +49,7 @@ public class DartController {
     public void authEmployee() {
         String password = "password123";
 
-        Boolean authSuccess = authenticate(password);
+        boolean authSuccess = authenticate(password);
 
         if (authSuccess) {
             employeeMenu();
@@ -97,6 +102,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    mainMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -110,7 +116,7 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.print(input.EOL + ">> New Employee" + input.EOL);
+                    System.out.print(input.EOL + input.ANSI_PURPLE +">> New Employee" + input.ANSI_RESET + input.EOL);
                     storage.addEmployee();
                     input.userCheck();
                     managerMenu();
@@ -122,16 +128,41 @@ public class DartController {
                     managerMenu();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> All Employees");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Employees"+ input.ANSI_RESET);
                     storage.viewEmployee();
                     input.userCheck();
                     managerMenu();
                     break;
                 case "4":
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Transaction History"+ input.ANSI_RESET);
+                    storage.viewTransactions();
+                    input.userCheck();
+                    managerMenu();
+                    break;
+                case "5":
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Most Profitable Item"+ input.ANSI_RESET);
+                    System.out.println("to be added.");
+                    input.userCheck();
+                    managerMenu();
+                    break;
+                case "6":
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> View Rent Frequency"+ input.ANSI_RESET);
+                    System.out.println("to be added.");
+                    input.userCheck();
+                    managerMenu();
+                    break;
+                case "7":
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Most Profitable Customer"+ input.ANSI_RESET);
+                    System.out.println("to be added.");
+                    input.userCheck();
+                    managerMenu();
+                    break;
+                case "8":
                     mainMenu();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    managerMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -157,7 +188,7 @@ public class DartController {
                     empCustomerOptions();
                     break;
               case "4":
-                    System.out.println(input.EOL +">> Total Rent Profit");
+                    System.out.println(input.EOL +input.ANSI_PURPLE +">> Total Rent Profit"+ input.ANSI_RESET);
                     Rental rental = new Rental();
                     rental.totalProfit();
                     input.userCheck();
@@ -168,6 +199,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    employeeMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -181,20 +213,20 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> New Game");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> New Game"+ input.ANSI_RESET);
                     storage.addNewGame();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Remove Game:");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Remove Game:"+ input.ANSI_RESET);
                     storage.viewGames();
                     storage.removeGame();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> All Games");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Games"+ input.ANSI_RESET);
                     storage.viewGames();
                     input.userCheck();
                     employeeMenu();
@@ -204,6 +236,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    empGameOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -217,20 +250,20 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> New Album");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> New Album"+ input.ANSI_RESET);
                     storage.addAlbum();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Remove Album:");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Remove Album:"+ input.ANSI_RESET);
                     storage.viewAlbums();
                     storage.removeAlbum();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> All Albums");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Albums"+ input.ANSI_RESET);
                     storage.viewAlbums();
                     input.userCheck();
                     employeeMenu();
@@ -240,6 +273,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    empAlbumOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -253,28 +287,35 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> New Customer");
-                    storage.addCustomer();
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Membership Requests"+ input.ANSI_RESET);
+                    membershipRequestList();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Remove Customer");
-                    storage.removeCustomer();
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> New Customer"+ input.ANSI_RESET);
+                    storage.addCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> All Customers");
-                    storage.viewCustomer();
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Remove Customer"+ input.ANSI_RESET);
+                    storage.removeCustomer();
                     input.userCheck();
                     employeeMenu();
                     break;
                 case "4":
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Customers"+ input.ANSI_RESET);
+                    storage.viewCustomer();
+                    input.userCheck();
+                    employeeMenu();
+                    break;
+                case "5":
                     employeeMenu();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    empCustomerOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -303,6 +344,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    customerMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -316,42 +358,42 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> Rent Game");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Rent Game"+ input.ANSI_RESET);
                     storage.viewGames();
                     storage.rentGame();
                     input.userCheck();
                     cusGameOptions();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Return Game");
-                    storage.viewGames();
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Return Game"+ input.ANSI_RESET);
                     storage.returnGame();
                     input.userCheck();
                     cusGameOptions();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> Search Games by Genre");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Search Games by Genre"+ input.ANSI_RESET);
                     storage.searchGames();
                     input.userCheck();
                     cusGameOptions();
                     break;
                 case "4":
-                    System.out.println(input.EOL + ">> All Games by Year");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Games by Year"+ input.ANSI_RESET);
                     storage.viewGames();
                     input.userCheck();
                     cusGameOptions();
                     break;
                 case "5":
-                    System.out.println(input.EOL + ">> All Games by Rating");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Games by Rating"+ input.ANSI_RESET);
                     storage.viewGamesByRating();
                     input.userCheck();
                     cusGameOptions();
                     break;
                 case "6":
-                    employeeMenu();
+                    customerMenu();
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    cusGameOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -365,33 +407,33 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> Rent Album");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Rent Album"+ input.ANSI_RESET);
                     storage.viewAlbums();
                     storage.rentAlbum();
                     input.userCheck();
                     cusAlbumOptions();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Return Album:");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Return Album:"+ input.ANSI_RESET);
                     storage.viewAlbums();
                     storage.returnAlbum();
                     input.userCheck();
                     cusAlbumOptions();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> Search Albums by Year");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Search Albums by Year"+ input.ANSI_RESET);
                     storage.searchAlbums();
                     input.userCheck();
                     cusAlbumOptions();
                     break;
                 case "4":
-                    System.out.println(input.EOL + ">> All Albums by Year");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Albums by Year"+ input.ANSI_RESET);
                     storage.viewAlbums();
                     input.userCheck();
                     cusAlbumOptions();
                     break;
                 case "5":
-                    System.out.println(input.EOL + ">> All Albums by Rating");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> All Albums by Rating"+ input.ANSI_RESET);
                     storage.viewAlbumsByRating();
                     input.userCheck();
                     cusAlbumOptions();
@@ -401,6 +443,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    cusAlbumOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -414,14 +457,14 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> Add Membership");
-                    storage.addMembership();
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Add Membership"+ input.ANSI_RESET);
+                    requestList = storage.addMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Upgrade Membership ");
-                    storage.upgradeMembership();
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Upgrade Membership"+ input.ANSI_RESET);
+                    requestList = storage.upgradeMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;
@@ -430,6 +473,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    cusMembershipOptions();
                     System.out.print(menus.PROMPT);
                     break;
             }
@@ -443,19 +487,19 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    System.out.println(input.EOL + ">> View Messages");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> View Messages"+ input.ANSI_RESET);
                     storage.viewMessages();
                     input.userCheck();
                     inboxMenu();
                     break;
                 case "2":
-                    System.out.println(input.EOL + ">> Send Message");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Send Message"+ input.ANSI_RESET);
                     storage.sendMessage();
                     input.userCheck();
                     inboxMenu();
                     break;
                 case "3":
-                    System.out.println(input.EOL + ">> Delete Message");
+                    System.out.println(input.EOL + input.ANSI_PURPLE +">> Delete Message"+ input.ANSI_RESET);
                     storage.removeMessages();
                     input.userCheck();
                     inboxMenu();
@@ -465,6 +509,7 @@ public class DartController {
                     break;
                 default:
                     System.out.println(menus.DIVIDER + input.EOL + invalidInput);
+                    inboxMenu();
                     System.out.print(menus.PROMPT);
                     break;
             }
