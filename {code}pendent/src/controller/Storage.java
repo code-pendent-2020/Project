@@ -297,7 +297,7 @@ public void addNewGame() {
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderID = input.getInput("Type your ID: ");
-                if (customer.getId().equalsIgnoreCase(senderID)) {
+               // if (customer.getId().equalsIgnoreCase(senderID)) {
 
                     String senderName = input.getInput("Type your Name: ");
                     String subject = input.getInput("Type your Title: ");
@@ -309,7 +309,7 @@ public void addNewGame() {
                 }
             }
         }
-    }
+    //}
 
     public void viewMessages() {
         String name = input.getInput("Type your name to view your inbox: ");
