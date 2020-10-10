@@ -126,6 +126,46 @@ public class Storage {
     }
 
     public void rentGame(){
+        String maxRentals = "Sorry you need to return an item to able rent a new one, you've reached memberships maximum rentals.";
+        String user = input.getInput("Please enter your ID: ");
+        for (Customer customer : customerList){
+            if (user.equalsIgnoreCase(getCustomer().getId())){
+                switch (customer.getMembershipType()){
+                    case "Silver":
+                        if (customer.getMaxNumberOfRentals() < 4) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                    case "Gold":
+                        if (customer.getMaxNumberOfRentals() < 6) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                    case "Platinum":
+                        if (customer.getMaxNumberOfRentals() < 8) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                    default:
+                        if (customer.getMaxNumberOfRentals() < 2) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                }
+            }
+        }
         rental.rentGame(getGames());
     }
 
@@ -136,7 +176,7 @@ public class Storage {
            if (customer.getName().equalsIgnoreCase(name)){
                contains = true;
                viewGames();
-               Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+               Rental newTransaction = rental.returnGame(customer.getMembership().getCredits(), customer.getMembershipType(), customer.getId(), getGames());
                getRentalHistory().add(newTransaction);
            }
         }
@@ -216,6 +256,46 @@ public class Storage {
 
 
     public void rentAlbum(){
+        String maxRentals = "Sorry you need to return an item to able rent a new one, you've reached memberships maximum rentals.";
+        String user = input.getInput("Please enter your ID: ");
+       for (Customer customer : customerList){
+           if (user.equalsIgnoreCase(getCustomer().getId())){
+               switch (customer.getMembershipType()){
+                   case "Silver":
+                       if (customer.getMaxNumberOfRentals() < 4) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+                   case "Gold":
+                       if (customer.getMaxNumberOfRentals() < 6) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+                   case "Platinum":
+                       if (customer.getMaxNumberOfRentals() < 8) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+                   default:
+                       if (customer.getMaxNumberOfRentals() < 2) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+               }
+           }
+       }
         rental.rentAlbum(getAlbums());
     }
 
@@ -225,7 +305,40 @@ public class Storage {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)){
                 contains = true;
-                Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
+                Rental newTransaction = rental.returnAlbum(customer.getMembership().getCredits(), customer.getMembershipType(), customer.getId(), getAlbums());
+                switch (customer.getMembershipType()){
+                    case "Silver":
+                        if (customer.getMembership().getCredits() >= 5){
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() != 0){
+                            customer.getMembership().incrementCredit();
+                        }
+                        break;
+                    case "Gold":
+                        if (customer.getMembership().getCredits() == 5){
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() != 0){
+                            for (int i = 1; i < 2; i++){
+                                customer.getMembership().incrementCredit();
+                            }
+                        }
+                        break;
+                    case "Platinum":
+                        if (customer.getMembership().getCredits() == 5){
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() != 0){
+                            for (int i = 1; i < 3; i++){
+                                customer.getMembership().incrementCredit();
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+
+                }
                 getRentalHistory().add(newTransaction);
             }
         }
