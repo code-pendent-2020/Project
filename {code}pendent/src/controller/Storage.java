@@ -61,12 +61,48 @@ public class Storage {
             new Customer("Karen", new Membership(null, 0)),
             new Customer("Axel", new Membership("Gold", 0))));
 
-    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
+    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
+            new Rental ("test1","test1",1756.34),
+            new Rental ("test2","test2",1546.65),
+            new Rental ("test3","test3",2247.93),
+            new Rental ("test4","test4",1966.28)
+    ));
 
     public ArrayList<Rental> getRentalHistory() {
         return rentalHistory;
     }
 
+    void itemsByProfit(){
+        rentalHistory.sort(Comparator.comparingDouble(Rental::getRentExpense));
+        Collections.reverse(rentalHistory);
+        rentalHistory.forEach(System.out::println);
+    }
+    void albumsByFrequency() {
+        albums.sort(Comparator.comparingInt(Inventory::getRentalFrequency));
+        Collections.reverse(albums);
+        System.out.println(input.ANSI_PURPLE + "> Albums" + input.ANSI_RESET);
+        int i = 1;
+        for (Album album : albums){
+            System.out.print(" "+i + ") " +album.getTitle()+ " by " + album.getArtist() + " - Rented ");
+            System.out.print(album.getRentalFrequency()+ " times."+input.EOL);
+            i++;
+        }
+    }
+    void gamesByFrequency(){
+        games.sort(Comparator.comparingInt(Inventory::getRentalFrequency));
+        Collections.reverse(games);
+        System.out.println(input.ANSI_PURPLE +"> Games"+ input.ANSI_RESET);
+        int i = 1;
+        for (Game game : games){
+            System.out.print(" "+i + ") " + game.getTitle() + " - Rented ");
+            System.out.print(album.getRentalFrequency() + " times."+input.EOL);
+            i++;
+        }
+    }
+
+    void customerByProfit(){
+
+    }
     public ArrayList<Employee> getEmployees(){return employees;}
 
     public ArrayList<Customer> getCustomers() {
