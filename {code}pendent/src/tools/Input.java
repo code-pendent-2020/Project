@@ -69,14 +69,14 @@ public class Input {
 
         // Print a char from the array, then sleep for millis
         for (int i = 0; i < chars.length; i++) {
-            Thread.sleep(30);
+            Thread.sleep(10);
             System.out.print(chars[i]);
             Thread.sleep(10);
         }
     }
 
     public void userCheck() {
-        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: ";
+        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL;
         System.out.print(check);
         input.nextLine();
     }

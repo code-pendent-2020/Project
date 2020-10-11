@@ -151,14 +151,13 @@ public class DartController {
                     break;
                 case "6":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> View Rent Frequency" + input.ANSI_RESET);
-                    storage.gamesByFrequency();
-                    storage.albumsByFrequency();
+                    storage.rentalFrequency();
                     input.userCheck();
                     managerMenu();
                     break;
                 case "7":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Most Profitable Customer" + input.ANSI_RESET);
-                    System.out.println("to be added.");
+                    storage.bestCustomer();
                     input.userCheck();
                     managerMenu();
                     break;
