@@ -82,7 +82,7 @@ public class Game extends Inventory {
         String outPutString = input.DIVIDER + input.EOL + "ID: " + this.getId() + input.EOL + "Game: " + this.getTitle()
                 + input.EOL + "Genre: " + this.getGenre() + ". " + input.EOL + "Released year: " +
                 super.getYear() + ". " + input.EOL + "Daily Price: " + this.getDailyRent() + "kr."
-                + input.EOL + "Status: " + outOnRent + input.EOL + "Rating: " + this.averageRating();
+                + input.EOL + "Status: " + outOnRent  + input.EOL + "Rating: " + this.averageRating();
         return outPutString;
 
     }

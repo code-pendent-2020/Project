@@ -69,7 +69,7 @@ public class Input {
 
         // Print a char from the array, then sleep for millis
         for (int i = 0; i < chars.length; i++) {
-            Thread.sleep(100);
+            Thread.sleep(30);
             System.out.print(chars[i]);
             Thread.sleep(10);
         }
@@ -78,7 +78,7 @@ public class Input {
     public void userCheck() {
         String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: ";
         System.out.print(check);
-        check = input.nextLine();
+        input.nextLine();
     }
 }
 
