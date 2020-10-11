@@ -194,7 +194,6 @@ public class DartController {
                     break;
                 case "4":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Total Rent Profit" + input.ANSI_RESET);
-                    Rental rental = new Rental();
                     storage.totalProfit();
                     input.userCheck();
                     employeeMenu();

@@ -225,7 +225,7 @@ public class Rental {
                         userBill = 0;
                     }
                     rentalIncome = rentalIncome + userBill;
-                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Total Cost: " + userBill + " SEK - Returned" + input.EOL);
+                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Total Cost: " + userBill + " kr - Returned" + input.EOL);
                     String ratingPrompt = input.getInput("We hope you enjoyed " + album.getTitle() + ". Would you like to rate it? Y/N ");
                     ratingPrompt = ratingPrompt.toLowerCase();
                     if (ratingPrompt.equalsIgnoreCase("n")) {
@@ -261,7 +261,7 @@ public class Rental {
 
 
     public void showRentalIncome() {
-        System.out.println("Rental income to-date is: " + getRentalIncome() + " SEK" + input.EOL);
+        System.out.println("Rental income to-date is: " + getRentalIncome() + " kr" + input.EOL);
 
     }
 

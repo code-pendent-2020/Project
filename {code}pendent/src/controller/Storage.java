@@ -236,7 +236,7 @@ public class Storage {
 
     public void totalProfit() {
         double profit = rental.getRentalIncome();
-        System.out.println("The total profit is " + profit + "SEK");
+        System.out.println("The total profit is " + profit + " kr");
     }
 
     public void ratingAverage() {
