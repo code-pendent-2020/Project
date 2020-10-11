@@ -61,12 +61,48 @@ public class Storage {
             new Customer("Karen", new Membership(null, 0)),
             new Customer("Axel", new Membership("Gold", 0))));
 
-    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList());
+    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
+            new Rental ("test1","test1",1756.34),
+            new Rental ("test2","test2",1546.65),
+            new Rental ("test3","test3",2247.93),
+            new Rental ("test4","test4",1966.28)
+    ));
 
     public ArrayList<Rental> getRentalHistory() {
         return rentalHistory;
     }
 
+    void itemsByProfit(){
+        rentalHistory.sort(Comparator.comparingDouble(Rental::getRentExpense));
+        Collections.reverse(rentalHistory);
+        rentalHistory.forEach(System.out::println);
+    }
+    void albumsByFrequency() {
+        albums.sort(Comparator.comparingInt(Inventory::getRentalFrequency));
+        Collections.reverse(albums);
+        System.out.println(input.ANSI_PURPLE + "> Albums" + input.ANSI_RESET);
+        int i = 1;
+        for (Album album : albums){
+            System.out.print(" "+i + ") " +album.getTitle()+ " by " + album.getArtist() + " - Rented ");
+            System.out.print(album.getRentalFrequency()+ " times."+input.EOL);
+            i++;
+        }
+    }
+    void gamesByFrequency(){
+        games.sort(Comparator.comparingInt(Inventory::getRentalFrequency));
+        Collections.reverse(games);
+        System.out.println(input.ANSI_PURPLE +"> Games"+ input.ANSI_RESET);
+        int i = 1;
+        for (Game game : games){
+            System.out.print(" "+i + ") " + game.getTitle() + " - Rented ");
+            System.out.print(album.getRentalFrequency() + " times."+input.EOL);
+            i++;
+        }
+    }
+
+    void customerByProfit(){
+
+    }
     public ArrayList<Employee> getEmployees(){return employees;}
 
     public ArrayList<Customer> getCustomers() {
@@ -90,17 +126,57 @@ public class Storage {
     }
 
     public void rentGame(){
+        String maxRentals = "Sorry you need to return an item to able rent a new one, you've reached memberships maximum rentals.";
+        String user = input.getInput("Please enter your ID: ");
+        for (Customer customer : customerList){
+            if (user.equalsIgnoreCase(getCustomer().getId())){
+                switch (customer.getMembershipType()){
+                    case "Silver":
+                        if (customer.getMaxNumberOfRentals() < 4) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                    case "Gold":
+                        if (customer.getMaxNumberOfRentals() < 6) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                    case "Platinum":
+                        if (customer.getMaxNumberOfRentals() < 8) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                    default:
+                        if (customer.getMaxNumberOfRentals() < 2) {
+                            rental.rentGame(getGames());
+                            customer.incrementMaxNumberOfRentals();
+                        }else{
+                            System.out.println(maxRentals);
+                        }
+                        break;
+                }
+            }
+        }
         rental.rentGame(getGames());
     }
 
     public void returnGame() {
-        String name = input.getInput("Hiya! What is your name, customer?  ");
+        String name = input.getInput("Hiya! What is your name, customer? ");
         boolean contains = false;
         for (Customer customer : customerList) {
            if (customer.getName().equalsIgnoreCase(name)){
                contains = true;
                viewGames();
-               Rental newTransaction = rental.returnGame(customer.getId(), getGames());
+               Rental newTransaction = rental.returnGame(customer.getMembership().getCredits(), customer.getMembershipType(), customer.getId(), getGames());
                getRentalHistory().add(newTransaction);
            }
         }
@@ -132,7 +208,7 @@ public class Storage {
     }
 
     public void removeCustomer(){
-       int removeId = input.getInt("Enter the ID of the customer you want to remove.\nID: ");
+       int removeId = input.getInt("Enter the ID of the customer you want to remove. "+input.EOL+"ID: ");
        this.customerList.removeIf(customer -> customer.getId().equals(removeId));
        viewCustomer();
    }
@@ -180,6 +256,46 @@ public class Storage {
 
 
     public void rentAlbum(){
+        String maxRentals = "Sorry you need to return an item to able rent a new one, you've reached memberships maximum rentals.";
+        String user = input.getInput("Please enter your ID: ");
+       for (Customer customer : customerList){
+           if (user.equalsIgnoreCase(getCustomer().getId())){
+               switch (customer.getMembershipType()){
+                   case "Silver":
+                       if (customer.getMaxNumberOfRentals() < 4) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+                   case "Gold":
+                       if (customer.getMaxNumberOfRentals() < 6) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+                   case "Platinum":
+                       if (customer.getMaxNumberOfRentals() < 8) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+                   default:
+                       if (customer.getMaxNumberOfRentals() < 2) {
+                           rental.rentAlbum(getAlbums());
+                           customer.incrementMaxNumberOfRentals();
+                       }else{
+                           System.out.println(maxRentals);
+                       }
+                       break;
+               }
+           }
+       }
         rental.rentAlbum(getAlbums());
     }
 
@@ -189,8 +305,40 @@ public class Storage {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)){
                 contains = true;
-                viewAlbums();
-                Rental newTransaction = rental.returnAlbum(customer.getId(), getAlbums());
+                Rental newTransaction = rental.returnAlbum(customer.getMembership().getCredits(), customer.getMembershipType(), customer.getId(), getAlbums());
+                switch (customer.getMembershipType()){
+                    case "Silver":
+                        if (customer.getMembership().getCredits() >= 5){
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() != 0){
+                            customer.getMembership().incrementCredit();
+                        }
+                        break;
+                    case "Gold":
+                        if (customer.getMembership().getCredits() == 5){
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() != 0){
+                            for (int i = 1; i < 2; i++){
+                                customer.getMembership().incrementCredit();
+                            }
+                        }
+                        break;
+                    case "Platinum":
+                        if (customer.getMembership().getCredits() == 5){
+                            customer.getMembership().setCredits(0);
+                        }
+                        if (customer.getMembership().getCredits() != 0){
+                            for (int i = 1; i < 3; i++){
+                                customer.getMembership().incrementCredit();
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+
+                }
                 getRentalHistory().add(newTransaction);
             }
         }
@@ -296,33 +444,29 @@ public void addNewGame() {
 
     public void sendMessage() {
         viewCustomer();
-        String recipientId= input.getInput(input.EOL+"enter the customer ID of the person you want to send message to:  ");
+        String recipientId = input.getInput(input.EOL + "enter the customer ID of the person you want to send message to: ");
         for (Customer customer : customerList) {
             if (customer.getId().equalsIgnoreCase(recipientId)) {
                 String senderID = input.getInput("Type your ID: ");
-               // if (customer.getId().equalsIgnoreCase(senderID)) {
-
-                    String senderName = input.getInput("Type your Name: ");
-                    String subject = input.getInput("Type your Title: ");
-                    String body = input.getInput("Type your message: ");
-                    Message newMessage = new Message(subject, body, senderID, senderName);
-                    System.out.println("Your message has been sent.");
+                String senderName = input.getInput("Type your Name: ");
+                String subject = input.getInput("Type your Title: ");
+                String body = input.getInput("Type your message: ");
+                Message newMessage = new Message(subject, body, senderID, senderName);
+                System.out.println("Your message has been sent.");
 
                     customer.getInbox().add(newMessage);
                 }
             }
         }
-    //}
 
     public void viewMessages() {
         String name = input.getInput("Type your name to view your inbox: ");
         for (Customer reader : customerList) {
             if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
                 Collections.reverse(reader.getInbox());
-                System.out.print(input.EOL + ">> List of messages in order received <<");
+                System.out.println(input.EOL + ">> List of messages in order received <<");
+                System.lineSeparator();
                 customer.viewMessages(reader);
-                customer.getReadStatus();
-
                 Collections.reverse(reader.getInbox());
             }else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0){
                 System.out.println(input.EOL + "No messages to view.");

@@ -64,10 +64,12 @@ public class Album extends Inventory {
 
     public String getRentStatus() {
         if (super.isRentStatus()) {
-            return "unavailable";
+            return "\033[31mRented\033[0m";
         }
-        return "available";
+        return "Available";
     }
+
+    public int getRentFrequency(){ return super.getRentalFrequency(); }
 
     public void setRentStatus(Boolean rentStatus) {
         super.setRentStatus(rentStatus);

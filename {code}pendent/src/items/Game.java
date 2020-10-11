@@ -66,6 +66,8 @@ public class Game extends Inventory {
         return super.averageRating();
     }
 
+    public int getRentFrequency(){ return super.getRentalFrequency(); }
+
     @Override
     public String toString() {
         String outOnRent;
