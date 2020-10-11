@@ -431,7 +431,7 @@ public class Storage {
         input.input.nextLine();
 
         games.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear));
-        System.out.println("Game Added Successfully : " + games.toString());
+        System.out.println("Game Added Successfully : " + games.get(games.size()-1).toString());
 
         System.out.println("1) Add another game" + input.EOL + "2) View all games" + input.EOL + "3) Employee Menu");
         int userChoice = input.input.nextInt();

@@ -1,12 +1,8 @@
 Rental history
 
-1. retrieve the most profitable item. (done)
-2. retrieve rent frequency. (done)
-3. customer that has spent the most money.
-4. Do some user niceness (colors, check the print statements, and \n) (do cute funny statements!) make the welcome statement a slow print
-4. customer credits. (when you return credit the customer with one credit)(their max credit should be 5 and if it is 5 they get the return for free) (vernita) (kind of did it but havent tested -Drake)
-5. set maximum rentals for each membership (vernita) (kind of did it havent tested -Drake)
-
-6. something wonky with trying to add a membership if you could check that out Vernita
-7. album frequency works but games does not
-8. Customer that has spent the most money still needs to be done
+1. Customer that has spent the most money.
+2. Do some user niceness (colors, check the print statements, and \n REPLACE WITH input.EOL)
+3. Something wonky with trying to add a membership if you could check that out
+4. Album frequency works but games does not (double check might work)
+5. Customer that has spent the most money still needs to be done
+6. Error handle for remove message

@@ -190,8 +190,6 @@ public class Customer extends Person {
         return input.EOL + "Customer ID: " + super.getId() + input.EOL + "Name: " + this.getName() + input.EOL +
                            "Membership: " + this.getMembershipType() + input.EOL + "Credits: " + this.getMembership().getCredits() + input.EOL + "-----";
     }
-
-
 }
 
 
