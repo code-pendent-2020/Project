@@ -174,9 +174,6 @@ public class DartController {
     }
 
     public void employeeMenu() {
-        if (requestList != null) {
-            membershipRequestList();
-        }
         menus.employeeMenu();
         System.out.print(menus.PROMPT);
         do {
@@ -291,7 +288,11 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Membership Requests" + input.ANSI_RESET);
-                    membershipRequestList();
+                    if (requestList != null) {
+                        membershipRequestList();
+                    } else {
+                        System.out.println("There are currently no requests.");
+                    }
                     input.userCheck();
                     employeeMenu();
                     break;
