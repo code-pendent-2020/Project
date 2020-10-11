@@ -10,7 +10,7 @@ public class Secret {
     private Input input = Input.getInstance();
     private Menu menu = new Menu();
     public void secret(){
-        String[] options = {input.ANSI_WHITE + " 1) {code}dependant ", " 2) Main Menu"+input.ANSI_RESET};
+        String[] options = {input.ANSI_WHITE + " 1) {code}pendant ", " 2) Main Menu"+input.ANSI_RESET};
         String title = input.EOL + input.ANSI_WHITE + "--- Secret Menu ---"+input.ANSI_RESET;
         System.out.println(title);
         for (int i = 0; i < options.length; i++) {
@@ -38,5 +38,5 @@ public class Secret {
                 }
             } while (true);
         }
-    private void team(){System.out.println("-- Team {Code}Dependant --" + input.EOL+"Silent Saboteur - Axel"+input.EOL+"Hacker SEM 2020 - Navya"+input.EOL+"Lost in Thought - Drake"+input.EOL+"The British are coming - Vernita");}
+    private void team(){System.out.println("-- Team {Code}pendant --" + input.EOL+"Silent Saboteur - Axel"+input.EOL+"Hacker SEM 2020 - Navya"+input.EOL+"Lost in Thought - Drake"+input.EOL+"The British are Coming - Vernita");}
 }
