@@ -104,8 +104,8 @@ public class Rental {
 
     public Rental returnGame(int numberCredits, String membershipType, String customerId, ArrayList<Game> games) {
         String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
-        long daysRented = 0;
-        double userBill = 0;
+        long daysRented;
+        double userBill;
         boolean contains = false;
         for (Game rentedGame : games) {
             if (rentedGame.getId().equals(rentId)) {
@@ -131,7 +131,7 @@ public class Rental {
                         userBill = 0;
                     }
                     rentalIncome = rentalIncome + userBill;
-                    System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + userBill + " kr"+input.EOL);
+                    System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr"+input.EOL);
                     System.out.println("The Game has now been returned.");
 
                     String feedback = null;
