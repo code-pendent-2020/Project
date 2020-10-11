@@ -78,7 +78,7 @@ public class Input {
     public void userCheck() {
         String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: ";
         System.out.print(check);
-        input.nextLine();
+        check = input.nextLine();
     }
 }
 
