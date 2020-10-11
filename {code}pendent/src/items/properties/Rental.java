@@ -84,6 +84,7 @@ public class Rental {
                 contains = true;
                 rentGame.setRentStatus(true);
                 rentGame.setRentedDate(LocalDate.now());
+                rentGame.rentFrequencyIncrement();
                 System.out.println("Game has been rented. Enjoy!");
             } else if (rentGame.getId().equals(rentId) && rentGame.getRentStatus()) {
                 int choice = input.getInt("Sorry, that game is being rented at the moment " + input.EOL + " 1) Try a different game" + input.EOL + " 2) Back to Customer menu"+input.EOL);
@@ -186,6 +187,7 @@ public class Rental {
                 } else {
                     album.setRentStatus(true);
                     album.setRentedDate(LocalDate.now());
+                    album.rentFrequencyIncrement();
                     System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - \033[31mRented\033[0m");
                 }
             }
@@ -223,8 +225,7 @@ public class Rental {
                         userBill = 0;
                     }
                     rentalIncome = rentalIncome + userBill;
-                    album.rentFrequencyIncrement();
-                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Total Cost: " + userBill + " SEK - Returned" + input.EOL);
+                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - Total Cost: " + userBill + " kr - Returned" + input.EOL);
                     String ratingPrompt = input.getInput("We hope you enjoyed " + album.getTitle() + ". Would you like to rate it? Y/N ");
                     ratingPrompt = ratingPrompt.toLowerCase();
                     if (ratingPrompt.equalsIgnoreCase("n")) {
@@ -260,7 +261,7 @@ public class Rental {
 
 
     public void showRentalIncome() {
-        System.out.println("Rental income to-date is: " + getRentalIncome() + " SEK" + input.EOL);
+        System.out.println("Rental income to-date is: " + getRentalIncome() + " kr" + input.EOL);
 
     }
 
