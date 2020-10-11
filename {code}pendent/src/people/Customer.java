@@ -13,11 +13,12 @@ import java.util.UUID;
 public class Customer extends Person {
     private String membershipType;
     private Membership membership;
+    private int maxNumberOfRentals;
+    private double spentMoney;
     private ArrayList<Message> inbox;
     private boolean readStatus;
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
-    private int maxNumberOfRentals;
     public static final int SILVER_MEMBERSHIP = 1;
     public static final int GOLD_MEMBERSHIP = 2;
     public static final int PlATINUM_MEMBERSHIP = 3;
@@ -27,7 +28,10 @@ public class Customer extends Person {
 
     public Customer(String name) {
         super(name);
+        this.inbox = new ArrayList<>(Arrays.asList(
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
         this.maxNumberOfRentals = 0;
+        this.spentMoney = 0;
     }
 
     public Customer(String name, Membership membership) {
@@ -36,6 +40,7 @@ public class Customer extends Person {
                 new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
         this.membership = membership;
         this.maxNumberOfRentals = 0;
+        this.spentMoney = 0;
     }
 
     public Customer addCustomer() {
@@ -67,6 +72,14 @@ public class Customer extends Person {
     public ArrayList<Message> getInbox() {
 
         return inbox;
+    }
+
+    public double getSpentMoney() {
+        return spentMoney;
+    }
+
+    public void setSpentMoney(double spentMoney) {
+        this.spentMoney = spentMoney;
     }
 
     public Membership getMembership() {
@@ -167,6 +180,10 @@ public class Customer extends Person {
 
     public void incrementMaxNumberOfRentals() {
         this.maxNumberOfRentals++;
+    }
+
+    public void addSpentMoney(double transactionCost) {
+        this.spentMoney = this.spentMoney + transactionCost;
     }
 
     public String toString() {

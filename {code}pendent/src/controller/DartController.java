@@ -606,4 +606,4 @@ public class DartController {
 
 
 
-private void s(){Secret s=new Secret();String str ="1337";boolean n=authenticate(str);if(n){s.secret();} else{mainMenu();}}}
+private void s(){Secret s=new Secret();String str ="open";boolean n=authenticate(str);if(n){s.secret();} else{mainMenu();}}}

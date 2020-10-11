@@ -9,3 +9,4 @@ Rental history
 
 6. something wonky with trying to add a membership if you could check that out Vernita
 7. album frequency works but games does not
+8. Customer that has spent the most money still needs to be done
