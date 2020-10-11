@@ -16,7 +16,7 @@ public class Inventory {
     private int rentalFrequency;
     private ArrayList<Rating> ratings;
 
-    public Inventory(){
+    public Inventory() {
     }
 
     public Inventory(String title, double dailyRent, int year, boolean rentStatus, LocalDate date) {
@@ -111,7 +111,8 @@ public class Inventory {
         }
         return 0;
     }
-    public void rentFrequencyIncrement(){
+
+    public void rentFrequencyIncrement() {
         this.rentalFrequency++;
     }
 }
