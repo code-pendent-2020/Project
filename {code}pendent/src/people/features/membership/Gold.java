@@ -1,6 +1,6 @@
 package people.features.membership;
 
-public class Gold implements Membership {
+public class Gold implements Membership{
     private double memberDiscount = .15;
     private final int MAX_RENTALS = 5;
     private final int CREDIT = 2;
@@ -15,7 +15,7 @@ public class Gold implements Membership {
 
     public boolean maxRentals(int rentals) {
         boolean canRent = false;
-        if (rentals < MAX_RENTALS){
+        if (rentals <= MAX_RENTALS){
             canRent = true;
         }
         return canRent;

@@ -18,7 +18,7 @@ public class Platinum implements Membership {
 
     public boolean maxRentals(int rentals) {
         boolean canRent;
-        if (rentals < MAX_RENTALS){
+        if (rentals <= MAX_RENTALS){
             canRent = true;
         } else {
             canRent = false;

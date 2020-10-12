@@ -1,5 +1,6 @@
 package people;
 
+import controller.DartController;
 import people.features.membership.Membership;
 import people.features.Message;
 import tools.Input;
@@ -26,13 +27,14 @@ public class Customer extends Person {
         this.credits = 0;
         this.currentRentals = 0;
         this.inbox = new ArrayList<>(Arrays.asList(
-                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
-
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!" + input.EOL, "Management", "DART")));
     }
-    public Customer(String name, String type){
+
+    public Customer(String name, String type) {
         super(name);
         this.type = type;
     }
+
     public Customer(String name, double spentMoney) {
         super(name);
         this.spentMoney = spentMoney;
@@ -41,7 +43,7 @@ public class Customer extends Person {
     public Customer(String name, Membership membership) {
         super(name);
         this.inbox = new ArrayList<>(Arrays.asList(
-                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!" + input.EOL, "Management", "DART")));
         this.membership = membership;
         this.credits = 0;
         this.currentRentals = 0;
@@ -55,28 +57,33 @@ public class Customer extends Person {
 
     //------------------------------------------------
 
-    public void setMembership(Membership type){
+    public void setMembership(Membership type) {
         this.membership = type;
     }
 
-    public void applyCredits(){
+    public void applyCredits() {
         this.credits = this.membership.applyCredit(this.credits);
     }
 
-    public boolean canRent(){
+    public boolean canRent() {
         return this.membership.maxRentals(this.currentRentals);
     }
-    public double calculateBill(int userBill){
+
+    public double calculateBill(int userBill) {
         return this.membership.discount(userBill);
     }
 
     //------------------------------------------------
 
-    public int getCredits(){
+    public int getCredits() {
         return this.credits;
     }
 
-    public int getCurrentRentals(){
+    public void setCredit(int newCredits){
+        this.credits = newCredits;
+    }
+
+    public int getCurrentRentals() {
         return this.currentRentals;
     }
 
@@ -100,19 +107,26 @@ public class Customer extends Person {
         this.spentMoney = spentMoney;
     }
 
-    public Membership getMembership(Object o) {
-        return membership;
+    public String getType() {
+        return type;
     }
 
+    public Membership getMembership() {
+        return this.membership;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
 
     public void viewMessages(Customer customer) {
         for (Message message : customer.getInbox()) {
             if (!message.getReadStatus()) {
                 message.setReadStatus(true);
-                System.out.print(Input.ANSI_RED+"Unread"+Input.ANSI_RESET);
+                System.out.print(Input.ANSI_RED + "Unread" + Input.ANSI_RESET);
             } else {
-                System.out.print(Input.ANSI_CYAN+"Read"+Input.ANSI_RESET);
+                System.out.print(Input.ANSI_CYAN + "Read" + Input.ANSI_RESET);
             }
             System.out.println(message.toString());
         }
@@ -128,7 +142,7 @@ public class Customer extends Person {
                 if (customer instanceof Membership) {
                     String type = null;
                     int membershipType = input.getInt("Which membership do you want to apply for? " + input.EOL + " 1) Silver " + input.EOL + " 2) Gold " + input.EOL + " 3) Platinum" + input.EOL);
-                    switch (membershipType){
+                    switch (membershipType) {
                         case 1:
                             type = "Silver";
                             break;
@@ -146,7 +160,7 @@ public class Customer extends Person {
                     memberRequest.add(new Customer(name, type));
                     requestList = memberRequest;
                 } else {
-                    System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and have a " + customer.getMembershipType() + " membership already. Perhaps you want to try upgrading instead.\n");
+                    System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and have a " + customer.getMembership() + " membership already. Perhaps you want to try upgrading instead."+input.EOL);
                 }
             }
         }
@@ -163,58 +177,82 @@ public class Customer extends Person {
     }
 
 
-    public ArrayList<Membership> upgradeMembership(ArrayList<Customer> customerList) {
-        ArrayList<Membership> upgradeList = null;
-        String name = input.getInput("What is your name?: ");
+    public ArrayList<Customer> upgradeMembership(ArrayList<Customer> customerList) {
+        ArrayList<Customer> upgradeList = null;
+        String inputName = input.getInput("What is your name?: ");
         boolean contains = false;
         // requestingMember = customerList.stream().filter(customer -> getName().equalsIgnoreCase(name));
         for (Customer customer : customerList) {
-            if (customer.getName().equalsIgnoreCase(name)) {
+            if (customer.getName().equalsIgnoreCase(inputName)) {
                 contains = true;
-                String membershipType = customer.getMembership(null).getType();
-                String databaseName = customer.getName();
-                if (membershipType.equalsIgnoreCase("No membership")) {
-                    System.out.println("Sorry " + databaseName + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
+                String type = customer.membership.membershipType();
+                String name = customer.getName();
+                if (type.equalsIgnoreCase("No membership")) {
+                    System.out.println("Sorry " + name + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
                     return null;
                 }
-                System.out.println("Hi " + databaseName + "! You currently have a " + membershipType + " membership. " + input.EOL + "Which Membership would you like to upgrade to?: \n");
+                System.out.println("Hi " + name + "! You currently have a " + type + " membership. " + input.EOL + "Which Membership would you like to upgrade to?: " + input.EOL);
                 String requestType = null;
                 int userInput;
-                if (membershipType.equals("Silver")) {
+                if (type.equals("Silver")) {
                     userInput = input.getInt("1) Gold " + input.EOL + "2) Platinum " + input.EOL + "3) Back to Customer Menu" + input.EOL);
-                    if (userInput == GOLD_MEMBERSHIP) {
-                        requestType = "Gold";
-                    } else if (userInput == (PLATINUM_MEMBERSHIP)) {
-                        requestType = "Platinum";
+                    switch (userInput) {
+                        case 1:
+                            type = "Gold";
+                            break;
+                        case 2:
+                            type = "Platinum";
+                            break;
+                        case 3:
+                            DartController dartController = new DartController();
+                            dartController.customerMenu();
+                        default:
+                            System.out.println("Not a valid input.");
+                            break;
                     }
-                } else if (membershipType.equals("Gold")) {
+                } else if (type.equals("Gold")) {
                     userInput = input.getInt("1) Platinum " + input.EOL + "2) Back to Customer Menu" + input.EOL);
-                    if (userInput == 1) {
-                        requestType = "Platinum";
+                    switch (userInput) {
+                        case 1:
+                            type = "Platinum";
+                            break;
+                        case 2:
+                            DartController dartController = new DartController();
+                            dartController.customerMenu();
+                        default:
+                            System.out.println("Not a valid input.");
+                            break;
                     }
+                    System.out.println("Your request for a " + requestType + " Membership will be reviewed shortly.");
+                    memberRequest.add(new Customer(name, type));
+                    upgradeList = memberRequest;
                 }
-                System.out.println("Your request for a " + requestType + " Membership will be reviewed shortly.");
-                upgradeList = memberRequest.requestMembership(databaseName, requestType);
             }
-        }
-        if (!contains) {
-            System.out.println("Sorry, " + name + " is not in our Customer database.");
+            if (!contains) {
+                System.out.println("Sorry, " + inputName + " is not in our Customer database.");
+            }
         }
         return upgradeList;
     }
 
-    public void incrementMaxNumberOfRentals() {
-        this.maxNumberOfRentals++;
-    }
+        public void addSpentMoney ( double transactionCost){
+            this.spentMoney = this.spentMoney + transactionCost;
+        }
 
-    public void addSpentMoney(double transactionCost) {
-        this.spentMoney = this.spentMoney + transactionCost;
-    }
+        public void incrementRentals(){
+            currentRentals++;
+        }
 
-    public String toString() {
-        return input.EOL + "Customer ID: " + super.getId() + input.EOL + "Name: " + this.getName() + input.EOL + this.getMembershipType() + input.EOL + "Credits: " + this.membership.getCredits() + input.EOL + "-----";
+        public String toString () {
+        String currentMembership;
+            if (this.membership == null){
+                currentMembership = "No Membership";
+            }else{
+                currentMembership = this.membership.membershipType();
+            }
+            return input.EOL + "Customer ID: " + super.getId() + input.EOL + "Name: " + this.getName() + input.EOL + currentMembership + input.EOL + "Credits: " + this.credits + input.EOL + "-----";
+        }
     }
-}
 
 
 
