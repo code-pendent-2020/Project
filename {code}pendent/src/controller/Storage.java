@@ -4,6 +4,10 @@ import items.*;
 import items.properties.*;
 import people.*;
 import people.features.*;
+import people.features.membership.Gold;
+import people.features.membership.Membership;
+import people.features.membership.Platinum;
+import people.features.membership.Silver;
 import tools.Input;
 
 import java.time.LocalDate;
@@ -50,12 +54,12 @@ public class Storage {
             new Game("Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-            new Customer("Vernita", new Membership("Silver", 0)),
-            new Customer("Navya", new Membership(null, 0)),
-            new Customer("Drake", new Membership(null, 0)),
-            new Customer("Altan", new Membership("Silver", 0)),
-            new Customer("Karen", new Membership(null, 0)),
-            new Customer("Axel", new Membership("Gold", 0))));
+            new Customer("Vernita", new Silver()),
+            new Customer("Navya", new Gold()),
+            new Customer("Drake", new Platinum()),
+            new Customer("Altan"),
+            new Customer("Karen"),
+            new Customer("Axel")));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
             new Rental("bob", "test1", 1756.34),
