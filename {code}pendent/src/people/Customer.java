@@ -1,6 +1,6 @@
 package people;
 
-import people.features.Membership;
+import people.features.membership.Membership;
 import people.features.Message;
 import tools.Input;
 
@@ -10,25 +10,29 @@ import java.util.Arrays;
 public class Customer extends Person {
 
     private Membership membership;
-    private int maxNumberOfRentals;
     private double spentMoney;
     private ArrayList<Message> inbox;
     private final Input input = Input.getInstance();
-    private Membership memberRequest = new Membership();
-    public static final int SILVER_MEMBERSHIP = 1;
-    public static final int GOLD_MEMBERSHIP = 2;
-    public static final int PLATINUM_MEMBERSHIP = 3;
+    private int credits;
+    private int currentRentals;
+    private ArrayList<Customer> memberRequest = new ArrayList<>();
+    private String type;
 
     public Customer() {
     }
 
     public Customer(String name) {
         super(name);
+        this.credits = 0;
+        this.currentRentals = 0;
         this.inbox = new ArrayList<>(Arrays.asList(
                 new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
-        this.maxNumberOfRentals = 0;
-    }
 
+    }
+    public Customer(String name, String type){
+        super(name);
+        this.type = type;
+    }
     public Customer(String name, double spentMoney) {
         super(name);
         this.spentMoney = spentMoney;
@@ -39,7 +43,8 @@ public class Customer extends Person {
         this.inbox = new ArrayList<>(Arrays.asList(
                 new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
         this.membership = membership;
-        this.maxNumberOfRentals = 0;
+        this.credits = 0;
+        this.currentRentals = 0;
     }
 
     public Customer addCustomer() {
@@ -48,20 +53,35 @@ public class Customer extends Person {
         return new Customer(customerName);
     }
 
-    public int getMaxNumberOfRentals() {
-        return maxNumberOfRentals;
+    //------------------------------------------------
+
+    public void setMembership(Membership type){
+        this.membership = type;
+    }
+
+    public void applyCredits(){
+        this.credits = this.membership.applyCredit(this.credits);
+    }
+
+    public boolean canRent(){
+        return this.membership.maxRentals(this.currentRentals);
+    }
+    public double calculateBill(int userBill){
+        return this.membership.discount(userBill);
+    }
+
+    //------------------------------------------------
+
+    public int getCredits(){
+        return this.credits;
+    }
+
+    public int getCurrentRentals(){
+        return this.currentRentals;
     }
 
     public String getId() {
         return super.getId();
-    }
-
-    public String getMembershipType() {
-        return this.membership.getType();
-    }
-
-    public void setMembershipType(String membershipType) {
-        this.membership.setType(membershipType);
     }
 
     public String getName() {
@@ -84,9 +104,7 @@ public class Customer extends Person {
         return membership;
     }
 
-    public void setMembership(Membership membership) {
-        this.membership = membership;
-    }
+
 
     public void viewMessages(Customer customer) {
         for (Message message : customer.getInbox()) {
@@ -100,27 +118,33 @@ public class Customer extends Person {
         }
     }
 
-    public ArrayList<Membership> addMembership(ArrayList<Customer> customerList) {
-        ArrayList<Membership> requestList = null;
+    public ArrayList<Customer> addMembership(ArrayList<Customer> customerList) {
+        ArrayList<Customer> requestList = null;
         boolean contains = false;
         String name = input.getInput("What is your name?: ");
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
-                if (customer.membership.getType().equalsIgnoreCase("No Membership")) {
+                if (customer instanceof Membership) {
                     String type = null;
                     int membershipType = input.getInt("Which membership do you want to apply for? " + input.EOL + " 1) Silver " + input.EOL + " 2) Gold " + input.EOL + " 3) Platinum" + input.EOL);
-                    if (membershipType == SILVER_MEMBERSHIP) {
-                        type = "Silver";
-                    } else if (membershipType == GOLD_MEMBERSHIP) {
-                        type = "Gold";
-                    } else if (membershipType == PLATINUM_MEMBERSHIP) {
-                        type = "Platinum";
-                    } else {
-                        System.out.println("Not a valid input.");
+                    switch (membershipType){
+                        case 1:
+                            type = "Silver";
+                            break;
+                        case 2:
+                            type = "Gold";
+                            break;
+                        case 3:
+                            type = "Platinum";
+                            break;
+                        default:
+                            System.out.println("Not a valid input.");
+                            break;
                     }
                     System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
-                    requestList = memberRequest.requestMembership(name, type);
+                    memberRequest.add(new Customer(name, type));
+                    requestList = memberRequest;
                 } else {
                     System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and have a " + customer.getMembershipType() + " membership already. Perhaps you want to try upgrading instead.\n");
                 }
@@ -131,6 +155,13 @@ public class Customer extends Person {
         }
         return requestList;
     }
+
+
+    public ArrayList<Customer> requestMembership(String name, Membership type) {
+
+        return memberRequest;
+    }
+
 
     public ArrayList<Membership> upgradeMembership(ArrayList<Customer> customerList) {
         ArrayList<Membership> upgradeList = null;

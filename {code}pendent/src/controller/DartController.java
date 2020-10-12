@@ -1,8 +1,7 @@
 package controller;
 
-import items.properties.Rental;
 import people.Customer;
-import people.features.Membership;
+import people.features.membership.Membership;
 import tools.Input;
 import tools.Menus;
 import tools.s.Secret;
