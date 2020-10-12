@@ -17,7 +17,7 @@ public class Silver implements Membership {
 
     public boolean maxRentals(int rentals) {
         boolean canRent = false;
-        if (rentals < MAX_RENTALS){
+        if (rentals <= MAX_RENTALS){
             canRent = true;
         }
         return canRent;

@@ -1,7 +1,10 @@
 package controller;
 
 import people.Customer;
+import people.features.membership.Gold;
 import people.features.membership.Membership;
+import people.features.membership.Platinum;
+import people.features.membership.Silver;
 import tools.Input;
 import tools.Menus;
 import tools.s.Secret;
@@ -13,7 +16,7 @@ public class DartController {
     private final Input input = Input.getInstance();
     private final Storage storage;
     private final String invalidInput = System.lineSeparator() + "--- Invalid input ---";
-    private ArrayList<Membership> requestList = null;
+    private ArrayList<Customer> requestList = null;
 
     public DartController() {
         this.menus = new Menus();
@@ -62,14 +65,27 @@ public class DartController {
 
 
     private void membershipRequestList() {
-        for (Membership request : requestList) {
+        for (Customer request : requestList) {
             System.out.println("The following Customer has requested a membership: ");
             System.out.println("Customer : " + request.getName() + input.EOL + " Requesting: " + request.getType() + " membership");
             String requestListAnswer = input.getInput("(Y/N): ");
             if (requestListAnswer.equalsIgnoreCase("Y")) {
                 for (Customer requested : storage.getCustomers()) {
                     if (requested.getName().equalsIgnoreCase(request.getName())) {
-                        requested.setMembershipType(request.getType());
+                        switch(request.getType()) {
+                            case "Silver":
+                                requested.setMembership(new Silver());
+                                break;
+                            case "Gold":
+                                requested.setMembership(new Gold());
+                                break;
+                            case "Platinum":
+                                requested.setMembership(new Platinum());
+                                break;
+                            default:
+                                System.out.println("invalid requested Membership");
+                                break;
+                        }
                     }
                 }
             } else {

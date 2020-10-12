@@ -159,44 +159,16 @@ public class Storage {
         String user = input.getInput("Please enter your name: ");
         for (Customer customer : customerList) {
             if (user.equalsIgnoreCase(getCustomer().getName())) {
-                switch (customer.getMembershipType()) {
-                    case "Silver":
-                        if (customer.getMaxNumberOfRentals() < 4) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
-                    case "Gold":
-                        if (customer.getMaxNumberOfRentals() < 6) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
-                    case "Platinum":
-                        if (customer.getMaxNumberOfRentals() < 8) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
-                    default:
-                        if (customer.getMaxNumberOfRentals() < 2) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
+                if (customer.getMembership().maxRentals(customer.getCurrentRentals())) {
+                        rental.rentGame(getGames());
+                        customer.incrementRentals();
+                    } else {
+                        System.out.println(maxRentals);
+                    }
                 }
             }
+            rental.rentGame(getGames());
         }
-        rental.rentGame(getGames());
-    }
 
     public void returnGame() {
         String name = input.getInput("Hiya! What is your name, customer? ");
@@ -205,40 +177,7 @@ public class Storage {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
                 viewGames();
-                Rental newTransaction = rental.returnGame(customer.getMembership(null).getCredits(), customer.getMembershipType(), customer.getId(), getGames());
-                switch (customer.getMembershipType()) {
-                    case "Silver":
-                        if (customer.getMembership(null).getCredits() >= 5) {
-                            customer.getMembership(null).setCredits(0);
-                        }
-                        if (customer.getMembership(null).getCredits() >= 0) {
-                            customer.getMembership(null).incrementCredit();
-                        }
-                        break;
-                    case "Gold":
-                        if (customer.getMembership(null).getCredits() >= 5) {
-                            customer.getMembership(null).setCredits(0);
-                        }
-                        if (customer.getMembership(null).getCredits() >= 0) {
-                            for (int i = 0; i < 2; i++) {
-                                customer.getMembership(null).incrementCredit();
-                            }
-                        }
-                        break;
-                    case "Platinum":
-                        if (customer.getMembership(null).getCredits() >= 5) {
-                            customer.getMembership(null).setCredits(0);
-                        }
-                        if (customer.getMembership(null).getCredits() >= 0) {
-                            for (int i = 0; i < 3; i++) {
-                                customer.getMembership(null).incrementCredit();
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-
-                }
+                Rental newTransaction = rental.returnGame(customer.getCredits(), customer.getMembership().membershipType(), customer.getId(), getGames());
                 getRentalHistory().add(newTransaction);
             }
         }
@@ -281,14 +220,14 @@ public class Storage {
         }
     }
 
-    // public ArrayList<Membership> addMembership(){
-    //     return this.customer.addMembership(getCustomers());
-    // }
-    public ArrayList<Membership> addMembership() {
+//     public ArrayList<Membership> addMembership(){
+//         return this.customer.addMembership(getCustomers());
+//     }
+    public ArrayList<Customer> addMembership() {
         return this.customer.addMembership(getCustomers());
     }
 
-    public ArrayList<Membership> upgradeMembership() {
+    public ArrayList<Customer> upgradeMembership() {
         return this.customer.upgradeMembership(getCustomers());
     }
 
@@ -324,39 +263,11 @@ public class Storage {
         String user = input.getInput("Please enter your name: ");
         for (Customer customer : customerList) {
             if (user.equalsIgnoreCase(getCustomer().getName())) {
-                switch (customer.getMembershipType()) {
-                    case "Silver":
-                        if (customer.getMaxNumberOfRentals() < 4) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
-                    case "Gold":
-                        if (customer.getMaxNumberOfRentals() < 6) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
-                    case "Platinum":
-                        if (customer.getMaxNumberOfRentals() < 8) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
-                    default:
-                        if (customer.getMaxNumberOfRentals() < 2) {
-                            rental.rentGame(getGames());
-                            customer.incrementMaxNumberOfRentals();
-                        } else {
-                            System.out.println(maxRentals);
-                        }
-                        break;
+                if (customer.getMembership().maxRentals(customer.getCurrentRentals())) {
+                    rental.rentGame(getGames());
+                    customer.incrementRentals();
+                } else {
+                    System.out.println(maxRentals);
                 }
             }
         }
@@ -368,41 +279,10 @@ public class Storage {
         boolean contains = false;
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
+                int updatedCredit = customer.getMembership().applyCredit(customer.getCredits());
+                customer.setCredit(updatedCredit);
                 contains = true;
-                Rental newTransaction = rental.returnAlbum(customer.getMembership(null).getCredits(), customer.getMembershipType(), customer.getId(), getAlbums());
-                switch (customer.getMembershipType()) {
-                    case "Silver":
-                        if (customer.getMembership(null).getCredits() >= 5) {
-                            customer.getMembership(null).setCredits(0);
-                        }
-                        if (customer.getMembership(null).getCredits() >= 0) {
-                            customer.getMembership(null).incrementCredit();
-                        }
-                        break;
-                    case "Gold":
-                        if (customer.getMembership(null).getCredits() >= 5) {
-                            customer.getMembership(null).setCredits(0);
-                        }
-                        if (customer.getMembership(null).getCredits() >= 0) {
-                            for (int i = 0; i < 2; i++) {
-                                customer.getMembership(null).incrementCredit();
-                            }
-                        }
-                        break;
-                    case "Platinum":
-                        if (customer.getMembership(null).getCredits() >= 5) {
-                            customer.getMembership(null).setCredits(0);
-                        }
-                        if (customer.getMembership(null).getCredits() >= 0) {
-                            for (int i = 0; i < 3; i++) {
-                                customer.getMembership(null).incrementCredit();
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-
-                }
+                Rental newTransaction = rental.returnAlbum(customer.getCredits(), customer.getMembership().membershipType(), customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
             }
         }
