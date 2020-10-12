@@ -17,7 +17,7 @@ public class Rental {
     private String itemId;
     private double rentExpense;
     private Rating rating;
-    private static double rentalIncome = 25.00;
+    private static double rentalIncome = 0;
     private static final double SILVER_DISCOUNT = .90;
     private static final double GOLD_DISCOUNT = .85;
     private static final double PLATINUM_DISCOUNT = .75;
@@ -78,13 +78,12 @@ public class Rental {
 
     public void rentGame(ArrayList<Game> games) {
         boolean contains = false;
-        String rentId = input.getInput("Enter the ID of the game would you like to rent (and presumably play unless you just hoard our games so others cant play them): ");
+        String rentId = input.getInput("Enter the ID of the game would you like to rent (and presumably play unless you just hoard our games so others can't play them) : ");
         for (Game rentGame : games) {
             if (rentGame.getId().equals(rentId) && !rentGame.getRentStatus()) {
                 contains = true;
                 rentGame.setRentStatus(true);
                 rentGame.setRentedDate(LocalDate.now());
-                rentGame.rentFrequencyIncrement();
                 System.out.println("Game has been rented. Enjoy!");
             } else if (rentGame.getId().equals(rentId) && rentGame.getRentStatus()) {
                 int choice = input.getInt("Sorry, that game is being rented at the moment " + input.EOL + " 1) Try a different game" + input.EOL + " 2) Back to Customer menu"+input.EOL);
@@ -105,8 +104,8 @@ public class Rental {
 
     public Rental returnGame(int numberCredits, String membershipType, String customerId, ArrayList<Game> games) {
         String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
-        long daysRented = 0;
-        double userBill = 0;
+        long daysRented;
+        double userBill;
         boolean contains = false;
         for (Game rentedGame : games) {
             if (rentedGame.getId().equals(rentId)) {
@@ -131,7 +130,8 @@ public class Rental {
                     if (numberCredits == 5) {
                         userBill = 0;
                     }
-                    System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + userBill + " kr"+input.EOL);
+                    rentalIncome = rentalIncome + userBill;
+                    System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr"+input.EOL);
                     System.out.println("The Game has now been returned.");
 
                     String feedback = null;
@@ -187,7 +187,6 @@ public class Rental {
                 } else {
                     album.setRentStatus(true);
                     album.setRentedDate(LocalDate.now());
-                    album.rentFrequencyIncrement();
                     System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - \033[31mRented\033[0m");
                 }
             }

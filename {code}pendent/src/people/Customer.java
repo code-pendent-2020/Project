@@ -1,27 +1,23 @@
 package people;
 
-import items.Inventory;
 import people.features.Membership;
 import people.features.Message;
 import tools.Input;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 public class Customer extends Person {
-    private String membershipType;
+
     private Membership membership;
     private int maxNumberOfRentals;
     private double spentMoney;
     private ArrayList<Message> inbox;
-    private boolean readStatus;
     private final Input input = Input.getInstance();
     private Membership memberRequest = new Membership();
     public static final int SILVER_MEMBERSHIP = 1;
     public static final int GOLD_MEMBERSHIP = 2;
-    public static final int PlATINUM_MEMBERSHIP = 3;
+    public static final int PLATINUM_MEMBERSHIP = 3;
 
     public Customer() {
     }
@@ -31,7 +27,11 @@ public class Customer extends Person {
         this.inbox = new ArrayList<>(Arrays.asList(
                 new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
         this.maxNumberOfRentals = 0;
-        this.spentMoney = 0;
+    }
+
+    public Customer(String name, double spentMoney) {
+        super(name);
+        this.spentMoney = spentMoney;
     }
 
     public Customer(String name, Membership membership) {
@@ -40,7 +40,6 @@ public class Customer extends Person {
                 new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!"+input.EOL, "Management", "DART")));
         this.membership = membership;
         this.maxNumberOfRentals = 0;
-        this.spentMoney = 0;
     }
 
     public Customer addCustomer() {
@@ -70,7 +69,6 @@ public class Customer extends Person {
     }
 
     public ArrayList<Message> getInbox() {
-
         return inbox;
     }
 
@@ -82,16 +80,12 @@ public class Customer extends Person {
         this.spentMoney = spentMoney;
     }
 
-    public Membership getMembership() {
+    public Membership getMembership(Object o) {
         return membership;
     }
 
     public void setMembership(Membership membership) {
         this.membership = membership;
-    }
-
-    public boolean getReadStatus() {
-        return readStatus;
     }
 
     public void viewMessages(Customer customer) {
@@ -113,14 +107,14 @@ public class Customer extends Person {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
-                if (customer.getMembership().getType().equals("No membership")) {
+                if (customer.membership.getType().equalsIgnoreCase("No Membership")) {
                     String type = null;
                     int membershipType = input.getInt("Which membership do you want to apply for? " + input.EOL + " 1) Silver " + input.EOL + " 2) Gold " + input.EOL + " 3) Platinum" + input.EOL);
                     if (membershipType == SILVER_MEMBERSHIP) {
                         type = "Silver";
                     } else if (membershipType == GOLD_MEMBERSHIP) {
                         type = "Gold";
-                    } else if (membershipType == PlATINUM_MEMBERSHIP) {
+                    } else if (membershipType == PLATINUM_MEMBERSHIP) {
                         type = "Platinum";
                     } else {
                         System.out.println("Not a valid input.");
@@ -128,7 +122,7 @@ public class Customer extends Person {
                     System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
                     requestList = memberRequest.requestMembership(name, type);
                 } else {
-                    System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and already have a " + customer.getMembershipType() + " membership already. Perhaps you want to try upgrading instead.\n");
+                    System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and have a " + customer.getMembershipType() + " membership already. Perhaps you want to try upgrading instead.\n");
                 }
             }
         }
@@ -146,7 +140,7 @@ public class Customer extends Person {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
-                String membershipType = customer.getMembership().getType();
+                String membershipType = customer.getMembership(null).getType();
                 String databaseName = customer.getName();
                 if (membershipType.equalsIgnoreCase("No membership")) {
                     System.out.println("Sorry " + databaseName + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
@@ -159,7 +153,7 @@ public class Customer extends Person {
                     userInput = input.getInt("1) Gold " + input.EOL + "2) Platinum " + input.EOL + "3) Back to Customer Menu" + input.EOL);
                     if (userInput == GOLD_MEMBERSHIP) {
                         requestType = "Gold";
-                    } else if (userInput == (PlATINUM_MEMBERSHIP)) {
+                    } else if (userInput == (PLATINUM_MEMBERSHIP)) {
                         requestType = "Platinum";
                     }
                 } else if (membershipType.equals("Gold")) {
@@ -187,8 +181,7 @@ public class Customer extends Person {
     }
 
     public String toString() {
-        return input.EOL + "Customer ID: " + super.getId() + input.EOL + "Name: " + this.getName() + input.EOL +
-                           "Membership: " + this.getMembershipType() + input.EOL + "Credits: " + this.getMembership().getCredits() + input.EOL + "-----";
+        return input.EOL + "Customer ID: " + super.getId() + input.EOL + "Name: " + this.getName() + input.EOL + this.getMembershipType() + input.EOL + "Credits: " + this.membership.getCredits() + input.EOL + "-----";
     }
 }
 

@@ -11,14 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.function.Consumer;
 
 public class Storage {
 
     private Employee employee = new Employee();
     private Customer customer = new Customer();
     private Album album = new Album();
-    private Inventory inventory = new Inventory();
     private Rental rental = new Rental();
     private Game game = new Game();
     private Rating rating = new Rating();
@@ -76,31 +74,48 @@ public class Storage {
         rentalHistory.forEach(System.out::println);
     }
 
-    public void albumsByFrequency() {
-        albums.sort(Comparator.comparingInt(Inventory::getRentalFrequency));
-        Collections.reverse(albums);
-        System.out.println(input.ANSI_PURPLE + "> Albums" + input.ANSI_RESET);
-        int i = 1;
+    public void bestCustomer() {
+        ArrayList<Customer> customerExpenditure = new ArrayList<Customer>();
+        for (Customer customer : customerList){
+            double rentalExpense = 0;
+            for (Rental rental : rentalHistory){
+                if (customer.getId().equals(rental.getCustomerId())){
+                    rentalExpense =+ rental.getRentalIncome();
+                }
+            }
+            customerExpenditure.add(new Customer(customer.getName(), rentalExpense));
+        }
+        customerExpenditure.sort(Comparator.comparingDouble(Customer::getSpentMoney));
+        Collections.reverse(customerExpenditure);
+        System.out.println("Name: " + customerExpenditure.get(0).getName() + input.EOL + "Total rental expense: " + customerExpenditure.get(0).getSpentMoney());
+    }
+
+    public void rentalFrequency() {
+        ArrayList<Inventory> rentalFrequency = new ArrayList<>();
+        for (Game game : games){
+            int rentalTimes = 0;
+            for (Rental rental : rentalHistory){
+                if (game.getId().equals(rental.getItemId())){
+                    rentalTimes =+ 1;
+                }
+            }
+           if (rentalTimes != 0) {
+               rentalFrequency.add(new Inventory(game.getTitle(), rentalTimes));
+           }
+        }
         for (Album album : albums) {
-            System.out.print(" " + i + ") " + album.getTitle() + " by " + album.getArtist() + " - Rented ");
-            System.out.print(album.getRentalFrequency() + " times." + input.EOL);
-            i++;
+            int rentalTimes = 0;
+            for (Rental rental : rentalHistory) {
+                if (album.getId().equals(rental.getItemId())) {
+                    rentalTimes = +1;
+                }
+            }
+            if (rentalTimes != 0){
+                rentalFrequency.add(new Inventory(album.getTitle(), rentalTimes));
         }
-    }
-
-    public void gamesByFrequency() {
-        games.sort(Comparator.comparingInt(Inventory::getRentalFrequency));
-        Collections.reverse(games);
-        System.out.println(input.ANSI_PURPLE + "> Games" + input.ANSI_RESET);
-        int i = 1;
-        for (Game game : games) {
-            System.out.print(" " + i + ") " + game.getTitle() + " - Rented ");
-            System.out.print(album.getRentalFrequency() + " times." + input.EOL);
-            i++;
         }
-    }
-
-    public void customerByProfit() {
+        for (Inventory rentalItem : rentalFrequency)
+        System.out.println("Title: " + rentalItem.getTitle() + input.EOL + "Times rented: " + rentalItem.getRentalFrequency() + input.EOL);
     }
 
     public ArrayList<Employee> getEmployees() {
@@ -185,33 +200,34 @@ public class Storage {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
-                Rental newTransaction = rental.returnGame(customer.getMembership().getCredits(), customer.getMembershipType(), customer.getId(), getGames());
+                viewGames();
+                Rental newTransaction = rental.returnGame(customer.getMembership(null).getCredits(), customer.getMembershipType(), customer.getId(), getGames());
                 switch (customer.getMembershipType()) {
                     case "Silver":
-                        if (customer.getMembership().getCredits() >= 5) {
-                            customer.getMembership().setCredits(0);
+                        if (customer.getMembership(null).getCredits() >= 5) {
+                            customer.getMembership(null).setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() >= 0) {
-                            customer.getMembership().incrementCredit();
+                        if (customer.getMembership(null).getCredits() >= 0) {
+                            customer.getMembership(null).incrementCredit();
                         }
                         break;
                     case "Gold":
-                        if (customer.getMembership().getCredits() >= 5) {
-                            customer.getMembership().setCredits(0);
+                        if (customer.getMembership(null).getCredits() >= 5) {
+                            customer.getMembership(null).setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() >= 0) {
+                        if (customer.getMembership(null).getCredits() >= 0) {
                             for (int i = 0; i < 2; i++) {
-                                customer.getMembership().incrementCredit();
+                                customer.getMembership(null).incrementCredit();
                             }
                         }
                         break;
                     case "Platinum":
-                        if (customer.getMembership().getCredits() >= 5) {
-                            customer.getMembership().setCredits(0);
+                        if (customer.getMembership(null).getCredits() >= 5) {
+                            customer.getMembership(null).setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() >= 0) {
+                        if (customer.getMembership(null).getCredits() >= 0) {
                             for (int i = 0; i < 3; i++) {
-                                customer.getMembership().incrementCredit();
+                                customer.getMembership(null).incrementCredit();
                             }
                         }
                         break;
@@ -349,33 +365,33 @@ public class Storage {
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
                 contains = true;
-                Rental newTransaction = rental.returnAlbum(customer.getMembership().getCredits(), customer.getMembershipType(), customer.getId(), getAlbums());
+                Rental newTransaction = rental.returnAlbum(customer.getMembership(null).getCredits(), customer.getMembershipType(), customer.getId(), getAlbums());
                 switch (customer.getMembershipType()) {
                     case "Silver":
-                        if (customer.getMembership().getCredits() >= 5) {
-                            customer.getMembership().setCredits(0);
+                        if (customer.getMembership(null).getCredits() >= 5) {
+                            customer.getMembership(null).setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() >= 0) {
-                            customer.getMembership().incrementCredit();
+                        if (customer.getMembership(null).getCredits() >= 0) {
+                            customer.getMembership(null).incrementCredit();
                         }
                         break;
                     case "Gold":
-                        if (customer.getMembership().getCredits() >= 5) {
-                            customer.getMembership().setCredits(0);
+                        if (customer.getMembership(null).getCredits() >= 5) {
+                            customer.getMembership(null).setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() >= 0) {
+                        if (customer.getMembership(null).getCredits() >= 0) {
                             for (int i = 0; i < 2; i++) {
-                                customer.getMembership().incrementCredit();
+                                customer.getMembership(null).incrementCredit();
                             }
                         }
                         break;
                     case "Platinum":
-                        if (customer.getMembership().getCredits() >= 5) {
-                            customer.getMembership().setCredits(0);
+                        if (customer.getMembership(null).getCredits() >= 5) {
+                            customer.getMembership(null).setCredits(0);
                         }
-                        if (customer.getMembership().getCredits() >= 0) {
+                        if (customer.getMembership(null).getCredits() >= 0) {
                             for (int i = 0; i < 3; i++) {
-                                customer.getMembership().incrementCredit();
+                                customer.getMembership(null).incrementCredit();
                             }
                         }
                         break;
@@ -483,10 +499,6 @@ public class Storage {
         Collections.reverse(games);
         games.forEach(System.out::println);
     }
-
-
-    private ArrayList<Message> customerMessages = new ArrayList<>();
-
 
     public void sendMessage() {
         viewCustomer();

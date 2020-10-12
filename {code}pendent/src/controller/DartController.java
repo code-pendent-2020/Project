@@ -151,14 +151,13 @@ public class DartController {
                     break;
                 case "6":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> View Rent Frequency" + input.ANSI_RESET);
-                    storage.gamesByFrequency();
-                    storage.albumsByFrequency();
+                    storage.rentalFrequency();
                     input.userCheck();
                     managerMenu();
                     break;
                 case "7":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Most Profitable Customer" + input.ANSI_RESET);
-                    System.out.println("to be added.");
+                    storage.bestCustomer();
                     input.userCheck();
                     managerMenu();
                     break;
@@ -175,9 +174,6 @@ public class DartController {
     }
 
     public void employeeMenu() {
-        if (requestList != null) {
-            membershipRequestList();
-        }
         menus.employeeMenu();
         System.out.print(menus.PROMPT);
         do {
@@ -292,7 +288,11 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Membership Requests" + input.ANSI_RESET);
-                    membershipRequestList();
+                    if (requestList != null) {
+                        membershipRequestList();
+                    } else {
+                        System.out.println("There are currently no requests.");
+                    }
                     input.userCheck();
                     employeeMenu();
                     break;
