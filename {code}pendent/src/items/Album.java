@@ -72,9 +72,15 @@ public class Album extends Inventory {
 
     public Album addAlbum() {
         String addTitle = input.getInput("Title: ");
+        while(addTitle.length() < 1){
+            addTitle=input.getInput("We like our games to have names!" + input.EOL + "Title:  ");
+        }
         String addArtist = input.getInput("Artist: ");
         int addYear = input.getInt("Year: ");
         double addDailyRent = input.getDouble("Daily Rent amount: ");
+        while(addDailyRent < 0){
+            addDailyRent=input.getDouble("Whoa..... we are not that cheap! "+ input.EOL+ "Daily rent Fee: ");
+        }
         return new Album(addTitle, addArtist, addYear, addDailyRent);
     }
 

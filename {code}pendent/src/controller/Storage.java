@@ -317,17 +317,16 @@ public class Storage {
 
     public void addNewGame() {
         int countArray = games.size();
-        System.out.print("Title:  ");
-        String newGameTitle = input.input.nextLine();
-
-        System.out.print("Genre:  ");
-        String newGameGenre = input.input.nextLine();
-
-        System.out.print("Year:  ");
-        int newGameYear = input.input.nextInt();
-
-        System.out.print("Daily Rent Fee:  ");
-        double newGameRentCost = input.input.nextDouble();
+        String newGameTitle = input.getInput("Title:  ");
+        while(newGameTitle.length() < 1){
+            newGameTitle=input.getInput("We like our games to have names!" + input.EOL + "Title:  ");
+        }
+        String newGameGenre = input.getInput("Genre:  ");
+        int newGameYear = input.getInt("Year:  ");
+        double newGameRentCost = input.getDouble("Daily Rent Fee:  ");
+        while(newGameRentCost < 0){
+            newGameRentCost=input.getDouble("Whoa..... we are not that cheap! "+ input.EOL+ "Daily rent Fee: ");
+        }
         input.input.nextLine();
 
         games.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear));

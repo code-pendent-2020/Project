@@ -108,8 +108,8 @@ public class Rental {
         for (Game rentedGame : games) {
             if (rentedGame.getId().equals(rentId)) {
                 contains = true;
+                daysRented = DAYS.between(rentedGame.getRentedDate(), LocalDate.now());
                 if (rentedGame.getRentStatus()) {
-                    daysRented = DAYS.between(rentedGame.getRentedDate(), LocalDate.now());
                     rentedGame.setRentStatus(false);
                     switch (membershipType) {
                         case "Silver":
