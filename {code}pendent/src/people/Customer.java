@@ -4,7 +4,6 @@ import controller.DartController;
 import people.features.membership.Membership;
 import people.features.Message;
 import tools.Input;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -132,7 +131,7 @@ public class Customer extends Person {
         }
     }
 
-    public ArrayList<Customer> addMembership(ArrayList<Customer> customerList) {
+    public ArrayList<Customer> requestMembership(ArrayList<Customer> customerList) {
         ArrayList<Customer> requestList = null;
         boolean contains = false;
         String name = input.getInput("What is your name?: ");
@@ -181,6 +180,7 @@ public class Customer extends Person {
         ArrayList<Customer> upgradeList = null;
         String inputName = input.getInput("What is your name?: ");
         boolean contains = false;
+
         // requestingMember = customerList.stream().filter(customer -> getName().equalsIgnoreCase(name));
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(inputName)) {

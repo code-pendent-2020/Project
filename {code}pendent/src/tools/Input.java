@@ -41,6 +41,10 @@ public class Input {
 
     public String getInput(String message) {
         System.out.print(message);
+        while (!input.hasNext("[A-Za-z]+")) {
+            System.out.print( EOL + "Sorry, we only accept alphabetical input so we can make sure you're really human!" + EOL + "Try again: " );
+            input.nextLine();
+        }
         String userInput = input.nextLine();
         return userInput;
     }
@@ -48,8 +52,8 @@ public class Input {
     public int getInt(String message) {
         System.out.print(message);
         String userInput = input.nextLine().replaceAll("[^0-9]", ""); // only accepts 0-9
-        if (userInput.isBlank() || userInput.isEmpty()) { // check to make sure user enters something
-            System.out.println("-----------------" + EOL + "--- Invalid input ---");
+        if (userInput.isBlank() || userInput.isEmpty() || userInput.length() > 4 || userInput.length() < 4 ) { // check to make sure user enters something
+            System.out.println( EOL + "---" + ANSI_RED + "Invalid input" + ANSI_RESET + "---");
             getInt(message);
         }
         return Integer.parseInt(userInput); // parses a string to a integer

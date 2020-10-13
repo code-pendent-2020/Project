@@ -224,7 +224,7 @@ public class Storage {
 //         return this.customer.addMembership(getCustomers());
 //     }
     public ArrayList<Customer> addMembership() {
-        return this.customer.addMembership(getCustomers());
+        return this.customer.requestMembership(getCustomers());
     }
 
     public ArrayList<Customer> upgradeMembership() {

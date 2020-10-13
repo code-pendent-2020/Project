@@ -102,13 +102,13 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    authManager();
-                    //managerMenu();
+                    //authManager();
+                    managerMenu();
                     input.userCheck();
                     break;
                 case "2":
-                    authEmployee();
-                    //employeeMenu();
+                    //authEmployee();
+                    employeeMenu();
                     input.userCheck();
 
                     break;

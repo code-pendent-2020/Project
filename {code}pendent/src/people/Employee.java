@@ -36,6 +36,10 @@ public class Employee extends Person {
 
     public Employee addEmployee() {
         String name = input.getInput("Name: ");
+        while (name.length() < 1){
+            System.out.println();
+            name = input.getInput("Invalid input, name can not be empty" + input.EOL + "Name: ");
+        }
         int birthYear = input.getInt("Birth year: ");
         String address = input.getInput("Address: ");
         double monthlySalary = input.getDouble("Monthly gross salary: ");

@@ -2,9 +2,7 @@ package items.properties;
 
 import items.Album;
 import items.Game;
-import people.Customer;
 import tools.Input;
-import tools.Menus;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
