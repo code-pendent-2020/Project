@@ -48,31 +48,9 @@ public class Customer extends Person {
         this.currentRentals = 0;
     }
 
-    public Customer addCustomer() {
-        System.out.print("Enter the customers name: ");
-        String customerName = input.input.nextLine();
-        return new Customer(customerName);
-    }
-
-    //------------------------------------------------
-
     public void setMembership(Membership type) {
         this.membership = type;
     }
-
-    public void applyCredits() {
-        this.credits = this.membership.applyCredit(this.credits);
-    }
-
-    public boolean canRent() {
-        return this.membership.maxRentals(this.currentRentals);
-    }
-
-    public double calculateBill(int userBill) {
-        return this.membership.discount(userBill);
-    }
-
-    //------------------------------------------------
 
     public int getCredits() {
         return this.credits;
@@ -130,6 +108,9 @@ public class Customer extends Person {
             System.out.println(message.toString());
         }
     }
+
+
+
 
     public ArrayList<Customer> requestMembership(ArrayList<Customer> customerList) {
         ArrayList<Customer> requestList = null;

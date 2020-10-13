@@ -75,9 +75,9 @@ public class Input {
 
         // Print a char from the array, then sleep for millis
         for (int i = 0; i < chars.length; i++) {
-            Thread.sleep(10);
-            System.out.print(chars[i]);
-            Thread.sleep(10);
+                Thread.sleep(10);
+                System.out.print(chars[i]);
+                Thread.sleep(10);
         }
     }
 

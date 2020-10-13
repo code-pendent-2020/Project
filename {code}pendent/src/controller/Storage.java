@@ -11,10 +11,7 @@ import people.features.membership.Silver;
 import tools.Input;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class Storage {
 
@@ -71,6 +68,7 @@ public class Storage {
     public ArrayList<Rental> getRentalHistory() {
         return rentalHistory;
     }
+    private HashMap<String, Membership> membershipRequests = new HashMap<>(); // not being used yet
 
     public void itemsByProfit() {
         rentalHistory.sort(Comparator.comparingDouble(Rental::getRentExpense));
@@ -204,8 +202,8 @@ public class Storage {
     }
 
     public void addCustomer() {
-        this.customerList.add(customer.addCustomer());
-        System.out.println(customerList.toString());
+        String customerName = input.getInput("Enter the Customers Name: ");
+        customerList.add(new Customer(customerName));
     }
 
     public void removeCustomer() {
@@ -231,8 +229,32 @@ public class Storage {
         return this.customer.upgradeMembership(getCustomers());
     }
 
+    public void upgradeMembership2(){ // not being used yet
+        String name = input.getInput("Customer Name: ");
+        for(Customer customer : customerList){
+            if (name.equalsIgnoreCase(customer.getName())){
+                if (customer.getMembership() != null) { // needs error handling for platinum requests
+                    membershipRequests.put(name, customer.getMembership());
+                } else {
+                    System.out.println("This customer does not seem to have a membership try requesting one");
+                }
+            } else {
+                System.out.println("That Customer does not Exist");
+            }
+        }
+    }
+
     public void addEmployee() {
-        this.employees.add(employee.addEmployee());
+        String name = input.getInput("Name: ");
+        while (name.isBlank() && name.isEmpty()){
+            System.out.println();
+            name = input.getInput("Invalid input, name can not be empty" + input.EOL + "Name: ");
+        }
+        int birthYear = input.getInt("Birth year: ");
+        String address = input.getInput("Address: ");
+        double monthlySalary = input.getDouble("Monthly gross salary: ");
+        double grossSalary = monthlySalary * employee.MONTHS;
+        employees.add(new Employee(name, birthYear, address, grossSalary));
     }
 
     public void removeEmployee() {
