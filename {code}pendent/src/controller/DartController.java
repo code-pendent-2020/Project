@@ -1,8 +1,10 @@
 package controller;
 
-import items.properties.Rental;
 import people.Customer;
-import people.features.Membership;
+import people.features.membership.Gold;
+import people.features.membership.Membership;
+import people.features.membership.Platinum;
+import people.features.membership.Silver;
 import tools.Input;
 import tools.Menus;
 import tools.s.Secret;
@@ -14,7 +16,7 @@ public class DartController {
     private final Input input = Input.getInstance();
     private final Storage storage;
     private final String invalidInput = System.lineSeparator() + "--- Invalid input ---";
-    private ArrayList<Membership> requestList = null;
+    private ArrayList<Customer> requestList = null;
 
     public DartController() {
         this.menus = new Menus();
@@ -63,14 +65,27 @@ public class DartController {
 
 
     private void membershipRequestList() {
-        for (Membership request : requestList) {
+        for (Customer request : requestList) {
             System.out.println("The following Customer has requested a membership: ");
             System.out.println("Customer : " + request.getName() + input.EOL + " Requesting: " + request.getType() + " membership");
             String requestListAnswer = input.getInput("(Y/N): ");
             if (requestListAnswer.equalsIgnoreCase("Y")) {
                 for (Customer requested : storage.getCustomers()) {
                     if (requested.getName().equalsIgnoreCase(request.getName())) {
-                        requested.setMembershipType(request.getType());
+                        switch(request.getType()) {
+                            case "Silver":
+                                requested.setMembership(new Silver());
+                                break;
+                            case "Gold":
+                                requested.setMembership(new Gold());
+                                break;
+                            case "Platinum":
+                                requested.setMembership(new Platinum());
+                                break;
+                            default:
+                                System.out.println("invalid requested Membership");
+                                break;
+                        }
                     }
                 }
             } else {
@@ -87,13 +102,13 @@ public class DartController {
             String choice = Input.input.nextLine();
             switch (choice) {
                 case "1":
-                    authManager();
-                    //managerMenu();
+                    //authManager();
+                    managerMenu();
                     input.userCheck();
                     break;
                 case "2":
-                    authEmployee();
-                    //employeeMenu();
+                    //authEmployee();
+                    employeeMenu();
                     input.userCheck();
 
                     break;
@@ -151,14 +166,13 @@ public class DartController {
                     break;
                 case "6":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> View Rent Frequency" + input.ANSI_RESET);
-                    storage.gamesByFrequency();
-                    storage.albumsByFrequency();
+                    storage.rentalFrequency();
                     input.userCheck();
                     managerMenu();
                     break;
                 case "7":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Most Profitable Customer" + input.ANSI_RESET);
-                    System.out.println("to be added.");
+                    storage.bestCustomer();
                     input.userCheck();
                     managerMenu();
                     break;
@@ -175,9 +189,6 @@ public class DartController {
     }
 
     public void employeeMenu() {
-        if (requestList != null) {
-            membershipRequestList();
-        }
         menus.employeeMenu();
         System.out.print(menus.PROMPT);
         do {
@@ -292,7 +303,11 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Membership Requests" + input.ANSI_RESET);
-                    membershipRequestList();
+                    if (requestList != null) {
+                        membershipRequestList();
+                    } else {
+                        System.out.println("There are currently no requests.");
+                    }
                     input.userCheck();
                     employeeMenu();
                     break;

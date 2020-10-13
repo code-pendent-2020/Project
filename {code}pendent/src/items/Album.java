@@ -1,18 +1,13 @@
 package items;
 
 import tools.Input;
-
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class Album extends Inventory {
     private String artist;
 
 
     private final Input input = Input.getInstance();
-
-    public Album() {
-    }
 
     public Album(String title, String artist, int year, double dailyRent, boolean rentStatus, LocalDate date) {
         super(title, dailyRent, year, rentStatus, date);
@@ -22,6 +17,10 @@ public class Album extends Inventory {
     public Album(String title, String artist, int year, double dailyRent) {
         super(title, dailyRent, year);
         this.artist = artist;
+    }
+
+    public Album() {
+        super();
     }
 
     public String getID() {
@@ -67,7 +66,7 @@ public class Album extends Inventory {
         return super.getRentalFrequency();
     }
 
-    public void setRentStatus(Boolean rentStatus) {
+    public void setRentStatus(boolean rentStatus) {
         super.setRentStatus(rentStatus);
     }
 
