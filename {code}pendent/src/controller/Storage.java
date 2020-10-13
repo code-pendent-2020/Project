@@ -202,8 +202,12 @@ public class Storage {
     }
 
     public void addCustomer() {
-        String customerName = input.getInput("Enter the Customers Name: ");
-        customerList.add(new Customer(customerName));
+        String name = input.getInput("Enter the Customers Name: ");
+        while (name.isBlank() && name.isEmpty()){
+            System.out.println();
+            name = input.getInput("Invalid input, name can not be empty or composed of spaces" + input.EOL + "Name: ");
+        }
+        customerList.add(new Customer(name));
     }
 
     public void removeCustomer() {
@@ -248,7 +252,7 @@ public class Storage {
         String name = input.getInput("Name: ");
         while (name.isBlank() && name.isEmpty()){
             System.out.println();
-            name = input.getInput("Invalid input, name can not be empty" + input.EOL + "Name: ");
+            name = input.getInput("Invalid input, name can not be empty or composed of spaces" + input.EOL + "Name: ");
         }
         int birthYear = input.getInt("Birth year: ");
         String address = input.getInput("Address: ");
