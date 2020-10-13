@@ -156,7 +156,7 @@ public class Storage {
 
     public void rentGame() {
         String maxRentals = "You currently have too many rentals for your membership! That's awesome that you enjoy our products so much!";
-        String user = input.getInput("Please enter your name: ");
+        String user = input.getInput(input.EOL + "Customer Name: ");
         for (Customer customer : customerList) {
             if (user.equalsIgnoreCase(getCustomer().getName())) {
                 if (customer.getMembership().maxRentals(customer.getCurrentRentals())) {

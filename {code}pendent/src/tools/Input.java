@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Input {
     public static final String EOL = System.lineSeparator();
-    public static final String DIVIDER = "-----";
+    public static final String DIVIDER =  "\u001B[35m-----\u001B[0m";
     public static final int CURRENT_YEAR = Year.now().getValue();
     public static Scanner input = new Scanner(System.in);
 
@@ -41,10 +41,12 @@ public class Input {
 
     public String getInput(String message) {
         System.out.print(message);
-        while (!input.hasNext("[A-Za-z]+")) {
+     /*   while (!input.hasNext("[A-Za-z]+")) {
             System.out.print( EOL + "Sorry, we only accept alphabetical input so we can make sure you're really human!" + EOL + "Try again: " );
             input.nextLine();
         }
+
+      */
         String userInput = input.nextLine();
         return userInput;
     }
