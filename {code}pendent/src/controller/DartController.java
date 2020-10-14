@@ -16,7 +16,6 @@ public class DartController {
     private final Input input = Input.getInstance();
     private final Storage storage;
     private final String invalidInput = System.lineSeparator() + "--- Invalid input ---";
-    private ArrayList<Customer> requestList = null;
 
     public DartController() {
         this.menus = new Menus();
@@ -63,38 +62,36 @@ public class DartController {
         }
     }
 
-
-    private void membershipRequestList() {
-        for (Customer request : requestList) {
-            System.out.println("The following Customer has requested a membership: ");
-            System.out.println("Customer : " + request.getName() + input.EOL + " Requesting: " + request.getType() + " membership");
-            String requestListAnswer = input.getInput("(Y/N): ");
-            if (requestListAnswer.equalsIgnoreCase("Y")) {
-                for (Customer requested : storage.getCustomers()) {
-                    if (requested.getName().equalsIgnoreCase(request.getName())) {
-                        switch(request.getType()) {
-                            case "Silver":
-                                requested.setMembership(new Silver());
-                                break;
-                            case "Gold":
-                                requested.setMembership(new Gold());
-                                break;
-                            case "Platinum":
-                                requested.setMembership(new Platinum());
-                                break;
-                            default:
-                                System.out.println("invalid requested Membership");
-                                break;
-                        }
-                    }
-                }
-            } else {
-                System.out.println("Okay, fair enough.");
-            }
-        }
-        requestList.clear();
-    }
-
+//    private void membershipRequestList() {
+//        for (Customer request : requestList) {
+//            System.out.println("The following Customer has requested a membership: ");
+//            System.out.println("Customer : " + request.getName() + input.EOL + " Requesting: " + request.getType() + " membership");
+//            String requestListAnswer = input.getInput("(Y/N): ");
+//            if (requestListAnswer.equalsIgnoreCase("Y")) {
+//                for (Customer requested : storage.getCustomers()) {
+//                    if (requested.getName().equalsIgnoreCase(request.getName())) {
+//                        switch(request.getType()) {
+//                            case "Silver":
+//                                requested.setMembership(new Silver());
+//                                break;
+//                            case "Gold":
+//                                requested.setMembership(new Gold());
+//                                break;
+//                            case "Platinum":
+//                                requested.setMembership(new Platinum());
+//                                break;
+//                            default:
+//                                System.out.println("invalid requested Membership");
+//                                break;
+//                        }
+//                    }
+//                }
+//            } else {
+//                System.out.println("Okay, fair enough.");
+//            }
+//        }
+//        requestList.clear();
+//    }
 
     public void mainMenu() {
         menus.mainMenu();
@@ -303,11 +300,7 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Membership Requests" + input.ANSI_RESET);
-                    if (requestList != null) {
-                        membershipRequestList();
-                    } else {
-                        System.out.println("There are currently no requests.");
-                    }
+                    storage.membershipRequestList();
                     input.userCheck();
                     employeeMenu();
                     break;
@@ -480,13 +473,15 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Add Membership" + input.ANSI_RESET);
-                    requestList = storage.addMembership();
+                    // requestList = storage.addMembership();
+                    storage.requestMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;
                 case "2":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Upgrade Membership" + input.ANSI_RESET);
-                    requestList = storage.upgradeMembership();
+                    storage.upgradeMembership();
+                    // requestList = storage.upgradeMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;

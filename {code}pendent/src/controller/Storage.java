@@ -56,7 +56,7 @@ public class Storage {
             new Customer("Drake", new Platinum()),
             new Customer("Altan"),
             new Customer("Karen"),
-            new Customer("Axel")));
+            new Customer("Axel", new Silver())));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
             new Rental("bob", "test1", 1756.34),
@@ -222,28 +222,80 @@ public class Storage {
         }
     }
 
-//     public ArrayList<Membership> addMembership(){
-//         return this.customer.addMembership(getCustomers());
-//     }
-    public ArrayList<Customer> addMembership() {
-        return this.customer.requestMembership(getCustomers());
+    public void membershipRequestList() {
+        for (String key : membershipRequests.keySet()) {
+            String choice = input.getInput((key + " has requested a membership upgrade" + input.EOL + "Approve (Y/N): "));
+            if (choice.equalsIgnoreCase("y")) {
+                if (membershipRequests.get(key) == null){
+                    for (Customer customer : customerList) {
+                        if (customer.getName().equalsIgnoreCase(key)) {
+                            customer.setMembership(new Silver());
+                            System.out.println(key + " has been upgraded to Silver Membership");
+                        }
+                    }
+                } else {
+                    switch (membershipRequests.get(key).membershipType()) {
+                        case "Silver":
+                            for (Customer customer : customerList) {
+                                if (customer.getName().equalsIgnoreCase(key)) {
+                                    customer.setMembership(new Gold());
+                                    System.out.println(key + " has been upgraded to Gold Membership");
+                                }
+                            }
+                            break;
+                        case "Gold":
+                            for (Customer customer : customerList) {
+                                if (customer.getName().equalsIgnoreCase(key)) {
+                                    customer.setMembership(new Platinum());
+                                    System.out.println(key + " has been upgraded to Platinum Membership");
+                                }
+                            }
+                            break;
+                        default:
+                            System.out.print("Membership is not valid for upgrade");
+                            break;
+                    }
+                }
+            } else if ((choice.equalsIgnoreCase("n"))) {
+                for (Customer customer : customerList) {
+                    if (customer.getName().equalsIgnoreCase(key)){
+                        customer.getInbox().add(new Message("Recent Membership Request",
+                                "Your membership request at this time has been reviewed and unfortunately at this time has been denied." + input.EOL,
+                                "Management",
+                                "DART"));
+                    }
+                }
+            } else {
+                membershipRequestList();
+            }
+        }
+        membershipRequests.clear();
     }
 
-    public ArrayList<Customer> upgradeMembership() {
-        return this.customer.upgradeMembership(getCustomers());
+    public void requestMembership(){
+        String name = input.getInput("Customer Name: ");
+        for (Customer customer : customerList){
+            if (name.equalsIgnoreCase(customer.getName())){
+                if (customer.getMembership() == null){
+                    membershipRequests.put(customer.getName(), null);
+                    System.out.print("Request for Silver Membership has been submitted for review"+input.EOL);
+                }
+            }
+        }
     }
 
-    public void upgradeMembership2(){ // not being used yet
+    public void upgradeMembership(){
         String name = input.getInput("Customer Name: ");
         for(Customer customer : customerList){
             if (name.equalsIgnoreCase(customer.getName())){
-                if (customer.getMembership() != null) { // needs error handling for platinum requests
-                    membershipRequests.put(name, customer.getMembership());
-                } else {
+                if (customer.getMembership() == null) {
                     System.out.println("This customer does not seem to have a membership try requesting one");
+                } else if (customer.getMembership().membershipType().equalsIgnoreCase("Platinum")) {
+                    System.out.println("Platinum Members cannot upgrade further");
+                } else { // needs error handling for platinum requests
+                    membershipRequests.put(customer.getName(), customer.getMembership());
+                    System.out.println("Application for membership upgrade has been submitted for review");
                 }
-            } else {
-                System.out.println("That Customer does not Exist");
             }
         }
     }

@@ -110,111 +110,101 @@ public class Customer extends Person {
     }
 
 
-
-
-    public ArrayList<Customer> requestMembership(ArrayList<Customer> customerList) {
-        ArrayList<Customer> requestList = null;
-        boolean contains = false;
-        String name = input.getInput("What is your name?: ");
-        for (Customer customer : customerList) {
-            if (customer.getName().equalsIgnoreCase(name)) {
-                contains = true;
-                if (customer instanceof Membership) {
-                    String type = null;
-                    int membershipType = input.getInt("Which membership do you want to apply for? " + input.EOL + " 1) Silver " + input.EOL + " 2) Gold " + input.EOL + " 3) Platinum" + input.EOL);
-                    switch (membershipType) {
-                        case 1:
-                            type = "Silver";
-                            break;
-                        case 2:
-                            type = "Gold";
-                            break;
-                        case 3:
-                            type = "Platinum";
-                            break;
-                        default:
-                            System.out.println("Not a valid input.");
-                            break;
-                    }
-                    System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
-                    memberRequest.add(new Customer(name, type));
-                    requestList = memberRequest;
-                } else {
-                    System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and have a " + customer.getMembership() + " membership already. Perhaps you want to try upgrading instead."+input.EOL);
-                }
-            }
-        }
-        if (!contains) {
-            System.out.println("Sorry, " + name + " doesn't exist in this dimension");
-        }
-        return requestList;
-    }
-
-
-    public ArrayList<Customer> requestMembership(String name, Membership type) {
-
-        return memberRequest;
-    }
-
-
-    public ArrayList<Customer> upgradeMembership(ArrayList<Customer> customerList) {
-        ArrayList<Customer> upgradeList = null;
-        String inputName = input.getInput("What is your name?: ");
-        boolean contains = false;
-
-        // requestingMember = customerList.stream().filter(customer -> getName().equalsIgnoreCase(name));
-        for (Customer customer : customerList) {
-            if (customer.getName().equalsIgnoreCase(inputName)) {
-                contains = true;
-                String type = customer.membership.membershipType();
-                String name = customer.getName();
-                if (type.equalsIgnoreCase("No membership")) {
-                    System.out.println("Sorry " + name + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
-                    return null;
-                }
-                System.out.println("Hi " + name + "! You currently have a " + type + " membership. " + input.EOL + "Which Membership would you like to upgrade to?: " + input.EOL);
-                String requestType = null;
-                int userInput;
-                if (type.equals("Silver")) {
-                    userInput = input.getInt("1) Gold " + input.EOL + "2) Platinum " + input.EOL + "3) Back to Customer Menu" + input.EOL);
-                    switch (userInput) {
-                        case 1:
-                            type = "Gold";
-                            break;
-                        case 2:
-                            type = "Platinum";
-                            break;
-                        case 3:
-                            DartController dartController = new DartController();
-                            dartController.customerMenu();
-                        default:
-                            System.out.println("Not a valid input.");
-                            break;
-                    }
-                } else if (type.equals("Gold")) {
-                    userInput = input.getInt("1) Platinum " + input.EOL + "2) Back to Customer Menu" + input.EOL);
-                    switch (userInput) {
-                        case 1:
-                            type = "Platinum";
-                            break;
-                        case 2:
-                            DartController dartController = new DartController();
-                            dartController.customerMenu();
-                        default:
-                            System.out.println("Not a valid input.");
-                            break;
-                    }
-                    System.out.println("Your request for a " + requestType + " Membership will be reviewed shortly.");
-                    memberRequest.add(new Customer(name, type));
-                    upgradeList = memberRequest;
-                }
-            }
-            if (!contains) {
-                System.out.println("Sorry, " + inputName + " is not in our Customer database.");
-            }
-        }
-        return upgradeList;
-    }
+//    public ArrayList<Customer> requestMembership(ArrayList<Customer> customerList) {
+//        ArrayList<Customer> requestList = null;
+//        boolean contains = false;
+//        String name = input.getInput("What is your name?: ");
+//        for (Customer customer : customerList) {
+//            if (customer.getName().equalsIgnoreCase(name)) {
+//                contains = true;
+//                if (customer instanceof Membership) {
+//                    String type = null;
+//                    int membershipType = input.getInt("Which membership do you want to apply for? " + input.EOL + " 1) Silver " + input.EOL + " 2) Gold " + input.EOL + " 3) Platinum" + input.EOL);
+//                    switch (membershipType) {
+//                        case 1:
+//                            type = "Silver";
+//                            break;
+//                        case 2:
+//                            type = "Gold";
+//                            break;
+//                        case 3:
+//                            type = "Platinum";
+//                            break;
+//                        default:
+//                            System.out.println("Not a valid input.");
+//                            break;
+//                    }
+//                    System.out.println("Your request for a " + type + " membership will be reviewed shortly.");
+//                    memberRequest.add(new Customer(name, type));
+//                    requestList = memberRequest;
+//                } else {
+//                    System.out.println("Hi " + customer.getName() + "! You are one of our most valued customers and have a " + customer.getMembership() + " membership already. Perhaps you want to try upgrading instead."+input.EOL);
+//                }
+//            }
+//        }
+//        if (!contains) {
+//            System.out.println("Sorry, " + name + " doesn't exist in this dimension");
+//        }
+//        return requestList;
+//    }
+//    public ArrayList<Customer> upgradeMembership(ArrayList<Customer> customerList) {
+//        ArrayList<Customer> upgradeList = null;
+//        String inputName = input.getInput("What is your name?: ");
+//        boolean contains = false;
+//
+//        // requestingMember = customerList.stream().filter(customer -> getName().equalsIgnoreCase(name));
+//        for (Customer customer : customerList) {
+//            if (customer.getName().equalsIgnoreCase(inputName)) {
+//                contains = true;
+//                String type = customer.membership.membershipType();
+//                String name = customer.getName();
+//                if (type.equalsIgnoreCase("No membership")) {
+//                    System.out.println("Sorry " + name + ", it seems you don't have a membership yet. Perhaps you can try to register for our Silver Membership instead?");
+//                    return null;
+//                }
+//                System.out.println("Hi " + name + "! You currently have a " + type + " membership. " + input.EOL + "Which Membership would you like to upgrade to?: " + input.EOL);
+//                String requestType = null;
+//                int userInput;
+//                if (type.equals("Silver")) {
+//                    userInput = input.getInt("1) Gold " + input.EOL + "2) Platinum " + input.EOL + "3) Back to Customer Menu" + input.EOL);
+//                    switch (userInput) {
+//                        case 1:
+//                            type = "Gold";
+//                            break;
+//                        case 2:
+//                            type = "Platinum";
+//                            break;
+//                        case 3:
+//                            DartController dartController = new DartController();
+//                            dartController.customerMenu();
+//                        default:
+//                            System.out.println("Not a valid input.");
+//                            break;
+//                    }
+//                } else if (type.equals("Gold")) {
+//                    userInput = input.getInt("1) Platinum " + input.EOL + "2) Back to Customer Menu" + input.EOL);
+//                    switch (userInput) {
+//                        case 1:
+//                            type = "Platinum";
+//                            break;
+//                        case 2:
+//                            DartController dartController = new DartController();
+//                            dartController.customerMenu();
+//                        default:
+//                            System.out.println("Not a valid input.");
+//                            break;
+//                    }
+//                    System.out.println("Your request for a " + requestType + " Membership will be reviewed shortly.");
+//                    memberRequest.add(new Customer(name, type));
+//                    upgradeList = memberRequest;
+//                }
+//            }
+//            if (!contains) {
+//                System.out.println("Sorry, " + inputName + " is not in our Customer database.");
+//            }
+//        }
+//        return upgradeList;
+//    }
 
         public void addSpentMoney ( double transactionCost){
             this.spentMoney = this.spentMoney + transactionCost;
