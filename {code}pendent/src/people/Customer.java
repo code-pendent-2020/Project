@@ -3,6 +3,7 @@ package people;
 import controller.DartController;
 import people.features.membership.Membership;
 import people.features.Message;
+import people.features.membership.Regular;
 import tools.Input;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,7 @@ public class Customer extends Person {
 
     public Customer(String name) {
         super(name);
+        this.membership = new Regular();
         this.credits = 0;
         this.currentRentals = 0;
         this.inbox = new ArrayList<>(Arrays.asList(
@@ -32,11 +34,13 @@ public class Customer extends Person {
     public Customer(String name, String type) {
         super(name);
         this.type = type;
+        this.membership = new Regular();
     }
 
     public Customer(String name, double spentMoney) {
         super(name);
         this.spentMoney = spentMoney;
+        this.membership = new Regular();
     }
 
     public Customer(String name, Membership membership) {

@@ -226,15 +226,15 @@ public class Storage {
         for (String key : membershipRequests.keySet()) {
             String choice = input.getInput((key + " has requested a membership upgrade" + input.EOL + "Approve (Y/N): "));
             if (choice.equalsIgnoreCase("y")) {
-                if (membershipRequests.get(key) == null){
-                    for (Customer customer : customerList) {
-                        if (customer.getName().equalsIgnoreCase(key)) {
-                            customer.setMembership(new Silver());
-                            System.out.println(key + " has been upgraded to Silver Membership");
-                        }
-                    }
-                } else {
                     switch (membershipRequests.get(key).membershipType()) {
+                        case "Regular":
+                            for (Customer customer : customerList) {
+                                if (customer.getName().equalsIgnoreCase(key)) {
+                                    customer.setMembership(new Silver());
+                                    System.out.println(key + " has been upgraded to Silver Membership");
+                                }
+                            }
+                            break;
                         case "Silver":
                             for (Customer customer : customerList) {
                                 if (customer.getName().equalsIgnoreCase(key)) {
@@ -255,32 +255,34 @@ public class Storage {
                             System.out.print("Membership is not valid for upgrade");
                             break;
                     }
-                }
-            } else if ((choice.equalsIgnoreCase("n"))) {
+            } else {
                 for (Customer customer : customerList) {
-                    if (customer.getName().equalsIgnoreCase(key)){
+                    if (customer.getName().equalsIgnoreCase(key)) {
                         customer.getInbox().add(new Message("Recent Membership Request",
                                 "Your membership request at this time has been reviewed and unfortunately at this time has been denied." + input.EOL,
                                 "Management",
                                 "DART"));
                     }
                 }
-            } else {
-                membershipRequestList();
             }
         }
         membershipRequests.clear();
     }
 
     public void requestMembership(){
+        boolean contains = false;
         String name = input.getInput("Customer Name: ");
         for (Customer customer : customerList){
             if (name.equalsIgnoreCase(customer.getName())){
-                if (customer.getMembership() == null){
-                    membershipRequests.put(customer.getName(), null);
+                contains = true;
+                if (customer.getMembership().membershipType().equals("Regular")){
+                    membershipRequests.put(customer.getName(), customer.getMembership());
                     System.out.print("Request for Silver Membership has been submitted for review"+input.EOL);
                 }
             }
+        }
+        if (!contains){
+            System.out.println("Customer does not exist, please contact and employee to be added to the system");
         }
     }
 
@@ -288,7 +290,7 @@ public class Storage {
         String name = input.getInput("Customer Name: ");
         for(Customer customer : customerList){
             if (name.equalsIgnoreCase(customer.getName())){
-                if (customer.getMembership() == null) {
+                if (customer.getMembership().membershipType().equals("Regular")) {
                     System.out.println("This customer does not seem to have a membership try requesting one");
                 } else if (customer.getMembership().membershipType().equalsIgnoreCase("Platinum")) {
                     System.out.println("Platinum Members cannot upgrade further");
