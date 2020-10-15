@@ -51,7 +51,10 @@ public class Employee extends Person {
             bonus = BONUS_HIGH;
             netSalary = netSalary + bonus;
         }
-        return netSalary / MONTHS;
+
+        netSalary = netSalary / MONTHS;
+        netSalary = (double) Math.round(netSalary*100)/100;
+        return netSalary;
     }
 
     public double getSalary() {
