@@ -8,19 +8,17 @@ public class Employee extends Person {
     private String address;
     private double grossSalary;
 
-
+    public static final int MONTHS = 12;
     private final double MIN_SALARY = 100000.00;
     private final double BONUS_LOW = 4000.00;
     private final double BONUS_MEDIUM = 6000.00;
     private final double BONUS_HIGH = 7500.00;
     private final int FIRST_AGE_FOR_BONUS = 22;
     private final int SECOND_AGE_FOR_BONUS = 30;
-    private final int MONTHS = 12;
     private final double TAX_DEDUCTION = .7; // removes 30% when you times something by this.
-
     private Input input = Input.getInstance();
 
-    public Employee(){
+    public Employee() {
     }
 
     public Employee(String name, int birthYear, String address, double salary) {
@@ -31,17 +29,7 @@ public class Employee extends Person {
 
     }
 
-    public Employee addEmployee() {
-        String name = input.getInput("Name: ");
-        int birthYear = input.getInt("Birth year: ");
-        String address = input.getInput("Address: ");
-        double monthlySalary = input.getDouble("Monthly gross salary: ");
-        grossSalary = monthlySalary * MONTHS;
-        Employee employee = new Employee(name, birthYear, address, grossSalary);
-        return employee;
-    }
-
-    public double netSalary() {
+    public double calculateSalary() {
         int age = Input.CURRENT_YEAR - birthYear;
         double netSalary = 0;
         if (grossSalary < MIN_SALARY) {
@@ -67,7 +55,7 @@ public class Employee extends Person {
     }
 
     public double getSalary() {
-        return netSalary();
+        return calculateSalary();
     }
 
     public int getBirthYear() {
@@ -80,7 +68,7 @@ public class Employee extends Person {
 
     public String toString() {
         return input.DIVIDER + input.EOL + "ID: " + this.getId() + input.EOL + "Name: " + this.getName() + input.EOL + "Birth year: " + this.getBirthYear()
-                + input.EOL + "Address: " + this.getAddress() + input.EOL + "salary: " + this.netSalary();
+                + input.EOL + "Address: " + this.getAddress() + input.EOL + "salary: " + this.calculateSalary();
     }
 }
 

@@ -5,7 +5,7 @@ public class Rating {
     private double rating;
     private String feedback;
 
-    public Rating(){
+    public Rating() {
     }
 
     public Rating(double rating) {
@@ -26,9 +26,9 @@ public class Rating {
     }
 
     public String toString() {
-        if (getRating()>0 && getFeedback()!=null){
-        return "Rating: " + getRating() + "\nFeedback: " + getFeedback();
-        } else if (getRating()>0 && getFeedback()==null){
+        if (getRating() > 0 && getFeedback() != null) {
+            return "Rating: " + getRating() + "\nFeedback: " + getFeedback();
+        } else if (getRating() > 0 && getFeedback() == null) {
             return "Rating: " + getRating();
         }
         return null;

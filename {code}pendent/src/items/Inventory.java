@@ -16,8 +16,6 @@ public class Inventory {
     private int rentalFrequency;
     private ArrayList<Rating> ratings;
 
-    public Inventory(){
-    }
 
     public Inventory(String title, double dailyRent, int year, boolean rentStatus, LocalDate date) {
         this.id = UUID.randomUUID().toString();
@@ -41,6 +39,14 @@ public class Inventory {
         this.ratings = new ArrayList<Rating>();
     }
 
+    public Inventory(){
+    }
+
+    public Inventory(String title, int rentalTimes) {
+        this.title = title;
+        this.rentalFrequency = rentalTimes;
+    }
+
     public String getId() {
         return id;
     }
@@ -53,16 +59,8 @@ public class Inventory {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public double getDailyRent() {
         return dailyRent;
-    }
-
-    public void setDailyRent(double dailyRent) {
-        this.dailyRent = dailyRent;
     }
 
     public int getYear() {
@@ -97,10 +95,6 @@ public class Inventory {
         return rentalFrequency;
     }
 
-    public void setRentalFrequency(int rentalFrequency) {
-        this.rentalFrequency = rentalFrequency;
-    }
-
     public double averageRating() {
         if (ratings.size() != 0) {
             double sum = 0;
@@ -111,7 +105,5 @@ public class Inventory {
         }
         return 0;
     }
-    public void rentFrequencyIncrement(){
-        this.rentalFrequency++;
-    }
+
 }
