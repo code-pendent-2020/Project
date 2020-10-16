@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.InvalidInputException;
 import items.*;
 import items.properties.*;
 import people.*;
@@ -300,22 +301,22 @@ public class Storage {
     }
 
     public void addEmployee() {
-        boolean isRunning = false;
-        do {
-            try {
+//        boolean isRunning = false;
+//        do {
+//            try {
                 String name = input.getInput("Name: ");
                 int birthYear = input.getInt("Birth year: ");
                 String address = input.getInput("Address: ");
                 double monthlySalary = input.getDouble("Monthly gross salary: ");
                 double grossSalary = monthlySalary * employee.MONTHS;
                 employees.add(new Employee(name, birthYear, address, grossSalary));
-                isRunning = true;
-            } catch (InputMismatchException e) {
-                System.out.println("That's not the correct input, be careful and please try again.");
-                input.input.nextLine();
-
-            }
-        } while (!isRunning);
+//                isRunning = true;
+//            } catch (InputMismatchException e) {
+//                System.out.println("That's not the correct input, be careful and please try again.");
+//                input.input.nextLine();
+//
+//            }
+//        } while (!isRunning);
     }
 
     public void removeEmployee() {
