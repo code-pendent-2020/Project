@@ -6,7 +6,7 @@ public class DartMain {
 
     public static void main(String[] args) {
         Input input = Input.getInstance();
-        input.slowPrint(WELCOME_MESSAGE);
+        // input.slowPrint(WELCOME_MESSAGE);
         DartController start = new DartController();
         start.run();
     }

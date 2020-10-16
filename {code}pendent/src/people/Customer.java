@@ -56,6 +56,19 @@ public class Customer extends Person {
         this.membership = type;
     }
 
+    public boolean canRent() {
+        return this.membership.maxRentals(this.currentRentals);
+    }
+    public void applyCredits(){
+        setCredit(this.membership.applyCredit(this.credits));
+    }
+    public double memberDiscount(double userBill){
+        return this.membership.discount(userBill);
+    }
+    public String getMembershipType() {
+        return this.membership.membershipType();
+    }
+
     public int getCredits() {
         return this.credits;
     }

@@ -275,7 +275,7 @@ public class Storage {
         for (Customer customer : customerList){
             if (name.equalsIgnoreCase(customer.getName())){
                 contains = true;
-                if (customer.getMembership().membershipType().equals("Regular")){
+                if (customer.getMembershipType().equals("Regular")){
                     membershipRequests.put(customer.getName(), customer.getMembership());
                     System.out.print("Request for Silver Membership has been submitted for review"+input.EOL);
                 }
@@ -290,9 +290,9 @@ public class Storage {
         String name = input.getInput("Customer Name: ");
         for(Customer customer : customerList){
             if (name.equalsIgnoreCase(customer.getName())){
-                if (customer.getMembership().membershipType().equals("Regular")) {
+                if (customer.getMembershipType().equals("Regular")) {
                     System.out.println("This customer does not seem to have a membership try requesting one");
-                } else if (customer.getMembership().membershipType().equalsIgnoreCase("Platinum")) {
+                } else if (customer.getMembershipType().equalsIgnoreCase("Platinum")) {
                     System.out.println("Platinum Members cannot upgrade further");
                 } else { // needs error handling for platinum requests
                     membershipRequests.put(customer.getName(), customer.getMembership());
@@ -343,7 +343,7 @@ public class Storage {
         String user = input.getInput("Please enter your name: ");
         for (Customer customer : customerList) {
             if (user.equalsIgnoreCase(getCustomer().getName())) {
-                if (customer.getMembership().maxRentals(customer.getCurrentRentals())) {
+                if (customer.canRent()) {
                     rental.rentGame(getGames());
                     customer.incrementRentals();
                 } else {
@@ -359,8 +359,7 @@ public class Storage {
         boolean contains = false;
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
-                int updatedCredit = customer.getMembership().applyCredit(customer.getCredits());
-                customer.setCredit(updatedCredit);
+                customer.applyCredits();
                 contains = true;
                 Rental newTransaction = rental.returnAlbum(customer.getCredits(), customer.getMembership().membershipType(), customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
