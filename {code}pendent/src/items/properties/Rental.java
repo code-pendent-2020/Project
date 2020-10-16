@@ -100,7 +100,7 @@ public class Rental {
         }
     }
 
-    public Rental returnGame(int numberCredits, String membershipType, String customerId, ArrayList<Game> games) {
+   public Rental returnGame(int numberCredits, String membershipType, String customerId, ArrayList<Game> games) {
         String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
         long daysRented = 0;
         double userBill;
@@ -108,7 +108,7 @@ public class Rental {
         for (Game rentedGame : games) {
             if (rentedGame.getId().equals(rentId)) {
                 daysRented = DAYS.between(rentedGame.getRentedDate(), LocalDate.now());
-                if (daysRented < 0) {
+                if (daysRented > 0) {
                     contains = true;
                     if (rentedGame.getRentStatus()) {
                         rentedGame.setRentStatus(false);
@@ -129,6 +129,7 @@ public class Rental {
                         if (numberCredits == 5) {
                             userBill = 0;
                         }
+
                         rentalIncome = rentalIncome + userBill;
                         System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr" + input.EOL);
                         System.out.println("The Game has now been returned.");
@@ -171,13 +172,18 @@ public class Rental {
                     System.out.println("Invalid operation. Upon returning an item, the number of days rented must be positive." + input.EOL);
                 }
             }
-            }
+        }
         if (!contains && daysRented > 0) {
             System.out.println("Game with this ID doesn't exist in this here dimension. We don't stock items from different dimensions yet... ");
             returnGame(numberCredits, membershipType, customerId, games);
         }
+
         return null;
+
     }
+
+
+
 
     public void rentAlbum(ArrayList<Album> albums) {
         String rental = input.getInput(input.EOL + "Rent" + input.EOL + "Album ID: ");
@@ -205,7 +211,7 @@ public class Rental {
         for (Album album : albums) {
             if (album.getID().equals(rental)) {
                 double daysRented = DAYS.between(album.getRentedDate(), LocalDate.of(2020, 10, 31));
-                if (daysRented < 1) {
+                if (daysRented > 1) {
                     if (album.getRentStatus().equals("\033[31mRented\033[0m")) {
                         album.setRentStatus(false);
                         album.setRentedDate(null);

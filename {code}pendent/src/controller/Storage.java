@@ -408,13 +408,14 @@ public class Storage {
         while(newGameYear < 1950 || newGameYear > LocalDate.now().getYear()){
             newGameYear = input.getInt("Nah, that can't be right... Try again. "+ input.EOL+ "Year: ");
         }
+        //String newGameDate = input.getInput(" Date: ");
         double newGameRentCost = input.getDouble("Daily Rent Fee:  ");
         while(newGameRentCost < 0){
             newGameRentCost = input.getDouble("Whoa..... we are not that cheap! "+ input.EOL+ "Daily rent Fee: ");
         }
         input.input.nextLine();
 
-        games.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear));
+        games.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear ));
         System.out.println("Game Added Successfully : " + games.get(games.size()-1).toString());
     }
 
