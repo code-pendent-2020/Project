@@ -269,7 +269,7 @@ public class Storage {
         membershipRequests.clear();
     }
 
-    public void requestMembership(){
+    public void requestMembership(){ // move to customer
         boolean contains = false;
         String name = input.getInput("Customer Name: ");
         for (Customer customer : customerList){
@@ -286,7 +286,7 @@ public class Storage {
         }
     }
 
-    public void upgradeMembership(){
+    public void upgradeMembership(){ // move to customer
         String name = input.getInput("Customer Name: ");
         for(Customer customer : customerList){
             if (name.equalsIgnoreCase(customer.getName())){

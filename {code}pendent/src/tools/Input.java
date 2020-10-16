@@ -1,5 +1,6 @@
 package tools;
 
+import java.io.IOException;
 import java.time.Year;
 import java.util.*;
 
@@ -68,22 +69,32 @@ public class Input {
         return userInput;
     }
 
-    public void slowPrint(String message) throws InterruptedException {
+    public void slowPrint(String message) {
         // Get message, convert to char array
         char[] chars = message.toCharArray();
 
         // Print a char from the array, then sleep for millis
         for (int i = 0; i < chars.length; i++) {
-                Thread.sleep(10);
-                System.out.print(chars[i]);
-                Thread.sleep(10);
+               try {
+                   Thread.sleep(10);
+                   System.out.print(chars[i]);
+                   Thread.sleep(10);
+               } catch (InterruptedException e) {
+                   // shouldn't happen but if it does you'll know it happened.
+                   e.printStackTrace(); //shows you a similar error to compiler errors
+               }
         }
     }
 
     public void userCheck() {
         String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL;
         System.out.print(check);
-        input.nextLine();
+        try {
+            int read = System.in.read(new byte[2]);
+        } catch (IOException e) {
+            e.printStackTrace(); //shows you a similar error to compiler errors
+        }
+
     }
 }
 
