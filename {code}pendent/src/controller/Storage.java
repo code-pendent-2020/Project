@@ -300,16 +300,22 @@ public class Storage {
     }
 
     public void addEmployee() {
-        String name = input.getInput("Name: ");
-        while (name.isBlank() && name.isEmpty()){
-            System.out.println();
-            name = input.getInput("Invalid input, name can not be empty or composed of spaces" + input.EOL + "Name: ");
-        }
-        int birthYear = input.getInt("Birth year: ");
-        String address = input.getInput("Address: ");
-        double monthlySalary = input.getDouble("Monthly gross salary: ");
-        double grossSalary = monthlySalary * employee.MONTHS;
-        employees.add(new Employee(name, birthYear, address, grossSalary));
+        boolean isRunning = false;
+        do {
+            try {
+                String name = input.getInput("Name: ");
+                int birthYear = input.getInt("Birth year: ");
+                String address = input.getInput("Address: ");
+                double monthlySalary = input.getDouble("Monthly gross salary: ");
+                double grossSalary = monthlySalary * employee.MONTHS;
+                employees.add(new Employee(name, birthYear, address, grossSalary));
+                isRunning = true;
+            } catch (InputMismatchException e) {
+                System.out.println("That's not the correct input, be careful and please try again.");
+                input.input.nextLine();
+
+            }
+        } while (!isRunning);
     }
 
     public void removeEmployee() {
@@ -369,7 +375,7 @@ public class Storage {
     }
 
     public void viewAlbums() {
-        albums.sort(Comparator.comparingInt(Album::getYear));
+        albums.sort(Comparator.comparingInt(Album::getYear)); //change to lambda
         Collections.reverse(albums);
         albums.forEach(System.out::println);
     }
@@ -386,7 +392,7 @@ public class Storage {
     public void viewAlbumsByRating() {
         // sorts albums by comparing the rating value
         // the :: (invokes the method getRating from the album class. compares albums ratings as a double)
-        albums.sort(Comparator.comparingDouble(Album::getRating));
+        albums.sort(Comparator.comparingDouble(Album::getRating)); //Change to lambda?
         Collections.reverse(albums);
         albums.forEach(System.out::println); // using the :: operator to invoke the println function for each album
     }

@@ -58,6 +58,7 @@ public class Input {
     }
 
     public int getInt(String message){
+
         int userInput = 0;
         boolean complianceCheck = false;
         while (!complianceCheck) {
@@ -109,7 +110,7 @@ public class Input {
     }
 
     public void userCheck() {
-        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL;
+        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL; // Get rid of this. This won't even help us with the VG...
         System.out.print(check);
         input.nextLine();
 
