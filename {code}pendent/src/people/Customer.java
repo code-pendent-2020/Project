@@ -62,6 +62,12 @@ public class Customer extends Person {
     public void applyCredits(){
         setCredit(this.membership.applyCredit(this.credits));
     }
+    public double memberDiscount(double userBill){
+        return this.membership.discount(userBill);
+    }
+    public String getMembershipType() {
+        return this.membership.membershipType();
+    }
 
     public int getCredits() {
         return this.credits;
