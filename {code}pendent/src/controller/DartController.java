@@ -1,15 +1,8 @@
 package controller;
 
-import people.Customer;
-import people.features.membership.Gold;
-import people.features.membership.Membership;
-import people.features.membership.Platinum;
-import people.features.membership.Silver;
 import tools.Input;
 import tools.Menus;
 import tools.s.Secret;
-
-import java.util.ArrayList;
 
 public class DartController {
     private final Menus menus;
@@ -226,22 +219,22 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> New Game" + input.ANSI_RESET);
-                    storage.addNewGame();
+                    storage.addGame();
                     input.userCheck();
-                    employeeMenu();
+                    empGameOptions();
                     break;
                 case "2":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Remove Game" + input.ANSI_RESET);
                     storage.viewGames();
                     storage.removeGame();
                     input.userCheck();
-                    employeeMenu();
+                    empGameOptions();
                     break;
                 case "3":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> All Games" + input.ANSI_RESET);
                     storage.viewGames();
                     input.userCheck();
-                    employeeMenu();
+                    empGameOptions();
                     break;
                 case "4":
                     employeeMenu();
@@ -265,20 +258,20 @@ public class DartController {
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> New Album" + input.ANSI_RESET);
                     storage.addAlbum();
                     input.userCheck();
-                    employeeMenu();
+                    empAlbumOptions();
                     break;
                 case "2":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Remove Album" + input.ANSI_RESET);
                     storage.viewAlbums();
                     storage.removeAlbum();
                     input.userCheck();
-                    employeeMenu();
+                    empAlbumOptions();
                     break;
                 case "3":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> All Albums" + input.ANSI_RESET);
                     storage.viewAlbums();
                     input.userCheck();
-                    employeeMenu();
+                    empAlbumOptions();
                     break;
                 case "4":
                     employeeMenu();
@@ -302,25 +295,25 @@ public class DartController {
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Membership Requests" + input.ANSI_RESET);
                     storage.membershipRequestList();
                     input.userCheck();
-                    employeeMenu();
+                    empCustomerOptions();
                     break;
                 case "2":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> New Customer" + input.ANSI_RESET);
                     storage.addCustomer();
                     input.userCheck();
-                    employeeMenu();
+                    empCustomerOptions();
                     break;
                 case "3":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Remove Customer" + input.ANSI_RESET);
                     storage.removeCustomer();
                     input.userCheck();
-                    employeeMenu();
+                    empCustomerOptions();
                     break;
                 case "4":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> All Customers" + input.ANSI_RESET);
                     storage.viewCustomer();
                     input.userCheck();
-                    employeeMenu();
+                    empCustomerOptions();
                     break;
                 case "5":
                     employeeMenu();

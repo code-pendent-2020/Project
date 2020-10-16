@@ -59,7 +59,6 @@ public class Input {
             getInt(message);
         }
         return Integer.parseInt(userInput); // parses a string to a integer
-
     }
 
     public double getDouble(String message) {
