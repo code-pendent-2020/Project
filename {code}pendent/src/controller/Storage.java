@@ -4,10 +4,7 @@ import items.*;
 import items.properties.*;
 import people.*;
 import people.features.*;
-import people.features.membership.Gold;
-import people.features.membership.Membership;
-import people.features.membership.Platinum;
-import people.features.membership.Silver;
+import people.features.membership.*;
 import tools.Input;
 
 import java.time.LocalDate;
