@@ -54,9 +54,10 @@ public class Input {
 
     public int getInt(String message){
         System.out.print(message);
-            int userInput = input.nextInt();
-            System.lineSeparator();
-            return userInput;
+        int userInput = input.nextInt();
+        input.nextLine();
+        //System.out.println("That's not really in compliance with the type of values generally accepted here eh?");
+        return userInput;
     }
 
     public double getDouble(String message) {
@@ -84,7 +85,7 @@ public class Input {
     }
 
     public void userCheck() {
-        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL;
+        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL; // Get rid of this. This won't even help us with the VG...
         System.out.print(check);
         try {
             int read = System.in.read(new byte[2]); // TODO need to understand this
