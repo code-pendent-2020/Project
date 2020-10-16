@@ -52,21 +52,17 @@ public class Input {
         return userInput;
     }
 
-    public int getInt(String message) {
+    public int getInt(String message){
         System.out.print(message);
-        String userInput = input.nextLine().replaceAll("[^0-9]", ""); // only accepts 0-9
-        if (userInput.isBlank() || userInput.isEmpty() || userInput.length() > 4 || userInput.length() < 4 ) { // check to make sure user enters something
-            System.out.println( EOL + "---" + ANSI_RED + "Invalid input" + ANSI_RESET + "---");
-            getInt(message);
-        }
-        return Integer.parseInt(userInput); // parses a string to a integer
-
+            int userInput = input.nextInt();
+            System.lineSeparator();
+            return userInput;
     }
 
     public double getDouble(String message) {
         System.out.print(message);
         double userInput = input.nextDouble();
-        input.nextLine();
+        System.lineSeparator();
         return userInput;
     }
 
@@ -91,7 +87,7 @@ public class Input {
         String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL;
         System.out.print(check);
         try {
-            int read = System.in.read(new byte[2]);
+            int read = System.in.read(new byte[2]); // TODO need to understand this
         } catch (IOException e) {
             e.printStackTrace(); //shows you a similar error to compiler errors
         }
