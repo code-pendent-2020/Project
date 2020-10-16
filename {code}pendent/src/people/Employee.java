@@ -28,7 +28,6 @@ public class Employee extends Person {
         this.birthYear = birthYear;
         this.grossSalary = salary;
         this.address = address;
-
     }
 
     public double calculateSalary() {
