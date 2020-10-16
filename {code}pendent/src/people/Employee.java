@@ -1,7 +1,8 @@
 package people;
 
-import exceptions.InvalidInputException;
 import tools.Input;
+
+import java.util.InputMismatchException;
 
 public class Employee extends Person {
 
@@ -22,7 +23,7 @@ public class Employee extends Person {
     public Employee() {
     }
 
-    public Employee(String name, int birthYear, String address, double salary) {
+    public Employee(String name, int birthYear, String address, double salary) throws InputMismatchException {
         super(name);
         this.birthYear = birthYear;
         this.grossSalary = salary;
