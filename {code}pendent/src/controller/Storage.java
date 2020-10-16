@@ -208,9 +208,9 @@ public class Storage {
     }
 
     public void removeCustomer() {
-        int removeId = input.getInt("Enter the ID of the customer you want to remove. " + input.EOL + "ID: ");
-        this.customerList.removeIf(customer -> customer.getId().equals(removeId));
         viewCustomer();
+        String removeId = input.getInput("Enter the ID of the customer you want to remove. " + input.EOL + "ID: ");
+        this.customerList.removeIf(customer -> customer.getId().equals(removeId));
     }
 
     public void viewCustomer() {
@@ -391,30 +391,25 @@ public class Storage {
         albums.forEach(System.out::println); // using the :: operator to invoke the println function for each album
     }
 
-    public void addNewGame() {
+    public void addGame() {
         int countArray = games.size();
         String newGameTitle = input.getInput("Title:  ");
         while(newGameTitle.length() < 1){
-            newGameTitle=input.getInput("We like our games to have names!" + input.EOL + "Title:  ");
+            newGameTitle = input.getInput("We like our games to have names!" + input.EOL + "Title:  ");
         }
         String newGameGenre = input.getInput("Genre:  ");
         int newGameYear = input.getInt("Year:  ");
+        while(newGameYear < 1950 || newGameYear > LocalDate.now().getYear()){
+            newGameYear = input.getInt("Nah, that can't be right... Try again. "+ input.EOL+ "Year: ");
+        }
         double newGameRentCost = input.getDouble("Daily Rent Fee:  ");
         while(newGameRentCost < 0){
-            newGameRentCost=input.getDouble("Whoa..... we are not that cheap! "+ input.EOL+ "Daily rent Fee: ");
+            newGameRentCost = input.getDouble("Whoa..... we are not that cheap! "+ input.EOL+ "Daily rent Fee: ");
         }
         input.input.nextLine();
 
         games.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear));
         System.out.println("Game Added Successfully : " + games.get(games.size()-1).toString());
-
-        System.out.println("1) Add another game" + input.EOL + "2) View all games" + input.EOL + "3) Employee Menu");
-        int userChoice = input.input.nextInt();
-        if (userChoice == 1) {
-            addNewGame();
-        } else if (userChoice == 2) {
-            viewGames();
-        }
     }
 
     public void removeGame() {
