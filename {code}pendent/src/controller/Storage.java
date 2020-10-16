@@ -359,8 +359,7 @@ public class Storage {
         boolean contains = false;
         for (Customer customer : customerList) {
             if (customer.getName().equalsIgnoreCase(name)) {
-                int updatedCredit = customer.getMembership().applyCredit(customer.getCredits());
-                customer.setCredit(updatedCredit);
+                customer.applyCredits();
                 contains = true;
                 Rental newTransaction = rental.returnAlbum(customer.getCredits(), customer.getMembership().membershipType(), customer.getId(), getAlbums());
                 getRentalHistory().add(newTransaction);
