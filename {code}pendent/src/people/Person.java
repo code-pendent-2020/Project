@@ -12,10 +12,7 @@ public class Person {
     Person() {
     }
 
-    Person(String name) /*throws InvalidInputException*/ {
-//        if (this.name.isEmpty() || this.name.isBlank()){
-//          //  throw new InvalidInputException("Name cannot be blank or empty");
-//        }
+    Person(String name){
         this.id = UUID.randomUUID().toString();
         this.name = name;
     }
