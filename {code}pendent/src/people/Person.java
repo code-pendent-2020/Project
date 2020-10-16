@@ -1,5 +1,7 @@
 package people;
 
+import exceptions.InvalidInputException;
+
 import java.util.UUID;
 
 public class Person {
@@ -10,7 +12,10 @@ public class Person {
     Person() {
     }
 
-    Person(String name) {
+    Person(String name) /*throws InvalidInputException*/ {
+//        if (this.name.isEmpty() || this.name.isBlank()){
+//          //  throw new InvalidInputException("Name cannot be blank or empty");
+//        }
         this.id = UUID.randomUUID().toString();
         this.name = name;
     }

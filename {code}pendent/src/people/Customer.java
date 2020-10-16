@@ -1,6 +1,7 @@
 package people;
 
 import controller.DartController;
+import exceptions.InvalidInputException;
 import people.features.membership.Membership;
 import people.features.Message;
 import people.features.membership.Regular;
@@ -31,11 +32,11 @@ public class Customer extends Person {
                 new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!" + input.EOL, "Management", "DART")));
     }
 
-    public Customer(String name, String type) {
-        super(name);
-        this.type = type;
-        this.membership = new Regular();
-    }
+//    public Customer(String name, String type) {
+//        super(name);
+//        this.type = type;
+//        this.membership = new Regular();
+//    }
 
     public Customer(String name, double spentMoney) {
         super(name);
@@ -43,7 +44,7 @@ public class Customer extends Person {
         this.membership = new Regular();
     }
 
-    public Customer(String name, Membership membership) {
+    public Customer(String name, Membership membership){
         super(name);
         this.inbox = new ArrayList<>(Arrays.asList(
                 new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!" + input.EOL, "Management", "DART")));

@@ -1,5 +1,6 @@
 package people;
 
+import exceptions.InvalidInputException;
 import tools.Input;
 
 public class Employee extends Person {
