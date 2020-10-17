@@ -502,4 +502,8 @@ public class Storage {
         System.out.println("The message has been deleted.");
         viewMessages();
     }
+
+    public void team() {
+        System.out.println("-- Team {Code}pendant --" + input.EOL+"Silent Saboteur - Axel"+input.EOL+"Hacker SEM 2020 - Navya"+input.EOL+"The Dead One - Drake"+input.EOL+"The British One - Vernita");
+    }
 }

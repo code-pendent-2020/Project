@@ -23,7 +23,7 @@ public class Employee extends Person {
     public Employee() {
     }
 
-    public Employee(String name, int birthYear, String address, double salary) throws InputMismatchException {
+    public Employee(String name, int birthYear, String address, double salary) {
         super(name);
         this.birthYear = birthYear;
         this.grossSalary = salary;

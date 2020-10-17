@@ -13,7 +13,7 @@ public class Person {
     Person() {
     }
 
-    Person(String name) throws InputMismatchException {
+    Person(String name) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
     }
