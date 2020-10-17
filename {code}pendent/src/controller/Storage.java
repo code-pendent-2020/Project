@@ -7,7 +7,7 @@ import people.*;
 import people.features.*;
 import people.features.membership.*;
 import tools.Input;
-
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -24,6 +24,50 @@ public class Storage {
 
     // "kind of" Storage
 
+//    public void readFile(){
+//        BufferedReader br;
+//        String line;
+//        try {
+//            br = new BufferedReader(new FileReader("db.txt"));
+//            while((line = br.readLine()) != null) {
+//                System.out.println("yo");
+//                String[] token = line.split(";");
+//                switch (token[0].toLowerCase()){
+//                    case "employee":
+//                        employees.add(new Employee(token [1], token[2],Integer.parseInt(token[3]),token[4], Double.parseDouble(token[5])));
+//                        break;
+//                    case "game":
+//                        break;
+//                    case "album":
+//                        break;
+//                    case "customer":
+//                        break;
+//                    default:
+//                        System.out.println("broken dont get here...");
+//                        break;
+//
+//                }
+//            }
+//            br.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//       } catch (InvalidInputException e) {
+//           e.printStackTrace();
+//        }
+//    }
+
+    public static BufferedWriter bw;
+
+    static {
+        try {
+            bw = new BufferedWriter(new FileWriter("db.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
             new Album("London Calling", "The Clash", 1980, 14.99, false, null),
             new Album("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of(2020, 8, 23)),
@@ -32,12 +76,13 @@ public class Storage {
             new Album("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false, null)));
 
     private ArrayList<Employee> employees = new ArrayList<>(Arrays.asList(
-            new Employee("Bob", 1974, "1044 Randolph Street", 13457),
-            new Employee("Jill", 1985, "3845 Rainbow Street", 14568),
-            new Employee("Jack", 1934, "1453 Tilden Street", 16893),
-            new Employee("Anna", 1959, "1854 Rose Avenue", 13578),
-            new Employee("Sam", 1993, "1784 Sunrise Blvd", 12385),
-            new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)));
+//            new Employee("Bob", 1974, "1044 Randolph Street", 13457),
+//            new Employee("Jill", 1985, "3845 Rainbow Street", 14568),
+//            new Employee("Jack", 1934, "1453 Tilden Street", 16893),
+//            new Employee("Anna", 1959, "1854 Rose Avenue", 13578),
+//            new Employee("Sam", 1993, "1784 Sunrise Blvd", 12385),
+//            new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)
+));
 
     private ArrayList<Game> games = new ArrayList<>(Arrays.asList(
             new Game("Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
@@ -49,12 +94,13 @@ public class Storage {
             new Game("Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-            new Customer("Vernita", new Silver()),
-            new Customer("Navya", new Gold()),
-            new Customer("Drake", new Platinum()),
-            new Customer("Altan"),
-            new Customer("Karen"),
-            new Customer("Axel", new Silver())));
+//            new Customer("Vernita", new Silver()),
+//            new Customer("Navya", new Gold()),
+//            new Customer("Drake", new Platinum()),
+//            new Customer("Altan"),
+//            new Customer("Karen"),
+//            new Customer("Axel", new Silver())
+          ));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
             new Rental("bob", "test1", 1756.34),
@@ -83,7 +129,11 @@ public class Storage {
                     rentalExpense =+ rental.getRentalIncome();
                 }
             }
-            customerExpenditure.add(new Customer(customer.getName(), rentalExpense));
+            try {
+                customerExpenditure.add(new Customer("", customer.getName(), rentalExpense));
+            } catch (InvalidInputException e){
+                e.getMessage();
+            }
         }
         customerExpenditure.sort(Comparator.comparingDouble(Customer::getSpentMoney));
         Collections.reverse(customerExpenditure);
@@ -225,12 +275,12 @@ public class Storage {
     }
 
     public void addCustomer() {
-        String name = input.getInput("Enter the Customers Name: ");
-        while (name.isBlank() && name.isEmpty()){
-            System.out.println();
-            name = input.getInput("Invalid input, name can not be empty or composed of spaces" + input.EOL + "Name: ");
+        try {
+            String name = input.getInput("Enter the Customers Name: ");
+            customerList.add(new Customer("", name));
+        } catch (InvalidInputException e){
+            e.getMessage();
         }
-        customerList.add(new Customer(name));
     }
 
     public void removeCustomer() {
@@ -326,22 +376,22 @@ public class Storage {
     }
 
     public void addEmployee() {
-//        boolean isRunning = false;
-//        do {
-//            try {
+        boolean isRunning = false;
+        do {
+            try {
                 String name = input.getInput("Name: ");
                 int birthYear = input.getInt("Birth year: ");
                 String address = input.getInput("Address: ");
                 double monthlySalary = input.getDouble("Monthly gross salary: ");
                 double grossSalary = monthlySalary * employee.MONTHS;
-                employees.add(new Employee(name, birthYear, address, grossSalary));
-//                isRunning = true;
-//            } catch (InputMismatchException e) {
-//                System.out.println("That's not the correct input, be careful and please try again.");
-//                input.input.nextLine();
-//
-//            }
-//        } while (!isRunning);
+                employees.add(new Employee("", name, birthYear, address, grossSalary));
+                isRunning = true;
+            } catch (InvalidInputException e) {
+                System.out.println("That's not the correct input, be careful and please try again.");
+                input.input.nextLine();
+
+            }
+        } while (!isRunning);
     }
 
     public void removeEmployee() {

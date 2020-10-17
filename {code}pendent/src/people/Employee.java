@@ -25,8 +25,8 @@ public class Employee extends Person {
     public Employee() {
     }
 
-    public Employee(String name, int birthYear, String address, double salary) throws InvalidInputException {
-        super(name);
+    public Employee(String id, String name, int birthYear, String address, double salary) throws InvalidInputException {
+        super(id, name);
         if (birthYear < 1920 || birthYear > LocalDate.now().getYear()){
             throw new InvalidInputException("Birth year must be between 1920 - "+ LocalDate.now().getYear());
         }

@@ -15,6 +15,7 @@ public class DartController {
     }
 
     public void run() {
+//        storage.readFile();
         mainMenu();
     }
 
