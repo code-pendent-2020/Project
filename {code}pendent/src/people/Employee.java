@@ -1,7 +1,9 @@
 package people;
 
+import exceptions.InvalidInputException;
 import tools.Input;
 
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 
 public class Employee extends Person {
@@ -23,8 +25,14 @@ public class Employee extends Person {
     public Employee() {
     }
 
-    public Employee(String name, int birthYear, String address, double salary) throws InputMismatchException {
-        super(name);
+    public Employee(String id, String name, int birthYear, String address, double salary) throws InvalidInputException {
+        super(id, name);
+        if (birthYear < 1920 || birthYear > LocalDate.now().getYear()){
+            throw new InvalidInputException("Birth year must be between 1920 - "+ LocalDate.now().getYear());
+        }
+        if (salary < 0 || salary > 100000){
+            throw new InvalidInputException("Salary cannot be a negative number or greater then 100,000kr");
+        }
         this.birthYear = birthYear;
         this.grossSalary = salary;
         this.address = address;
