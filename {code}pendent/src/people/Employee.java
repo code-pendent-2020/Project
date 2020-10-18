@@ -79,7 +79,7 @@ public class Employee extends Person {
     }
 
     public String toString() {
-        return input.DIVIDER + input.EOL + "ID: " + this.getId() + input.EOL + "Name: " + this.getName() + input.EOL + "Birth year: " + this.getBirthYear()
+        return "ID: " + this.getId() + input.EOL + "Name: " + this.getName() + input.EOL + "Birth year: " + this.getBirthYear()
                 + input.EOL + "Address: " + this.getAddress() + input.EOL + "Salary: " + this.calculateSalary()+ input.EOL+input.DIVIDER;
     }
 }
