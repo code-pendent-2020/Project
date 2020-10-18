@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.InvalidInputException;
 import tools.Input;
 import tools.Menus;
 
@@ -9,7 +10,7 @@ public class DartController {
     private final Storage storage;
     private final String invalidInput = System.lineSeparator() + "--- Invalid input ---";
 
-    public DartController() {
+    public DartController() throws InvalidInputException {
         this.menus = new Menus();
         this.storage = new Storage();
     }
@@ -367,7 +368,6 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Rent Game" + input.ANSI_RESET);
-                    storage.viewGames();
                     storage.rentGame();
                     input.userCheck();
                     cusGameOptions();
@@ -416,7 +416,6 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Rent Album" + input.ANSI_RESET);
-                    storage.viewAlbums();
                     storage.rentAlbum();
                     input.userCheck();
                     cusAlbumOptions();
