@@ -1,0 +1,12 @@
+Employee;;Barbara Liskov;1930;OOP Street 1;35000
+Employee;;Bob Smith;1930;1044 Randolph street; 13457
+Employee;;Jill Johnson;1985;3845 Rainbow Street;14568
+Employee;;Jack Frost;1934;1453 Tilden Street;16893
+Employee;;Anna Green;1959;1854 Rose Avenue;13578
+Employee;;Sam Jones;1993;1784 Sunrise Blvd;12385
+Employee;;Emanuel Black;1992;1039 Surfer's Paradise Lane;12547
+Customer;;Vernita
+Customer;;Navya
+Customer;;Drake
+Customer;;Karen
+Customer;;Axel

@@ -24,39 +24,39 @@ public class Storage {
 
     // "kind of" Storage
 
-//    public void readFile(){
-//        BufferedReader br;
-//        String line;
-//        try {
-//            br = new BufferedReader(new FileReader("db.txt"));
-//            while((line = br.readLine()) != null) {
-//                System.out.println("yo");
-//                String[] token = line.split(";");
-//                switch (token[0].toLowerCase()){
-//                    case "employee":
-//                        employees.add(new Employee(token [1], token[2],Integer.parseInt(token[3]),token[4], Double.parseDouble(token[5])));
-//                        break;
-//                    case "game":
-//                        break;
-//                    case "album":
-//                        break;
-//                    case "customer":
-//                        break;
-//                    default:
-//                        System.out.println("broken dont get here...");
-//                        break;
-//
-//                }
-//            }
-//            br.close();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//       } catch (InvalidInputException e) {
-//           e.printStackTrace();
-//        }
-//    }
+    public void readFile(){
+        BufferedReader br;
+        String line;
+        try {
+            br = new BufferedReader(new FileReader("{code}pendent/src/db.txt"));
+            while((line = br.readLine()) != null) {
+                String[] token = line.split(";");
+                switch (token[0].toLowerCase()){
+                    case "employee":
+                        employees.add(new Employee(token [1], token[2],Integer.parseInt(token[3]),token[4], Double.parseDouble(token[5])));
+                        break;
+                    case "customer":
+                        customerList.add(new Customer(token [1], token[2]));
+                        break;
+                    case "game":
+                        break;
+                    case "album":
+                        break;
+                    default:
+                        System.out.println("broken dont get here...");
+                        break;
+
+                }
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+       } catch (InvalidInputException e) {
+           e.printStackTrace();
+        }
+    }
 
     public static BufferedWriter bw;
 
@@ -75,14 +75,8 @@ public class Storage {
             new Album("The Black Album", "Metallica", 1991, 19.99, true, LocalDate.of(2020, 8, 23)),
             new Album("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false, null)));
 
-    private ArrayList<Employee> employees = new ArrayList<>(Arrays.asList(
-//            new Employee("Bob", 1974, "1044 Randolph Street", 13457),
-//            new Employee("Jill", 1985, "3845 Rainbow Street", 14568),
-//            new Employee("Jack", 1934, "1453 Tilden Street", 16893),
-//            new Employee("Anna", 1959, "1854 Rose Avenue", 13578),
-//            new Employee("Sam", 1993, "1784 Sunrise Blvd", 12385),
-//            new Employee("Emanuel", 1992, "1039 Surfer's Paradise Lane", 12547)
-));
+    private ArrayList<Employee> employees = new ArrayList<>();
+    private ArrayList<Customer> customerList = new ArrayList<>();
 
     private ArrayList<Game> games = new ArrayList<>(Arrays.asList(
             new Game("Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
@@ -92,15 +86,6 @@ public class Storage {
             new Game("Super Mario", "Classic", 18.99, 1999, false, null),
             new Game("Street Fighter", "Fighting", 11.99, 1991, true, LocalDate.of(2020, 8, 20)),
             new Game("Tekken", "Fighting", 17.99, 1932, false, null)));
-
-    private ArrayList<Customer> customerList = new ArrayList<>(Arrays.asList(
-//            new Customer("Vernita", new Silver()),
-//            new Customer("Navya", new Gold()),
-//            new Customer("Drake", new Platinum()),
-//            new Customer("Altan"),
-//            new Customer("Karen"),
-//            new Customer("Axel", new Silver())
-          ));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
             new Rental("bob", "test1", 1756.34),
@@ -205,7 +190,7 @@ public class Storage {
         String user = input.getInput(input.EOL + "Customer Name: ");
         for (Customer customer : customerList) {
             if (user.equalsIgnoreCase(getCustomer().getName())) {
-                if (customer.getMembership().maxRentals(customer.getCurrentRentals())) {
+                if (customer.canRent()) {
                         rental.rentGame(getGames());
                         customer.incrementRentals();
                     } else {
