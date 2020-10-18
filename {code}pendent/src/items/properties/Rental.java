@@ -78,7 +78,6 @@ public class Rental {
                 if (customer.getCredits() == 5) {
                     userBill = 0;
                 } else userBill = customer.memberDiscount(daysRented * rentedGame.getDailyRent());
-
                 rentalIncome = rentalIncome + userBill;
                 System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr" + input.EOL);
                 System.out.println("The Game has now been returned.");

@@ -9,6 +9,7 @@ import people.features.membership.*;
 import tools.Input;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Storage {
@@ -31,6 +32,7 @@ public class Storage {
             br = new BufferedReader(new FileReader("{code}pendent/src/db.txt"));
             while((line = br.readLine()) != null) {
                 String[] token = line.split(";");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 switch (token[0].toLowerCase()){
                     case "employee":
                         employees.add(new Employee(token [1], token[2],Integer.parseInt(token[3]),token[4], Double.parseDouble(token[5])));
@@ -39,8 +41,10 @@ public class Storage {
                         customerList.add(new Customer(token [1], token[2]));
                         break;
                     case "game":
+                        inventory.add(new Game(token [1], token[2], Double.parseDouble(token[3]), Integer.parseInt(token[4]), Boolean.parseBoolean(token[5]), LocalDate.of(Integer.parseInt(token[6]), Integer.parseInt(token[7]), Integer.parseInt(token[8]))));
                         break;
                     case "album":
+                        inventory.add(new Album(token[1], token[2], Integer.parseInt(token[3]), Double.parseDouble(token[4]), Boolean.parseBoolean(token[5]), LocalDate.of(Integer.parseInt(token[6]), Integer.parseInt(token[7]), Integer.parseInt(token[8]))));
                         break;
                     default:
                         System.out.println("broken dont get here...");
@@ -68,7 +72,7 @@ public class Storage {
         }
     }
 
-    private List<Inventory> inventory = new ArrayList<>(Arrays.asList(
+ /* private List<Inventory> inventory = new ArrayList<>(Arrays.asList(
             new Album("London Calling", "The Clash", 1980, 14.99, false, null),
             new Album("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of(2020, 8, 23)),
             new Album("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false, null),
@@ -81,16 +85,12 @@ public class Storage {
             new Game("Super Mario", "Classic", 18.99, 1999, false, null),
             new Game("Street Fighter", "Fighting", 11.99, 1991, true, LocalDate.of(2020, 8, 20)),
             new Game("Tekken", "Fighting", 17.99, 1932, false, null)));
-
-    private ArrayList<Album> albums = new ArrayList<>(Arrays.asList(
-            new Album("London Calling", "The Clash", 1980, 14.99, false, null),
-            new Album("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of(2020, 8, 23)),
-            new Album("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false, null),
-            new Album("The Black Album", "Metallica", 1991, 19.99, true, LocalDate.of(2020, 8, 23)),
-            new Album("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false, null)));
+*/
+    private ArrayList<Album> albums = new ArrayList<>();
 
     private ArrayList<Employee> employees = new ArrayList<>();
     private ArrayList<Customer> customerList = new ArrayList<>();
+    private List<Inventory> inventory = new ArrayList<>();
 
     private ArrayList<Game> games = new ArrayList<>(Arrays.asList(
             new Game("Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
@@ -148,12 +148,12 @@ public class Storage {
         for (Inventory item : inventory){
             int rentalTimes = 0;
             for (Rental rental : rentalHistory) {
-                if (album.getId().equals(rental.getItemId())) {
+                if (item.getId().equals(rental.getItemId())) {
                     rentalTimes = +1;
                 }
             }
             if (rentalTimes != 0){
-                rentalFrequency.add(new Inventory(album.getTitle(), rentalTimes));
+                rentalFrequency.add(new Inventory(item.getTitle(), rentalTimes));
         }
         }
         for (Inventory rentalItem : rentalFrequency)
