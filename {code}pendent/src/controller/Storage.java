@@ -472,15 +472,17 @@ public class Storage {
     }
 
     public void searchAlbums() {
-        int google = input.getInt("Album Search" + input.EOL + "Year: ");
+        int year = input.getInt("Album Search" + input.EOL + "Release Year: ");
         boolean yearExists = false;
-        for (Album album : albums) {
-            if (album.getYear() == google) {
-                yearExists = true;
-                System.out.println(album.toString());
+        for (Inventory album : inventory) {
+            if (album instanceof Album){
+                if (album.getYear() == year) {
+                    yearExists = true;
+                    System.out.println(album.toString());
+                }
             }
         }
-        if (yearExists = false){
+        if (yearExists == false){
             System.out.println("There is no album available for this year.");
         }
     }
@@ -488,9 +490,13 @@ public class Storage {
     public void viewAlbumsByRating() {
         // sorts albums by comparing the rating value
         // the :: (invokes the method getRating from the album class. compares albums ratings as a double)
-        albums.sort(Comparator.comparingDouble(Album::getRating)); //Change to lambda?
-        Collections.reverse(albums);
-        albums.forEach(System.out::println); // using the :: operator to invoke the println function for each album
+        inventory.sort(Comparator.comparingDouble(Inventory::getRating));
+        Collections.reverse(inventory);
+        for (Inventory album : inventory){
+            if (album instanceof Album){
+                System.out.println(album.toString());
+            }
+        }
     }
 
     public void addGame() {
