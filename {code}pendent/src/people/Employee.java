@@ -2,7 +2,6 @@ package people;
 
 import exceptions.InvalidInputException;
 import tools.Input;
-
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 

@@ -1,7 +1,5 @@
 package people;
 
-
-
 import exceptions.InvalidInputException;
 import java.util.UUID;
 

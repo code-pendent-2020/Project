@@ -14,14 +14,17 @@ import java.util.*;
 
 public class Storage {
 
-    private Employee employee = new Employee();
-    private Customer customer = new Customer();
-    private Album album = new Album();
-    private Rental rental = new Rental();
-    private Game game = new Game();
-    private Rating rating = new Rating();
-    private Message message = new Message();
-    private Input input = Input.getInstance();
+    private final Employee employee = new Employee();
+    private final Customer customer = new Customer();
+    private final Album album = new Album();
+    private final Rental rental = new Rental();
+    private final Game game = new Game();
+    private final Rating rating = new Rating();
+    private final Message message = new Message();
+    private final Input input = Input.getInstance();
+
+    public Storage() throws InvalidInputException {
+    }
 
     // "kind of" Storage
 
@@ -71,35 +74,11 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
- /* private List<Inventory> inventory = new ArrayList<>(Arrays.asList(
-            new Album("London Calling", "The Clash", 1980, 14.99, false, null),
-            new Album("Legend", "Bob Marley & The Wailers", 1984, 17.99, true, LocalDate.of(2020, 8, 23)),
-            new Album("The Dark Side of the Moon", "Pink Floyd", 1973, 24.99, false, null),
-            new Album("The Black Album", "Metallica", 1991, 19.99, true, LocalDate.of(2020, 8, 23)),
-            new Album("Blood Sugar Sex Magik", "Red Hot Chili Peppers", 1991, 18.99, false, null),
-            new Game("Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
-            new Game("Crash Bandicoot", "Racing", 17.59, 1957, false, null),
-            new Game("The Legend of Zelda", "Explore", 12.29, 1874, true, LocalDate.of(2020, 8, 20)),
-            new Game("Prince of Persia", "Impossible", 15.39, 1984, false, null),
-            new Game("Super Mario", "Classic", 18.99, 1999, false, null),
-            new Game("Street Fighter", "Fighting", 11.99, 1991, true, LocalDate.of(2020, 8, 20)),
-            new Game("Tekken", "Fighting", 17.99, 1932, false, null)));
-*/
     private ArrayList<Album> albums = new ArrayList<>();
-
     private ArrayList<Employee> employees = new ArrayList<>();
     private ArrayList<Customer> customerList = new ArrayList<>();
     private List<Inventory> inventory = new ArrayList<>();
 
-    private ArrayList<Game> games = new ArrayList<>(Arrays.asList(
-            new Game("Sonic: The Hedgehog", "Explore", 18.99, 1857, false, null),
-            new Game("Crash Bandicoot", "Racing", 17.59, 1957, false, null),
-            new Game("The Legend of Zelda", "Explore", 12.29, 1874, true, LocalDate.of(2020, 8, 20)),
-            new Game("Prince of Persia", "Impossible", 15.39, 1984, false, null),
-            new Game("Super Mario", "Classic", 18.99, 1999, false, null),
-            new Game("Street Fighter", "Fighting", 11.99, 1991, true, LocalDate.of(2020, 8, 20)),
-            new Game("Tekken", "Fighting", 17.99, 1932, false, null)));
 
     private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
             new Rental("bob", "test1", 1756.34),
@@ -168,28 +147,8 @@ public class Storage {
         return customerList;
     }
 
-    public ArrayList<Game> getGames() {
-        return games;
-    }
-
     public ArrayList<Album> getAlbums() {
         return albums;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer() {
-        this.customer = customer;
-    }
-
-    public Rental getRental() {
-        return rental;
-    }
-
-    public void setRental(Rental rental) {
-        this.rental = rental;
     }
 
     public void rentGame() {
@@ -444,7 +403,18 @@ public class Storage {
     }
 
     public void addAlbum() {
-        this.albums.add(album.addAlbum());
+        String userInput = null;
+        do {
+            try {
+                String addTitle = input.getInput("We like our games to have names!" + input.EOL + "Title:  ");
+                String addArtist = input.getInput("Artist: ");
+                int addYear = input.getInt("Year: ");
+                double addDailyRent = input.getDouble("Daily Rent amount: ");
+                this.albums.add(new Album(addTitle, addArtist, addYear, addDailyRent));
+            } catch (Exception exception){
+                userInput = input.getInput("Invalid Input. Would you like to try again? Y/N");
+            }
+        } while (userInput.equalsIgnoreCase("y"));
     }
 
     public void removeAlbum() {
@@ -524,28 +494,31 @@ public class Storage {
     }
 
     public void addGame() {
-        int countArray = games.size();
-        String newGameTitle = input.getInput("Title:  ");
-        String newGameGenre = input.getInput("Genre:  ");
-        int newGameYear = input.getInt("Year:  ");
-        double newGameRentCost = input.getDouble("Daily Rent Fee:  ");
-        input.input.nextLine();
-
-        games.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear ));
-        System.out.println("Game Added Successfully : " + games.get(games.size()-1).toString());
+        String userInput = "";
+        do {
+            try {
+                String newGameTitle = input.getInput("Title:  ");
+                String newGameGenre = input.getInput("Genre:  ");
+                int newGameYear = input.getInt("Year:  ");
+                double newGameRentCost = input.getDouble("Daily Rent Fee:  ");
+                inventory.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear ));
+                System.out.println("Game Added Successfully " +input.EOL + inventory.get(inventory.size()-1).toString());
+            } catch (Exception exception){
+                exception.getMessage();
+                userInput = input.getInput("There was a problem with the input, would you like to try again? Y/N");
+            }
+        } while (userInput.equalsIgnoreCase("y"));
     }
 
     public void removeGame() {
         viewGames();
-        System.out.print("Which game should be removed? Enter the Game ID: ");
-        String gameId = input.input.nextLine();
-        boolean contains = false;
-        if (games.contains(gameId)) {
-            contains = true;
-            System.out.println("Are you sure you want to remove this game from the directory?" + input.EOL + games.toString() + input.EOL + "(Y/N)");
+        String gameId = input.getInput("Which game should be removed? Enter the Game ID: ");
+        Inventory gameToRemove = retrieveItem(gameId);
+        if (gameToRemove != null) {
+            System.out.println("Are you sure you want to remove this game from the directory?" + input.EOL + gameToRemove.toString() + input.EOL + "(Y/N)");
             String doubleCheck = input.input.nextLine();
             if (doubleCheck.equalsIgnoreCase("y")) {
-                games.remove(gameId);
+                inventory.remove(gameId);
                 System.out.println("Game fed to a bunch of alpaca's theres no retrieving it anymore...");
             } else {
                 System.out.println("Okay, no problem. ");
@@ -568,17 +541,23 @@ public class Storage {
 
     public void searchGames() {
         String google = input.getInput("Game Search" + input.EOL + "Genre: ");
-        for (Game game : games) {
-            if (game.getGenre().equalsIgnoreCase(google)) {
-                System.out.println(game.toString());
+        for (Inventory game : inventory) {
+            if (game instanceof Game){
+                if (((Game) game).getGenre().equalsIgnoreCase(google)) {
+                    System.out.println(game.toString());
+                }
             }
         }
     }
 
     public void viewGamesByRating() {
-        games.sort(Comparator.comparingDouble(Game::getRating));
-        Collections.reverse(games);
-        games.forEach(System.out::println);
+        inventory.sort(Comparator.comparingDouble(Inventory::getRating));
+        Collections.reverse(inventory);
+        for (Inventory game : inventory) {
+            if (game instanceof Game){
+                System.out.println(game.toString());
+            }
+        }
     }
 
     public void sendMessage() {
