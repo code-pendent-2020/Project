@@ -52,8 +52,6 @@ public class Inventory {
         this.rentalFrequency = rentalTimes;
     }
 
-
-
     public String getId() {
         return id;
     }

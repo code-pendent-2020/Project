@@ -59,7 +59,7 @@ public class Album extends Inventory {
         if (super.isRentStatus() == true) {
             return "\033[31mRented\033[0m";
         }
-        return "available";
+        return "Available";
     }
 
     public int getRentFrequency() {

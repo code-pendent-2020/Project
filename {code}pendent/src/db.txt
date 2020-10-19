@@ -1,4 +1,4 @@
-Employee;;Barbara Liskov;1930;OOP Street 1;35000
+Employee;7;Barbara Liskov;1930;OOP Street 1;35000
 Employee;;Bob Smith;1930;1044 Randolph street; 13457
 Employee;;Jill Johnson;1985;3845 Rainbow Street;14568
 Employee;;Jack Frost;1934;1453 Tilden Street;16893
@@ -10,3 +10,6 @@ Customer;;Navya
 Customer;;Drake
 Customer;;Karen
 Customer;;Axel
+Game;Crash Bandicoot;Racing;17.59;1957;false;2020;8;20
+Game;The Legend of Zelda;Explore;12.29;1874;true;2020;8;20
+Album;London Calling;The Clash;1980;14.99;false;2020;6;10
