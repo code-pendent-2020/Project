@@ -58,7 +58,7 @@ public class Rental {
     }
 
     public double getRentalIncome() {
-        return rentalIncome;
+        return Math.round(rentalIncome * 100)/100;
     }
 
     public void rentItem(Inventory itemToRent) {
