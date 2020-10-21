@@ -65,6 +65,7 @@ public class Album extends Inventory {
         super.setRentStatus(rentStatus);
     }
 
+    @Override
     public String toString() {
         return input.DIVIDER + input.EOL + "ID: " + this.getID() + input.EOL + "Album: " + this.getTitle()
                 + input.EOL + "Artist: " + this.getArtist() + ". " + input.EOL + "Released year: " +

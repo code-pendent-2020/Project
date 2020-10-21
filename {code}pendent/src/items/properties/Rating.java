@@ -1,7 +1,6 @@
 package items.properties;
 
 public class Rating {
-
     private double rating;
     private String feedback;
 

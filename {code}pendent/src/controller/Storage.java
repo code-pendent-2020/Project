@@ -78,22 +78,27 @@ public class Storage {
     private ArrayList<Employee> employees = new ArrayList<>();
     private ArrayList<Customer> customerList = new ArrayList<>();
     private List<Inventory> inventory = new ArrayList<>();
+    private HashMap<String, Membership> membershipRequests = new HashMap<>();
 
-
-    private ArrayList<Rental> rentalHistory = new ArrayList<>(Arrays.asList(
-            new Rental("bob", "test1", 1756.34),
-            new Rental("bob", "test2", 1546.65),
-            new Rental("test3", "test3", 2247.93),
-            new Rental("test4", "test4", 1966.28)
-    ));
+    private ArrayList<Rental> rentalHistory = new ArrayList<>();
 
     public ArrayList<Rental> getRentalHistory() {
         return rentalHistory;
     }
-    private HashMap<String, Membership> membershipRequests = new HashMap<>(); // not being used yet
-
     public List<Inventory> getInventory() {
         return inventory;
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    public ArrayList<Customer> getCustomers() {
+        return customerList;
+    }
+
+    public ArrayList<Album> getAlbums() {
+        return albums;
     }
 
     public void itemsByProfit() {
@@ -103,7 +108,7 @@ public class Storage {
     }
 
     public void bestCustomer() {
-        ArrayList<Customer> customerExpenditure = new ArrayList<Customer>();
+        ArrayList<Customer> customerExpenditure = new ArrayList<>();
         for (Customer customer : customerList){
             double rentalExpense = 0;
             for (Rental rental : rentalHistory){
@@ -139,61 +144,7 @@ public class Storage {
         System.out.println("Title: " + rentalItem.getTitle() + input.EOL + "Times rented: " + rentalItem.getRentalFrequency() + input.EOL);
     }
 
-    public ArrayList<Employee> getEmployees() {
-        return employees;
-    }
-
-    public ArrayList<Customer> getCustomers() {
-        return customerList;
-    }
-
-    public ArrayList<Album> getAlbums() {
-        return albums;
-    }
-
-    public void rentGame() {
-        String maxRentals = "You have reached your current limit on rentals. That's awesome that you enjoy our products so much!";
-        String name = input.getInput(input.EOL + "Customer Name: ");
-        Customer user = retrieveCustomer(name);
-        if (user != null) {
-            if (user.canRent()) {
-                viewGames();
-                String rentId = input.getInput("Hi " + user.getName() + ". Which game would you like to rent?" + input.EOL + "ID: ");
-                Inventory gameToRent = retrieveItem(rentId);
-                if (gameToRent != null) {
-                    rental.rentItem(gameToRent);
-                    user.incrementRentals();
-                }
-                } else {
-                    System.out.println(maxRentals);
-            }
-        }
-    }
-
-    public void returnGame() {
-        String name = input.getInput("Hiya! What is your name?  ");
-        Customer customer = retrieveCustomer(name);
-            if (customer != null) {
-                viewGames();
-                String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
-                Inventory gameToReturn = retrieveItem(rentId);
-                if (gameToReturn != null){
-                    if (gameToReturn.isRentStatus()) {
-                        double userBill =  rental.returnGame(customer, gameToReturn);
-                        Rental newTransaction = addToRentHistory(customer.getId(), gameToReturn, userBill);
-                        getRentalHistory().add(newTransaction);
-                    } else {
-                        System.out.println("This game hasn't been rented. Try again.");
-                        returnGame();
-                    }
-                } else {
-                    System.out.println("Game with this ID doesn't exist in this dimension. Try again.");
-                    returnGame();
-                }
-            }
-    }
-
-    private Rental addToRentHistory(String customerId, Inventory rentedItem, double userBill){
+    private Rental addToRentHistory(String customerId, Inventory rentedItem, String title, double userBill){
         String feedback = null;
         int rating = 0;
         Rating customerRating = null;
@@ -201,7 +152,7 @@ public class Storage {
         String ratingQuestion = input.getInput("We hope you enjoyed playing this " + rentedItem.getTitle() + " Would you like to rate it? Y/N ");
 
         if (ratingQuestion.equalsIgnoreCase("n")) {
-            rentTransaction = new Rental(customerId, rentedItem.getId(), userBill);
+            rentTransaction = new Rental(customerId, rentedItem.getId(), title, userBill);
             return rentTransaction;
         } else if (ratingQuestion.equalsIgnoreCase("y")) {
             rating = input.getInt("How would you rate it on a scale of 0-5? ");
@@ -220,7 +171,7 @@ public class Storage {
                 System.out.println("Thank you for your feedback!");
                 customerRating = new Rating(rating);
             }
-            rentTransaction = new Rental(customerId, rentedItem.getId(), userBill, customerRating);
+            rentTransaction = new Rental(customerId, rentedItem.getId(), rentedItem.getTitle(), userBill, customerRating);
         }
         rentedItem.getRatingSet().add(customerRating);
         return rentTransaction;
@@ -264,18 +215,29 @@ public class Storage {
         double profit = rental.getRentalIncome();
         System.out.println("The total profit is " + profit + " kr");
     }
-
+/*
     public void ratingAverage() {
         int average = 0;
         System.out.println("The average rating is " + average);
     }
-
+*/
     public void addCustomer() {
         try {
             String name = input.getInput("Enter the Customers Name: ");
             customerList.add(new Customer("", name));
         } catch (InvalidInputException e){
             e.getMessage();
+        }
+    }
+
+    public void exportTransaction(Rental transaction){
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("{code}pendent/src/transactions.txt", true));
+            String newTransaction = transaction.getCustomerId()+";"+transaction.getItemId()+";"+transaction.getTitle()+";"+transaction.getRentExpense(); //TODO ADD TITLE!!!
+            bw.write(newTransaction + input.EOL);
+            bw.close();
+        } catch (IOException exception){
+           exception.printStackTrace();
         }
     }
 
@@ -541,6 +503,46 @@ public class Storage {
         for (Inventory game : inventory) {
             if (game instanceof Game){
                 System.out.println(game.toString());
+            }
+        }
+    }
+
+    public void rentGame() {
+        String maxRentals = "You have reached your current limit on rentals. That's awesome that you enjoy our products so much!";
+        String name = input.getInput(input.EOL + "Customer Name: ");
+        Customer user = retrieveCustomer(name);
+        if (user != null) {
+            if (user.canRent()) {
+                viewGames();
+                String rentId = input.getInput("Hi " + user.getName() + ". Which game would you like to rent?" + input.EOL + "ID: ");
+                Inventory gameToRent = retrieveItem(rentId);
+                if (gameToRent != null) {
+                    rental.rentItem(gameToRent);
+                    user.incrementRentals();
+                }
+            } else {
+                System.out.println(maxRentals);
+            }
+        }
+    }
+
+    public void returnGame() {
+        String name = input.getInput("Hiya! What is your name?  ");
+        Customer customer = retrieveCustomer(name);
+        if (customer != null) {
+            viewGames();
+            String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
+            Inventory gameToReturn = retrieveItem(rentId);
+            if (gameToReturn != null){
+                if (gameToReturn.isRentStatus()) {
+                    double userBill =  rental.returnItem(customer, gameToReturn);
+                    Rental newTransaction = addToRentHistory(customer.getId(), gameToReturn, gameToReturn.getTitle(), userBill);
+                    getRentalHistory().add(newTransaction);
+                    exportTransaction(newTransaction);
+                } else {
+                    System.out.println("This game hasn't been rented. Try again.");
+                    returnGame();
+                }
             }
         }
     }

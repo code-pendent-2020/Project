@@ -100,7 +100,7 @@ public class Inventory {
         this.rentStatus = rentStatus;
     }
 
-    public ArrayList getRatingSet() {
+    public ArrayList<Rating> getRatingSet() {
         return ratings;
     }
 

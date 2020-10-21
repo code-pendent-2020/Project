@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Rental {
-
     private String customerId;
     private String itemId;
+    private String title;
     private double rentExpense;
     private Rating rating;
     private static double rentalIncome = 0;
@@ -22,21 +22,27 @@ public class Rental {
     public Rental() {
     }
 
-    public Rental(String customerId, String itemId, double rentExpense) {
+    public Rental(String customerId, String itemId, String title, double rentExpense) {
         this.customerId = customerId;
         this.itemId = itemId;
+        this.title = title;
         this.rentExpense = rentExpense;
     }
 
-    public Rental(String customerId, String itemId, double rentExpense, Rating rating) {
+    public Rental(String customerId, String itemId, String title, double rentExpense, Rating rating) {
         this.customerId = customerId;
         this.itemId = itemId;
+        this.title = title;
         this.rentExpense = rentExpense;
         this.rating = rating;
     }
 
     public Rating getRating() {
         return rating;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getCustomerId() {
@@ -48,11 +54,7 @@ public class Rental {
     }
 
     public double getRentExpense() {
-        return rentExpense;
-    }
-
-    public void totalProfit() {
-        System.out.println("Total profit: " + rentalIncome);
+        return  Math.round(rentExpense * 100.0) / 100.0;
     }
 
     public double getRentalIncome() {
@@ -69,17 +71,17 @@ public class Rental {
             }
     }
 
-   public double returnGame(Customer customer, Inventory rentedGame) {
+   public double returnItem(Customer customer, Inventory rentedItem) {
         long daysRented = 0;
         double userBill = 0;
-        daysRented = DAYS.between(rentedGame.getRentedDate(), LocalDate.now());
+        daysRented = DAYS.between(rentedItem.getRentedDate(), LocalDate.now());
             if (daysRented > 0) {
-                rentedGame.setRentStatus(false);
+                rentedItem.setRentStatus(false);
                 if (customer.getCredits() == 5) {
                     userBill = 0;
-                } else userBill = customer.memberDiscount(daysRented * rentedGame.getDailyRent());
+                } else userBill = customer.memberDiscount(daysRented * rentedItem.getDailyRent());
                 rentalIncome = rentalIncome + userBill;
-                System.out.println(input.EOL + "You rented " + rentedGame.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr" + input.EOL);
+                System.out.println(input.EOL + "You rented " + rentedItem.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr" + input.EOL);
                 System.out.println("The Game has now been returned.");
                 return userBill;
             } else {
@@ -87,24 +89,6 @@ public class Rental {
             }
        return 0;
     }
-/*
-    public void rentAlbum(List<Inventory> albums) {
-        String rental = input.getInput(input.EOL + "Rent" + input.EOL + "Album ID: ");
-        for (Inventory album : albums) {
-            if (album.getID().equals(rental) && album.getRentStatus().equalsIgnoreCase("available")) {
-                if (album.getRentStatus().equalsIgnoreCase("\033[31mRented\033[0m")) {
-                    System.out.println("Item is unavailable");
-                    rentAlbum(albums);
-                } else {
-                    album.setRentStatus(true);
-                    album.setRentedDate(LocalDate.now());
-                    System.out.println(">> " + album.getTitle() + " by " + album.getArtist() + " - \033[31mRented\033[0m");
-                }
-            }
-        }
-    }
-*/
-
 
     public Rental returnAlbum(int numberCredits, String membershipType, String customerId, ArrayList<Album> albums) {
         Rating customerRating = null;
@@ -127,7 +111,7 @@ public class Rental {
                         String ratingPrompt = input.getInput("We hope you enjoyed " + album.getTitle() + ". Would you like to rate it? Y/N ");
                         ratingPrompt = ratingPrompt.toLowerCase();
                         if (ratingPrompt.equalsIgnoreCase("n")) {
-                            rentTransaction = new Rental(customerId, rental, userBill);
+                            rentTransaction = new Rental(customerId, rental, album.getTitle(), userBill);
                         } else if (ratingPrompt.equalsIgnoreCase("y")) {
                             int rating = input.getInt("How would you rate it on a scale of 0-5? ");
                             if (rating > 5) {
@@ -145,7 +129,7 @@ public class Rental {
                                 System.out.println("Thank you for your feedback!");
                                 customerRating = new Rating(rating);
                             }
-                            rentTransaction = new Rental(customerId, rental, userBill, customerRating);
+                            rentTransaction = new Rental(customerId, rental, album.getTitle(), userBill, customerRating);
                         }
                         album.getRatingSet().add(customerRating);
                     } else {
