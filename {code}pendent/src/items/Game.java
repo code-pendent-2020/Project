@@ -11,8 +11,10 @@ public class Game extends Inventory {
     private Input input = Input.getInstance();
 
     public Game (String title, String genre, double dailyRent, int year ) throws InvalidInputException {
+
         super(title, dailyRent, year);
         this.genre = genre;
+
     }
 
     public Game(String title, String gameGenre, double dailyRent, int year, boolean rentStatus, LocalDate date) throws InvalidInputException{
@@ -20,6 +22,9 @@ public class Game extends Inventory {
         this.genre = gameGenre;
     }
 
+    public Game(String title , double dailyRent) throws InvalidInputException{
+        super();
+    }
     public Game() {
     }
 

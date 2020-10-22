@@ -25,7 +25,7 @@ public class Inventory {
             this.title = title;
         }
         this.dailyRent = dailyRent;
-        if (year < 1940 || year > LocalDate.now().getYear()) {
+        if ( year < 1940 || year > LocalDate.now().getYear()) {
             throw new InvalidInputException("The year is invalid.");
         } else this.year = year;
         this.rentStatus = rentStatus;
@@ -51,6 +51,7 @@ public class Inventory {
         this.rentalFrequency = 0;
         this.ratings = new ArrayList<>();
     }
+
 
     public Inventory(){
     }

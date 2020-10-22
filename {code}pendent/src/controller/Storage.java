@@ -354,13 +354,14 @@ public class Storage {
         String userInput = null;
         do {
             try {
-                String addTitle = input.getInput("We like our games to have names!" + input.EOL + "Title:  ");
+                String addTitle = input.getInput( "Title: ");
                 String addArtist = input.getInput("Artist: ");
                 int addYear = input.getInt("Year: ");
                 double addDailyRent = input.getDouble("Daily Rent amount: ");
                 this.inventory.add(new Album(addTitle, addArtist, addYear, addDailyRent));
             } catch (Exception exception){
-                userInput = input.getInput("Invalid Input. Would you like to try again? Y/N");
+                System.out.println(input.EOL + exception.getMessage());
+                userInput = input.getInput("Would you like to try again? Y/N: ");
             }
         } while (userInput.equalsIgnoreCase("y"));
     }
@@ -459,8 +460,8 @@ public class Storage {
                 inventory.add(new Game(newGameTitle, newGameGenre, newGameRentCost, newGameYear ));
                 System.out.println("Game Added Successfully " +input.EOL + inventory.get(inventory.size()-1).toString());
             } catch (Exception exception){
-                exception.getMessage();
-                userInput = input.getInput("There was a problem with the input, would you like to try again? Y/N");
+               System.out.println( exception.getMessage());
+                userInput = input.getInput("Would you like to try again? Y/N"+input.EOL);
             }
         } while (userInput.equalsIgnoreCase("y"));
     }
