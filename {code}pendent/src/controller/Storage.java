@@ -12,12 +12,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class Storage {
+public class Storage<Rental> {
 
     private final Employee employee = new Employee();
     private final Customer customer = new Customer();
     private final Album album = new Album();
-    private final Rental rental = new Rental();
+    private final RentalTransaction rental = new RentalTransaction();
+    private final RentalTransaction transaction = new RentalTransaction();
     private final Game game = new Game();
     private final Rating rating = new Rating();
     private final Message message = new Message();
@@ -58,10 +59,10 @@ public class Storage {
             br.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-       } catch (InvalidInputException e) {
-           e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+       } catch (InvalidInputException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -79,9 +80,9 @@ public class Storage {
     private ArrayList<Customer> customerList = new ArrayList<>();
     private List<Inventory> inventory = new ArrayList<>();
     private HashMap<String, Membership> membershipRequests = new HashMap<>();
-    private ArrayList<Rental> rentalHistory = new ArrayList<>();
+    private ArrayList<RentalTransaction> rentalHistory = new ArrayList<>();
 
-    public ArrayList<Rental> getRentalHistory() {
+    public ArrayList<RentalTransaction> getRentalHistory() {
         return rentalHistory;
     }
 
@@ -99,18 +100,18 @@ public class Storage {
 
 
     public void itemsByProfit() {
-        rentalHistory.sort(Comparator.comparingDouble(Rental::getRentExpense));
+        rentalHistory.sort(Comparator.comparingDouble(RentalTransaction::getRentExpense));
         Collections.reverse(rentalHistory);
         rentalHistory.forEach(System.out::println);
     }
 
     public void bestCustomer() {
         ArrayList<Customer> customerExpenditure = new ArrayList<>();
-        for (Customer customer : customerList){
+    /*    for (Customer customer : customerList){
             double rentalExpense = 0;
             for (Rental rental : rentalHistory){
                 if (customer.getId().equals(rental.getCustomerId())){
-                    rentalExpense =+ rental.getRentalIncome();
+                    rentalExpense =+ ();
                 }
             }
             try {
@@ -118,17 +119,20 @@ public class Storage {
             } catch (InvalidInputException e){
                 e.getMessage();
             }
+        }*/
+        customerList.sort(Comparator.comparingDouble(Customer::getSpentMoney));
+        Collections.reverse(customerList);
+        Customer bestCustomer = customerList.get(0);
+        if (bestCustomer.getSpentMoney() > 0){
+            System.out.println("Name: " + bestCustomer.getName() + input.EOL + "Total rental expense: " + Math.round(bestCustomer.getSpentMoney()*100)/100);
         }
-        customerExpenditure.sort(Comparator.comparingDouble(Customer::getSpentMoney));
-        Collections.reverse(customerExpenditure);
-        System.out.println("Name: " + customerExpenditure.get(0).getName() + input.EOL + "Total rental expense: " + Math.round(customerExpenditure.get(0).getSpentMoney()));
     }
 
     public void rentalFrequency() {
         ArrayList<Inventory> rentalFrequency = new ArrayList<>();
         for (Inventory item : inventory){
             int rentalTimes = 0;
-            for (Rental rental : rentalHistory) {
+            for (RentalTransaction rental : rentalHistory) {
                 if (item.getId().equals(rental.getItemId())) {
                     rentalTimes = +1;
                 }
@@ -141,22 +145,20 @@ public class Storage {
         System.out.println("Title: " + rentalItem.getTitle() + input.EOL + "Times rented: " + rentalItem.getRentalFrequency() + input.EOL);
     }
 
-    private Rental addToRentHistory(String customerId, Inventory rentedItem, double userBill){
-        String feedback = null;
-        int rating = 0;
-        Rating customerRating = null;
-        Rental rentTransaction = null;
+    private RentalTransaction askRating(String customerId, Inventory rentedItem, double userBill){
+        RentalTransaction rentTransaction = null;
         String ratingQuestion = input.getInput("We hope you enjoyed playing this " + rentedItem.getTitle() + " Would you like to rate it? Y/N ");
-
         if (ratingQuestion.equalsIgnoreCase("n")) {
-            rentTransaction = new Rental(customerId, rentedItem.getId(), rentedItem.getTitle(), userBill);
+            rentTransaction = new RentalTransaction(customerId, rentedItem.getId(), rentedItem.getTitle(), userBill);
             return rentTransaction;
         } else if (ratingQuestion.equalsIgnoreCase("y")) {
+            String feedback = null;
+            int rating = 0;
+            Rating customerRating = null;
             rating = input.getInt("How would you rate it on a scale of 0-5? ");
             if (rating > 5) {
                 rating = 5;
-            }
-            if (rating < 0) {
+            } else if (rating < 0) {
                 rating = 0;
             }
             String feedbackQuestion = input.getInput("Would you like to leave a review? Y/N ");
@@ -168,9 +170,9 @@ public class Storage {
                 System.out.println("Thank you for your feedback!");
                 customerRating = new Rating(rating);
             }
-            rentTransaction = new Rental(customerId, rentedItem.getId(), rentedItem.getTitle(), userBill, customerRating);
+            rentTransaction = new RentalTransaction(customerId, rentedItem.getId(), rentedItem.getTitle(), userBill, customerRating);
+            rentedItem.getRatingSet().add(customerRating);
         }
-        rentedItem.getRatingSet().add(customerRating);
         return rentTransaction;
     }
 
@@ -203,21 +205,16 @@ public class Storage {
     }
 
     public void viewTransactions() {
-        for (Rental rental : getRentalHistory()) {
+        for (RentalTransaction rental : getRentalHistory()) {
             System.out.println(rental);
         }
     }
 
     public void totalProfit() {
         double profit = rental.getRentalIncome();
-        System.out.println("The total profit is " + profit + " kr");
+        System.out.println("The total profit is " + profit + " kr" + input.EOL);
     }
-/*
-    public void ratingAverage() {
-        int average = 0;
-        System.out.println("The average rating is " + average);
-    }
-*/
+
     public void addCustomer() {
         try {
             String name = input.getInput("Enter the Customers Name: ");
@@ -248,7 +245,7 @@ public class Storage {
                             for (Customer customer : customerList) {
                                 if (customer.getName().equalsIgnoreCase(key)) {
                                     customer.setMembership(new Silver());
-                                    System.out.println(key + " has been upgraded to Silver Membership");
+                                    System.out.println(key + " has been upgraded to Silver Membership" + input.EOL);
                                 }
                             }
                             break;
@@ -256,7 +253,7 @@ public class Storage {
                             for (Customer customer : customerList) {
                                 if (customer.getName().equalsIgnoreCase(key)) {
                                     customer.setMembership(new Gold());
-                                    System.out.println(key + " has been upgraded to Gold Membership");
+                                    System.out.println(key + " has been upgraded to Gold Membership" + input.EOL);
                                 }
                             }
                             break;
@@ -264,7 +261,7 @@ public class Storage {
                             for (Customer customer : customerList) {
                                 if (customer.getName().equalsIgnoreCase(key)) {
                                     customer.setMembership(new Platinum());
-                                    System.out.println(key + " has been upgraded to Platinum Membership");
+                                    System.out.println(key + " has been upgraded to Platinum Membership" + input.EOL);
                                 }
                             }
                             break;
@@ -287,34 +284,27 @@ public class Storage {
     }
 
     public void requestMembership(){ // move to customer
-        boolean contains = false;
         String name = input.getInput("Customer Name: ");
-        for (Customer customer : customerList){
-            if (name.equalsIgnoreCase(customer.getName())){
-                contains = true;
-                if (customer.getMembershipType().equals("Regular")){
-                    membershipRequests.put(customer.getName(), customer.getMembership());
+        Customer user = retrieveCustomer(name);
+            if (user != null){
+                if (user.getMembershipType().equals("Regular")){
+                    membershipRequests.put(user.getName(), user.getMembership());
                     System.out.print("Request for Silver Membership has been submitted for review"+input.EOL);
                 }
             }
-        }
-        if (!contains){
-            System.out.println("Customer does not exist, please contact and employee to be added to the system");
-        }
     }
 
     public void upgradeMembership(){ // move to customer
         String name = input.getInput("Customer Name: ");
-        for(Customer customer : customerList){
-            if (name.equalsIgnoreCase(customer.getName())){
-                if (customer.getMembershipType().equals("Regular")) {
-                    System.out.println("This customer does not seem to have a membership try requesting one");
-                } else if (customer.getMembershipType().equalsIgnoreCase("Platinum")) {
-                    System.out.println("Platinum Members cannot upgrade further");
-                } else { // needs error handling for platinum requests
-                    membershipRequests.put(customer.getName(), customer.getMembership());
-                    System.out.println("Application for membership upgrade has been submitted for review");
-                }
+        Customer user = retrieveCustomer(name);
+        if (user != null){
+            if (user.getMembershipType().equals("Regular")) {
+                System.out.println("This customer does not seem to have a membership try requesting one");
+            } else if (user.getMembershipType().equalsIgnoreCase("Platinum")) {
+                System.out.println("Platinum Members cannot upgrade further");
+            } else { // needs error handling for platinum requests
+                membershipRequests.put(user.getName(), customer.getMembership());
+                System.out.println("Application for membership upgrade has been submitted for review");
             }
         }
     }
@@ -386,7 +376,7 @@ public class Storage {
                     String rentId = input.getInput("Hi " + customer.getName() + ". Which album would you like to rent?" + input.EOL + "ID: ");
                     Inventory albumToRent = retrieveItem(rentId);
                     if (albumToRent != null){
-                        rental.rentItem(albumToRent);
+                        transaction.rentItem(albumToRent);
                         customer.incrementRentals();
                     }
                 } else {
@@ -402,10 +392,13 @@ public class Storage {
                 Inventory rentedItem = retrieveItem(input.getInput("Which album are you returning? ID: "));
                 if (rentedItem != null){
                     customer.applyCredits();
-                    double userBill =  rental.returnItem(customer, rentedItem);
-                    Rental newTransaction = addToRentHistory(customer.getId(), rentedItem, userBill);
-                    getRentalHistory().add(newTransaction);
-                    exportTransaction(newTransaction);
+                    double userBill =  transaction.returnItem(customer, rentedItem);
+                    if (userBill != 0){
+                        RentalTransaction newTransaction = askRating(customer.getId(), rentedItem, userBill);
+                        getRentalHistory().add(newTransaction);
+                        customer.setSpentMoney(userBill);
+                        exportTransaction(newTransaction);
+                    }
                 }
             }
     }
@@ -502,7 +495,7 @@ public class Storage {
                 String rentId = input.getInput("Hi " + user.getName() + ". Which game would you like to rent?" + input.EOL + "ID: ");
                 Inventory gameToRent = retrieveItem(rentId);
                 if (gameToRent != null) {
-                    rental.rentItem(gameToRent);
+                    transaction.rentItem(gameToRent);
                     user.incrementRentals();
                 }
             } else {
@@ -513,19 +506,23 @@ public class Storage {
 
     public void returnGame() {
         String name = input.getInput("Hiya! What is your name?  ");
-        String returned = "";
+        String returned;
         Customer customer = retrieveCustomer(name);
         if (customer != null) {
             viewGames();
             do {
+                returned = "n";
                 String rentId = input.getInput(input.EOL + "Enter the ID of the game would you like to return: ");
                 Inventory gameToReturn = retrieveItem(rentId);
                 if (gameToReturn != null) {
                     if (gameToReturn.isRentStatus()) {
-                        double userBill = rental.returnItem(customer, gameToReturn);
-                        Rental newTransaction = addToRentHistory(customer.getId(), gameToReturn, userBill);
-                        getRentalHistory().add(newTransaction);
-                        exportTransaction(newTransaction);
+                        double userBill = transaction.returnItem(customer, gameToReturn);
+                        if (userBill != 0) {
+                            RentalTransaction newTransaction = askRating(customer.getId(), gameToReturn, userBill);
+                            getRentalHistory().add(newTransaction);
+                            customer.setSpentMoney(userBill);
+                            exportTransaction(newTransaction);
+                        }
                     } else {
                        returned = input.getInput("This game hasn't been rented. " + input.EOL + "Try again? Y/N: ");
                     }
@@ -534,7 +531,7 @@ public class Storage {
         }
     }
 
-    public void exportTransaction(Rental transaction){
+    public void exportTransaction(RentalTransaction transaction){
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("{code}pendent/src/transactions.txt", true));
             String newTransaction = transaction.getCustomerId()+";"+transaction.getItemId()+";"+transaction.getTitle()+";"+transaction.getRentExpense(); //TODO ADD TITLE!!!
