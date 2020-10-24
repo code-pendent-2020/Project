@@ -11,12 +11,10 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Storage {
+public class Hub {
 
     private final Customer customer = new Customer();
     private final RentalTransaction transaction = new RentalTransaction();
-
-    private final ArrayList<Album> albums = new ArrayList<>();
     private final ArrayList<Employee> employees = new ArrayList<>();
     private final ArrayList<Customer> customerList = new ArrayList<>();
     private final List<Inventory> inventory = new ArrayList<>();
@@ -24,7 +22,7 @@ public class Storage {
     private final ArrayList<RentalTransaction> rentalHistory = new ArrayList<>();
     private final Input input = Input.getInstance();
 
-    public Storage() {
+    public Hub() {
     }
 
     public void readFile(){
@@ -533,6 +531,7 @@ public class Storage {
             customer.getInbox().removeIf(message -> message.getMessageId().equalsIgnoreCase(removeMessage));
         }
         System.out.println("The message has been deleted.");
+        viewMessages();
     }
 
     protected void team() {
