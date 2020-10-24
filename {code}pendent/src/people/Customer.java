@@ -16,7 +16,6 @@ public class Customer extends Person {
     private final Input input = Input.getInstance();
     private int credits;
     private int currentRentals;
-    private ArrayList<Customer> memberRequest = new ArrayList<>();
     private String type;
 
     public Customer() {
@@ -29,7 +28,7 @@ public class Customer extends Person {
         this.currentRentals = 0;
         this.spentMoney = 0;
         this.inbox = new ArrayList<>(Arrays.asList(
-                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!" + input.EOL, "Management", "DART")));
+                new Message("Welcome!", "Welcome to your inbox to send a message or view your messages simply use the menu!" + Input.EOL, "Management", "DART")));
     }
 
     public void setMembership(Membership type) {
