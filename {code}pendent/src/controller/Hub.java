@@ -516,7 +516,7 @@ public class Hub {
             if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
                 Collections.reverse(reader.getInbox());
                 System.out.println(Input.EOL + ">> List of messages in order received <<" + Input.EOL);
-                customer.viewMessages(reader);
+                customer.checkMessages(reader);
                 Collections.reverse(reader.getInbox());
             } else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0) {
                 System.out.println(Input.EOL + "No messages to view (guess no one likes you...).");
