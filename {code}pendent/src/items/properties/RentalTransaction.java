@@ -16,6 +16,7 @@ public class RentalTransaction {
     private static double rentalIncome = 0;
     private Input input = Input.getInstance();
 
+    // Default Constructor
     public RentalTransaction() {
     }
 
@@ -66,13 +67,13 @@ public class RentalTransaction {
         if (!itemToRent.isRentStatus()) {
             itemToRent.setRentStatus(true);
             itemToRent.setRentedDate(LocalDate.now());
-            System.out.println("Game has been rented. Enjoy!");
+            System.out.println(itemToRent.getTitle() + " has been rented. Enjoy!");
         } else {
-            System.out.println("Sorry, that game is being rented at the moment " + input.EOL);
+            System.out.println("Sorry, " + itemToRent.getTitle() + " is being rented at the moment " + input.EOL);
         }
     }
 
-    public double returnItem(Customer customer, Inventory rentedItem) {
+    public double returnItem(Customer customer, Inventory rentedItem) throws Exception{
         double userBill = 0;
         long daysRented = DAYS.between(rentedItem.getRentedDate(), LocalDate.now());
         if (rentedItem.isRentStatus()) {
@@ -83,10 +84,10 @@ public class RentalTransaction {
                 } else userBill = customer.memberDiscount(daysRented * rentedItem.getDailyRent());
                 setRentalIncome(userBill);
                 System.out.println(input.EOL + "You rented " + rentedItem.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr" + input.EOL);
-                System.out.println("The Game has now been returned.");
+                System.out.println(rentedItem.getTitle() + " has now been returned.");
                 return userBill;
             } else {
-                System.out.println("Invalid operation. Upon returning an item, the number of days rented must be positive." + input.EOL);
+                throw new Exception("Invalid operation. Upon returning an item, the number of days rented must be positive." + input.EOL);
             }
         } else {
             System.out.println("That item is not out on rent!");
