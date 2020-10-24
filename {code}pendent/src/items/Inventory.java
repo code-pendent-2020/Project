@@ -56,11 +56,6 @@ public abstract class Inventory {
     public Inventory(){
     }
 
-    public Inventory(String title, int rentalTimes) {
-        this.title = title;
-        this.rentalFrequency = rentalTimes;
-    }
-
     public String getId() {
         return id;
     }

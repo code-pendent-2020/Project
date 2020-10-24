@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Game extends Inventory {
 
     private String genre;
-    private Input input = Input.getInstance();
+    private final Input input = Input.getInstance();
 
     public Game (String title, String genre, double dailyRent, int year ) throws InvalidInputException {
 
@@ -22,10 +22,8 @@ public class Game extends Inventory {
         this.genre = gameGenre;
     }
 
-    public Game(String title , double dailyRent) throws InvalidInputException{
-        super();
-    }
     public Game() {
+        super();
     }
 
     public String getId() {

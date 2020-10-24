@@ -13,10 +13,9 @@ public class RentalTransaction {
     private String title;
     private double rentExpense;
     private Rating rating;
-    private static double rentalIncome = 0;
-    private Input input = Input.getInstance();
+    private static final double rentalIncome = 0;
+    private final Input input = Input.getInstance();
 
-    // Default Constructor
     public RentalTransaction() {
     }
 

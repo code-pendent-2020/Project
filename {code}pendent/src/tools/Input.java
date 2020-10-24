@@ -95,9 +95,9 @@ public class Input {
         // Print a char from the array, then sleep for milliseconds.
         for (int i = 0; i < chars.length; i++) {
                try {
-                   TimeUnit.MILLISECONDS.sleep(30);
+                   TimeUnit.MILLISECONDS.sleep(10);
                    System.out.print(chars[i]);
-                   TimeUnit.MILLISECONDS.sleep(30);
+                   TimeUnit.MILLISECONDS.sleep(10);
                } catch (InterruptedException e) {
                    // shouldn't happen but if it does you'll know it happened.
                    e.printStackTrace(); //shows you a similar error to compiler errors
