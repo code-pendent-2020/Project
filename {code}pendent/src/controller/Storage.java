@@ -11,8 +11,9 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.BiConsumer;
 
-public class Storage<Rental> {
+public class Storage {
 
     private final Employee employee = new Employee();
     private final Customer customer = new Customer();
@@ -27,16 +28,13 @@ public class Storage<Rental> {
     public Storage() throws InvalidInputException {
     }
 
-    // "kind of" Storage
-
     public void readFile(){
         BufferedReader br;
         String line;
         try {
-            br = new BufferedReader(new FileReader("{code}pendent/src/db.txt"));
+            br = new BufferedReader(new FileReader(new File("{code}pendent/src/db.txt")));
             while((line = br.readLine()) != null) {
                 String[] token = line.split(";");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 switch (token[0].toLowerCase()){
                     case "employee":
                         employees.add(new Employee(token [1], token[2],Integer.parseInt(token[3]),token[4], Double.parseDouble(token[5])));
@@ -66,15 +64,18 @@ public class Storage<Rental> {
         }
     }
 
-    public static BufferedWriter bw;
-
-    static {
+    public void exportTransaction(RentalTransaction transaction){
         try {
-            bw = new BufferedWriter(new FileWriter("db.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
+            File transactions = new File("{code}pendent/src/transactions.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(transactions, true));
+            String newTransaction = transaction.getCustomerId()+";"+transaction.getItemId()+";"+transaction.getTitle()+";"+transaction.getRentExpense();
+            bw.write(newTransaction + input.EOL);
+            bw.close();
+        } catch (IOException exception){
+            exception.printStackTrace();
         }
     }
+
     private ArrayList<Album> albums = new ArrayList<>();
     private ArrayList<Employee> employees = new ArrayList<>();
     private ArrayList<Customer> customerList = new ArrayList<>();
@@ -107,19 +108,6 @@ public class Storage<Rental> {
 
     public void bestCustomer() {
         ArrayList<Customer> customerExpenditure = new ArrayList<>();
-    /*    for (Customer customer : customerList){
-            double rentalExpense = 0;
-            for (Rental rental : rentalHistory){
-                if (customer.getId().equals(rental.getCustomerId())){
-                    rentalExpense =+ ();
-                }
-            }
-            try {
-                customerExpenditure.add(new Customer("", customer.getName(), rentalExpense));
-            } catch (InvalidInputException e){
-                e.getMessage();
-            }
-        }*/
         customerList.sort(Comparator.comparingDouble(Customer::getSpentMoney));
         Collections.reverse(customerList);
         Customer bestCustomer = customerList.get(0);
@@ -129,20 +117,21 @@ public class Storage<Rental> {
     }
 
     public void rentalFrequency() {
-        ArrayList<Inventory> rentalFrequency = new ArrayList<>();
-        for (Inventory item : inventory){
+        HashMap<String, Integer> rentalFrequency = new HashMap<String, Integer>();
+        for (Inventory item : inventory) {
             int rentalTimes = 0;
             for (RentalTransaction rental : rentalHistory) {
                 if (item.getId().equals(rental.getItemId())) {
                     rentalTimes = +1;
                 }
             }
-            if (rentalTimes != 0){
-                rentalFrequency.add(new Inventory(item.getTitle(), rentalTimes));
+            if (rentalTimes != 0) {
+                rentalFrequency.put(item.getTitle(), rentalTimes);
+            }
         }
+        for (String key : rentalFrequency.keySet()) {
+            System.out.println("Title: " + key + input.EOL + "Times rented: " + rentalFrequency.get(key) + input.EOL);
         }
-        for (Inventory rentalItem : rentalFrequency)
-        System.out.println("Title: " + rentalItem.getTitle() + input.EOL + "Times rented: " + rentalItem.getRentalFrequency() + input.EOL);
     }
 
     private RentalTransaction askRating(String customerId, Inventory rentedItem, double userBill){
@@ -283,7 +272,7 @@ public class Storage<Rental> {
         membershipRequests.clear();
     }
 
-    public void requestMembership(){ // move to customer
+    public void requestMembership(){
         String name = input.getInput("Customer Name: ");
         Customer user = retrieveCustomer(name);
             if (user != null){
@@ -294,7 +283,7 @@ public class Storage<Rental> {
             }
     }
 
-    public void upgradeMembership(){ // move to customer
+    public void upgradeMembership(){
         String name = input.getInput("Customer Name: ");
         Customer user = retrieveCustomer(name);
         if (user != null){
@@ -302,7 +291,7 @@ public class Storage<Rental> {
                 System.out.println("This customer does not seem to have a membership try requesting one");
             } else if (user.getMembershipType().equalsIgnoreCase("Platinum")) {
                 System.out.println("Platinum Members cannot upgrade further");
-            } else { // needs error handling for platinum requests
+            } else {
                 membershipRequests.put(user.getName(), customer.getMembership());
                 System.out.println("Application for membership upgrade has been submitted for review");
             }
@@ -391,11 +380,11 @@ public class Storage<Rental> {
             if (customer != null) {
                 Inventory rentedItem = retrieveItem(input.getInput("Which album are you returning? ID: "));
                 if (rentedItem != null){
-                    customer.applyCredits();
                     double userBill =  transaction.returnItem(customer, rentedItem);
                     if (userBill != 0){
                         RentalTransaction newTransaction = askRating(customer.getId(), rentedItem, userBill);
                         getRentalHistory().add(newTransaction);
+                        customer.applyCredits();
                         customer.setSpentMoney(userBill);
                         exportTransaction(newTransaction);
                     }
@@ -404,7 +393,7 @@ public class Storage<Rental> {
     }
 
     public void viewAlbums() {
-        inventory.sort(Comparator.comparingInt(Inventory::getYear)); //change to lambda
+        inventory.sort(Comparator.comparingInt(Inventory::getYear));
         Collections.reverse(inventory);
         albums.forEach(System.out::println);
         for (Inventory album : inventory){
@@ -431,8 +420,6 @@ public class Storage<Rental> {
     }
 
     public void viewAlbumsByRating() {
-        // sorts albums by comparing the rating value
-        // the :: (invokes the method getRating from the album class. compares albums ratings as a double)
         inventory.sort(Comparator.comparingDouble(Inventory::getRating));
         Collections.reverse(inventory);
         for (Inventory album : inventory){
@@ -528,17 +515,6 @@ public class Storage<Rental> {
                     }
                 }
             } while (!returned.equalsIgnoreCase("n")) ;
-        }
-    }
-
-    public void exportTransaction(RentalTransaction transaction){
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("{code}pendent/src/transactions.txt", true));
-            String newTransaction = transaction.getCustomerId()+";"+transaction.getItemId()+";"+transaction.getTitle()+";"+transaction.getRentExpense(); //TODO ADD TITLE!!!
-            bw.write(newTransaction + input.EOL);
-            bw.close();
-        } catch (IOException exception){
-            exception.printStackTrace();
         }
     }
 

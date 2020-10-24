@@ -1,6 +1,5 @@
 package tools;
 
-import java.io.*;
 import java.time.Year;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -90,10 +89,10 @@ public class Input {
     }
 
     public void slowPrint(String message) {
-        // Get message, convert to char array
+        // Get message, convert to char array.
         char[] chars = message.toCharArray();
 
-        // Print a char from the array, then sleep for millis
+        // Print a char from the array, then sleep for milliseconds.
         for (int i = 0; i < chars.length; i++) {
                try {
                    TimeUnit.MILLISECONDS.sleep(30);
@@ -107,7 +106,7 @@ public class Input {
     }
 
     public void userCheck() {
-        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL; // Get rid of this. This won't even help us with the VG...
+        String check = ">> Press \u001B[31m'Enter'\u001B[0m to continue: " + EOL;
         System.out.print(check);
         input.nextLine();
 

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Inventory {
+public abstract class Inventory {
     private String id;
     private String title;
     private int year;
