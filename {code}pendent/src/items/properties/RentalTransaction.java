@@ -16,7 +16,6 @@ public class RentalTransaction {
     private static double rentalIncome = 0;
     private Input input = Input.getInstance();
 
-    // Default Constructor
     public RentalTransaction() {
     }
 
@@ -76,19 +75,23 @@ public class RentalTransaction {
     public double returnItem(Customer customer, Inventory rentedItem) {
         double userBill = 0;
         long daysRented = DAYS.between(rentedItem.getRentedDate(), LocalDate.now());
-        if (daysRented > 0) {
-            rentedItem.setRentStatus(false);
-            if (customer.getCredits() == 5) {
-                userBill = 0;
-            } else userBill = customer.memberDiscount(daysRented * rentedItem.getDailyRent());
-            setRentalIncome(userBill);
-            System.out.println(input.EOL + "You rented " + rentedItem.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr" + input.EOL);
-            System.out.println("The Game has now been returned.");
-            return userBill;
+        if (rentedItem.isRentStatus()) {
+            if (daysRented > 0) {
+                rentedItem.setRentStatus(false);
+                if (customer.getCredits() == 5) {
+                    userBill = 0;
+                } else userBill = customer.memberDiscount(daysRented * rentedItem.getDailyRent());
+                setRentalIncome(userBill);
+                System.out.println(input.EOL + "You rented " + rentedItem.getTitle() + " for " + daysRented + " days. " + input.EOL + "Your total is " + Math.round(userBill * 100.0) / 100.0 + " kr" + input.EOL);
+                System.out.println("The Game has now been returned.");
+                return userBill;
+            } else {
+                System.out.println("Invalid operation. Upon returning an item, the number of days rented must be positive." + input.EOL);
+            }
         } else {
-            System.out.println("Invalid operation. Upon returning an item, the number of days rented must be positive." + input.EOL);
+            System.out.println("That item is not out on rent!");
         }
-        return 0;
+        return userBill;
     }
 
     public String toString() {

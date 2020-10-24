@@ -26,7 +26,7 @@ public class DartController {
         System.exit(0);
     }
 
-    public boolean authenticate(String password) { // authenticates passwords
+    public boolean authenticate(String password) {
         String enteredPassword = input.getInput("Enter your password: ");
         return password.equals(enteredPassword);
     }
@@ -55,37 +55,6 @@ public class DartController {
             mainMenu();
         }
     }
-
-//    private void membershipRequestList() {
-//        for (Customer request : requestList) {
-//            System.out.println("The following Customer has requested a membership: ");
-//            System.out.println("Customer : " + request.getName() + input.EOL + " Requesting: " + request.getType() + " membership");
-//            String requestListAnswer = input.getInput("(Y/N): ");
-//            if (requestListAnswer.equalsIgnoreCase("Y")) {
-//                for (Customer requested : storage.getCustomers()) {
-//                    if (requested.getName().equalsIgnoreCase(request.getName())) {
-//                        switch(request.getType()) {
-//                            case "Silver":
-//                                requested.setMembership(new Silver());
-//                                break;
-//                            case "Gold":
-//                                requested.setMembership(new Gold());
-//                                break;
-//                            case "Platinum":
-//                                requested.setMembership(new Platinum());
-//                                break;
-//                            default:
-//                                System.out.println("invalid requested Membership");
-//                                break;
-//                        }
-//                    }
-//                }
-//            } else {
-//                System.out.println("Okay, fair enough.");
-//            }
-//        }
-//        requestList.clear();
-//    }
 
     public void mainMenu() {
         menus.mainMenu();
@@ -465,7 +434,6 @@ public class DartController {
             switch (choice) {
                 case "1":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Add Membership" + input.ANSI_RESET);
-                    // requestList = storage.addMembership();
                     storage.requestMembership();
                     input.userCheck();
                     cusMembershipOptions();
@@ -473,7 +441,6 @@ public class DartController {
                 case "2":
                     System.out.println(input.EOL + input.ANSI_PURPLE + ">> Upgrade Membership" + input.ANSI_RESET);
                     storage.upgradeMembership();
-                    // requestList = storage.upgradeMembership();
                     input.userCheck();
                     cusMembershipOptions();
                     break;
@@ -525,36 +492,36 @@ public class DartController {
         } while (true);
     }
 
-        public void secretMenu(){
-            menus.secret();
-            System.out.print(input.ANSI_WHITE +"---------------------" + input.ANSI_RESET + input.EOL + "Choose your option: ");
-            do {
-                String choice = Input.input.nextLine();
-                switch (choice) {
-                    case "1":
-                        storage.team();
-                        input.userCheck();
-                        secretMenu();
-                        break;
-                    case "2":
-                        System.out.println("Congrats on finding the Secret Menu");
-                        mainMenu();
-                        break;
-                    default:
-                        System.out.println(input.ANSI_WHITE +"---------------------"+ input.ANSI_RESET + input.EOL + "--- Invalid input ---");
-                        secretMenu();
-                        System.out.print(input.ANSI_WHITE +"---------------------"+ input.ANSI_RESET + input.EOL + "Choose your option: ");
-                        break;
-                }
-            } while (true);
-        }
+    public void secretMenu() {
+        menus.secret();
+        System.out.print(input.ANSI_WHITE + "---------------------" + input.ANSI_RESET + input.EOL + "Choose your option: ");
+        do {
+            String choice = Input.input.nextLine();
+            switch (choice) {
+                case "1":
+                    storage.team();
+                    input.userCheck();
+                    secretMenu();
+                    break;
+                case "2":
+                    System.out.println("Congrats on finding the Secret Menu");
+                    mainMenu();
+                    break;
+                default:
+                    System.out.println(input.ANSI_WHITE + "---------------------" + input.ANSI_RESET + input.EOL + "--- Invalid input ---");
+                    secretMenu();
+                    System.out.print(input.ANSI_WHITE + "---------------------" + input.ANSI_RESET + input.EOL + "Choose your option: ");
+                    break;
+            }
+        } while (true);
+    }
 
-    private void s(){
-        String str ="open";
-        boolean n=authenticate(str);
-        if(n){
+    private void s() {
+        String str = "open";
+        boolean n = authenticate(str);
+        if (n) {
             secretMenu();
-        } else{
+        } else {
             mainMenu();
         }
     }
