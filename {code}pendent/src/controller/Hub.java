@@ -254,12 +254,13 @@ public class Hub {
                 String name = input.getInput("Name: ");
                 int birthYear = input.getInt("Birth year: ");
                 String address = input.getInput("Address: ");
-                double monthlySalary = input.getDouble("Monthly gross salary: ");
+                double monthlySalary = input.getDouble("Monthly salary: ");
                 double grossSalary = monthlySalary * Employee.MONTHS;
                 employees.add(new Employee("", name, birthYear, address, grossSalary));
                 isRunning = true;
             } catch (InvalidInputException e) {
-                System.out.println("That's not the correct input, be careful and please try again.");
+                System.out.println(e.getMessage());
+                System.out.println(">> Press \u001B[31m'Enter'\u001B[0m to try again: ");
                 Input.input.nextLine();
 
             }
@@ -516,7 +517,7 @@ public class Hub {
             if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() != 0) {
                 Collections.reverse(reader.getInbox());
                 System.out.println(Input.EOL + ">> List of messages in order received <<" + Input.EOL);
-                customer.viewMessages(reader);
+                customer.checkMessages(reader);
                 Collections.reverse(reader.getInbox());
             } else if (reader.getName().equalsIgnoreCase(name) && reader.getInbox().size() == 0) {
                 System.out.println(Input.EOL + "No messages to view (guess no one likes you...).");
