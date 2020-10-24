@@ -284,25 +284,16 @@ public class DartController {
         do {
             String choice = Input.input.nextLine();
             switch (choice) {
-                case "1":
-                    cusGameOptions();
-                    break;
-                case "2":
-                    cusAlbumOptions();
-                    break;
-                case "3":
-                    cusMembershipOptions();
-                case "4":
-                    inboxMenu();
-                    break;
-                case "5":
-                    mainMenu();
-                    break;
-                default:
+                case "1" -> cusGameOptions();
+                case "2" -> cusAlbumOptions();
+                case "3" -> cusMembershipOptions();
+                case "4" -> inboxMenu();
+                case "5" -> mainMenu();
+                default -> {
                     System.out.println(Menus.DIVIDER + Input.EOL + invalidInput);
                     customerMenu();
                     System.out.print(Menus.PROMPT);
-                    break;
+                }
             }
         } while (true);
     }
